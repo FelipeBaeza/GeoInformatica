@@ -1,0 +1,1251 @@
+{
+  "type": "FeatureCollection",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "EPSG:4326"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "id": 1377,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6729406119999, -33.432547110132]
+      },
+      "properties": {
+        "OBJECTID": 1377,
+        "DISTRIBUID": "AUTOGASCO",
+        "CALLE": "CUETO",
+        "NUMERO": "1095",
+        "BEN_93": " ",
+        "BEN_95": " ",
+        "BEN_97": " ",
+        "DIESEL": "SI",
+        "GLP": "SI",
+        "GNC": "SI",
+        "KEROSENE": " ",
+        "COOR_ESTE": 344479.11977891,
+        "COOR_NORTE": 6299508.03090054,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "SANTIAGO",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1378,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.66466, -33.432189999132]
+      },
+      "properties": {
+        "OBJECTID": 1378,
+        "DISTRIBUID": "COPEC",
+        "CALLE": "MAPOCHO",
+        "NUMERO": "1998",
+        "BEN_93": "SI",
+        "BEN_95": "SI",
+        "BEN_97": "SI",
+        "DIESEL": "SI",
+        "GLP": " ",
+        "GNC": " ",
+        "KEROSENE": " ",
+        "COOR_ESTE": 345248.35880398,
+        "COOR_NORTE": 6299559.98742798,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "SANTIAGO",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1379,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.659888983, -33.434404960132]
+      },
+      "properties": {
+        "OBJECTID": 1379,
+        "DISTRIBUID": "COPEC",
+        "CALLE": "SAN PABLO",
+        "NUMERO": "1571",
+        "BEN_93": "SI",
+        "BEN_95": "SI",
+        "BEN_97": "SI",
+        "DIESEL": "SI",
+        "GLP": " ",
+        "GNC": " ",
+        "KEROSENE": " ",
+        "COOR_ESTE": 345695.85710901,
+        "COOR_NORTE": 6299321.47094964,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "SANTIAGO",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1380,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6606855989999, -33.4565192721317]
+      },
+      "properties": {
+        "OBJECTID": 1380,
+        "DISTRIBUID": "COPEC",
+        "CALLE": "AVENIDA ALMIRANTE BLANCO ENCALADA",
+        "NUMERO": "1899",
+        "BEN_93": "SI",
+        "BEN_95": "SI",
+        "BEN_97": "SI",
+        "DIESEL": "SI",
+        "GLP": " ",
+        "GNC": " ",
+        "KEROSENE": " ",
+        "COOR_ESTE": 345660.97862297,
+        "COOR_NORTE": 6296868.11011766,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "SANTIAGO",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1381,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6450402739999, -33.4590725401317]
+      },
+      "properties": {
+        "OBJECTID": 1381,
+        "DISTRIBUID": "COPEC",
+        "CALLE": "AVENIDA MATTA",
+        "NUMERO": "788",
+        "BEN_93": "SI",
+        "BEN_95": "SI",
+        "BEN_97": "SI",
+        "DIESEL": "SI",
+        "GLP": " ",
+        "GNC": " ",
+        "KEROSENE": " ",
+        "COOR_ESTE": 347119.64862614,
+        "COOR_NORTE": 6296608.12142343,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "SANTIAGO",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1382,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6546640399999, -33.4477713531318]
+      },
+      "properties": {
+        "OBJECTID": 1382,
+        "DISTRIBUID": "COPEC",
+        "CALLE": "LORD COCHRANE",
+        "NUMERO": "152",
+        "BEN_93": "SI",
+        "BEN_95": "SI",
+        "BEN_97": "SI",
+        "DIESEL": "SI",
+        "GLP": " ",
+        "GNC": " ",
+        "KEROSENE": " ",
+        "COOR_ESTE": 346205.21882121,
+        "COOR_NORTE": 6297847.06544643,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "SANTIAGO",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1383,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.673050582, -33.4352197151319]
+      },
+      "properties": {
+        "OBJECTID": 1383,
+        "DISTRIBUID": "COPEC",
+        "CALLE": "SAN PABLO",
+        "NUMERO": "2602",
+        "BEN_93": "SI",
+        "BEN_95": "SI",
+        "BEN_97": "SI",
+        "DIESEL": "SI",
+        "GLP": " ",
+        "GNC": " ",
+        "KEROSENE": " ",
+        "COOR_ESTE": 344473.6648498,
+        "COOR_NORTE": 6299211.51040501,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "SANTIAGO",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1384,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6644299629999, -33.4349063491319]
+      },
+      "properties": {
+        "OBJECTID": 1384,
+        "DISTRIBUID": "COPEC",
+        "CALLE": "SAN PABLO",
+        "NUMERO": "1990",
+        "BEN_93": "SI",
+        "BEN_95": "SI",
+        "BEN_97": "SI",
+        "DIESEL": "SI",
+        "GLP": " ",
+        "GNC": " ",
+        "KEROSENE": " ",
+        "COOR_ESTE": 345274.56843421,
+        "COOR_NORTE": 6299259.123691,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "SANTIAGO",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1385,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6498816609999, -33.4701507491315]
+      },
+      "properties": {
+        "OBJECTID": 1385,
+        "DISTRIBUID": "COPEC",
+        "CALLE": "NATANIEL COX",
+        "NUMERO": "1802",
+        "BEN_93": "SI",
+        "BEN_95": "SI",
+        "BEN_97": "SI",
+        "DIESEL": "SI",
+        "GLP": " ",
+        "GNC": " ",
+        "KEROSENE": " ",
+        "COOR_ESTE": 346689.18075921,
+        "COOR_NORTE": 6295372.5615547,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "SANTIAGO",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1386,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6563511489999, -33.4720592531314]
+      },
+      "properties": {
+        "OBJECTID": 1386,
+        "DISTRIBUID": "COPEC",
+        "CALLE": "VIEL",
+        "NUMERO": "1921",
+        "BEN_93": "SI",
+        "BEN_95": "SI",
+        "BEN_97": "SI",
+        "DIESEL": "SI",
+        "GLP": " ",
+        "GNC": " ",
+        "KEROSENE": " ",
+        "COOR_ESTE": 346091.33005743,
+        "COOR_NORTE": 6295151.36419748,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "SANTIAGO",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1387,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.673882067, -33.4567967561317]
+      },
+      "properties": {
+        "OBJECTID": 1387,
+        "DISTRIBUID": "COPEC",
+        "CALLE": "BASCUNAN GUERRERO",
+        "NUMERO": "568",
+        "BEN_93": "SI",
+        "BEN_95": "SI",
+        "BEN_97": "SI",
+        "DIESEL": "SI",
+        "GLP": " ",
+        "GNC": " ",
+        "KEROSENE": " ",
+        "COOR_ESTE": 344434.89774992,
+        "COOR_NORTE": 6296817.65752562,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "SANTIAGO",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1388,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6427657599999, -33.4463972071318]
+      },
+      "properties": {
+        "OBJECTID": 1388,
+        "DISTRIBUID": "COPEC",
+        "CALLE": "CARMEN",
+        "NUMERO": "185",
+        "BEN_93": "SI",
+        "BEN_95": "SI",
+        "BEN_97": "SI",
+        "DIESEL": "SI",
+        "GLP": " ",
+        "GNC": " ",
+        "KEROSENE": " ",
+        "COOR_ESTE": 347308.83075945,
+        "COOR_NORTE": 6298016.98594275,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "SANTIAGO",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1389,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.648607612, -33.4537443821317]
+      },
+      "properties": {
+        "OBJECTID": 1389,
+        "DISTRIBUID": "COPEC",
+        "CALLE": "ARTURO PRAT",
+        "NUMERO": "683",
+        "BEN_93": "SI",
+        "BEN_95": "SI",
+        "BEN_97": "SI",
+        "DIESEL": "SI",
+        "GLP": " ",
+        "GNC": " ",
+        "KEROSENE": " ",
+        "COOR_ESTE": 346778.71035582,
+        "COOR_NORTE": 6297193.68587407,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "SANTIAGO",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1390,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6423473359999, -33.4578686421317]
+      },
+      "properties": {
+        "OBJECTID": 1390,
+        "DISTRIBUID": "COPEC",
+        "CALLE": "AVENIDA MATTA",
+        "NUMERO": "665",
+        "BEN_93": "SI",
+        "BEN_95": "SI",
+        "BEN_97": "SI",
+        "DIESEL": "SI",
+        "GLP": " ",
+        "GNC": " ",
+        "KEROSENE": " ",
+        "COOR_ESTE": 347367.83123084,
+        "COOR_NORTE": 6296745.57712531,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "SANTIAGO",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1391,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6791847939999, -33.437395343132]
+      },
+      "properties": {
+        "OBJECTID": 1391,
+        "DISTRIBUID": "COPEC",
+        "CALLE": "ROSAS",
+        "NUMERO": "3218",
+        "BEN_93": "SI",
+        "BEN_95": "SI",
+        "BEN_97": "SI",
+        "DIESEL": "SI",
+        "GLP": " ",
+        "GNC": " ",
+        "KEROSENE": " ",
+        "COOR_ESTE": 343907.26256697,
+        "COOR_NORTE": 6298961.06702059,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "SANTIAGO",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1392,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.671889186, -33.4773124571314]
+      },
+      "properties": {
+        "OBJECTID": 1392,
+        "DISTRIBUID": "COPEC",
+        "CALLE": "BASCUNAN GUERRERO",
+        "NUMERO": "2445",
+        "BEN_93": "SI",
+        "BEN_95": "SI",
+        "BEN_97": "SI",
+        "DIESEL": "SI",
+        "GLP": "SI",
+        "GNC": " ",
+        "KEROSENE": " ",
+        "COOR_ESTE": 344656.74784843,
+        "COOR_NORTE": 6294545.71396007,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "SANTIAGO",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1393,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6441926959999, -33.4534646501317]
+      },
+      "properties": {
+        "OBJECTID": 1393,
+        "DISTRIBUID": "PETROBRAS",
+        "CALLE": "10 DE JULIO HUAMACHUCO",
+        "NUMERO": "710",
+        "BEN_93": "SI",
+        "BEN_95": "SI",
+        "BEN_97": "SI",
+        "DIESEL": "SI",
+        "GLP": " ",
+        "GNC": " ",
+        "KEROSENE": " ",
+        "COOR_ESTE": 347188.58560333,
+        "COOR_NORTE": 6297231.20656296,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "SANTIAGO",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1394,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.652394891, -33.4597147611317]
+      },
+      "properties": {
+        "OBJECTID": 1394,
+        "DISTRIBUID": "PETROBRAS",
+        "CALLE": "MANUEL ANTONIO MATTA",
+        "NUMERO": "1345",
+        "BEN_93": "SI",
+        "BEN_95": "SI",
+        "BEN_97": "SI",
+        "DIESEL": "SI",
+        "GLP": " ",
+        "GNC": " ",
+        "KEROSENE": " ",
+        "COOR_ESTE": 346437.21179549,
+        "COOR_NORTE": 6296526.05982045,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "SANTIAGO",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1395,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6300842759999, -33.4560247211317]
+      },
+      "properties": {
+        "OBJECTID": 1395,
+        "DISTRIBUID": "PETROBRAS",
+        "CALLE": "VICUNA MACKENNA",
+        "NUMERO": "1131",
+        "BEN_93": "SI",
+        "BEN_95": "SI",
+        "BEN_97": "SI",
+        "DIESEL": "SI",
+        "GLP": " ",
+        "GNC": " ",
+        "KEROSENE": " ",
+        "COOR_ESTE": 348504.41741891,
+        "COOR_NORTE": 6296967.99236469,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "SANTIAGO",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1396,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6522822379999, -33.4546283281317]
+      },
+      "properties": {
+        "OBJECTID": 1396,
+        "DISTRIBUID": "SHELL",
+        "CALLE": "10 DE JULIO HUAMACHUCO",
+        "NUMERO": "1254",
+        "BEN_93": "SI",
+        "BEN_95": "SI",
+        "BEN_97": "SI",
+        "DIESEL": "SI",
+        "GLP": " ",
+        "GNC": " ",
+        "KEROSENE": " ",
+        "COOR_ESTE": 346438.71256257,
+        "COOR_NORTE": 6297090.24298691,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "SANTIAGO",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1397,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6491923329999, -33.4640759221316]
+      },
+      "properties": {
+        "OBJECTID": 1397,
+        "DISTRIBUID": "SHELL",
+        "CALLE": "SAN DIEGO",
+        "NUMERO": "1409",
+        "BEN_93": "SI",
+        "BEN_95": "SI",
+        "BEN_97": "SI",
+        "DIESEL": "SI",
+        "GLP": " ",
+        "GNC": " ",
+        "KEROSENE": " ",
+        "COOR_ESTE": 346742.54633853,
+        "COOR_NORTE": 6296047.19572325,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "SANTIAGO",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1398,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6449168919999, -33.4635791771316]
+      },
+      "properties": {
+        "OBJECTID": 1398,
+        "DISTRIBUID": "SHELL",
+        "CALLE": "SAN FRANCISCO",
+        "NUMERO": "1401",
+        "BEN_93": "SI",
+        "BEN_95": "SI",
+        "BEN_97": "SI",
+        "DIESEL": "SI",
+        "GLP": " ",
+        "GNC": " ",
+        "KEROSENE": " ",
+        "COOR_ESTE": 347139.02886194,
+        "COOR_NORTE": 6296108.57831758,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "SANTIAGO",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1399,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.677052438, -33.432873915132]
+      },
+      "properties": {
+        "OBJECTID": 1399,
+        "DISTRIBUID": "SHELL",
+        "CALLE": "MAPOCHO",
+        "NUMERO": "2948",
+        "BEN_93": "SI",
+        "BEN_95": "SI",
+        "BEN_97": "SI",
+        "DIESEL": "SI",
+        "GLP": " ",
+        "GNC": " ",
+        "KEROSENE": " ",
+        "COOR_ESTE": 344097.41520338,
+        "COOR_NORTE": 6299465.63339718,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "SANTIAGO",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1400,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6653392309998, -33.4424178811318]
+      },
+      "properties": {
+        "OBJECTID": 1400,
+        "DISTRIBUID": "SHELL",
+        "CALLE": "BRASIL",
+        "NUMERO": "154",
+        "BEN_93": "SI",
+        "BEN_95": "SI",
+        "BEN_97": "SI",
+        "DIESEL": "SI",
+        "GLP": " ",
+        "GNC": " ",
+        "KEROSENE": " ",
+        "COOR_ESTE": 345203.37778043,
+        "COOR_NORTE": 6298424.8426448,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "SANTIAGO",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1401,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.636631548, -33.4572219321317]
+      },
+      "properties": {
+        "OBJECTID": 1401,
+        "DISTRIBUID": "SIN BANDERA",
+        "CALLE": "MANUEL ANTONIO MATTA",
+        "NUMERO": "380",
+        "BEN_93": "SI",
+        "BEN_95": "SI",
+        "BEN_97": "SI",
+        "DIESEL": "SI",
+        "GLP": " ",
+        "GNC": " ",
+        "KEROSENE": " ",
+        "COOR_ESTE": 347897.9577094,
+        "COOR_NORTE": 6296825.67162546,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "SANTIAGO",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1402,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6638479229998, -33.4400051291319]
+      },
+      "properties": {
+        "OBJECTID": 1402,
+        "DISTRIBUID": "SHELL",
+        "CALLE": "COMPANIA",
+        "NUMERO": "1908",
+        "BEN_93": "SI",
+        "BEN_95": "SI",
+        "BEN_97": "SI",
+        "DIESEL": "SI",
+        "GLP": " ",
+        "GNC": " ",
+        "KEROSENE": " ",
+        "COOR_ESTE": 345337.73054346,
+        "COOR_NORTE": 6298694.60450666,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "SANTIAGO",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1403,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.673501194, -33.4460861191318]
+      },
+      "properties": {
+        "OBJECTID": 1403,
+        "DISTRIBUID": "SHELL",
+        "CALLE": "LIBERTAD",
+        "NUMERO": "59",
+        "BEN_93": "SI",
+        "BEN_95": "SI",
+        "BEN_97": "SI",
+        "DIESEL": "SI",
+        "GLP": " ",
+        "GNC": " ",
+        "KEROSENE": " ",
+        "COOR_ESTE": 344451.17139478,
+        "COOR_NORTE": 6298005.89665193,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "SANTIAGO",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1404,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6357378869999, -33.4459444731318]
+      },
+      "properties": {
+        "OBJECTID": 1404,
+        "DISTRIBUID": "SHELL",
+        "CALLE": "PORTUGAL",
+        "NUMERO": "270",
+        "BEN_93": "SI",
+        "BEN_95": "SI",
+        "BEN_97": "SI",
+        "DIESEL": "SI",
+        "GLP": " ",
+        "GNC": " ",
+        "KEROSENE": " ",
+        "COOR_ESTE": 347961.33505466,
+        "COOR_NORTE": 6298077.49226969,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "SANTIAGO",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1405,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6562733649999, -33.4601734881315]
+      },
+      "properties": {
+        "OBJECTID": 1405,
+        "DISTRIBUID": "SHELL",
+        "CALLE": "VIEL",
+        "NUMERO": "1086",
+        "BEN_93": "SI",
+        "BEN_95": "SI",
+        "BEN_97": "SI",
+        "DIESEL": "SI",
+        "GLP": " ",
+        "GNC": " ",
+        "KEROSENE": " ",
+        "COOR_ESTE": 346077.54308035,
+        "COOR_NORTE": 6296469.45288455,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "SANTIAGO",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1406,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.654610395, -33.4727707371315]
+      },
+      "properties": {
+        "OBJECTID": 1406,
+        "DISTRIBUID": "SHELL",
+        "CALLE": "PEDRO MONTT",
+        "NUMERO": "1501",
+        "BEN_93": "SI",
+        "BEN_95": "SI",
+        "BEN_97": "SI",
+        "DIESEL": "SI",
+        "GLP": " ",
+        "GNC": " ",
+        "KEROSENE": " ",
+        "COOR_ESTE": 346254.35616314,
+        "COOR_NORTE": 6295075.04865622,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "SANTIAGO",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1407,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6372618679999, -33.4448507081319]
+      },
+      "properties": {
+        "OBJECTID": 1407,
+        "DISTRIBUID": "SHELL",
+        "CALLE": "PORTUGAL",
+        "NUMERO": "175",
+        "BEN_93": "SI",
+        "BEN_95": "SI",
+        "BEN_97": "SI",
+        "DIESEL": "SI",
+        "GLP": " ",
+        "GNC": " ",
+        "KEROSENE": " ",
+        "COOR_ESTE": 347817.75808923,
+        "COOR_NORTE": 6298196.54470454,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "SANTIAGO",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1493,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.5447159999999, -33.4560039991316]
+      },
+      "properties": {
+        "OBJECTID": 1493,
+        "DISTRIBUID": "AUTOGASCO",
+        "CALLE": "JORGE ALESSANDRI",
+        "NUMERO": "515",
+        "BEN_93": " ",
+        "BEN_95": " ",
+        "BEN_97": " ",
+        "DIESEL": "SI",
+        "GLP": "SI",
+        "GNC": " ",
+        "KEROSENE": " ",
+        "COOR_ESTE": 356439.05862906,
+        "COOR_NORTE": 6297091.51470758,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "LA REINA",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1494,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.5741065739999, -33.4314905801319]
+      },
+      "properties": {
+        "OBJECTID": 1494,
+        "DISTRIBUID": "COPEC",
+        "CALLE": "AVENIDA FRANCISCO BILBAO",
+        "NUMERO": "5739",
+        "BEN_93": "SI",
+        "BEN_95": "SI",
+        "BEN_97": "SI",
+        "DIESEL": "SI",
+        "GLP": " ",
+        "GNC": " ",
+        "KEROSENE": " ",
+        "COOR_ESTE": 353666.15773851,
+        "COOR_NORTE": 6299768.67597762,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "LA REINA",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1495,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.571182966, -33.4482458091318]
+      },
+      "properties": {
+        "OBJECTID": 1495,
+        "DISTRIBUID": "COPEC",
+        "CALLE": "AVENIDA OSSA",
+        "NUMERO": "591",
+        "BEN_93": "SI",
+        "BEN_95": "SI",
+        "BEN_97": "SI",
+        "DIESEL": "SI",
+        "GLP": " ",
+        "GNC": " ",
+        "KEROSENE": " ",
+        "COOR_ESTE": 353966.05489981,
+        "COOR_NORTE": 6297914.89313858,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "LA REINA",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1496,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.561092496, -33.4385010431319]
+      },
+      "properties": {
+        "OBJECTID": 1496,
+        "DISTRIBUID": "COPEC",
+        "CALLE": "PRINCIPE DE GALES",
+        "NUMERO": "6880",
+        "BEN_93": "SI",
+        "BEN_95": "SI",
+        "BEN_97": "SI",
+        "DIESEL": "SI",
+        "GLP": " ",
+        "GNC": " ",
+        "KEROSENE": " ",
+        "COOR_ESTE": 354887.77876753,
+        "COOR_NORTE": 6299009.56956556,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "LA REINA",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1497,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.5609719999999, -33.4384759991319]
+      },
+      "properties": {
+        "OBJECTID": 1497,
+        "DISTRIBUID": "COPEC",
+        "CALLE": "PRINCIPE DE GALES",
+        "NUMERO": "6880",
+        "BEN_93": "SI",
+        "BEN_95": "SI",
+        "BEN_97": "SI",
+        "DIESEL": "SI",
+        "GLP": " ",
+        "GNC": " ",
+        "KEROSENE": " ",
+        "COOR_ESTE": 354898.93893703,
+        "COOR_NORTE": 6299012.51476779,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "LA REINA",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1498,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.534801483, -33.4414375691319]
+      },
+      "properties": {
+        "OBJECTID": 1498,
+        "DISTRIBUID": "PETROBRAS",
+        "CALLE": "PRINCIPE DE GALES",
+        "NUMERO": "9200",
+        "BEN_93": "SI",
+        "BEN_95": "SI",
+        "BEN_97": "SI",
+        "DIESEL": "SI",
+        "GLP": " ",
+        "GNC": " ",
+        "KEROSENE": " ",
+        "COOR_ESTE": 357336.71558345,
+        "COOR_NORTE": 6298720.35230542,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "LA REINA",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1499,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.5520963669999, -33.4623977181316]
+      },
+      "properties": {
+        "OBJECTID": 1499,
+        "DISTRIBUID": "PETROBRAS",
+        "CALLE": "AVENIDA JOSE ARRIETA",
+        "NUMERO": "7398",
+        "BEN_93": "SI",
+        "BEN_95": "SI",
+        "BEN_97": "SI",
+        "DIESEL": "SI",
+        "GLP": " ",
+        "GNC": " ",
+        "KEROSENE": " ",
+        "COOR_ESTE": 355763.67616779,
+        "COOR_NORTE": 6296372.32860251,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "LA REINA",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1500,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.5439853669999, -33.4506493791317]
+      },
+      "properties": {
+        "OBJECTID": 1500,
+        "DISTRIBUID": "SHELL",
+        "CALLE": "AVENIDA LARRAIN",
+        "NUMERO": "8511",
+        "BEN_93": "SI",
+        "BEN_95": "SI",
+        "BEN_97": "SI",
+        "DIESEL": "SI",
+        "GLP": " ",
+        "GNC": " ",
+        "KEROSENE": " ",
+        "COOR_ESTE": 356498.14556449,
+        "COOR_NORTE": 6297686.26629966,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "LA REINA",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1501,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.556699038, -33.4395485341318]
+      },
+      "properties": {
+        "OBJECTID": 1501,
+        "DISTRIBUID": "SHELL",
+        "CALLE": "AGUAS CLARAS",
+        "NUMERO": "1681",
+        "BEN_93": "SI",
+        "BEN_95": "SI",
+        "BEN_97": "SI",
+        "DIESEL": "SI",
+        "GLP": " ",
+        "GNC": " ",
+        "KEROSENE": " ",
+        "COOR_ESTE": 355297.9543379,
+        "COOR_NORTE": 6298899.54451091,
+        "HUSO": "19 S",
+        "DATUM": "WGS84",
+        "REGION": "METROPOLITANA DE SANTIAGO",
+        "PROVINCIA": "SANTIAGO",
+        "COMUNA": "LA REINA",
+        "FUENTE_BAS": "CNE",
+        "FECHA_CREA": 1527811200000,
+        "FECHA_ACT": 1681171200000
+      }
+    }
+  ]
+}
