@@ -1,0 +1,10 @@
+{
+"type": "FeatureCollection",
+"name": "campamentos",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "NOMBRE": "Luis Infante Cerda 8540", "NOM_COMUNA": "Estación Central", "N_FAM": 12.0 }, "geometry": { "type": "Point", "coordinates": [ -70.7111307159999, -33.477316740999925 ] } },
+{ "type": "Feature", "properties": { "NOMBRE": "Condominio Buzeta", "NOM_COMUNA": "Estación Central", "N_FAM": 11.0 }, "geometry": { "type": "Point", "coordinates": [ -70.684245870999916, -33.475494504999915 ] } },
+{ "type": "Feature", "properties": { "NOMBRE": "Nicasio Retamales", "NOM_COMUNA": "Estación Central", "N_FAM": 15.0 }, "geometry": { "type": "Point", "coordinates": [ -70.688399417999904, -33.46009547999995 ] } }
+]
+}
