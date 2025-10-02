@@ -1,3 +1,6 @@
 [submodule "real-estate-price-suggestion-frontend"]
 	path = real-estate-price-suggestion-frontend
 	url = https://github.com/ByronCaices/real-estate-price-suggestion-frontend
+[submodule "real-estate-price-suggestion-backend"]
+	path = real-estate-price-suggestion-backend
+	url = https://github.com/ByronCaices/real-state-suggestion-backend
