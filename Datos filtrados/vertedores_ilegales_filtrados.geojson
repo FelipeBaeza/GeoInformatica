@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "vertedores_ilegales_filtrados",
+"features": [
+{ "type": "Feature", "properties": { "objectid": 6, "ubicacion": "Parcela N° 52, ex Fundo Lo Errázuriz", "x": 340700.99999999994, "y": 6294097.0 }, "geometry": { "type": "Point", "coordinates": [ -70.714526412999987, -33.480776382999977 ] } },
+{ "type": "Feature", "properties": { "objectid": 76, "ubicacion": "Carlos Valdovinos, altura del 3001", "x": 344223.00000000006, "y": 6294495.0 }, "geometry": { "type": "Point", "coordinates": [ -70.676564486999951, -33.477706634999947 ] } }
+]
+}

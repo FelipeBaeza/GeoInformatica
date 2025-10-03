@@ -1,0 +1,12 @@
+{
+"type": "FeatureCollection",
+"name": "municipios_filtrados",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "OBJECTID": 327.0, "DIRECCION": "Av. Lib. Bernado O´Higgins Nº 3920", "COD_REG": "13", "NOM_REG": "Metropolitana de Santiago", "COD_PROV": "131", "NOM_PROV": "Santiago", "NOM_COM": "Estación Central", "CUT_2018": "13106" }, "geometry": { "type": "Point", "coordinates": [ -70.689888, -33.454125000999966 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 330.0, "DIRECCION": "Alcalde Fernando Castillo Velasco N° 9925", "COD_REG": "13", "NOM_REG": "Metropolitana de Santiago", "COD_PROV": "131", "NOM_PROV": "Santiago", "NOM_COM": "La Reina", "CUT_2018": "13113" }, "geometry": { "type": "Point", "coordinates": [ -70.530598, -33.453469000999974 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 151.0, "DIRECCION": "Av. Irarrázaval Nº 3550", "COD_REG": "13", "NOM_REG": "Metropolitana de Santiago", "COD_PROV": "131", "NOM_PROV": "Santiago", "NOM_COM": "Ñuñoa", "CUT_2018": "13120" }, "geometry": { "type": "Point", "coordinates": [ -70.593670007999947, -33.454230007999968 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 159.0, "DIRECCION": "Av. Santa Rosa Nº 2606", "COD_REG": "13", "NOM_REG": "Metropolitana de Santiago", "COD_PROV": "131", "NOM_PROV": "Santiago", "NOM_COM": "San Joaquín", "CUT_2018": "13129" }, "geometry": { "type": "Point", "coordinates": [ -70.64152200999996, -33.479210440999964 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 326.0, "DIRECCION": "Plaza de Armas S/N", "COD_REG": "13", "NOM_REG": "Metropolitana de Santiago", "COD_PROV": "131", "NOM_PROV": "Santiago", "NOM_COM": "Santiago", "CUT_2018": "13101" }, "geometry": { "type": "Point", "coordinates": [ -70.650272, -33.436927000999958 ] } }
+]
+}
