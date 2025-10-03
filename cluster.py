@@ -26,7 +26,7 @@ import re
 # ===========================
 # 2. Cargar datos
 # ===========================
-gdf = gpd.read_file("base_maestra_comunas_filtradas.geojson")
+gdf = gpd.read_file("base_maestra/base_maestra_comunas_filtradas.geojson")
 
 # Revisar CRS y reproyectar a metros (UTM zona 19S, EPSG:32719)
 if gdf.crs is None:
