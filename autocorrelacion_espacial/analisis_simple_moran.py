@@ -71,6 +71,7 @@ class AnalisisMoranSimple:
             neighbors = distances[:k]
             
             # Asignar pesos uniformes (1/k para cada vecino)
+            # Esto asegura que cada fila sume 1.0
             for neighbor_idx, _ in neighbors:
                 self.weights[i][neighbor_idx] = 1.0 / k
         
@@ -160,18 +161,18 @@ class AnalisisMoranSimple:
             self.lisa_values.append(lisa_i)
             
             # Clasificar cluster
-            yi_std = (y[i] - y_mean)
+            # Calcular media ponderada de vecinos
             neighbors_mean = sum(w[i][j] * y[j] for j in range(n))
-            neighbors_std = neighbors_mean - y_mean
             
-            if yi_std > 0 and neighbors_std > 0:
-                cluster = "HH"  # Alto-Alto
-            elif yi_std < 0 and neighbors_std < 0:
-                cluster = "LL"  # Bajo-Bajo
-            elif yi_std > 0 and neighbors_std < 0:
-                cluster = "HL"  # Alto-Bajo
-            else:
-                cluster = "LH"  # Bajo-Alto
+            # Clasificar basado en si el valor y sus vecinos están por encima o debajo de la media
+            if y[i] > y_mean and neighbors_mean > y_mean:
+                cluster = "HH"  # Alto-Alto: valor alto rodeado de valores altos
+            elif y[i] < y_mean and neighbors_mean < y_mean:
+                cluster = "LL"  # Bajo-Bajo: valor bajo rodeado de valores bajos
+            elif y[i] > y_mean and neighbors_mean < y_mean:
+                cluster = "HL"  # Alto-Bajo: valor alto rodeado de valores bajos (outlier alto)
+            else:  # y[i] < y_mean and neighbors_mean > y_mean
+                cluster = "LH"  # Bajo-Alto: valor bajo rodeado de valores altos (outlier bajo)
             
             self.lisa_clusters.append(cluster)
         
@@ -188,8 +189,45 @@ class AnalisisMoranSimple:
         print("\nTipos de clusters:")
         print("  HH (Alto-Alto): Precios altos rodeados de precios altos")
         print("  LL (Bajo-Bajo): Precios bajos rodeados de precios bajos")
-        print("  HL (Alto-Bajo): Precios altos en zona de precios bajos")
-        print("  LH (Bajo-Alto): Precios bajos en zona de precios altos")
+        print("  HL (Alto-Bajo): Precios altos en zona de precios bajos (outliers altos)")
+        print("  LH (Bajo-Alto): Precios bajos en zona de precios altos (outliers bajos)")
+        
+        # Validación adicional
+        self.validar_clasificacion_lisa()
+    
+    def validar_clasificacion_lisa(self):
+        """Validar que la clasificación LISA sea correcta"""
+        print("\n=== VALIDACION DE CLASIFICACION LISA ===")
+        
+        y = self.log_prices
+        w = self.weights
+        y_mean = statistics.mean(y)
+        n = self.n
+        
+        # Verificar algunos casos para validación
+        errores = 0
+        for i in range(min(10, n)):  # Verificar primeros 10 casos
+            neighbors_mean = sum(w[i][j] * y[j] for j in range(n))
+            cluster_actual = self.lisa_clusters[i]
+            
+            # Determinar cluster esperado
+            if y[i] > y_mean and neighbors_mean > y_mean:
+                cluster_esperado = "HH"
+            elif y[i] < y_mean and neighbors_mean < y_mean:
+                cluster_esperado = "LL"
+            elif y[i] > y_mean and neighbors_mean < y_mean:
+                cluster_esperado = "HL"
+            else:
+                cluster_esperado = "LH"
+            
+            if cluster_actual != cluster_esperado:
+                errores += 1
+                print(f"Error en punto {i}: esperado {cluster_esperado}, obtenido {cluster_actual}")
+        
+        if errores == 0:
+            print("✓ Validación exitosa: Clasificación LISA correcta")
+        else:
+            print(f"✗ Se encontraron {errores} errores en la clasificación")
     
     def crear_mapa_lisa(self):
         """Crear mapa simple de clusters LISA"""
