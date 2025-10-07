@@ -1,0 +1,81 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6469632,
+          -33.4492135
+        ]
+      },
+      "properties": {
+        "Comuna": "Santiago",
+        "Tasa_publicada_por_100k_hab": 4531.3,
+        "Casos_reportados_frecuencia": 24292,
+        "Poblacion_estimada_habitantes": 536089,
+        "Tasa_recalculada_por_100k_hab": 4531.337147376648,
+        "Diferencia_tasa_publicada_menos_recalculada_por_100k": -0.0371473766481358,
+        "comuna_normalizada": "santiago"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.72314642,
+          -33.4661928
+        ]
+      },
+      "properties": {
+        "Comuna": "Estación Central",
+        "Tasa_publicada_por_100k_hab": 4129.2,
+        "Casos_reportados_frecuencia": 9080,
+        "Poblacion_estimada_habitantes": 219897,
+        "Tasa_recalculada_por_100k_hab": 4129.205946420369,
+        "Diferencia_tasa_publicada_menos_recalculada_por_100k": -0.0059464203695824,
+        "comuna_normalizada": "estacion central"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.5442177,
+          -33.435245
+        ]
+      },
+      "properties": {
+        "Comuna": "La Reina",
+        "Tasa_publicada_por_100k_hab": 2123.7,
+        "Casos_reportados_frecuencia": 2117,
+        "Poblacion_estimada_habitantes": 99686,
+        "Tasa_recalculada_por_100k_hab": 2123.668318520153,
+        "Diferencia_tasa_publicada_menos_recalculada_por_100k": 0.0316814798466111,
+        "comuna_normalizada": "la reina"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.5786748,
+          -33.450627
+        ]
+      },
+      "properties": {
+        "Comuna": "Ñuñoa",
+        "Tasa_publicada_por_100k_hab": 2094.8,
+        "Casos_reportados_frecuencia": 5516,
+        "Poblacion_estimada_habitantes": 263319,
+        "Tasa_recalculada_por_100k_hab": 2094.7975649307496,
+        "Diferencia_tasa_publicada_menos_recalculada_por_100k": 0.0024350692506232,
+        "comuna_normalizada": "nunoa"
+      }
+    }
+  ]
+}
