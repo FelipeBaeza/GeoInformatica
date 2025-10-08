@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"name": "estaciones_calidad_aire_filtradas",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "objectid": 41, "cod_estaci": "330020", "nombre": "Quinta Normal, Santiago", "altitud": 520, "region": "Metropolitana de Santiago", "comuna": "Las Condes", "sscuenca_d": "05730", "zona": "Valle", "latitud": -33.445, "longitud": -70.68278, "cod_epsg": 4326 }, "geometry": { "type": "Point", "coordinates": [ -70.68278, -33.445 ] } },
+{ "type": "Feature", "properties": { "objectid": 40, "cod_estaci": "330019", "nombre": "Eulogio Sánchez, Tobalaba Ad.", "altitud": 650, "region": "Metropolitana de Santiago", "comuna": "Las Condes", "sscuenca_d": "05730", "zona": "PreCordillera", "latitud": -33.45528, "longitud": -70.54861, "cod_epsg": 4326 }, "geometry": { "type": "Point", "coordinates": [ -70.54861, -33.45528 ] } }
+]
+}
