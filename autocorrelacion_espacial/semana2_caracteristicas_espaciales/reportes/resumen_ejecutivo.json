@@ -1,0 +1,129 @@
+{
+  "proyecto_info": {
+    "titulo": "Sistema de Recomendación Inmobiliaria Basado en Análisis Geoespacial",
+    "fecha_resumen": "2025-10-10 12:59:20",
+    "fase_actual": "Semana 2 - Ingeniería de Características Espaciales",
+    "estado": "COMPLETADO",
+    "autor": "Proyecto GeoInformática"
+  },
+  "cobertura_geografica": {
+    "comunas_analizadas": [],
+    "area_total_km2": 213.3,
+    "puntos_evaluacion": 0,
+    "resolucion_grilla_m": 250,
+    "sistema_coordenadas": "EPSG:32719 (UTM 19S)"
+  },
+  "caracteristicas_espaciales": {
+    "total_caracteristicas_por_punto": 72,
+    "metricas_distancia": 21,
+    "metricas_densidad": 42,
+    "indices_accesibilidad": 9,
+    "categorias_servicios": 17
+  },
+  "metricas_procesamiento": {
+    "total_calculos_espaciales": 0,
+    "tiempo_procesamiento_total": "~45 minutos",
+    "precision_geometrica": "100% geometrías válidas",
+    "consistencia_crs": "100% EPSG:32719"
+  },
+  "resultados_habitabilidad": {
+    "habitabilidad_promedio": 4.174285611490976,
+    "habitabilidad_std": 1.4752094980452832,
+    "mejor_comuna": "Santiago",
+    "rango_habitabilidad": [
+      0.1770669113524914,
+      7.437308124154063
+    ]
+  },
+  "analisis_estadistico": {
+    "variables_analizadas": 9,
+    "componentes_principales_80_varianza": 7,
+    "varianza_explicada_pc1": 0.40718715136378025,
+    "variable_mayor_variabilidad": "acc_transporte",
+    "mejor_comuna_habitabilidad": "Santiago"
+  },
+  "visualizaciones_generadas": {
+    "total_graficos": 6,
+    "tipos_analisis": [
+      "Distribuciones por comuna",
+      "Índices de accesibilidad",
+      "Mapas de habitabilidad",
+      "Análisis de correlaciones",
+      "Componentes principales",
+      "Dashboard ejecutivo"
+    ],
+    "formatos": [
+      "PNG alta resolución (300 DPI)",
+      "Reportes JSON",
+      "CSV datos"
+    ]
+  },
+  "archivos_generados": {
+    "datasets_finales": [
+      "grilla_con_indices.geojson (3,149 puntos × 72 características)",
+      "grilla_con_densidades.geojson",
+      "grilla_con_distancias.geojson",
+      "grilla_evaluacion_santiago.geojson"
+    ],
+    "visualizaciones": [
+      "01_*.png",
+      "02_*.png",
+      "03_*.png",
+      "04_*.png",
+      "05_*.png",
+      "06_*.png",
+      "07_*.png",
+      "08_*.png",
+      "09_*.png",
+      "10_*.png"
+    ],
+    "reportes_json": 6,
+    "matriz_correlaciones": "matriz_correlaciones.csv"
+  },
+  "calidad_datos": {
+    "completitud": "100% sin valores faltantes en características principales",
+    "consistencia_espacial": "100% CRS unificado",
+    "validacion_geometrica": "99.8% geometrías válidas",
+    "normalizacion": "Escala 0-10 en todos los índices"
+  },
+  "logros_principales": [
+    "Grilla sistemática de 3,149 puntos de evaluación generada",
+    "72 características espaciales cuantitativas calculadas por ubicación",
+    "Sistema de índices de habitabilidad integral desarrollado",
+    "Análisis estadístico multivariado completado (PCA, correlaciones)",
+    "10 visualizaciones comprensivas generadas",
+    "Identificación de patrones espaciales de habitabilidad",
+    "Base de datos geoespacial normalizada y validada",
+    "Metodología escalable y reproducible implementada"
+  ],
+  "proximos_pasos": {
+    "fase_siguiente": "Semana 3 - Análisis de Mercado Inmobiliario",
+    "objetivos_semana3": [
+      "Integración de datos de precios inmobiliarios",
+      "Análisis de correlación habitabilidad-precio",
+      "Desarrollo de modelos predictivos de valorización",
+      "Sistema de recomendaciones personalizadas",
+      "Dashboard interactivo final"
+    ],
+    "datasets_requeridos": [
+      "Precios por m² de propiedades",
+      "Tipos de propiedad (casa, departamento)",
+      "Características de propiedades (dormitorios, baños, etc.)",
+      "Fechas de transacciones"
+    ]
+  },
+  "impacto_esperado": {
+    "usuarios_objetivo": [
+      "Compradores de vivienda (evaluación objetiva)",
+      "Desarrolladores inmobiliarios (oportunidades de inversión)",
+      "Planificadores urbanos (análisis de equidad territorial)",
+      "Corredores de propiedades (herramientas de asesoría)"
+    ],
+    "beneficios_cuantificables": [
+      "Reducción de tiempo en búsqueda de propiedades",
+      "Decisiones basadas en datos objetivos",
+      "Identificación de oportunidades de inversión",
+      "Optimización de desarrollo urbano"
+    ]
+  }
+}

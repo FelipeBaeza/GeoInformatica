@@ -1,0 +1,162 @@
+{
+  "fecha_analisis": "2025-10-10 12:57:06",
+  "estadisticas_descriptivas": {
+    "acc_educacion": {
+      "media": 5.79179565740715,
+      "mediana": 5.957319770337285,
+      "desviacion_std": 0.9480973931764868,
+      "min": 0.9837050630693966,
+      "max": 9.947232123895533,
+      "q25": 5.6534144663404735,
+      "q75": 6.195414130282996,
+      "asimetria": -1.6835192940659298,
+      "curtosis": 6.6671355575714575
+    },
+    "acc_salud": {
+      "media": 4.355313861287837,
+      "mediana": 4.593089648042706,
+      "desviacion_std": 2.1733015609496364,
+      "min": 0.0,
+      "max": 9.663016091365103,
+      "q25": 3.0079704312135025,
+      "q75": 6.061343361843218,
+      "asimetria": -0.39986244533549836,
+      "curtosis": -0.5078364401158999
+    },
+    "acc_transporte": {
+      "media": 3.6044577900893247,
+      "mediana": 3.7680517059632246,
+      "desviacion_std": 2.659992457011217,
+      "min": 0.0,
+      "max": 9.41688383934033,
+      "q25": 0.9551998620961131,
+      "q75": 5.818353381669759,
+      "asimetria": 0.054988698434998824,
+      "curtosis": -1.2301704802771996
+    },
+    "acc_entorno": {
+      "media": 4.681582181846236,
+      "mediana": 4.967373421111935,
+      "desviacion_std": 1.89615213604637,
+      "min": 0.0,
+      "max": 9.855950249053041,
+      "q25": 3.8581026118498714,
+      "q75": 5.888207049078706,
+      "asimetria": -0.8527259808097529,
+      "curtosis": 0.8062579409290516
+    },
+    "acc_seguridad": {
+      "media": 3.7350818080109134,
+      "mediana": 4.140129267154554,
+      "desviacion_std": 2.016771084266717,
+      "min": 0.0,
+      "max": 9.724674303229039,
+      "q25": 2.4420931214998776,
+      "q75": 5.229312810751967,
+      "asimetria": -0.2223082535821068,
+      "curtosis": -0.461751105624264
+    },
+    "acc_comercial": {
+      "media": 2.0035141514651857,
+      "mediana": 1.946570908179448,
+      "desviacion_std": 1.6501243020541858,
+      "min": 0.0,
+      "max": 9.784230653213223,
+      "q25": 0.4541213948134186,
+      "q75": 3.165369790091584,
+      "asimetria": 0.7479275812290639,
+      "curtosis": 0.9289846425656725
+    },
+    "idx_vida_urbana": {
+      "media": 4.561001578764078,
+      "mediana": 4.6973063144745835,
+      "desviacion_std": 1.7040807431782525,
+      "min": 0.295111518920819,
+      "max": 8.438746870186545,
+      "q25": 3.5329795027745687,
+      "q75": 5.825302413529197,
+      "asimetria": -0.3934667241412793,
+      "curtosis": -0.3740495722514283
+    },
+    "idx_calidad_vida": {
+      "media": 3.5942116605813244,
+      "mediana": 3.7698266498061095,
+      "desviacion_std": 1.3809960904533085,
+      "min": 0.0,
+      "max": 7.043189806868351,
+      "q25": 3.0303458091696447,
+      "q75": 4.440032152269414,
+      "asimetria": -0.8965186411445613,
+      "curtosis": 1.0198355085433901
+    },
+    "idx_habitabilidad_global": {
+      "media": 4.174285611490976,
+      "mediana": 4.349886881304978,
+      "desviacion_std": 1.4752094980452832,
+      "min": 0.1770669113524914,
+      "max": 7.437308124154063,
+      "q25": 3.492284729694231,
+      "q75": 5.143202841178413,
+      "asimetria": -0.6941992656349011,
+      "curtosis": 0.4706880172532375
+    }
+  },
+  "analisis_pca": {
+    "varianza_explicada_pc1": 0.40718715136378025,
+    "varianza_explicada_pc2": 0.13920875821834147,
+    "varianza_acumulada_5pc": 0.7428988223305042,
+    "componentes_para_80_varianza": 7,
+    "componentes_para_95_varianza": 18,
+    "top_variables_pc1": {
+      "idx_habitabilidad_global": 0.17063238307586043,
+      "dens_total_1000m_km2": 0.16462513523564343,
+      "dens_norm_total_1000m_km2": 0.16462513523564343,
+      "idx_calidad_vida": 0.16314042716535773,
+      "dens_norm_total_600m_km2": 0.15885166562908562
+    }
+  },
+  "resumen_por_comuna": {
+    "Estación Central": {
+      "acc_educacion": 5.989085796279016,
+      "acc_salud": 4.10964520761001,
+      "acc_transporte": 2.920949398018066,
+      "acc_entorno": 5.261718606238407,
+      "acc_seguridad": 4.2407775688926606,
+      "acc_comercial": 1.774540909851131,
+      "idx_habitabilidad_global": 4.153834379247277
+    },
+    "La Reina": {
+      "acc_educacion": 5.169780828988349,
+      "acc_salud": 3.82317223690637,
+      "acc_transporte": 2.971064289895494,
+      "acc_entorno": 3.7625419686937716,
+      "acc_seguridad": 2.341089637646911,
+      "acc_comercial": 1.7989477337173485,
+      "idx_habitabilidad_global": 3.481724657811335
+    },
+    "Santiago": {
+      "acc_educacion": 6.4023187879390475,
+      "acc_salud": 6.109529748199802,
+      "acc_transporte": 6.023610373344661,
+      "acc_entorno": 5.015028854942678,
+      "acc_seguridad": 5.017028274182165,
+      "acc_comercial": 3.335530720396049,
+      "idx_habitabilidad_global": 5.507666084739234
+    },
+    "Ñuñoa": {
+      "acc_educacion": 6.050999837343234,
+      "acc_salud": 3.8508146119034383,
+      "acc_transporte": 3.1661863107140373,
+      "acc_entorno": 5.275380206789647,
+      "acc_seguridad": 4.322736963515986,
+      "acc_comercial": 1.3110223359925375,
+      "idx_habitabilidad_global": 4.103400962534501
+    }
+  },
+  "insights_principales": {
+    "variable_mayor_variabilidad": "acc_transporte",
+    "variable_mas_simetrica": "acc_transporte",
+    "componentes_principales_80_varianza": 7,
+    "mejor_comuna_habitabilidad": "Santiago"
+  }
+}

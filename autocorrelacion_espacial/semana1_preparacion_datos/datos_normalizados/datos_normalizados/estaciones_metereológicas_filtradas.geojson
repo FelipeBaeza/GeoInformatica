@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"name": "estaciones_metereológicas_filtradas",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::32719" } },
+"features": [
+{ "type": "Feature", "properties": { "objectid": 41, "cod_estaci": "330020", "nombre": "Quinta Normal, Santiago", "altitud": 520, "region": "Metropolitana de Santiago", "comuna": "Las Condes", "sscuenca_d": "05730", "zona": "Valle", "latitud": -33.445, "longitud": -70.68278, "cod_epsg": 4326, "centroide_x": 343586.67568741518, "centroide_y": 6298112.4053344773, "crs_original": "EPSG:4326", "fecha_normalizacion": "2025-10-10 01:59:24" }, "geometry": { "type": "Point", "coordinates": [ 343586.675687415176071, 6298112.405334477312863 ] } },
+{ "type": "Feature", "properties": { "objectid": 40, "cod_estaci": "330019", "nombre": "Eulogio Sánchez, Tobalaba Ad.", "altitud": 650, "region": "Metropolitana de Santiago", "comuna": "Las Condes", "sscuenca_d": "05730", "zona": "PreCordillera", "latitud": -33.45528, "longitud": -70.54861, "cod_epsg": 4326, "centroide_x": 356075.93148176686, "centroide_y": 6297166.407359398, "crs_original": "EPSG:4326", "fecha_normalizacion": "2025-10-10 01:59:24" }, "geometry": { "type": "Point", "coordinates": [ 356075.931481766863726, 6297166.40735939797014 ] } }
+]
+}

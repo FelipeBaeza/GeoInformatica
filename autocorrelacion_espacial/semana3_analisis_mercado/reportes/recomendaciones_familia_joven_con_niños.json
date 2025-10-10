@@ -1,0 +1,359 @@
+{
+  "fecha_recomendacion": "2025-10-10 13:24:45",
+  "perfil_usuario": {
+    "presupuesto_max_uf": 8000,
+    "tipo_propiedad_pref": "casa",
+    "comuna_pref": null,
+    "prioridades": {
+      "habitabilidad_global": 0.25,
+      "educacion": 0.35,
+      "transporte": 0.15,
+      "salud": 0.15,
+      "seguridad": 0.1
+    }
+  },
+  "total_propiedades_evaluadas": 3149,
+  "propiedades_que_cumplen_criterios": 10,
+  "recomendaciones": [
+    {
+      "posicion": 1,
+      "id_propiedad": 1863,
+      "comuna": "Santiago",
+      "tipo_propiedad": "casa",
+      "precio_total_uf": 7471.2,
+      "precio_uf_m2": 75.39,
+      "metros_construidos": 99.1,
+      "dormitorios": 2,
+      "banos": 3,
+      "estacionamientos": 1,
+      "antiguedad_anos": 9.0,
+      "piso": 1,
+      "indices_habitabilidad": {
+        "habitabilidad_global": 6.542082096416238,
+        "vida_urbana": 7.7550150708329255,
+        "calidad_vida": 4.722682634791208
+      },
+      "scores": {
+        "score_personalizado": 0.753441553142258,
+        "valor_relativo": 1.0119788566302106,
+        "score_final": 0.5310027441886438
+      },
+      "explicaciones": [
+        "✅ Buena habitabilidad general (6.5/10)",
+        "⭐ Excelente acceso a educación (9.7/10)",
+        "✅ Buena accesibilidad al transporte (5.5/10)"
+      ],
+      "coordenadas": {
+        "lat": 6297691.179614866,
+        "lon": 345599.8451130898
+      }
+    },
+    {
+      "posicion": 2,
+      "id_propiedad": 2077,
+      "comuna": "Santiago",
+      "tipo_propiedad": "casa",
+      "precio_total_uf": 5495.9,
+      "precio_uf_m2": 68.7,
+      "metros_construidos": 80.0,
+      "dormitorios": 3,
+      "banos": 2,
+      "estacionamientos": 2,
+      "antiguedad_anos": 20.6,
+      "piso": 1,
+      "indices_habitabilidad": {
+        "habitabilidad_global": 6.727239113968542,
+        "vida_urbana": 7.570121553593735,
+        "calidad_vida": 5.462915454530754
+      },
+      "scores": {
+        "score_personalizado": 0.7449270420048487,
+        "valor_relativo": 1.0126774299745402,
+        "score_final": 0.5252521583957561
+      },
+      "explicaciones": [
+        "✅ Buena habitabilidad general (6.7/10)",
+        "⭐ Excelente acceso a educación (9.0/10)",
+        "✅ Buena accesibilidad al transporte (6.8/10)",
+        "🚗 2 estacionamientos"
+      ],
+      "coordenadas": {
+        "lat": 6298091.179614866,
+        "lon": 345399.8451130898
+      }
+    },
+    {
+      "posicion": 3,
+      "id_propiedad": 2292,
+      "comuna": "Santiago",
+      "tipo_propiedad": "casa",
+      "precio_total_uf": 7845.1,
+      "precio_uf_m2": 75.36,
+      "metros_construidos": 104.1,
+      "dormitorios": 3,
+      "banos": 2,
+      "estacionamientos": 3,
+      "antiguedad_anos": 7.4,
+      "piso": 1,
+      "indices_habitabilidad": {
+        "habitabilidad_global": 6.727430890002964,
+        "vida_urbana": 7.555225129665626,
+        "calidad_vida": 5.485739530508972
+      },
+      "scores": {
+        "score_personalizado": 0.6918682399421432,
+        "valor_relativo": 1.0428096225335601,
+        "score_final": 0.49715065471956826
+      },
+      "explicaciones": [
+        "✅ Buena habitabilidad general (6.7/10)",
+        "✅ Buena acceso a educación (6.9/10)",
+        "✅ Buena accesibilidad al transporte (6.7/10)",
+        "📐 Espacioso: 104m² construidos",
+        "🚗 3 estacionamientos"
+      ],
+      "coordenadas": {
+        "lat": 6298491.179614866,
+        "lon": 347399.8451130898
+      }
+    },
+    {
+      "posicion": 4,
+      "id_propiedad": 538,
+      "comuna": "Santiago",
+      "tipo_propiedad": "casa",
+      "precio_total_uf": 7903.3,
+      "precio_uf_m2": 58.8,
+      "metros_construidos": 134.4,
+      "dormitorios": 3,
+      "banos": 2,
+      "estacionamientos": 2,
+      "antiguedad_anos": 9.4,
+      "piso": 1,
+      "indices_habitabilidad": {
+        "habitabilidad_global": 5.393646098114069,
+        "vida_urbana": 6.407306154699687,
+        "calidad_vida": 3.8731560132356435
+      },
+      "scores": {
+        "score_personalizado": 0.597141130641962,
+        "valor_relativo": 1.2552643057679598,
+        "score_final": 0.49457808317976126
+      },
+      "explicaciones": [
+        "✅ Buena habitabilidad general (5.4/10)",
+        "✅ Buena acceso a educación (6.3/10)",
+        "✅ Buena accesibilidad al transporte (6.3/10)",
+        "💰 Excelente relación calidad-precio (valor 125.5% sobre precio)",
+        "📐 Espacioso: 134m² construidos"
+      ],
+      "coordenadas": {
+        "lat": 6295291.179614866,
+        "lon": 347199.8451130898
+      }
+    },
+    {
+      "posicion": 5,
+      "id_propiedad": 2471,
+      "comuna": "Santiago",
+      "tipo_propiedad": "casa",
+      "precio_total_uf": 4876.7,
+      "precio_uf_m2": 60.96,
+      "metros_construidos": 80.0,
+      "dormitorios": 4,
+      "banos": 4,
+      "estacionamientos": 2,
+      "antiguedad_anos": 14.0,
+      "piso": 1,
+      "indices_habitabilidad": {
+        "habitabilidad_global": 5.81078076846328,
+        "vida_urbana": 6.929872393811015,
+        "calidad_vida": 4.132143330441679
+      },
+      "scores": {
+        "score_personalizado": 0.6566225884964303,
+        "valor_relativo": 1.1147312345321085,
+        "score_final": 0.49405518230713374
+      },
+      "explicaciones": [
+        "✅ Buena habitabilidad general (5.8/10)",
+        "⭐ Excelente acceso a educación (7.1/10)",
+        "✅ Buena accesibilidad al transporte (6.8/10)",
+        "💰 Excelente relación calidad-precio (valor 111.5% sobre precio)",
+        "🚗 2 estacionamientos"
+      ],
+      "coordenadas": {
+        "lat": 6298891.179614866,
+        "lon": 344799.8451130898
+      }
+    },
+    {
+      "posicion": 6,
+      "id_propiedad": 2748,
+      "comuna": "Santiago",
+      "tipo_propiedad": "casa",
+      "precio_total_uf": 6175.3,
+      "precio_uf_m2": 77.19,
+      "metros_construidos": 80.0,
+      "dormitorios": 3,
+      "banos": 3,
+      "estacionamientos": 1,
+      "antiguedad_anos": 11.3,
+      "piso": 1,
+      "indices_habitabilidad": {
+        "habitabilidad_global": 6.595322996295145,
+        "vida_urbana": 7.063886868478992,
+        "calidad_vida": 5.892477188019377
+      },
+      "scores": {
+        "score_personalizado": 0.688086526681746,
+        "valor_relativo": 1.0335956792266643,
+        "score_final": 0.4917392724452214
+      },
+      "explicaciones": [
+        "✅ Buena habitabilidad general (6.6/10)",
+        "✅ Buena acceso a educación (5.9/10)",
+        "⭐ Excelente accesibilidad al transporte (8.2/10)"
+      ],
+      "coordenadas": {
+        "lat": 6299491.179614866,
+        "lon": 345799.8451130898
+      }
+    },
+    {
+      "posicion": 7,
+      "id_propiedad": 1392,
+      "comuna": "Santiago",
+      "tipo_propiedad": "casa",
+      "precio_total_uf": 7896.1,
+      "precio_uf_m2": 59.82,
+      "metros_construidos": 132.0,
+      "dormitorios": 4,
+      "banos": 3,
+      "estacionamientos": 2,
+      "antiguedad_anos": 42.4,
+      "piso": 1,
+      "indices_habitabilidad": {
+        "habitabilidad_global": 6.346406040443977,
+        "vida_urbana": 6.953842524488196,
+        "calidad_vida": 5.43525131437765
+      },
+      "scores": {
+        "score_personalizado": 0.6753707270567957,
+        "valor_relativo": 1.0430586625234453,
+        "score_final": 0.4856771076967905
+      },
+      "explicaciones": [
+        "✅ Buena habitabilidad general (6.3/10)",
+        "⭐ Excelente acceso a educación (7.3/10)",
+        "✅ Buena accesibilidad al transporte (6.5/10)",
+        "📐 Espacioso: 132m² construidos",
+        "🚗 2 estacionamientos"
+      ],
+      "coordenadas": {
+        "lat": 6296891.179614866,
+        "lon": 345199.8451130898
+      }
+    },
+    {
+      "posicion": 8,
+      "id_propiedad": 2182,
+      "comuna": "Santiago",
+      "tipo_propiedad": "casa",
+      "precio_total_uf": 7473.7,
+      "precio_uf_m2": 90.15,
+      "metros_construidos": 82.9,
+      "dormitorios": 3,
+      "banos": 2,
+      "estacionamientos": 1,
+      "antiguedad_anos": 8.7,
+      "piso": 1,
+      "indices_habitabilidad": {
+        "habitabilidad_global": 6.816210728282146,
+        "vida_urbana": 7.545073875426505,
+        "calidad_vida": 5.722916007565607
+      },
+      "scores": {
+        "score_personalizado": 0.727650741998993,
+        "valor_relativo": 0.9197784529634017,
+        "score_final": 0.4852890552883156
+      },
+      "explicaciones": [
+        "✅ Buena habitabilidad general (6.8/10)",
+        "⭐ Excelente acceso a educación (8.0/10)",
+        "⭐ Excelente accesibilidad al transporte (8.1/10)"
+      ],
+      "coordenadas": {
+        "lat": 6298291.179614866,
+        "lon": 345199.8451130898
+      }
+    },
+    {
+      "posicion": 9,
+      "id_propiedad": 488,
+      "comuna": "Ñuñoa",
+      "tipo_propiedad": "casa",
+      "precio_total_uf": 7112.5,
+      "precio_uf_m2": 38.08,
+      "metros_construidos": 186.8,
+      "dormitorios": 2,
+      "banos": 2,
+      "estacionamientos": 2,
+      "antiguedad_anos": 50.0,
+      "piso": 1,
+      "indices_habitabilidad": {
+        "habitabilidad_global": 4.0838536069891544,
+        "vida_urbana": 3.808023259638353,
+        "calidad_vida": 4.4975991280153576
+      },
+      "scores": {
+        "score_personalizado": 0.46734803477547254,
+        "valor_relativo": 1.5081895996110568,
+        "score_final": 0.47960050422614786
+      },
+      "explicaciones": [
+        "✅ Buena acceso a educación (6.2/10)",
+        "💰 Excelente relación calidad-precio (valor 150.8% sobre precio)",
+        "📐 Espacioso: 187m² construidos",
+        "🚗 2 estacionamientos"
+      ],
+      "coordenadas": {
+        "lat": 6295091.179614866,
+        "lon": 353599.8451130898
+      }
+    },
+    {
+      "posicion": 10,
+      "id_propiedad": 3035,
+      "comuna": "Santiago",
+      "tipo_propiedad": "casa",
+      "precio_total_uf": 4815.2,
+      "precio_uf_m2": 50.74,
+      "metros_construidos": 94.9,
+      "dormitorios": 4,
+      "banos": 2,
+      "estacionamientos": 1,
+      "antiguedad_anos": 5.6,
+      "piso": 1,
+      "indices_habitabilidad": {
+        "habitabilidad_global": 4.909351841304504,
+        "vida_urbana": 5.095004579661234,
+        "calidad_vida": 4.630872733769411
+      },
+      "scores": {
+        "score_personalizado": 0.5200761303622471,
+        "valor_relativo": 1.3573133178975614,
+        "score_final": 0.4712472866228413
+      },
+      "explicaciones": [
+        "✅ Buena acceso a educación (5.9/10)",
+        "✅ Buena accesibilidad al transporte (5.1/10)",
+        "💰 Excelente relación calidad-precio (valor 135.7% sobre precio)"
+      ],
+      "coordenadas": {
+        "lat": 6300291.179614866,
+        "lon": 345199.8451130898
+      }
+    }
+  ]
+}

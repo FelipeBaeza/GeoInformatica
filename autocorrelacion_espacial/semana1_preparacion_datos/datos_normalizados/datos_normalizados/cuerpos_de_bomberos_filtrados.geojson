@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"name": "cuerpos_de_bomberos_filtrados",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::32719" } },
+"features": [
+{ "type": "Feature", "properties": { "OBJECTID": 7.0, "NOMBRE_DEL": "Ñuñoa", "TIPO_DE_VL": null, "NUMERACIó": "845", "NOMBRE_DE": "José Pedro Alessandri", "COMUNA": "Ñuñoa", "PROVINCIA": "Santiago", "REGIóN": "Región Metropolitana", "FID_CL_COM": 93.0, "ID_2002": "13120", "NOMBRE": "1u1oa", "FID_CL_REG": 6.0, "ID_2002_20": "13", "NOMBRE_1": "Metropolitana de Santiago", "centroide_x": 351388.67, "centroide_y": 6296306.72, "crs_original": "EPSG:4326", "fecha_normalizacion": "2025-10-10 01:59:23" }, "geometry": { "type": "Point", "coordinates": [ 351388.67000000004191, 6296306.720000000670552 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 3.0, "NOMBRE_DEL": "Santiago", "TIPO_DE_VL": "Calle", "NUMERACIó": "978", "NOMBRE_DE": "Santo Domingo", "COMUNA": "Santiago", "PROVINCIA": "Santiago", "REGIóN": "Región Metropolitana", "FID_CL_COM": 79.0, "ID_2002": "13101", "NOMBRE": "Santiago", "FID_CL_REG": 6.0, "ID_2002_20": "13", "NOMBRE_1": "Metropolitana de Santiago", "centroide_x": 346516.86, "centroide_y": 6299130.68, "crs_original": "EPSG:4326", "fecha_normalizacion": "2025-10-10 01:59:23" }, "geometry": { "type": "Point", "coordinates": [ 346516.860000000568107, 6299130.679999999701977 ] } }
+]
+}

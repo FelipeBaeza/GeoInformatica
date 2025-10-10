@@ -1,0 +1,495 @@
+{
+  "proyecto": {
+    "nombre": "Sistema de Valoración Inmobiliaria Geoespacial con Satisfacción Personalizada",
+    "fecha_creacion": "2025-10-10T02:02:04.401627",
+    "version": "1.0.0",
+    "descripcion": "Predicción dual de precio y satisfacción personalizada para propiedades inmobiliarias",
+    "crs_proyecto": "EPSG:32719 (UTM 19S)",
+    "area_estudio": "Gran Santiago - Comunas seleccionadas"
+  },
+  "metadatos_generales": {
+    "total_archivos": 29,
+    "total_geometrias": 10151,
+    "clasificacion_tematica": {
+      "transporte_movilidad": [
+        "Lineas_de_metro_de_Santiago.geojson",
+        "estaciones_carga_filtradas.geojson",
+        "circuito_turistico_filtrado.geojson"
+      ],
+      "servicios_amenidades": [
+        "servicios_filtrados.geojson",
+        "tiendas_filtradas.geojson",
+        "puntos_de_interes_filtrados.geojson",
+        "puntos_medicos_farmacias_hospitales_filtrados.geojson",
+        "redes_de_clinicas_filtradas.geojson",
+        "atracciones_turisticas_filtradas.geojson"
+      ],
+      "educacion": [
+        "establecimientos_educacion_escolar.geojson",
+        "establecimientos_educacion_superior.geojson",
+        "establecimientos_parvularia_filtrados.geojson"
+      ],
+      "seguridad": [
+        "cuarteles_filtrados.geojson",
+        "cuerpos_de_bomberos_filtrados.geojson",
+        "unidades_operativas_pdi_filtradas.geojson"
+      ],
+      "ambiente_espacios": [
+        "areas_verdes_filtradas.geojson",
+        "ocio_filtrado.geojson",
+        "estaciones_calidad_aire_filtrada.geojson",
+        "estaciones_metereológicas_filtradas.geojson",
+        "vertedores_ilegales_filtrados.geojson"
+      ],
+      "limites_administrativos": [
+        "comunas_buffer.geojson",
+        "unidades_vecinales_filtradas.geojson",
+        "poblacion_filtrada.geojson",
+        "poblacion2_filtrada.geojson",
+        "municipios_filtrados.geojson"
+      ],
+      "socioeconomico": [
+        "delincuencia_comunas_anual.geojson",
+        "campamentos.geojson",
+        "centros_sernam_filtrados.geojson",
+        "base_maestra_comunas_filtradas.geojson"
+      ]
+    },
+    "fuentes_originales": {
+      "Lineas_de_metro_de_Santiago.geojson": {
+        "fuente_original": "Metro de Santiago / DTPM",
+        "tipo_fuente": "Oficial",
+        "url": "https://www.metro.cl",
+        "licencia": "Datos abiertos",
+        "fecha_descarga": "2024-2025",
+        "cobertura_temporal": "Actual",
+        "descripcion": "Red de líneas del Metro de Santiago"
+      },
+      "servicios_filtrados.geojson": {
+        "fuente_original": "OpenStreetMap",
+        "tipo_fuente": "Colaborativa",
+        "url": "https://www.openstreetmap.org",
+        "licencia": "ODbL",
+        "fecha_descarga": "2024-2025",
+        "cobertura_temporal": "Actual",
+        "descripcion": "Servicios urbanos diversos extraídos de OSM"
+      },
+      "tiendas_filtradas.geojson": {
+        "fuente_original": "OpenStreetMap",
+        "tipo_fuente": "Colaborativa",
+        "url": "https://www.openstreetmap.org",
+        "licencia": "ODbL",
+        "fecha_descarga": "2024-2025",
+        "cobertura_temporal": "Actual",
+        "descripcion": "Comercio y tiendas de OSM"
+      },
+      "establecimientos_educacion_escolar.geojson": {
+        "fuente_original": "MINEDUC - Ministerio de Educación",
+        "tipo_fuente": "Oficial",
+        "url": "https://www.mineduc.cl",
+        "licencia": "Datos abiertos gubernamentales",
+        "fecha_descarga": "2024-2025",
+        "cobertura_temporal": "2024",
+        "descripcion": "Establecimientos de educación escolar registrados"
+      },
+      "poblacion_filtrada.geojson": {
+        "fuente_original": "INE - Instituto Nacional de Estadísticas",
+        "tipo_fuente": "Oficial",
+        "url": "https://www.ine.cl",
+        "licencia": "Datos abiertos gubernamentales",
+        "fecha_descarga": "2024-2025",
+        "cobertura_temporal": "Censo 2017",
+        "descripcion": "Manzanas censales con datos de población y vivienda"
+      },
+      "unidades_vecinales_filtradas.geojson": {
+        "fuente_original": "INE - Instituto Nacional de Estadísticas",
+        "tipo_fuente": "Oficial",
+        "url": "https://www.ine.cl",
+        "licencia": "Datos abiertos gubernamentales",
+        "fecha_descarga": "2024-2025",
+        "cobertura_temporal": "2024",
+        "descripcion": "Unidades vecinales con indicadores socioeconómicos"
+      }
+    },
+    "variables_para_features": {
+      "accesibilidad_transporte": {
+        "descripcion": "Variables para calcular accesibilidad a transporte público",
+        "archivos_fuente": [
+          "Lineas_de_metro_de_Santiago.geojson"
+        ],
+        "variables_usar": [
+          "geometry"
+        ],
+        "features_derivar": [
+          "distancia_metro_m",
+          "tiempo_metro_min",
+          "estaciones_1km"
+        ],
+        "notas": "Falta agregar estaciones puntuales desde OSM"
+      },
+      "densidad_servicios": {
+        "descripcion": "Densidad de servicios urbanos en diferentes radios",
+        "archivos_fuente": [
+          "servicios_filtrados.geojson",
+          "tiendas_filtradas.geojson",
+          "puntos_medicos_farmacias_hospitales_filtrados.geojson"
+        ],
+        "variables_usar": [
+          "geometry",
+          "amenity",
+          "shop",
+          "healthcare"
+        ],
+        "features_derivar": [
+          "servicios_300m",
+          "servicios_600m",
+          "servicios_1km",
+          "tiendas_300m",
+          "salud_1km"
+        ]
+      },
+      "educacion_acceso": {
+        "descripcion": "Acceso a educación por niveles",
+        "archivos_fuente": [
+          "establecimientos_educacion_escolar.geojson",
+          "establecimientos_parvularia_filtrados.geojson",
+          "establecimientos_educacion_superior.geojson"
+        ],
+        "variables_usar": [
+          "geometry",
+          "tipo",
+          "nivel"
+        ],
+        "features_derivar": [
+          "colegios_1km",
+          "jardines_500m",
+          "universidades_2km",
+          "distancia_colegio_m"
+        ]
+      },
+      "seguridad_proximidad": {
+        "descripcion": "Proximidad a servicios de seguridad",
+        "archivos_fuente": [
+          "cuarteles_filtrados.geojson",
+          "unidades_operativas_pdi_filtradas.geojson",
+          "cuerpos_de_bomberos_filtrados.geojson"
+        ],
+        "variables_usar": [
+          "geometry",
+          "tipo_unidad",
+          "categoria"
+        ],
+        "features_derivar": [
+          "seguridad_1km_dummy",
+          "distancia_pdi_m",
+          "distancia_bomberos_m"
+        ]
+      },
+      "ambiente_calidad": {
+        "descripcion": "Calidad ambiental y espacios verdes",
+        "archivos_fuente": [
+          "areas_verdes_filtradas.geojson",
+          "ocio_filtrado.geojson",
+          "vertedores_ilegales_filtrados.geojson"
+        ],
+        "variables_usar": [
+          "geometry",
+          "area_m2",
+          "tipo"
+        ],
+        "features_derivar": [
+          "pct_area_verde_600m",
+          "distancia_parque_m",
+          "area_parque_cercano_m2",
+          "vertederos_1km_dummy"
+        ]
+      },
+      "contexto_socioeconomico": {
+        "descripcion": "Variables de contexto socioeconómico por zona",
+        "archivos_fuente": [
+          "unidades_vecinales_filtradas.geojson",
+          "poblacion_filtrada.geojson"
+        ],
+        "variables_usar": [
+          "geometry",
+          "total_poblacion",
+          "densidad_vivienda",
+          "indicadores_ndpet*"
+        ],
+        "features_derivar": [
+          "densidad_poblacional",
+          "indicadores_socioeconomicos_uv",
+          "tipologia_barrio"
+        ],
+        "metodo_join": "point_in_polygon"
+      }
+    }
+  },
+  "esquemas_archivos": [
+    {
+      "archivo": "Lineas_de_metro_de_Santiago.geojson",
+      "filas": 12,
+      "columnas": 13,
+      "crs": "EPSG:32719",
+      "tipo_geometria": "LineString",
+      "bounds": [
+        336746.76606574585,
+        6280038.2327999985,
+        356347.23423316085,
+        6306805.432572916
+      ],
+      "campos": {
+        "FID": {
+          "tipo_datos": "int32",
+          "valores_unicos": 12,
+          "valores_nulos": "0",
+          "completitud_pct": 100.0,
+          "ejemplos": [
+            1,
+            2,
+            3
+          ],
+          "estadisticas": {
+            "min": "1",
+            "max": "12",
+            "media": 6.5,
+            "mediana": 6.5
+          },
+          "valores_frecuentes": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1,
+            "5": 1
+          }
+        },
+        "objectid": {
+          "tipo_datos": "int32",
+          "valores_unicos": 11,
+          "valores_nulos": "0",
+          "completitud_pct": 100.0,
+          "ejemplos": [
+            1,
+            2,
+            3
+          ],
+          "estadisticas": {
+            "min": "0",
+            "max": "10",
+            "media": 4.583333333333333,
+            "mediana": 4.5
+          },
+          "valores_frecuentes": {
+            "0": 2,
+            "2": 1,
+            "1": 1,
+            "3": 1,
+            "4": 1
+          }
+        },
+        "id": {
+          "tipo_datos": "object",
+          "valores_unicos": 9,
+          "valores_nulos": "0",
+          "completitud_pct": 100.0,
+          "ejemplos": [
+            "1",
+            "2",
+            "5"
+          ],
+          "valores_frecuentes": {
+            "": 3,
+            "3": 2,
+            "1": 1,
+            "2": 1,
+            "5": 1
+          }
+        },
+        "lenght": {
+          "tipo_datos": "float64",
+          "valores_unicos": 9,
+          "valores_nulos": "0",
+          "completitud_pct": 100.0,
+          "ejemplos": [
+            9913.341,
+            5456.886,
+            1349.751
+          ],
+          "estadisticas": {
+            "min": 0.0,
+            "max": 20677.039,
+            "media": 7732.645083333334,
+            "mediana": 7669.4875
+          },
+          "valores_frecuentes": {
+            "0.0": 3,
+            "20677.039": 2,
+            "9913.341": 1,
+            "5456.886": 1,
+            "1349.751": 1
+          }
+        },
+        "nombre": {
+          "tipo_datos": "object",
+          "valores_unicos": 2,
+          "valores_nulos": "0",
+          "completitud_pct": 100.0,
+          "ejemplos": [
+            "LINEA DE METRO ACTUAL",
+            "LINEA DE METRO ACTUAL",
+            "LINEA DE METRO ACTUAL"
+          ],
+          "valores_frecuentes": {
+            "LINEA DE METRO ACTUAL": 10,
+            "LINEA DE METRO PROYECTADA": 2
+          }
+        },
+        "linea": {
+          "tipo_datos": "object",
+          "valores_unicos": 7,
+          "valores_nulos": "0",
+          "completitud_pct": 100.0,
+          "ejemplos": [
+            "LINEA 1",
+            "LINEA 1",
+            "LINEA 2"
+          ],
+          "valores_frecuentes": {
+            "LINEA 1": 3,
+            "LINEA 2": 2,
+            "LINEA 4": 2,
+            "LINEA 5": 2,
+            "LINEA 4A": 1
+          }
+        },
+        "layer": {
+          "tipo_datos": "object",
+          "valores_unicos": 2,
+          "valores_nulos": "0",
+          "completitud_pct": 100.0,
+          "ejemplos": [
+            "LINEA DE METRO ACTUAL",
+            "LINEA DE METRO ACTUAL",
+            "LINEA DE METRO ACTUAL"
+          ],
+          "valores_frecuentes": {
+            "LINEA DE METRO ACTUAL": 10,
+            "LINEA DE METRO PROYECTADA": 2
+          }
+        },
+        "shape_leng": {
+          "tipo_datos": "float64",
+          "valores_unicos": 11,
+          "valores_nulos": "0",
+          "completitud_pct": 100.0,
+          "ejemplos": [
+            9913.2759182,
+            5456.8502265,
+            6712.23473999
+          ],
+          "estadisticas": {
+            "min": 0.0,
+            "max": 13369.7100354,
+            "media": 6988.980854875834,
+            "mediana": 7009.713377624999
+          },
+          "valores_frecuentes": {
+            "0.0": 2,
+            "5456.8502265": 1,
+            "9913.2759182": 1,
+            "6712.23473999": 1,
+            "12773.5979327": 1
+          }
+        },
+        "GlobalID": {
+          "tipo_datos": "object",
+          "valores_unicos": 12,
+          "valores_nulos": "0",
+          "completitud_pct": 100.0,
+          "ejemplos": [
+            "a209f9c0-1b70-4bf0-bb9d-b80b572c67a5",
+            "acf6b60f-1e6a-4cde-93d5-30be17efa5dd",
+            "be6fbb14-6258-49ef-8a5f-beac857723ea"
+          ],
+          "valores_frecuentes": {
+            "a209f9c0-1b70-4bf0-bb9d-b80b572c67a5": 1,
+            "acf6b60f-1e6a-4cde-93d5-30be17efa5dd": 1,
+            "be6fbb14-6258-49ef-8a5f-beac857723ea": 1,
+            "bcebec8d-b270-4ea8-9992-5ee74ce17d1b": 1,
+            "aa997047-1ad1-4ab7-8108-04858a193517": 1
+          }
+        },
+        "centroide_x": {
+          "tipo_datos": "float64",
+          "valores_unicos": 12,
+          "valores_nulos": "0",
+          "completitud_pct": 100.0,
+          "ejemplos": [
+            343501.75082167046,
+            350282.81889061554,
+            347112.13554911315
+          ],
+          "estadisticas": {
+            "min": 339794.84989226476,
+            "max": 354486.9782090629,
+            "media": 348388.03303371754,
+            "mediana": 348429.5917317206
+          },
+          "valores_frecuentes": {
+            "343501.75082167046": 1,
+            "350282.81889061554": 1,
+            "347112.13554911315": 1,
+            "346092.9081541335": 1,
+            "352867.1405439071": 1
+          }
+        },
+        "centroide_y": {
+          "tipo_datos": "float64",
+          "valores_unicos": 12,
+          "valores_nulos": "0",
+          "completitud_pct": 100.0,
+          "ejemplos": [
+            6297577.498845033,
+            6300509.553388813,
+            6302354.443058396
+          ],
+          "estadisticas": {
+            "min": 6284883.715626857,
+            "max": 6302354.443058396,
+            "media": 6296048.487738284,
+            "mediana": 6296286.963460146
+          },
+          "valores_frecuentes": {
+            "6297577.498845033": 1,
+            "6300509.553388813": 1,
+            "6302354.443058396": 1,
+            "6293953.766232686": 1,
+            "6284883.715626857": 1
+          }
+        },
+        "crs_original": {
+          "tipo_datos": "object",
+          "valores_unicos": 1,
+          "valores_nulos": "0",
+          "completitud_pct": 100.0,
+          "ejemplos": [
+            "EPSG:4326",
+            "EPSG:4326",
+            "EPSG:4326"
+          ],
+          "valores_frecuentes": {
+            "EPSG:4326": 12
+          }
+        },
+        "fecha_normalizacion": {
+          "tipo_datos": "datetime64[ms]",
+          "valores_unicos": 1,
+          "valores_nulos": "0",
+          "completitud_pct": 100.0,
+          "ejemplos": [
+            "2025-10-10T01:59:22",
+            "2025-10-10T01:59:22",
+            "2025-10-10T01:59:22"
+          ],
+          "valores_frecuentes": {
+            

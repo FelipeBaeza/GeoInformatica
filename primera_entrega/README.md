@@ -7,28 +7,28 @@ Este directorio contiene todos los materiales necesarios para la **primera evalu
 ### 📄 Documentos disponibles:
 
 1. **📘 `guia_primera_entrega.tex`** - Guía completa de evaluación (LaTeX)
-   - Descripción detallada de requisitos
-   - Objetivos y componentes de evaluación
-   - Fechas importantes
-   - Recursos de apoyo
+- Descripción detallada de requisitos
+- Objetivos y componentes de evaluación
+- Fechas importantes
+- Recursos de apoyo
 
 2. **📊 `rubrica_evaluacion.md`** - Rúbrica de evaluación detallada
-   - Distribución de puntajes (100 puntos)
-   - Criterios específicos por componente
-   - Escala de conversión a notas
-   - Bonificaciones posibles
+- Distribución de puntajes (100 puntos)
+- Criterios específicos por componente
+- Escala de conversión a notas
+- Bonificaciones posibles
 
 3. **📝 `plantilla_informe.tex`** - Plantilla LaTeX para el informe
-   - Estructura completa predefinida
-   - Secciones requeridas
-   - Formato profesional
-   - Ejemplos de código y tablas
+- Estructura completa predefinida
+- Secciones requeridas
+- Formato profesional
+- Ejemplos de código y tablas
 
 4. **✅ `checklist_estudiantes.md`** - Checklist de entregables
-   - Lista verificable de todos los requisitos
-   - Timeline recomendado
-   - Errores comunes a evitar
-   - Tips para mejor nota
+- Lista verificable de todos los requisitos
+- Timeline recomendado
+- Errores comunes a evitar
+- Tips para mejor nota
 
 ---
 
@@ -109,9 +109,9 @@ cp /ruta/a/plantilla_informe.tex docs/
 ```bash
 # Crear ambiente virtual
 python -m venv venv
-source venv/bin/activate  # Linux/Mac
+source venv/bin/activate # Linux/Mac
 # o
-venv\Scripts\activate  # Windows
+venv\Scripts\activate # Windows
 
 # Instalar librerías básicas
 pip install geopandas pandas matplotlib folium jupyter

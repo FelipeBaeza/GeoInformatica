@@ -1,0 +1,155 @@
+{
+  "fecha_calculo": "2025-10-10 11:54:16",
+  "puntos_procesados": 3149,
+  "categorias_servicios": 17,
+  "columnas_distancia_creadas": 21,
+  "estadisticas_por_categoria": {
+    "dist_educacion_basica_m": {
+      "puntos_con_servicio": 3149,
+      "distancia_min_m": 6.119001769401994,
+      "distancia_max_m": 4180.245780775503,
+      "distancia_promedio_m": 467.68298299100445,
+      "distancia_mediana_m": 284.5554051673948
+    },
+    "dist_educacion_superior_m": {
+      "puntos_con_servicio": 3149,
+      "distancia_min_m": 5.173622688771443,
+      "distancia_max_m": 4810.205012548845,
+      "distancia_promedio_m": 1366.39194453127,
+      "distancia_mediana_m": 1085.164531390678
+    },
+    "dist_educacion_parvularia_m": {
+      "puntos_con_servicio": 3149,
+      "distancia_min_m": 5.559635567320537,
+      "distancia_max_m": 4454.655526271888,
+      "distancia_promedio_m": 502.61299895558454,
+      "distancia_mediana_m": 292.3946227070357
+    },
+    "dist_salud_m": {
+      "puntos_con_servicio": 3149,
+      "distancia_min_m": 9.9567029952734,
+      "distancia_max_m": 6007.867571121092,
+      "distancia_promedio_m": 1637.382792942916,
+      "distancia_mediana_m": 1359.2298553301735
+    },
+    "dist_salud_clinicas_m": {
+      "puntos_con_servicio": 3149,
+      "distancia_min_m": 33.33267320829804,
+      "distancia_max_m": 11844.484773166014,
+      "distancia_promedio_m": 3336.73538110429,
+      "distancia_mediana_m": 2382.239172801872
+    },
+    "dist_transporte_metro_m": {
+      "puntos_con_servicio": 3149,
+      "distancia_min_m": 38.370911304182435,
+      "distancia_max_m": 9540.36139388693,
+      "distancia_promedio_m": 2598.533165048739,
+      "distancia_mediana_m": 2013.1046798206667
+    },
+    "dist_transporte_carga_m": {
+      "puntos_con_servicio": 3149,
+      "distancia_min_m": 38.87872945057298,
+      "distancia_max_m": 7049.728422854747,
+      "distancia_promedio_m": 1824.9544077567903,
+      "distancia_mediana_m": 1436.1577607104555
+    },
+    "dist_seguridad_pdi_m": {
+      "puntos_con_servicio": 3149,
+      "distancia_min_m": 18.596949861222647,
+      "distancia_max_m": 5366.800223070464,
+      "distancia_promedio_m": 1480.1120666332404,
+      "distancia_mediana_m": 1322.7284860058214
+    },
+    "dist_seguridad_cuarteles_m": {
+      "puntos_con_servicio": 3149,
+      "distancia_min_m": 34.30428234796728,
+      "distancia_max_m": 6573.854154255876,
+      "distancia_promedio_m": 1691.0556266014953,
+      "distancia_mediana_m": 1406.5218846911846
+    },
+    "dist_seguridad_bomberos_m": {
+      "puntos_con_servicio": 3149,
+      "distancia_min_m": 19.14123096087213,
+      "distancia_max_m": 11039.08303521998,
+      "distancia_promedio_m": 4513.997557120111,
+      "distancia_mediana_m": 4051.920754409834
+    },
+    "dist_areas_verdes_m": {
+      "puntos_con_servicio": 3149,
+      "distancia_min_m": 1.2087864952864251,
+      "distancia_max_m": 3492.5552189609584,
+      "distancia_promedio_m": 325.8373441614017,
+      "distancia_mediana_m": 164.57749803753785
+    },
+    "dist_ocio_m": {
+      "puntos_con_servicio": 3149,
+      "distancia_min_m": 3.597270530421119,
+      "distancia_max_m": 3607.3253447741727,
+      "distancia_promedio_m": 416.3087009291975,
+      "distancia_mediana_m": 256.5710168381546
+    },
+    "dist_turismo_m": {
+      "puntos_con_servicio": 3149,
+      "distancia_min_m": 19.86734603630604,
+      "distancia_max_m": 6046.311750803526,
+      "distancia_promedio_m": 2324.033122942148,
+      "distancia_mediana_m": 2049.8590640607204
+    },
+    "dist_servicios_publicos_m": {
+      "puntos_con_servicio": 3149,
+      "distancia_min_m": 35.5536221105503,
+      "distancia_max_m": 5704.140179590842,
+      "distancia_promedio_m": 2187.0686045031935,
+      "distancia_mediana_m": 2142.5259385482723
+    },
+    "dist_servicios_sernam_m": {
+      "puntos_con_servicio": 3149,
+      "distancia_min_m": 26.924134241042104,
+      "distancia_max_m": 6683.894233681269,
+      "distancia_promedio_m": 2676.3996987718842,
+      "distancia_mediana_m": 2545.616364221631
+    },
+    "dist_comercio_m": {
+      "puntos_con_servicio": 3149,
+      "distancia_min_m": 1.6372358432376208,
+      "distancia_max_m": 3396.985737455671,
+      "distancia_promedio_m": 926.5231119700252,
+      "distancia_mediana_m": 776.0341063772582
+    },
+    "dist_puntos_interes_m": {
+      "puntos_con_servicio": 3149,
+      "distancia_min_m": 2.934791109009641,
+      "distancia_max_m": 5052.233399215071,
+      "distancia_promedio_m": 1118.8415377668427,
+      "distancia_mediana_m": 830.4754301457913
+    },
+    "dist_educacion_min_m": {
+      "puntos_con_servicio": 3149,
+      "distancia_min_m": 5.173622688771443,
+      "distancia_max_m": 4180.245780775503,
+      "distancia_promedio_m": 427.1601983016737,
+      "distancia_mediana_m": 238.86642463188326
+    },
+    "dist_salud_min_m": {
+      "puntos_con_servicio": 3149,
+      "distancia_min_m": 9.9567029952734,
+      "distancia_max_m": 5052.233399215071,
+      "distancia_promedio_m": 1257.211329627893,
+      "distancia_mediana_m": 1031.5330079816977
+    },
+    "dist_seguridad_min_m": {
+      "puntos_con_servicio": 3149,
+      "distancia_min_m": 18.596949861222647,
+      "distancia_max_m": 5366.800223070464,
+      "distancia_promedio_m": 1185.9816091144608,
+      "distancia_mediana_m": 960.9076597711202
+    },
+    "dist_transporte_min_m": {
+      "puntos_con_servicio": 3149,
+      "distancia_min_m": 38.370911304182435,
+      "distancia_max_m": 5799.9568365481855,
+      "distancia_promedio_m": 1302.5534263328564,
+      "distancia_mediana_m": 1057.9870735091938
+    }
+  }
+}

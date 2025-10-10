@@ -1,0 +1,10 @@
+{
+"type": "FeatureCollection",
+"name": "campamentos",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::32719" } },
+"features": [
+{ "type": "Feature", "properties": { "NOMBRE": "Luis Infante Cerda 8540", "NOM_COMUNA": "Estación Central", "N_FAM": 12.0, "centroide_x": 341010.2138705625, "centroide_y": 6294485.8385191765, "crs_original": "EPSG:4326", "fecha_normalizacion": "2025-10-10 01:59:23" }, "geometry": { "type": "Point", "coordinates": [ 341010.213870562496595, 6294485.838519176468253 ] } },
+{ "type": "Feature", "properties": { "NOMBRE": "Condominio Buzeta", "NOM_COMUNA": "Estación Central", "N_FAM": 11.0, "centroide_x": 343505.22930963768, "centroide_y": 6294728.7465089168, "crs_original": "EPSG:4326", "fecha_normalizacion": "2025-10-10 01:59:23" }, "geometry": { "type": "Point", "coordinates": [ 343505.229309637681581, 6294728.746508916839957 ] } },
+{ "type": "Feature", "properties": { "NOMBRE": "Nicasio Retamales", "NOM_COMUNA": "Estación Central", "N_FAM": 15.0, "centroide_x": 343091.49369915231, "centroide_y": 6296430.0374034038, "crs_original": "EPSG:4326", "fecha_normalizacion": "2025-10-10 01:59:23" }, "geometry": { "type": "Point", "coordinates": [ 343091.493699152313638, 6296430.037403403781354 ] } }
+]
+}

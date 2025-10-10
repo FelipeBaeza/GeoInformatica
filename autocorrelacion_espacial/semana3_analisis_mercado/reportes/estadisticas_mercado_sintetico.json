@@ -1,0 +1,76 @@
+{
+  "fecha_generacion": "2025-10-10 13:17:10",
+  "total_propiedades": 3149,
+  "comunas_incluidas": [
+    "Estación Central",
+    "Santiago",
+    "Ñuñoa",
+    "La Reina"
+  ],
+  "distribucion_tipos": {
+    "casas": 1441,
+    "departamentos": 1708,
+    "porcentaje_casas": 45.76055890758971,
+    "porcentaje_departamentos": 54.23944109241029
+  },
+  "precios_uf_m2": {
+    "promedio_general": 71.80599872975547,
+    "mediana_general": 67.81,
+    "desviacion_std": 24.65853061217788,
+    "minimo": 25.62,
+    "maximo": 150.0,
+    "percentil_25": 53.29,
+    "percentil_75": 85.42
+  },
+  "precios_por_comuna": {
+    "Estación Central": {
+      "precio_promedio_uf_m2": 51.61166666666667,
+      "precio_mediana_uf_m2": 51.555,
+      "total_propiedades": 786,
+      "habitabilidad_promedio": 4.153834379247277
+    },
+    "Santiago": {
+      "precio_promedio_uf_m2": 69.85596491228071,
+      "precio_mediana_uf_m2": 69.84,
+      "total_propiedades": 627,
+      "habitabilidad_promedio": 5.507666084739234
+    },
+    "Ñuñoa": {
+      "precio_promedio_uf_m2": 69.526243902439,
+      "precio_mediana_uf_m2": 69.54,
+      "total_propiedades": 615,
+      "habitabilidad_promedio": 4.103400962534501
+    },
+    "La Reina": {
+      "precio_promedio_uf_m2": 88.30685994647635,
+      "precio_mediana_uf_m2": 89.63,
+      "total_propiedades": 1121,
+      "habitabilidad_promedio": 3.481724657811335
+    }
+  },
+  "precios_por_tipo": {
+    "casa": {
+      "precio_promedio_uf_m2": 72.51030534351145,
+      "precio_mediana_uf_m2": 68.7,
+      "metros_promedio": 182.0877168632894,
+      "total_propiedades": 1441
+    },
+    "departamento": {
+      "precio_promedio_uf_m2": 71.21179156908664,
+      "precio_mediana_uf_m2": 66.915,
+      "metros_promedio": 80.89525761124122,
+      "total_propiedades": 1708
+    }
+  },
+  "correlaciones_habitabilidad": {
+    "precio_vs_habitabilidad": 0.44652863548982813,
+    "precio_vs_vida_urbana": 0.47986721385565206,
+    "precio_vs_calidad_vida": 0.3042800018358695
+  },
+  "metricas_propiedades": {
+    "metros_promedio": 127.20149253731343,
+    "dormitorios_promedio": 2.7678628135916163,
+    "antiguedad_promedio": 14.508542394410927,
+    "estacionamientos_promedio": 1.3232772308669418
+  }
+}

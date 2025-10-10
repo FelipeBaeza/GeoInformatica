@@ -1,0 +1,104 @@
+{
+  "fecha_analisis": "2025-10-10 13:22:41",
+  "dataset_info": {
+    "total_muestras": 3085,
+    "total_caracteristicas": 20,
+    "caracteristicas_utilizadas": [
+      "idx_habitabilidad_global",
+      "idx_vida_urbana",
+      "idx_calidad_vida",
+      "acc_educacion",
+      "acc_salud",
+      "acc_transporte",
+      "acc_entorno",
+      "acc_seguridad",
+      "acc_comercial",
+      "metros_construidos",
+      "dormitorios",
+      "banos",
+      "estacionamientos",
+      "antiguedad_anos",
+      "piso",
+      "dens_comercio_1000m_km2",
+      "dens_educacion_1000m_km2",
+      "dens_transporte_1000m_km2",
+      "comuna_encoded",
+      "tipo_propiedad_encoded"
+    ]
+  },
+  "correlaciones_por_categoria": {
+    "Habitabilidad": {
+      "idx_habitabilidad_global": 0.446528635489827,
+      "idx_vida_urbana": 0.4798672138556518,
+      "idx_calidad_vida": 0.3042800018358701,
+      "acc_educacion": 0.23658199393288992,
+      "acc_salud": 0.45495270950598016,
+      "acc_transporte": 0.44479057634334657,
+      "acc_entorno": 0.2312348554123456,
+      "acc_seguridad": 0.09759966589129651,
+      "acc_comercial": 0.37527688368426015
+    },
+    "Distancias": {
+      "dist_areas_verdes_m": -0.2897934353417943
+    },
+    "Densidades": {
+      "dens_educacion_1000m_km2": 0.04669663169906859,
+      "dens_salud_1000m_km2": 0.22924931837196122,
+      "dens_comercio_1000m_km2": 0.1780983341975808,
+      "dens_transporte_1000m_km2": 0.22700787099121345
+    },
+    "Propiedad": {
+      "metros_construidos": 0.10276900814488825,
+      "dormitorios": 0.01016031573804801,
+      "banos": 0.013660408237778166,
+      "estacionamientos": 0.020312510987298877,
+      "antiguedad_anos": -0.2766218899874748,
+      "piso": 0.0425026750252047
+    }
+  },
+  "modelos_evaluados": {
+    "linear_regression": {
+      "r2_test": 0.42977058249963307,
+      "rmse_test": 17.785856102410122,
+      "mae_test": 14.27467462377513,
+      "cv_r2_mean": 0.42227561884603243,
+      "cv_r2_std": 0.01953481913530484,
+      "mejores_parametros": {}
+    },
+    "random_forest": {
+      "r2_test": 0.8668390254417211,
+      "rmse_test": 8.594852888855938,
+      "mae_test": 6.5862765442359015,
+      "cv_r2_mean": 0.8618110023999789,
+      "cv_r2_std": 0.014747324665264253,
+      "mejores_parametros": {
+        "max_depth": 10,
+        "min_samples_split": 2,
+        "n_estimators": 300
+      }
+    },
+    "gradient_boosting": {
+      "r2_test": 0.8842234837297828,
+      "rmse_test": 8.01420050778053,
+      "mae_test": 6.205970674950209,
+      "cv_r2_mean": 0.8739991812374802,
+      "cv_r2_std": 0.007060397438290831,
+      "mejores_parametros": {
+        "learning_rate": 0.05,
+        "max_depth": 5,
+        "n_estimators": 200
+      }
+    }
+  },
+  "mejor_modelo": {
+    "nombre": "gradient_boosting",
+    "r2_test": 0.8842234837297828,
+    "rmse_test": 8.01420050778053,
+    "interpretacion": "El modelo explica 88.4% de la variabilidad en precios con error promedio de 8.0 UF/m²"
+  },
+  "insights_principales": {
+    "correlacion_habitabilidad_precio": 0.4798672138556518,
+    "caracteristica_mas_correlacionada": "idx_vida_urbana",
+    "rendimiento_modelos": "Mejor modelo: gradient_boosting con R² = 0.884"
+  }
+}

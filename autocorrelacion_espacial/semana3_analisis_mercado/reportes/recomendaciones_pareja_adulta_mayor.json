@@ -1,0 +1,356 @@
+{
+  "fecha_recomendacion": "2025-10-10 13:24:49",
+  "perfil_usuario": {
+    "presupuesto_max_uf": 6000,
+    "tipo_propiedad_pref": null,
+    "comuna_pref": [
+      "La Reina",
+      "Ñuñoa"
+    ],
+    "prioridades": {
+      "habitabilidad_global": 0.3,
+      "salud": 0.35,
+      "transporte": 0.15,
+      "seguridad": 0.15,
+      "educacion": 0.05
+    }
+  },
+  "total_propiedades_evaluadas": 3149,
+  "propiedades_que_cumplen_criterios": 10,
+  "recomendaciones": [
+    {
+      "posicion": 1,
+      "id_propiedad": 1690,
+      "comuna": "La Reina",
+      "tipo_propiedad": "departamento",
+      "precio_total_uf": 5582.0,
+      "precio_uf_m2": 89.31,
+      "metros_construidos": 62.5,
+      "dormitorios": 2,
+      "banos": 1,
+      "estacionamientos": 1,
+      "antiguedad_anos": 7.9,
+      "piso": 8,
+      "indices_habitabilidad": {
+        "habitabilidad_global": 5.228464711116509,
+        "vida_urbana": 6.476556166477302,
+        "calidad_vida": 3.356327528075318
+      },
+      "scores": {
+        "score_personalizado": 0.5705292607550038,
+        "valor_relativo": 1.388960029354208,
+        "score_final": 0.516058491334765
+      },
+      "explicaciones": [
+        "✅ Buena habitabilidad general (5.2/10)",
+        "✅ Buena acceso a servicios de salud (6.2/10)",
+        "⭐ Excelente accesibilidad al transporte (7.9/10)",
+        "💰 Excelente relación calidad-precio (valor 138.9% sobre precio)"
+      ],
+      "coordenadas": {
+        "lat": 6297291.179614866,
+        "lon": 356399.8451130898
+      }
+    },
+    {
+      "posicion": 2,
+      "id_propiedad": 718,
+      "comuna": "Ñuñoa",
+      "tipo_propiedad": "departamento",
+      "precio_total_uf": 2137.8,
+      "precio_uf_m2": 38.18,
+      "metros_construidos": 56.0,
+      "dormitorios": 3,
+      "banos": 2,
+      "estacionamientos": 0,
+      "antiguedad_anos": 38.4,
+      "piso": 6,
+      "indices_habitabilidad": {
+        "habitabilidad_global": 4.536747877814103,
+        "vida_urbana": 4.652912263292297,
+        "calidad_vida": 4.362501299596813
+      },
+      "scores": {
+        "score_personalizado": 0.47254424780888976,
+        "valor_relativo": 1.4994954990166434,
+        "score_final": 0.4806296231712158
+      },
+      "explicaciones": [
+        "💰 Excelente relación calidad-precio (valor 149.9% sobre precio)"
+      ],
+      "coordenadas": {
+        "lat": 6295691.179614866,
+        "lon": 349799.8451130898
+      }
+    },
+    {
+      "posicion": 3,
+      "id_propiedad": 2530,
+      "comuna": "La Reina",
+      "tipo_propiedad": "departamento",
+      "precio_total_uf": 3902.2,
+      "precio_uf_m2": 101.62,
+      "metros_construidos": 38.4,
+      "dormitorios": 3,
+      "banos": 2,
+      "estacionamientos": 1,
+      "antiguedad_anos": 6.5,
+      "piso": 3,
+      "indices_habitabilidad": {
+        "habitabilidad_global": 5.8467490717902875,
+        "vida_urbana": 6.522368384834667,
+        "calidad_vida": 4.833320102223718
+      },
+      "scores": {
+        "score_personalizado": 0.6391442022737462,
+        "valor_relativo": 1.0602940258486921,
+        "score_final": 0.46548914934623
+      },
+      "explicaciones": [
+        "✅ Buena habitabilidad general (5.8/10)",
+        "✅ Buena acceso a servicios de salud (7.0/10)",
+        "✅ Buena accesibilidad al transporte (6.8/10)",
+        "💵 Buena relación calidad-precio (valor 106.0% sobre precio)"
+      ],
+      "coordenadas": {
+        "lat": 6298891.179614866,
+        "lon": 356999.8451130898
+      }
+    },
+    {
+      "posicion": 4,
+      "id_propiedad": 1987,
+      "comuna": "Ñuñoa",
+      "tipo_propiedad": "departamento",
+      "precio_total_uf": 2372.0,
+      "precio_uf_m2": 54.28,
+      "metros_construidos": 43.7,
+      "dormitorios": 1,
+      "banos": 2,
+      "estacionamientos": 2,
+      "antiguedad_anos": 14.8,
+      "piso": 1,
+      "indices_habitabilidad": {
+        "habitabilidad_global": 4.878789827496254,
+        "vida_urbana": 5.724033850612337,
+        "calidad_vida": 3.610923792822128
+      },
+      "scores": {
+        "score_personalizado": 0.5066089963139221,
+        "valor_relativo": 1.308996485175219,
+        "score_final": 0.44732524297231113
+      },
+      "explicaciones": [
+        "✅ Buena acceso a servicios de salud (6.0/10)",
+        "💰 Excelente relación calidad-precio (valor 130.9% sobre precio)",
+        "🚗 2 estacionamientos"
+      ],
+      "coordenadas": {
+        "lat": 6297891.179614866,
+        "lon": 348799.8451130898
+      }
+    },
+    {
+      "posicion": 5,
+      "id_propiedad": 1874,
+      "comuna": "Ñuñoa",
+      "tipo_propiedad": "departamento",
+      "precio_total_uf": 4775.9,
+      "precio_uf_m2": 108.54,
+      "metros_construidos": 44.0,
+      "dormitorios": 2,
+      "banos": 1,
+      "estacionamientos": 0,
+      "antiguedad_anos": 2.1,
+      "piso": 13,
+      "indices_habitabilidad": {
+        "habitabilidad_global": 6.203193386566893,
+        "vida_urbana": 7.043163930488235,
+        "calidad_vida": 4.943237570684879
+      },
+      "scores": {
+        "score_personalizado": 0.6423023918646109,
+        "valor_relativo": 0.9777215423495441,
+        "score_final": 0.4429281370100908
+      },
+      "explicaciones": [
+        "✅ Buena habitabilidad general (6.2/10)",
+        "⭐ Excelente acceso a servicios de salud (7.1/10)",
+        "⭐ Excelente accesibilidad al transporte (7.3/10)",
+        "🆕 Propiedad nueva (2.1 años)"
+      ],
+      "coordenadas": {
+        "lat": 6297691.179614866,
+        "lon": 347799.8451130898
+      }
+    },
+    {
+      "posicion": 6,
+      "id_propiedad": 923,
+      "comuna": "Ñuñoa",
+      "tipo_propiedad": "departamento",
+      "precio_total_uf": 2187.1,
+      "precio_uf_m2": 62.49,
+      "metros_construidos": 35.0,
+      "dormitorios": 2,
+      "banos": 2,
+      "estacionamientos": 2,
+      "antiguedad_anos": 4.6,
+      "piso": 5,
+      "indices_habitabilidad": {
+        "habitabilidad_global": 4.940963309343843,
+        "vida_urbana": 6.297709747725386,
+        "calidad_vida": 2.905843651771529
+      },
+      "scores": {
+        "score_personalizado": 0.5506809078958937,
+        "valor_relativo": 1.169913195945078,
+        "score_final": 0.436450594310649
+      },
+      "explicaciones": [
+        "✅ Buena acceso a servicios de salud (6.3/10)",
+        "⭐ Excelente accesibilidad al transporte (7.1/10)",
+        "💰 Excelente relación calidad-precio (valor 117.0% sobre precio)",
+        "🚗 2 estacionamientos",
+        "🆕 Propiedad nueva (4.6 años)"
+      ],
+      "coordenadas": {
+        "lat": 6296091.179614866,
+        "lon": 348199.8451130898
+      }
+    },
+    {
+      "posicion": 7,
+      "id_propiedad": 2092,
+      "comuna": "Ñuñoa",
+      "tipo_propiedad": "departamento",
+      "precio_total_uf": 5610.1,
+      "precio_uf_m2": 78.46,
+      "metros_construidos": 71.5,
+      "dormitorios": 2,
+      "banos": 3,
+      "estacionamientos": 1,
+      "antiguedad_anos": 19.2,
+      "piso": 9,
+      "indices_habitabilidad": {
+        "habitabilidad_global": 6.032023743259813,
+        "vida_urbana": 6.616604853945068,
+        "calidad_vida": 5.155152077231931
+      },
+      "scores": {
+        "score_personalizado": 0.6188440569712155,
+        "valor_relativo": 1.0071224748910763,
+        "score_final": 0.43532758234717367
+      },
+      "explicaciones": [
+        "✅ Buena habitabilidad general (6.0/10)",
+        "✅ Buena acceso a servicios de salud (6.7/10)",
+        "✅ Buena accesibilidad al transporte (6.9/10)"
+      ],
+      "coordenadas": {
+        "lat": 6298091.179614866,
+        "lon": 348399.8451130898
+      }
+    },
+    {
+      "posicion": 8,
+      "id_propiedad": 2435,
+      "comuna": "La Reina",
+      "tipo_propiedad": "departamento",
+      "precio_total_uf": 4089.1,
+      "precio_uf_m2": 116.83,
+      "metros_construidos": 35.0,
+      "dormitorios": 2,
+      "banos": 1,
+      "estacionamientos": 1,
+      "antiguedad_anos": 6.0,
+      "piso": 1,
+      "indices_habitabilidad": {
+        "habitabilidad_global": 5.922992597113774,
+        "vida_urbana": 6.60258391580972,
+        "calidad_vida": 4.903605619069856
+      },
+      "scores": {
+        "score_personalizado": 0.6449541841232107,
+        "valor_relativo": 0.9174910396637194,
+        "score_final": 0.42671524078536327
+      },
+      "explicaciones": [
+        "✅ Buena habitabilidad general (5.9/10)",
+        "✅ Buena acceso a servicios de salud (7.0/10)",
+        "✅ Buena accesibilidad al transporte (7.0/10)"
+      ],
+      "coordenadas": {
+        "lat": 6298691.179614866,
+        "lon": 356999.8451130898
+      }
+    },
+    {
+      "posicion": 9,
+      "id_propiedad": 2428,
+      "comuna": "La Reina",
+      "tipo_propiedad": "departamento",
+      "precio_total_uf": 2742.9,
+      "precio_uf_m2": 78.37,
+      "metros_construidos": 35.0,
+      "dormitorios": 3,
+      "banos": 2,
+      "estacionamientos": 1,
+      "antiguedad_anos": 50.0,
+      "piso": 1,
+      "indices_habitabilidad": {
+        "habitabilidad_global": 5.436786256208816,
+        "vida_urbana": 6.4714200955029835,
+        "calidad_vida": 3.8848354972675647
+      },
+      "scores": {
+        "score_personalizado": 0.5997970217877115,
+        "valor_relativo": 1.0140756570303442,
+        "score_final": 0.4240806123605013
+      },
+      "explicaciones": [
+        "✅ Buena habitabilidad general (5.4/10)",
+        "✅ Buena acceso a servicios de salud (6.6/10)",
+        "✅ Buena accesibilidad al transporte (6.9/10)"
+      ],
+      "coordenadas": {
+        "lat": 6298691.179614866,
+        "lon": 355599.8451130898
+      }
+    },
+    {
+      "posicion": 10,
+      "id_propiedad": 1410,
+      "comuna": "Ñuñoa",
+      "tipo_propiedad": "departamento",
+      "precio_total_uf": 3570.7,
+      "precio_uf_m2": 62.53,
+      "metros_construidos": 57.1,
+      "dormitorios": 2,
+      "banos": 3,
+      "estacionamientos": 1,
+      "antiguedad_anos": 16.5,
+      "piso": 6,
+      "indices_habitabilidad": {
+        "habitabilidad_global": 5.221182017932602,
+        "vida_urbana": 6.152928931386637,
+        "calidad_vida": 3.823561647751548
+      },
+      "scores": {
+        "score_personalizado": 0.5173426827857561,
+        "valor_relativo": 1.187302506361592,
+        "score_final": 0.4183306298585069
+      },
+      "explicaciones": [
+        "✅ Buena habitabilidad general (5.2/10)",
+        "✅ Buena acceso a servicios de salud (5.5/10)",
+        "⭐ Excelente accesibilidad al transporte (7.1/10)",
+        "💰 Excelente relación calidad-precio (valor 118.7% sobre precio)"
+      ],
+      "coordenadas": {
+        "lat": 6296891.179614866,
+        "lon": 348799.8451130898
+      }
+    }
+  ]
+}

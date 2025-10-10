@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "estaciones_calidad_aire_filtrada",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::32719" } },
+"features": [
+{ "type": "Feature", "properties": { "objectid": 103, "id": 161, "nombre_est": "Parque O'Higgins", "rue": 0, "respaldo_i": "Resolución Nº 121.821 del 28 de diciembre de 2005. Seremi de Salud Región Metropolitana. Clasifica como estaciones de monitoreo de calidad de aire con Representación Poblacional para gases de Monóxido de Carbono (CO), Ozono (O3) y Dióxido de Azufre (SO2)", "origen_alt": "Vigilancia", "url_ficha": "http://sinca.conama.cl/index.php/estaciones/index?id=161", "altura": null, "cod_com": "13101", "uuid": "5798c0ec-a22d-4923-a286-4c617b92994a", "centroide_x": 345673.00013415725, "centroide_y": 6296019.0000097267, "crs_original": "EPSG:4326", "fecha_normalizacion": "2025-10-10 01:59:24" }, "geometry": { "type": "Point", "coordinates": [ 345673.000134157249704, 6296019.000009726732969 ] } }
+]
+}

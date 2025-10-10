@@ -1,0 +1,51 @@
+{
+  "fecha_generacion": "2025-10-10 12:56:24",
+  "total_puntos_analizados": 3149,
+  "comunas_incluidas": [
+    "Estación Central",
+    "Santiago",
+    "Ñuñoa",
+    "La Reina"
+  ],
+  "graficos_generados": [
+    {
+      "archivo": "01_distribucion_comunas.png",
+      "descripcion": "Distribución por comunas",
+      "tipo": "análisis_exploratorio"
+    },
+    {
+      "archivo": "02_indices_principales.png",
+      "descripcion": "Índices principales de accesibilidad",
+      "tipo": "análisis_exploratorio"
+    },
+    {
+      "archivo": "03_indices_superiores.png",
+      "descripcion": "Índices superiores de habitabilidad",
+      "tipo": "análisis_exploratorio"
+    },
+    {
+      "archivo": "04_distancias_densidades.png",
+      "descripcion": "Análisis distancias vs densidades",
+      "tipo": "análisis_exploratorio"
+    },
+    {
+      "archivo": "05_mapa_habitabilidad.png",
+      "descripcion": "Mapa de habitabilidad espacial",
+      "tipo": "análisis_exploratorio"
+    },
+    {
+      "archivo": "06_dashboard_resumen.png",
+      "descripcion": "Dashboard resumen ejecutivo",
+      "tipo": "análisis_exploratorio"
+    }
+  ],
+  "metricas_resumen": {
+    "habitabilidad_promedio": 4.174285611490976,
+    "habitabilidad_std": 1.4752094980452832,
+    "mejor_comuna": "Santiago",
+    "rango_habitabilidad": [
+      0.1770669113524914,
+      7.437308124154063
+    ]
+  }
+}
