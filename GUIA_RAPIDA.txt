@@ -1,0 +1,349 @@
+╔══════════════════════════════════════════════════════════════════════════╗
+║                                                                          ║
+║   🚀 SISTEMA INMOBILIARIO CON GEOINFORMÁTICA - DESPLIEGUE AUTOMÁTICO    ║
+║                                                                          ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+📅 Fecha de creación: Noviembre 2024
+👤 Desarrollador: Felipe
+🏗️  Stack: PostgreSQL + PostGIS + Python + Flask + Nuxt.js
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📦 CONTENIDO DEL PROYECTO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+┌─ ARCHIVOS DE DESPLIEGUE ─────────────────────────────────────────────┐
+│                                                                       │
+│  📄 README_DESPLIEGUE.md                                             │
+│     └─ Guía completa paso a paso (recomendado leer primero)         │
+│        • Despliegue rápido y manual                                  │
+│        • Comandos útiles                                             │
+│        • Solución de problemas                                       │
+│                                                                       │
+│  🚀 cargar_datos.sh                                                  │
+│     └─ Script bash para carga automática de datos                   │
+│        • Verifica servicios Docker                                   │
+│        • Carga 32 comunas                                            │
+│        • Carga 1,623 propiedades                                     │
+│        • Carga 3,149 puntos de grilla                                │
+│        • Tiempo estimado: 3-5 minutos                                │
+│                                                                       │
+│  📊 RESUMEN_DESPLIEGUE_AUTOMATIZADO.md                               │
+│     └─ Documentación técnica completa                                │
+│        • Decisiones técnicas                                         │
+│        • Archivos generados                                          │
+│        • Estado del sistema                                          │
+│                                                                       │
+└──────────────────────────────────────────────────────────────────────┘
+
+┌─ INFRAESTRUCTURA ────────────────────────────────────────────────────┐
+│                                                                       │
+│  🐳 docker-compose.yml                                               │
+│     ├─ PostgreSQL 15 + PostGIS (Puerto 5432)                        │
+│     ├─ Backend Python Flask (Puerto 8000)                           │
+│     └─ Frontend Nuxt.js (Puerto 3000)                               │
+│                                                                       │
+│  📁 backend-inmobiliario/                                            │
+│     ├─ init-data.sql (SQL de inicialización)                        │
+│     └─ scripts/                                                      │
+│        ├─ cargar_propiedades_csv.py (1,623 registros)              │
+│        └─ cargar_grilla_densidades.py (3,149 puntos)               │
+│                                                                       │
+└──────────────────────────────────────────────────────────────────────┘
+
+┌─ DATOS ──────────────────────────────────────────────────────────────┐
+│                                                                       │
+│  📂 clean_alquiler_02_11_2023cc.csv                                  │
+│     └─ 1,623 propiedades reales de alquiler en Santiago             │
+│                                                                       │
+│  📂 autocorrelacion_espacial/semana1_preparacion_datos/              │
+│     └─ datos_normalizados/ (16.5 MB)                                │
+│        ├─ areas_verdes_filtradas.geojson                            │
+│        ├─ atracciones_turisticas_filtradas.geojson                  │
+│        ├─ colegios_filtrados.geojson                                │
+│        ├─ hospitales_filtrados.geojson                              │
+│        ├─ farmacias_filtradas.geojson                               │
+│        ├─ supermercados_filtrados.geojson                           │
+│        ├─ paradas_buses_filtradas.geojson                           │
+│        └─ estaciones_metro_filtradas.geojson                        │
+│                                                                       │
+│  📂 autocorrelacion_espacial/semana2_caracteristicas_espaciales/     │
+│     └─ features/grilla_con_densidades.geojson (10.7 MB)            │
+│        └─ 3,149 puntos con 81 características cada uno             │
+│                                                                       │
+└──────────────────────────────────────────────────────────────────────┘
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚡ INICIO RÁPIDO (3 PASOS)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  1️⃣  Limpiar instalación anterior
+      
+      docker-compose down -v
+      docker system prune -a --volumes -f
+
+  2️⃣  Levantar servicios
+      
+      docker-compose up -d
+
+  3️⃣  Cargar datos automáticamente
+      
+      ./cargar_datos.sh
+
+  ✅ ¡Listo en 5 minutos!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 URLS DEL SISTEMA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  🌐 Frontend:  http://localhost:3000
+     └─ Interfaz de usuario con mapas y búsquedas
+
+  🔌 Backend:   http://localhost:8000
+     └─ API REST con endpoints geoespaciales
+
+  🗄️  Database:  localhost:5432
+     └─ PostgreSQL + PostGIS (user: postgres, db: inmobiliaria_db)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📊 DATOS CARGADOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+┌─────────────────────┬──────────┬─────────────────────────────────────┐
+│ TABLA               │ REGISTROS│ DESCRIPCIÓN                         │
+├─────────────────────┼──────────┼─────────────────────────────────────┤
+│ comunas             │       32 │ Comunas de Santiago                 │
+├─────────────────────┼──────────┼─────────────────────────────────────┤
+│ propiedades         │    1,623 │ Propiedades reales de alquiler      │
+│                     │          │ • Título, precio, superficie        │
+│                     │          │ • Habitaciones, baños, parking      │
+│                     │          │ • Geometría (Point)                 │
+│                     │          │ • Distancias a servicios            │
+├─────────────────────┼──────────┼─────────────────────────────────────┤
+│ grilla_espacial     │    3,149 │ Grilla espacial 200m                │
+│                     │          │ • 81 características por punto      │
+│                     │          │ • Densidades (300m/600m/1000m)      │
+│                     │          │ • Distancias mínimas                │
+│                     │          │ • Índices de accesibilidad          │
+├─────────────────────┼──────────┼─────────────────────────────────────┤
+│ TOTAL               │    4,804 │ Registros cargados                  │
+└─────────────────────┴──────────┴─────────────────────────────────────┘
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔍 CARACTERÍSTICAS DE LA GRILLA ESPACIAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  📏 Espaciado: 200 metros entre puntos
+  🗺️  Cobertura: Toda el área de Santiago
+
+  📊 81 Variables por Punto:
+
+  ┌─ DENSIDADES (servicios/km²) ───────────────────────────────────┐
+  │  • Colegios (300m, 600m, 1000m)                                │
+  │  • Hospitales (300m, 600m, 1000m)                              │
+  │  • Farmacias (300m, 600m, 1000m)                               │
+  │  • Supermercados (300m, 600m, 1000m)                           │
+  │  • Áreas verdes (300m, 600m, 1000m)                            │
+  │  • Estaciones de metro (300m, 600m, 1000m)                     │
+  │  • Paradas de buses (300m, 600m, 1000m)                        │
+  └────────────────────────────────────────────────────────────────┘
+
+  ┌─ DISTANCIAS MÍNIMAS (metros) ──────────────────────────────────┐
+  │  • A colegio más cercano                                       │
+  │  • A hospital más cercano                                      │
+  │  • A farmacia más cercana                                      │
+  │  • A supermercado más cercano                                  │
+  │  • A área verde más cercana                                    │
+  │  • A estación de metro más cercana                             │
+  │  • A parada de bus más cercana                                 │
+  └────────────────────────────────────────────────────────────────┘
+
+  ┌─ ÍNDICES CALCULADOS ───────────────────────────────────────────┐
+  │  • Índice de diversidad de servicios                           │
+  │  • Índice de accesibilidad total                               │
+  │  • Índice de calidad de vida                                   │
+  └────────────────────────────────────────────────────────────────┘
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📈 ESTADÍSTICAS DE PROPIEDADES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Top 10 Comunas con Más Propiedades:
+
+  1. 🥇 Santiago           533 propiedades (32.8%)
+  2. 🥈 Estación Central   199 propiedades (12.3%)
+  3. 🥉 Las Condes         139 propiedades (8.6%)
+  4.    Ñuñoa              97 propiedades (6.0%)
+  5.    Providencia        91 propiedades (5.6%)
+  6.    Maipú              67 propiedades (4.1%)
+  7.    La Florida         43 propiedades (2.6%)
+  8.    Recoleta           39 propiedades (2.4%)
+  9.    Macul              37 propiedades (2.3%)
+  10.   San Miguel         36 propiedades (2.2%)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🛠️  COMANDOS ÚTILES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Ver estado de servicios:
+  $ docker-compose ps
+
+  Ver logs:
+  $ docker-compose logs -f backend
+  $ docker-compose logs -f db
+
+  Acceder a la base de datos:
+  $ docker exec -it geoinformatica-db psql -U postgres -d inmobiliaria_db
+
+  Verificar datos cargados:
+  $ docker exec geoinformatica-db psql -U postgres -d inmobiliaria_db -c "
+    SELECT 'comunas' as tabla, COUNT(*) as registros FROM comunas
+    UNION ALL
+    SELECT 'propiedades', COUNT(*) FROM propiedades
+    UNION ALL
+    SELECT 'grilla_espacial', COUNT(*) FROM grilla_espacial;"
+
+  Reiniciar todo:
+  $ docker-compose restart
+
+  Detener servicios:
+  $ docker-compose down
+
+  Detener y eliminar datos:
+  $ docker-compose down -v
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📚 DOCUMENTACIÓN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  📖 README_DESPLIEGUE.md
+     └─ Guía completa de despliegue (LEER PRIMERO)
+
+  📊 RESUMEN_DESPLIEGUE_AUTOMATIZADO.md
+     └─ Documentación técnica detallada
+
+  📄 RESUMEN_DATOS_CARGADOS.md
+     └─ Análisis exhaustivo de los datos
+
+  📁 autocorrelacion_espacial/semana1_preparacion_datos/README.md
+     └─ Documentación de normalización de datos
+
+  📁 autocorrelacion_espacial/semana2_caracteristicas_espaciales/doc/
+     └─ Documentación de cálculo de características
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🐛 SOLUCIÓN DE PROBLEMAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ❌ Puerto ocupado:
+     • Cambiar puertos en docker-compose.yml
+     • Ejemplo: "5433:5432" en lugar de "5432:5432"
+
+  ❌ Base de datos no conecta:
+     • Esperar 10 segundos: sleep 10
+     • Verificar: docker exec geoinformatica-db pg_isready -U postgres
+     • Reiniciar: docker-compose restart backend
+
+  ❌ Scripts no encontrados:
+     • Copiar nuevamente: ./cargar_datos.sh
+     • O copiar manualmente (ver README_DESPLIEGUE.md)
+
+  ❌ Datos no cargan:
+     • Limpiar todo: docker-compose down -v
+     • Reiniciar: docker-compose up -d
+     • Re-ejecutar: ./cargar_datos.sh
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 FUNCIONALIDADES DEL SISTEMA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  🔍 Búsqueda de Propiedades:
+     • Por comuna
+     • Por rango de precio
+     • Por número de habitaciones
+     • Por superficie
+     • Por características (baños, estacionamiento)
+
+  🗺️  Visualización de Mapas:
+     • Mapa interactivo con Leaflet
+     • Marcadores de propiedades
+     • Capas de servicios (metro, colegios, hospitales)
+     • Grilla de densidades
+
+  🤖 ChatBot Inteligente:
+     • Consultas en lenguaje natural
+     • Información de características espaciales
+     • Análisis de densidades por zona
+     • Comparación de comunas
+
+  📊 Análisis Geoespacial:
+     • Cálculo de distancias a servicios
+     • Densidades en radios configurables
+     • Índices de accesibilidad
+     • Visualización de resultados
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✨ TECNOLOGÍAS UTILIZADAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Backend:
+  • Python 3.11
+  • Flask (API REST)
+  • SQLAlchemy (ORM)
+  • GeoAlchemy2 (Extensión geoespacial)
+  • GeoPandas (Procesamiento GeoJSON)
+  • Pandas (Análisis de datos)
+
+  Frontend:
+  • Nuxt.js 3 (Vue.js framework)
+  • Leaflet (Mapas interactivos)
+  • Tailwind CSS (Estilos)
+  • TypeScript
+
+  Base de Datos:
+  • PostgreSQL 15
+  • PostGIS (Extensión geoespacial)
+  • Índices espaciales
+
+  Infraestructura:
+  • Docker & Docker Compose
+  • Alpine Linux (imágenes ligeras)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📞 SOPORTE Y CONTACTO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  📧 Para consultas técnicas:
+     • Revisar README_DESPLIEGUE.md
+     • Revisar sección de solución de problemas
+     • Consultar documentación en /docs
+
+  🐛 Para reportar bugs:
+     • Incluir logs: docker-compose logs
+     • Incluir comandos ejecutados
+     • Incluir mensajes de error completos
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+╔══════════════════════════════════════════════════════════════════════════╗
+║                                                                          ║
+║              ✅ SISTEMA LISTO PARA USAR                                  ║
+║              🚀 Deploy en menos de 5 minutos                             ║
+║              📊 4,804 registros de datos reales                          ║
+║              🗺️  81 características geoespaciales                        ║
+║                                                                          ║
+║              Ejecutar: ./cargar_datos.sh                                 ║
+║                                                                          ║
+╚══════════════════════════════════════════════════════════════════════════╝
