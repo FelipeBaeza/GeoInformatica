@@ -8,3 +8,6 @@
 [submodule "geo-proyect-frontend"]
 	path = geo-proyect-frontend
 	url = https://github.com/Linna-Lpz/geo-proyect-frontend.git
+[submodule "geo-proyect-backend"]
+	path = geo-proyect-backend
+	url = https://github.com/valecit-a/geo-proyect-backend
