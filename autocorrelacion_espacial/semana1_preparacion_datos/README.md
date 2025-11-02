@@ -1,105 +1,207 @@
-# Semana 1: Preparación y Normalización de Datos
+# Semana 1: Preparación de Datos Geográficos# Semana 1: Preparación y Normalización de Datos
 
-## Descripción General
 
-Esta fase inicial del proyecto se enfoca en la **preparación, limpieza y normalización** de todos los datasets geoespaciales necesarios para el análisis de habitabilidad urbana en Santiago.
 
-### Objetivos
+## ¿Qué hicimos esta semana?## Descripción General
+
+
+
+En esta primera semana nos enfocamos en **preparar y limpiar** todos los datos geográficos que necesitamos para analizar la habitabilidad urbana en Santiago. Piensa en esto como organizar y estandarizar una colección de mapas que vienen en diferentes formatos y escalas, para que todos puedan trabajar juntos.Esta fase inicial del proyecto se enfoca en la **preparación, limpieza y normalización** de todos los datasets geoespaciales necesarios para el análisis de habitabilidad urbana en Santiago.
+
+
+
+---### Objetivos
+
 - Normalizar todos los datasets a un sistema de coordenadas común
-- Filtrar datos por área de interés (4 comunas principales)
+
+## El Problema Inicial- Filtrar datos por área de interés (4 comunas principales)
+
 - Estandarizar formatos y estructuras de datos
-- Crear una base de datos geoespacial limpia y consistente
 
-## Metodología
+Teníamos **29 datasets diferentes** (conjuntos de datos) con información geográfica de Santiago: ubicación de colegios, hospitales, parques, estaciones de metro, etc. El problema es que cada dataset venía en un formato diferente, con sistemas de coordenadas distintos, y algunos tenían errores o información duplicada.- Crear una base de datos geoespacial limpia y consistente
 
-### 1. Identificación de Datasets Relevantes
+
+
+**Analogía simple:** Imagina que tienes 29 mapas de la misma ciudad, pero algunos están en kilómetros, otros en millas, algunos tienen el norte hacia arriba y otros hacia un lado. Antes de trabajar con ellos, necesitas ponerlos todos en el mismo formato.## Metodología
+
+
+
+---### 1. Identificación de Datasets Relevantes
+
 - **29 datasets geoespaciales** identificados
-- **17 categorías de servicios** urbanos
+
+## Lo que Hicimos- **17 categorías de servicios** urbanos
+
 - **Cobertura completa** de servicios esenciales
-- **Formatos múltiples**: Shapefile, GeoJSON, CSV con coordenadas
 
-### 2. Normalización y Filtrado
+### 1. **Unificación del Sistema de Coordenadas**- **Formatos múltiples**: Shapefile, GeoJSON, CSV con coordenadas
 
-#### Sistema de Coordenadas
+
+
+**¿Qué significa?** Todos los mapas usan un sistema de coordenadas (como latitud/longitud) para ubicar puntos. Convertimos todos nuestros datos a usar el mismo sistema: **UTM Zona 19S (EPSG:32719)**, que es ideal para medir distancias en metros en Santiago.### 2. Normalización y Filtrado
+
+
+
+**¿Por qué es importante?** Si dos mapas usan sistemas diferentes, las distancias calculadas serían incorrectas. Es como tratar de medir con una regla en centímetros y otra en pulgadas.#### Sistema de Coordenadas
+
 - **CRS objetivo**: EPSG:32719 (UTM Zone 19S)
-- **Precisión métrica** para cálculos espaciales
+
+### 2. **Filtrado Geográfico**- **Precisión métrica** para cálculos espaciales
+
 - **Reproyección automática** desde múltiples CRS origen
 
-#### Filtrado Geográfico
-- **Área de interés**: 4 comunas principales
-- Las Condes
-- Providencia 
-- Santiago
-- Ñuñoa
-- **Buffer de inclusión**: Márgenes para capturar servicios limítrofes
-- **Validación geométrica** de todos los elementos
+**¿Qué hicimos?** Nos enfocamos solo en **4 comunas principales** de Santiago:
 
-#### 🧹 Limpieza de Datos
+- Las Condes#### Filtrado Geográfico
+
+- Providencia- **Área de interés**: 4 comunas principales
+
+- Santiago Centro- Las Condes
+
+- Ñuñoa- Providencia 
+
+- Santiago
+
+**¿Por qué?** Para hacer el análisis más manejable y enfocado en áreas urbanas con características similares.- Ñuñoa
+
+- **Buffer de inclusión**: Márgenes para capturar servicios limítrofes
+
+### 3. **Limpieza de Datos**- **Validación geométrica** de todos los elementos
+
+
+
+Realizamos varias tareas de limpieza:#### 🧹 Limpieza de Datos
+
 - **Eliminación de duplicados** espaciales
-- **Validación de geometrías** (detección de elementos inválidos)
-- **Estandarización de campos** de atributos
-- **Control de calidad** automatizado
+
+- **Eliminamos duplicados:** Algunos puntos (como colegios) aparecían dos veces en los datos- **Validación de geometrías** (detección de elementos inválidos)
+
+- **Corregimos geometrías inválidas:** Algunos polígonos o líneas tenían errores técnicos- **Estandarización de campos** de atributos
+
+- **Estandarizamos nombres de campos:** Todos los datasets ahora tienen estructura similar- **Control de calidad** automatizado
+
+- **Validamos calidad:** Verificamos que todos los datos sean correctos y completos
 
 ## Scripts y Códigos Explicados
 
-### `normalizar_datasets.py`
-**QUÉ HACE**: Script principal que coordina todo el proceso de normalización de datasets geoespaciales heterogéneos hacia un formato estándar común.
+---
 
-**FUNCIONALIDADES PRINCIPALES**:
+### `normalizar_datasets.py`
+
+## Resultados Obtenidos**QUÉ HACE**: Script principal que coordina todo el proceso de normalización de datasets geoespaciales heterogéneos hacia un formato estándar común.
+
+
+
+### Archivos Generados**FUNCIONALIDADES PRINCIPALES**:
+
 - `definir_area_interes()`: Establece límites geográficos de las 4 comunas objetivo (La Reina, Santiago, Ñuñoa, Estación Central)
-- `listar_datasets_disponibles()`: Escanea directorios y cataloga todos los archivos geoespaciales encontrados
+
+1. **`datos_normalizados/`**: Contiene todos los 29 datasets ya limpios y en el mismo formato (GeoJSON)- `listar_datasets_disponibles()`: Escanea directorios y cataloga todos los archivos geoespaciales encontrados
+
 - `detectar_formato_origen()`: Identifica automáticamente tipo de archivo (Shapefile, GeoJSON, CSV) y CRS origen
-- `reproyectar_a_utm()`: Convierte coordenadas desde cualquier CRS origen hacia EPSG:32719 (UTM 19S)
-- `filtrar_por_area()`: Aplica máscara geográfica para mantener solo elementos dentro/cerca de las comunas
-- `validar_geometrias()`: Detecta y corrige geometrías inválidas (auto-intersecciones, topología corrupta)
-- `eliminar_duplicados_espaciales()`: Identifica y remueve elementos duplicados usando distancia mínima
+
+2. **`reportes/`**: Contiene 3 reportes técnicos en formato JSON:- `reproyectar_a_utm()`: Convierte coordenadas desde cualquier CRS origen hacia EPSG:32719 (UTM 19S)
+
+   - **`analisis_crs_detallado.json`**: Detalla los sistemas de coordenadas originales de cada dataset- `filtrar_por_area()`: Aplica máscara geográfica para mantener solo elementos dentro/cerca de las comunas
+
+   - **`normalizacion_crs.json`**: Documenta las conversiones realizadas- `validar_geometrias()`: Detecta y corrige geometrías inválidas (auto-intersecciones, topología corrupta)
+
+   - **`validacion_calidad.json`**: Lista todos los checks de calidad aplicados- `eliminar_duplicados_espaciales()`: Identifica y remueve elementos duplicados usando distancia mínima
+
 - `estandarizar_campos()`: Normaliza nombres de columnas y tipos de datos para consistencia
-- `aplicar_control_calidad()`: Ejecuta batería de validaciones automáticas sobre datos procesados
+
+### Estadísticas Clave- `aplicar_control_calidad()`: Ejecuta batería de validaciones automáticas sobre datos procesados
+
 - `exportar_dataset_normalizado()`: Guarda resultado en formato GeoJSON con metadatos completos
 
-**FLUJO DE PROCESAMIENTO**:
-1. Carga dataset original en cualquier formato/CRS
-2. Reproyecta a UTM 19S para cálculos métricos precisos 
-3. Filtra geográficamente por área de interés con buffer
-4. Valida y corrige geometrías problemáticas
-5. Elimina duplicados espaciales usando tolerancia geométrica
-6. Estandariza estructura de atributos
-7. Aplica control de calidad automatizado
-8. Exporta como GeoJSON normalizado
+- ✅ **29 datasets** procesados exitosamente
 
-**ENTRADA**: Datasets originales en formatos variados
+- ✅ **17 categorías** de servicios urbanos cubiertos**FLUJO DE PROCESAMIENTO**:
+
+- ✅ **100%** de consistencia en sistemas de coordenadas1. Carga dataset original en cualquier formato/CRS
+
+- ✅ **0 geometrías inválidas** después de la limpieza2. Reproyecta a UTM 19S para cálculos métricos precisos 
+
+3. Filtra geográficamente por área de interés con buffer
+
+---4. Valida y corrige geometrías problemáticas
+
+5. Elimina duplicados espaciales usando tolerancia geométrica
+
+## Scripts Utilizados6. Estandariza estructura de atributos
+
+7. Aplica control de calidad automatizado
+
+Los scripts principales que realizan todo el trabajo están en la carpeta `scripts/`:8. Exporta como GeoJSON normalizado
+
+
+
+1. **`ejecutar_semana1.py`**: Script principal que ejecuta todo el proceso automáticamente**ENTRADA**: Datasets originales en formatos variados
+
 **SALIDA**: GeoJSON normalizados en ../datos_normalizados/
 
+2. **`normalizar_crs.py`**: Convierte todos los datasets al mismo sistema de coordenadas
+
 ### `validar_normalizacion.py`
-**QUÉ HACE**: Sistema de control de calidad que valida exhaustivamente todos los datasets normalizados para garantizar integridad y consistencia.
 
-**FUNCIONALIDADES PRINCIPALES**:
+3. **`validar_calidad.py`**: Verifica que los datos sean correctos y completos**QUÉ HACE**: Sistema de control de calidad que valida exhaustivamente todos los datasets normalizados para garantizar integridad y consistencia.
+
+
+
+4. **`analizar_crs_geometrias.py`**: Analiza los sistemas de coordenadas originales**FUNCIONALIDADES PRINCIPALES**:
+
 - `validar_crs_consistente()`: Verifica que todos los datasets usen EPSG:32719
-- `validar_geometrias_validas()`: Confirma que todas las geometrías sean topológicamente correctas
-- `validar_cobertura_geografica()`: Verifica que elementos estén dentro del área esperada
-- `validar_campos_requeridos()`: Confirma presencia de atributos mínimos necesarios
-- `detectar_duplicados_residuales()`: Identifica duplicados que pudieron escapar normalización
-- `validar_tipos_datos()`: Verifica consistencia de tipos de datos entre datasets
-- `calcular_estadisticas_calidad()`: Genera métricas de completitud y precisión
-- `generar_reporte_validacion()`: Crea reporte detallado con todos los resultados
-- `identificar_problemas_criticos()`: Marca issues que requieren corrección manual
-- `sugerir_acciones_correctivas()`: Propone soluciones específicas para problemas encontrados
 
-**VALIDACIONES EJECUTADAS**:
+5. **`crear_diccionario_datos.py`**: Crea un catálogo de todos los datasets disponibles- `validar_geometrias_validas()`: Confirma que todas las geometrías sean topológicamente correctas
+
+- `validar_cobertura_geografica()`: Verifica que elementos estén dentro del área esperada
+
+---- `validar_campos_requeridos()`: Confirma presencia de atributos mínimos necesarios
+
+- `detectar_duplicados_residuales()`: Identifica duplicados que pudieron escapar normalización
+
+## ¿Por Qué es Importante?- `validar_tipos_datos()`: Verifica consistencia de tipos de datos entre datasets
+
+- `calcular_estadisticas_calidad()`: Genera métricas de completitud y precisión
+
+Esta etapa de preparación es **fundamental** para todo el proyecto porque:- `generar_reporte_validacion()`: Crea reporte detallado con todos los resultados
+
+- `identificar_problemas_criticos()`: Marca issues que requieren corrección manual
+
+1. **Garantiza precisión:** Si los datos tienen errores o formatos inconsistentes, los análisis posteriores serán incorrectos- `sugerir_acciones_correctivas()`: Propone soluciones específicas para problemas encontrados
+
+
+
+2. **Permite comparaciones:** Al tener todo en el mismo formato, podemos comparar y combinar diferentes datasets**VALIDACIONES EJECUTADAS**:
+
 1. **Espaciales**: CRS, geometrías válidas, cobertura geográfica
-2. **Estructurales**: Campos requeridos, tipos de datos, valores nulos 
+
+3. **Ahorra tiempo:** Limpiar los datos una vez al inicio evita problemas y re-trabajo después2. **Estructurales**: Campos requeridos, tipos de datos, valores nulos 
+
 3. **Semánticas**: Clasificaciones coherentes, rangos válidos
-4. **Integridad**: Duplicados, consistencia entre datasets
+
+4. **Facilita reproducibilidad:** Otros investigadores pueden replicar exactamente nuestro proceso4. **Integridad**: Duplicados, consistencia entre datasets
+
 5. **Metadatos**: Documentación completa, trazabilidad
 
-**ENTRADA**: Datasets normalizados de ../datos_normalizados/
-**SALIDA**: Reportes de validación JSON + recomendaciones de corrección
+---
 
-### `organizar_estructura.py` 
+**ENTRADA**: Datasets normalizados de ../datos_normalizados/
+
+## Próximos Pasos**SALIDA**: Reportes de validación JSON + recomendaciones de corrección
+
+
+
+Con los datos limpios y estandarizados, en la **Semana 2** calcularemos características espaciales: densidades de servicios, distancias a puntos de interés, y otras métricas que nos ayudarán a medir la habitabilidad urbana.### `organizar_estructura.py` 
+
 **QUÉ HACE**: Organiza automáticamente la estructura de directorios del proyecto y clasifica datasets por categorías temáticas.
 
+---
+
 **FUNCIONALIDADES PRINCIPALES**:
-- `crear_estructura_directorios()`: Crea jerarquía estándar de carpetas del proyecto
+
+**Nota técnica:** Todos los datasets procesados usan el sistema de coordenadas UTM 19S (EPSG:32719) y están en formato GeoJSON para máxima compatibilidad.- `crear_estructura_directorios()`: Crea jerarquía estándar de carpetas del proyecto
+
 - `clasificar_datasets_por_categoria()`: Agrupa datasets por temática (educación, salud, transporte, etc.)
 - `generar_inventario_completo()`: Cataloga todos los archivos con metadatos descriptivos
 - `establecer_nomenclatura_estandar()`: Aplica convención de nombres consistente
