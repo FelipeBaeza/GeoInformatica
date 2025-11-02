@@ -3,7 +3,7 @@
 # Script de Carga Automática de Datos
 # ============================================================================
 # Descripción: Carga todas las tablas con datos iniciales
-# Uso: ./cargar_datos.sh
+# Uso: sudo ./cargar_datos.sh
 # ============================================================================
 
 set -e  # Salir si hay algún error
@@ -19,11 +19,27 @@ YELLOW='\033[1;33m'
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
+# Verificar que se ejecute con sudo si es necesario
+DOCKER_CMD="docker"
+COMPOSE_CMD="docker-compose"
+
+# Detectar si necesita sudo
+if ! docker ps > /dev/null 2>&1; then
+    if sudo docker ps > /dev/null 2>&1; then
+        DOCKER_CMD="sudo docker"
+        COMPOSE_CMD="sudo docker-compose"
+        echo -e "${YELLOW}ℹ️  Usando sudo para Docker${NC}"
+    else
+        echo -e "${RED}❌ Error: No se puede acceder a Docker${NC}"
+        exit 1
+    fi
+fi
+
 # Verificar que Docker Compose esté corriendo
 echo "📋 Verificando servicios Docker..."
-if ! docker-compose ps | grep -q "Up"; then
+if ! $COMPOSE_CMD ps | grep -q "Up"; then
     echo -e "${RED}❌ Error: Los contenedores no están corriendo${NC}"
-    echo "   Ejecutar primero: docker-compose up -d"
+    echo "   Ejecutar primero: $COMPOSE_CMD up -d"
     exit 1
 fi
 echo -e "${GREEN}✅ Servicios Docker activos${NC}"
@@ -32,7 +48,7 @@ echo ""
 # Esperar que la base de datos esté lista
 echo "⏳ Esperando que PostgreSQL esté listo..."
 for i in {1..30}; do
-    if docker exec geoinformatica-db pg_isready -U postgres > /dev/null 2>&1; then
+    if $DOCKER_CMD exec geoinformatica-db pg_isready -U postgres > /dev/null 2>&1; then
         echo -e "${GREEN}✅ PostgreSQL está listo${NC}"
         break
     fi
@@ -45,7 +61,7 @@ echo ""
 echo "============================================================================"
 echo "📍 PASO 1: Cargando comunas (32 comunas de Santiago)"
 echo "============================================================================"
-docker exec -i geoinformatica-db psql -U postgres -d inmobiliaria_db << 'EOF'
+$DOCKER_CMD exec -i geoinformatica-db psql -U postgres -d inmobiliaria_db << 'EOF'
 INSERT INTO comunas (id, nombre) VALUES
 (1, 'Cerrillos'), (2, 'Cerro Navia'), (3, 'Conchalí'), (4, 'El Bosque'),
 (5, 'Estación Central'), (6, 'Huechuraba'), (7, 'Independencia'), (8, 'La Cisterna'),
@@ -82,7 +98,7 @@ FILES_NEEDED=(
 
 ALL_FILES_PRESENT=true
 for file in "${FILES_NEEDED[@]}"; do
-    if docker exec geoinformatica-backend test -e "$file" 2>/dev/null; then
+    if $DOCKER_CMD exec geoinformatica-backend test -e "$file" 2>/dev/null; then
         echo -e "${GREEN}✅${NC} $file"
     else
         echo -e "${RED}❌${NC} $file (NO ENCONTRADO)"
@@ -95,19 +111,19 @@ if [ "$ALL_FILES_PRESENT" = false ]; then
     echo -e "${YELLOW}⚠️  Archivos faltantes detectados${NC}"
     echo "   Copiando archivos necesarios al contenedor..."
     
-    docker cp clean_alquiler_02_11_2023cc.csv geoinformatica-backend:/app/ 2>/dev/null || \
+    $DOCKER_CMD cp clean_alquiler_02_11_2023cc.csv geoinformatica-backend:/app/ 2>/dev/null || \
         echo -e "${RED}   ❌ No se pudo copiar CSV${NC}"
     
-    docker cp autocorrelacion_espacial/semana1_preparacion_datos/datos_normalizados geoinformatica-backend:/app/ 2>/dev/null || \
+    $DOCKER_CMD cp autocorrelacion_espacial/semana1_preparacion_datos/datos_normalizados/datos_normalizados geoinformatica-backend:/app/datos_normalizados/ 2>/dev/null || \
         echo -e "${RED}   ❌ No se pudieron copiar datos normalizados${NC}"
     
-    docker cp autocorrelacion_espacial/semana2_caracteristicas_espaciales/features/grilla_con_densidades.geojson geoinformatica-backend:/tmp/ 2>/dev/null || \
+    $DOCKER_CMD cp autocorrelacion_espacial/semana2_caracteristicas_espaciales/features/grilla_con_densidades.geojson geoinformatica-backend:/tmp/ 2>/dev/null || \
         echo -e "${RED}   ❌ No se pudo copiar grilla${NC}"
     
-    docker cp geo-proyect-backend/scripts/cargar_propiedades_csv.py geoinformatica-backend:/app/ 2>/dev/null || \
+    $DOCKER_CMD cp geo-proyect-backend/scripts/cargar_propiedades_csv.py geoinformatica-backend:/app/ 2>/dev/null || \
         echo -e "${RED}   ❌ No se pudo copiar script de propiedades${NC}"
     
-    docker cp geo-proyect-backend/scripts/cargar_grilla_densidades.py geoinformatica-backend:/app/ 2>/dev/null || \
+    $DOCKER_CMD cp geo-proyect-backend/scripts/cargar_grilla_densidades.py geoinformatica-backend:/app/ 2>/dev/null || \
         echo -e "${RED}   ❌ No se pudo copiar script de grilla${NC}"
     
     echo -e "${GREEN}✅ Archivos copiados${NC}"
@@ -121,7 +137,7 @@ echo "==========================================================================
 echo "⏳ Este proceso puede tomar 2-3 minutos..."
 echo ""
 
-docker exec geoinformatica-backend python3 /app/cargar_propiedades_csv.py
+$DOCKER_CMD exec geoinformatica-backend python3 /app/cargar_propiedades_csv.py
 
 if [ $? -eq 0 ]; then
     echo -e "${GREEN}✅ Propiedades cargadas exitosamente${NC}"
@@ -138,7 +154,7 @@ echo "==========================================================================
 echo "⏳ Este proceso puede tomar 1-2 minutos..."
 echo ""
 
-docker exec geoinformatica-backend python3 /app/cargar_grilla_densidades.py
+$DOCKER_CMD exec geoinformatica-backend python3 /app/cargar_grilla_densidades.py
 
 if [ $? -eq 0 ]; then
     echo -e "${GREEN}✅ Grilla espacial cargada exitosamente${NC}"
@@ -153,7 +169,7 @@ echo "==========================================================================
 echo "📊 VERIFICACIÓN FINAL"
 echo "============================================================================"
 
-docker exec geoinformatica-db psql -U postgres -d inmobiliaria_db << 'EOF'
+$DOCKER_CMD exec geoinformatica-db psql -U postgres -d inmobiliaria_db << 'EOF'
 \echo ''
 \echo '📋 Resumen de datos cargados:'
 \echo '─────────────────────────────────────'
