@@ -72,7 +72,7 @@
 \fancyhf{}
 \lhead{\textcolor{usachblue}{Geoinformática - Primera Entrega}}
 \rhead{\textcolor{usachblue}{USACH 2025}}
-\lfoot{\small\textit{Sistema Inmobiliario}}
+\lfoot{\small\textit{Terramatch}}
 \cfoot{\thepage\ de \pageref{LastPage}}
 \rfoot{\today}
 
@@ -95,9 +95,9 @@
     \rule{\textwidth}{0.5mm}\\
     \vspace{0.5cm}
 
-    {\LARGE\textbf{Sistema Inmobiliario}}\\
+    {\LARGE\textbf{TerraMatch}}\\
     \vspace{0.3cm}
-    {\Large\textit{[Subtítulo descriptivo opcional]}}\\
+    {\Large\textit{Sistema de estimación de plusvalia basado en información geografica}}\\
 
     \vspace{0.5cm}
     \rule{\textwidth}{0.5mm}
@@ -145,9 +145,15 @@
 % Incluir: problema abordado, área de estudio, metodología principal,
 % resultados preliminares clave, y próximos pasos.
 
-Este proyecto aborda uno de los desafios importante que hoy los clientes inmobiliarios en Chile se enfrentan al momento de buscar una nueva vivienda, las condiciones del mercado y su relacion calidad-precio   ... El área de estudio comprende [ubicación]...
-La metodología empleada incluye [métodos principales]... Los resultados preliminares
-muestran [hallazgos clave]... Los próximos pasos contemplan [siguientes fases]...
+Este proyecto aborda uno de los desafios importante que hoy los clientes inmobiliarios en Chile enfrentan al momento de buscar una nueva vivienda, las condiciones del mercado y su relacion calidad-precio. 
+\\Hoy Chile se ha vuelto pais donde los precios a la vivienda han aumentado considerablemente "Buscar informacion sobr esto" en relacion a sus vecinos en Latinoamerica lo que ha llevado a que los clientes inmobiliarios se vuelvan cada vez mas exigentes al momento de invertir en viviendas
+\\"Terramatch" busca dar una mirada objetiva a la plusvalia de la vivienda chilena basada en informacion geospacial correlacionada que permita facilitar la toma de decisiones durante la busqueda de viviendas.
+\\El proyecto integra información interna de propiedades con métricas espaciales para explicar y predecir un proxy de satisfacción residencial (precio por m²) en un conjunto de comunas de Santiago.
+\\El área de estudio se encuentra comprendido en el mercado inmobiliario, especialmente enfocado en la valoracion de precios y en la asesoria automatizada.
+\\La metodología empleada incluye [métodos principales]...
+\\El resultado preliminares muestran que el uso de un modelo exploratorio híbrido por cluster (GWRF por cluster) para determinar la satisfacción residencial de una vivienda explica el 88\% de la variación observada con error medio absoluto por debajo de 440 UF/m², siendo una metrica aceptable.
+\\Los próximos pasos contemplan [siguientes fases]...
+
 
 % ====================================================================
 % ÍNDICE
@@ -167,20 +173,47 @@ muestran [hallazgos clave]... Los próximos pasos contemplan [siguientes fases].
 
 % Explicar el contexto del problema, por qué es importante,
 % y qué motivó la selección de este proyecto
+Segun el estudio "monitor de viviendas 2025" (citar) realizado por la consultora multinacional IPSOS en enero de este año 2025 para Chile, el "60 \% de los encuestados estan contentos con la situacion actual de la vivienda", a su vez que "tres de cada cuatro (74\%) propietarios esta satisfecho con su situacion de vivienda" y "solo cuatro de diez arrendatarios (39\%) dice estar feliz" aun se percibe que por parte de los cliente inmobiliarios existe una mayor dificultad para comprar o arrendar una casa o departamento de lo que fue para sus padres.
+\\Respecto a esto se ha determinado que los principales desafios para los clientes al momento de comprar o arrendar una vivienda se identifican de la siguiente forma:
+\begin{itemize}
+\item Precios altos de la propiedades
+\item Tasas de interes muy altas
+\item Aumento de los costos de construccion de viviendas y edificios
+\end{itemize}
+Esta dificultad para conseguir vivienda a llevado a que los clientes tomen en consideracion los siguientes aspecto sal momentos de comprar una propiedad:
+\begin{itemize}
+\item Relacion calidad-precio
+\item Baja tasa de delincuencia
+\item Buena ubicacion
+\item Acceso al transporte publico
+\item Espacio al aire libre
+\item Privacidad
+\item Buena infraestructura local
+\end{itemize}
+Lo anterior presenta una oportunidad interesante (agregar idea sobre la importancia de la informacion geoespacial)
 
 \subsection{Objetivos}
 
 \subsubsection{Objetivo General}
 
 % Un objetivo general claro y alcanzable
+El objetivo de este proyecto es otorgar acceso a informacion geografica relevante y resumida que facilite la toma de decisiones al momento de comprar y/o arrendar viviendas, informacion destinada a potenciales clientes inmobiliarios que hoy se encuentran indecisos al desconocer ciertos aspectos sobre el sector donde desean realizar una inversion monetaria que a con el paso del tiempo se percibe mas alta.
+
+(Agregar las dimensiones importantes para reducir mas el alcance)
+
+Este proyecto abarcara ciertas comunas de la provincia de Santiago de Chile, seleccionadas por su riqueza informativa geoespacial.
+        
 
 \subsubsection{Objetivos Específicos}
 
 \begin{enumerate}
-    \item Objetivo específico 1...
-    \item Objetivo específico 2...
-    \item Objetivo específico 3...
-    \item Objetivo específico 4...
+    \item Consolidar informacion geoespacial de la provicia de santiago en las dimensiones (Enumerar dimensiones)
+    \item Delimitar dimensiones a los espacios geograficos de las comunas de (enumerar comunas)
+    \item Organzar informacion geospacial basados en las dimensiones propuestas 
+    \item Establecer correlaciones entre la informacion geoespacial para determinar su valor dimensional
+    \item Definir y aplicar metodo estadisticos para calcular dimensionalidades
+    \item (revisar)
+    
 \end{enumerate}
 
 \subsection{Preguntas de Investigación}
@@ -194,6 +227,31 @@ muestran [hallazgos clave]... Los próximos pasos contemplan [siguientes fases].
 \subsection{Alcance y Limitaciones}
 
 % Definir claramente qué incluye y qué no incluye el proyecto
+Este proyecto actualmente solo proveera informacion para las siguientes comunas:
+
+\begin{itemize}
+    \item Ñuñoa
+    \item Vitacura
+    \item Santiago Centro
+    \item Estacion Central
+\end{itemize}
+
+Y se basara en las siguientes dimensiones para evaluar la satisfacción residencial de una vivienda:
+
+\begin{itemize}
+    \item Rangos de precios
+    \item Tipos de vivienda
+    \item Domitorios y Baños
+    \item Transporte
+    \item Servicios Basicos
+    \item Entretencion
+    \item Trafico
+\end{itemize}
+
+La correlacion de la informacion geoespacial basada en las dimensiones antes vistas por lo que en ocaciones la informacion resultante estara sesgada de otros factores relevantes como los siguientes:
+\begin{itemize}
+    \item (revisar)
+\end{itemize}
 
 % ====================================================================
 % 2. MARCO TEÓRICO
@@ -205,13 +263,16 @@ muestran [hallazgos clave]... Los próximos pasos contemplan [siguientes fases].
 
 % Conceptos clave de geoinformática relevantes al proyecto
 
+
 \subsection{Estado del Arte}
 
 % Revisión de literatura, proyectos similares, metodologías aplicadas
+(Revisar proyecto/memoria del profesor que nos presento su tesis)
 
 \subsection{Marco Metodológico de Referencia}
 
 % Métodos y técnicas que se usarán basados en la literatura
+(Revisar)
 
 % Ejemplo de cita: \parencite{autor2023}
 
@@ -253,6 +314,16 @@ muestran [hallazgos clave]... Los próximos pasos contemplan [siguientes fases].
 \section{Datos y Metodología}
 
 \subsection{Fuentes de Datos}
+
+%
+La primera semana se centro en la normalización de datos geoespaciales:
+recolectar fuentes, corregir geometrías, homogeneizar nombres de campos y convertir todo a una misma CRS.
+Esto dejó una carpeta de "datos normalizados" lista para cálculos espaciales reproducibles. La segunda semana se dedicó a generar una grilla de evaluación, filtrar puntos dentro del área de interés y calcular distancias (KDTree) y densidades (buffers 300/600/1000 m) para más de veinte categorías, obteniendo índices compuestos y normalizados.
+
+La tercera semana integró las propiedades con la grilla para obtener el dataset final de trabajo, aplicó imputaciones y filtrado de outliers, y construyó un pipeline de modelado. Primero entrenamos un Random Forest global como baseline. Tras comprobar que las variables espaciales aportaban señal, entrenamos un Random Forest sobre el dataset combinado (CSV+GeoJSON). Finalmente exploramos estrategias híbridas (GWRF) entrenando Random Forests locales tras particionar el espacio por comuna, por clusters (K-means sobre features espaciales) y por cuantiles de densidad.
+
+La cuarta semana se planificó para ampliar cobertura y comparar modelos hedonicos (OLS) con los predictivos; el repositorio contiene scripts de recolección y limpieza orientados a integrar datos externos si se desea ampliar la muestra.
+
 
 \begin{table}[H]
 \centering
@@ -310,18 +381,32 @@ Sentinel-2 & Copernicus & .tif & 10m & 2024 & GEE \\
 
 \subsubsection{Estadísticas Descriptivas}
 
+Las cifras claves de analisis exploratorio para determinar el mejor modelo predictor para este pŕoyecto son:
+\begin{enumerate}
+    \item \textbf{R²:} Fracción de varianza explicada.
+    \item \textbf{RMSE:} Error típico (Penaliza más los errores grandes).
+    \item \textbf{MAE:} Error medio absoluto.
+\end{enumerate}
+
+De donde los experimientos exploratorios basados en modelo Random Forest (RF) determinaron lo siguiente: 
+
 \begin{table}[H]
 \centering
-\caption{Estadísticas descriptivas de variables principales}
-\begin{tabular}{@{}lrrrrr@{}}
+\caption{Estadísticas descriptivas delñ modelo predictivo RF sobre los geodatos}
+\begin{tabular}{@{}lrrr@{}}
 \toprule
-\textbf{Variable} & \textbf{Media} & \textbf{Mediana} & \textbf{Desv.Est} & \textbf{Min} & \textbf{Max} \\
+\textbf{Modelo} & \textbf{R²} & \textbf{RMSE} & \textbf{MAE} \\
 \midrule
-Variable 1 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
-Variable 2 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
+RF Original (CSV) & 0.2040 & 3,443 UF/m² & 2,254 UF/m²\\
+RF Combinado & 0.8431 & 1,471 UF/m² & 605 UF/m²\\
+RF GWRF (por comuna) & 0.7478 &  & \\
+RF GWRF (cluster) & 0.8800 & 1,286 UF/m² & 439 UF/m²\\
+RF GWRF (densidad) & 0.8772 &  & \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+Dejando claro que el modelo RF GWRF (cluster), es decir la aplicacion del modelo predictivo Random Forest con la optimizacion espacial GWRF por cluster,entrego cifras mas confiables mostrando un modelo con un ajuste optimo (88\%) y con un error mucho menor que sus similes (\~439 UF/m²).
 
 \subsubsection{Distribuciones Espaciales}
 
@@ -393,7 +478,7 @@ print(f"P-value: {moran.p_norm:.4f}")
 \subsection{Reproducibilidad}
 
 % Link al repositorio GitHub
-El código completo está disponible en: \url{https://github.com/usuario/proyecto}
+El código completo está disponible en: \url{https://github.com/FelipeBaeza/GeoInformatica}
 
 % ====================================================================
 % 7. DISCUSIÓN
@@ -477,13 +562,15 @@ Preparación presentación final & Todo el grupo & Semana 12 & 1 semana \\
 \subsection{Factibilidad del Proyecto}
 
 % Evaluación de si el proyecto es realizable en el tiempo restante
+Si buscas un despliegue sencillo y robusto, recomendamos usar el RF combinado (un único modelo) ya que ofrece muy buena relación desempeño-simplicidad (R² (UTF caracater similar) 0.843). Si la prioridad es la máxima precisión y se puede asumir gestión operativa mayor (calcular cluster en tiempo real y mantener varios modelos), desplegar el GWRF por cluster es razonable (R² (UTF caracater similar) 0.880, MAE (UTF caracater similar) 439). No recomendamos desplegar modelos por comuna con el dataset actual por falta de muestras locales.
 
 \subsection{Próximos Pasos Críticos}
 
 \begin{enumerate}
-    \item Paso crítico 1...
-    \item Paso crítico 2...
-    \item Paso crítico 3...
+    \item Expandir cobertura geografica (incorporar nuevas comunas y ciudades) con mayor heterogeniedad
+    \item Incorporar series temporales para modelar tendencias y estacionalidad.
+    \item Probar resultados con ensembles avanzados (XGBoost, LightGBM, stacking) tras una fase de tuning.
+    \item Automatizar el pipeline y desplegar API REST que reviba features y devuelva prediccion y medida de incertidumbre.
 \end{enumerate}
 
 % ====================================================================
