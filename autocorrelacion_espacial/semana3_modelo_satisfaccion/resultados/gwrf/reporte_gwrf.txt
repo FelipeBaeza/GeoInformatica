@@ -4,38 +4,38 @@ REPORTE: GEOGRAPHICALLY WEIGHTED RANDOM FOREST (GWRF)
 
 1. MODELO BASELINE (Random Forest Global)
 --------------------------------------------------------------------------------
-R² Test:  0.2195
-RMSE:     $10,302 UF/m²
-MAE:      $3,230 UF/m²
+R² Test:  0.2139
+RMSE:     $9,989 UF/m²
+MAE:      $3,162 UF/m²
 
 3. GWRF POR CLUSTER (clustering espacial)
 --------------------------------------------------------------------------------
-R² Test:  -0.1001
-RMSE:     $12,231 UF/m²
-MAE:      $3,571 UF/m²
-Mejora:   -145.60%
+R² Test:  0.0828
+RMSE:     $10,790 UF/m²
+MAE:      $3,314 UF/m²
+Mejora:   -61.29%
 N° clusters: 3
 
 Métricas por cluster:
-  • Cluster 0: R²=-0.7629, RMSE=$5,427, n_test=360
-  • Cluster 1: R²=-0.0544, RMSE=$41,227, n_test=28
+  • Cluster 0: R²=0.0951, RMSE=$11,097, n_test=361
+  • Cluster 1: R²=-2.4455, RMSE=$5,552, n_test=27
 
 4. GWRF POR DENSIDAD (zonas de densidad)
 --------------------------------------------------------------------------------
-R² Test:  -0.0765
-RMSE:     $12,099 UF/m²
-MAE:      $3,262 UF/m²
-Mejora:   -134.83%
+R² Test:  0.0906
+RMSE:     $10,744 UF/m²
+MAE:      $3,105 UF/m²
+Mejora:   -57.65%
 
 Métricas por zona de densidad:
-  • Zona baja: R²=-1.5477, RMSE=$7,299, n_test=104
-  • Zona media: R²=0.1960, RMSE=$3,457, n_test=187
-  • Zona alta: R²=-0.0384, RMSE=$22,399, n_test=98
+  • Zona baja: R²=0.1442, RMSE=$19,302, n_test=102
+  • Zona media: R²=0.1807, RMSE=$3,806, n_test=189
+  • Zona alta: R²=-2.0567, RMSE=$6,519, n_test=98
 
 ================================================================================
 CONCLUSIÓN:
 Mejor modelo: RF Global (Baseline)
-R² = 0.2195
+R² = 0.2139
 
 ⚠️  El modelo global RF sigue siendo superior.
    Razón: Dataset puede ser muy heterogéneo o modelos locales

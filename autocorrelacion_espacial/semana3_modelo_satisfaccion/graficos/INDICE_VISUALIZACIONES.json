@@ -1,0 +1,80 @@
+{
+  "fecha_generacion": "2025-11-26T23:21:54.707540",
+  "autor": "Felipe Baeza",
+  "proyecto": "Análisis de Autocorrelación Espacial",
+  "mapas_tematicos": [
+    {
+      "archivo": "mapa_01_ubicacion_area_estudio.png",
+      "titulo": "Ubicación del Área de Estudio",
+      "descripcion": "Distribución de propiedades por comuna en Santiago",
+      "elementos_cartograficos": [
+        "título",
+        "escala",
+        "norte",
+        "leyenda",
+        "coordenadas",
+        "fuente"
+      ]
+    },
+    {
+      "archivo": "mapa_02_precio_m2.png",
+      "titulo": "Distribución Espacial del Precio",
+      "descripcion": "Precio de arriendo por metro cuadrado",
+      "elementos_cartograficos": [
+        "título",
+        "escala",
+        "norte",
+        "colorbar",
+        "coordenadas",
+        "fuente"
+      ]
+    },
+    {
+      "archivo": "mapa_03_resultado_analisis.png",
+      "titulo": "Resultado del Análisis",
+      "descripcion": "Índice de satisfacción/habitabilidad predicho",
+      "elementos_cartograficos": [
+        "título",
+        "escala",
+        "norte",
+        "colorbar",
+        "coordenadas",
+        "fuente"
+      ]
+    }
+  ],
+  "graficos_estadisticos": [
+    {
+      "archivo": "grafico_01_histogramas.png",
+      "titulo": "Histogramas de Variables Clave",
+      "descripcion": "Distribución de precio, superficie, dormitorios, baños y satisfacción"
+    },
+    {
+      "archivo": "grafico_02_temporal_comunas.png",
+      "titulo": "Análisis Temporal y Geográfico",
+      "descripcion": "Distribución de propiedades y precios por comuna"
+    },
+    {
+      "archivo": "grafico_03_correlaciones.png",
+      "titulo": "Matriz de Correlaciones",
+      "descripcion": "Correlaciones entre variables espaciales y del modelo"
+    },
+    {
+      "archivo": "grafico_04_dispersion.png",
+      "titulo": "Diagramas de Dispersión",
+      "descripcion": "Relaciones bivariadas entre variables principales"
+    },
+    {
+      "archivo": "grafico_05_boxplots_comuna.png",
+      "titulo": "Boxplots Comparativos",
+      "descripcion": "Comparación de precio y superficie por comuna"
+    }
+  ],
+  "visualizacion_interactiva": {
+    "archivo": "mapa_interactivo.html",
+    "titulo": "Mapa Interactivo de Propiedades",
+    "descripcion": "Mapa con marcadores clusterizados, heatmap y popup informativo",
+    "tecnologia": "Folium + Leaflet.js"
+  },
+  "reporte_eda": "reporte_eda.json"
+}

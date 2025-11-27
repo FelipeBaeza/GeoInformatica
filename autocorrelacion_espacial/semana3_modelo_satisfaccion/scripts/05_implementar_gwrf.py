@@ -53,6 +53,15 @@ print("\n📂 Cargando datos...")
 df = pd.read_csv(DATASET_PATH)
 print(f"✓ Dataset cargado: {len(df)} propiedades")
 
+# Calcular precio_m2 si no existe
+if 'precio_m2' not in df.columns:
+    print("   ℹ️  Calculando 'precio_m2' a partir de 'precio' y 'superficie_util'...")
+    df['precio_m2'] = df['precio'] / df['superficie_util'].replace(0, np.nan)
+
+# Limpiar valores inválidos de precio_m2
+df = df[df['precio_m2'].notna() & (df['precio_m2'] > 0) & (df['precio_m2'] < 500000)].copy()
+print(f"✓ Registros válidos después de limpiar: {len(df)}")
+
 # Features para el modelo
 features_base = ['superficie_util', 'dormitorios', 'banos', 'estacionamientos', 'bodegas']
 features_derivadas = ['m2_por_habitante', 'total_habitaciones', 'ratio_bano_dorm']

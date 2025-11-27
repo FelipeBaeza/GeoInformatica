@@ -104,6 +104,31 @@ else
     fi
 fi
 
+# Paso 6: Modelo Mejorado (usa idx_habitabilidad_global)
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "6️⃣  MODELO SATISFACCIÓN MEJORADO"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+# Activar venv si existe
+if [ -d "$SEMANA3/venv_viz" ]; then
+    source "$SEMANA3/venv_viz/bin/activate"
+fi
+
+python3 "$SEMANA3/scripts/06_modelo_satisfaccion_mejorado.py"
+
+# Paso 7: Visualizaciones Completas
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "7️⃣  VISUALIZACIONES CARTOGRÁFICAS"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+python3 "$SEMANA3/scripts/08_visualizaciones_cartograficas.py"
+
+# Desactivar venv
+if [ -n "$VIRTUAL_ENV" ]; then
+    deactivate 2>/dev/null || true
+fi
+
 # Resumen final
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
@@ -113,9 +138,16 @@ echo ""
 echo "📂 Archivos generados en:"
 echo "   • $SEMANA3/data/"
 echo "   • $SEMANA3/resultados/"
+echo "   • $SEMANA3/resultados/modelo_mejorado/"
 echo "   • $SEMANA3/graficos/"
 echo ""
 echo "📊 Para ver resultados:"
 echo "   cat $SEMANA3/resultados/metricas_modelo.csv"
 echo "   cat $SEMANA3/resultados/test_autocorrelacion.csv"
+echo "   cat $SEMANA3/resultados/modelo_mejorado/metricas_modelo_mejorado.json"
+echo ""
+echo "🗺️ Visualizaciones:"
+echo "   • 3 mapas temáticos (PNG)"
+echo "   • 5 gráficos estadísticos (PNG)"
+echo "   • 1 mapa interactivo (HTML)"
 echo ""

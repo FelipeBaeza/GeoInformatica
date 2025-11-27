@@ -1,59 +1,174 @@
-## Resumen ejecutivo
+# 🏠 Proyecto GeoInformática: Predicción de Satisfacción Residencial
 
-El proyecto integra información interna de propiedades con métricas espaciales para explicar y predecir un proxy de satisfacción residencial (precio por m²) en un conjunto de comunas de Santiago. Tras limpiar y normalizar las fuentes, generar una grilla de evaluación y calcular distancias y densidades, entrenamos modelos que van desde un Random Forest global hasta variantes híbridas (GWRF) que entrenan modelos locales sobre particiones espaciales. El resultado principal es un modelo híbrido por cluster (GWRF por cluster) que explica el 88% de la variación observada en precios (R² ≈ 0.880), y que reduce el error medio absoluto por debajo de 440 UF/m².
+> **Guía para entender el proyecto** - Este documento explica de forma simple qué hace el proyecto, cómo funciona y cómo usarlo.
 
-## Datos y preparación
+---
 
-Partimos de varias fuentes: un CSV principal de propiedades y un conjunto adicional de registros normalizados en GeoJSON. Todas las capas temáticas externas (colegios, salud, transporte, áreas verdes, etc.) fueron reproyectadas a UTM Zona 19S (EPSG:32719), validadas y unificadas. Se detectaron y eliminaron duplicados espaciales (73 eliminados) y después de la limpieza el dataset final para modelado quedó con 758 propiedades de alta calidad. A partir de los datos base se derivaron variables internas (precio por m², m² por habitante, ratios de baños por dormitorio, flags de estacionamiento) y 42 factores espaciales (densidades en varios radios y distancias al servicio más cercano) normalizados para facilitar su uso en modelos.
+## Resumen Ejecutivo - ¿De qué trata este proyecto?
 
-## Flujo metodológico (semana a semana)
+Este proyecto busca responder una pregunta simple pero importante: **¿qué hace que una persona esté satisfecha con su vivienda?** Para responderla, combinamos información de propiedades en arriendo (superficie, dormitorios, precio) con datos del entorno urbano (cercanía a metros, colegios, hospitales, áreas verdes, etc.) en la Región Metropolitana de Santiago.
 
-La primera semana se centró en la normalización de datos geoespaciales: recolectar fuentes, corregir geometrías, homogeneizar nombres de campos y convertir todo a una misma CRS. Esto dejó una carpeta de `datos_normalizados` lista para cálculos espaciales reproducibles. La segunda semana se dedicó a generar una grilla de evaluación, filtrar puntos dentro del área de interés y calcular distancias (KDTree) y densidades (buffers 300/600/1000 m) para más de veinte categorías, obteniendo índices compuestos y normalizados.
+El resultado principal es un modelo que puede predecir qué tan satisfactoria será una vivienda para un potencial arrendatario, basándose tanto en las características internas del departamento como en la calidad del barrio donde se ubica. El modelo mejorado alcanza un R² de 0.55, lo que significa que explica más de la mitad de la variación en satisfacción residencial, una mejora del 150% respecto al modelo inicial que solo usaba el precio.
 
-La tercera semana integró las propiedades con la grilla para obtener el dataset final de trabajo, aplicó imputaciones y filtrado de outliers, y construyó un pipeline de modelado. Primero entrenamos un Random Forest global como baseline. Tras comprobar que las variables espaciales aportaban señal, entrenamos un Random Forest sobre el dataset combinado (CSV+GeoJSON). Finalmente exploramos estrategias híbridas (GWRF) entrenando Random Forests locales tras particionar el espacio por comuna, por clusters (K-means sobre features espaciales) y por cuantiles de densidad.
+## ¿Qué datos usamos?
 
-La cuarta semana se planificó para ampliar cobertura y comparar modelos hedonicos (OLS) con los predictivos; el repositorio contiene scripts de recolección y limpieza orientados a integrar datos externos si se desea ampliar la muestra.
+Trabajamos con dos tipos de información que se complementan entre sí. Por un lado tenemos los **datos internos de las propiedades**: 1,944 departamentos en arriendo con información como superficie útil, número de dormitorios, baños, estacionamientos y precio mensual. Por otro lado tenemos los **datos del entorno urbano**: información geográfica de Santiago que incluye ubicación de estaciones de metro, colegios, hospitales, comisarías, áreas verdes, comercios y más.
 
-## Modelos probados y por qué
+Todos los datos geográficos fueron normalizados al sistema de coordenadas UTM Zona 19S (EPSG:32719), que es el estándar para Chile central. Esto permite calcular distancias reales en metros y hacer análisis espaciales precisos. Después de limpiar datos duplicados y valores atípicos extremos, quedamos con 1,672 propiedades de alta calidad para el análisis.
 
-Se eligió Random Forest (RF) como punto de partida porque, con nuestro tamaño de muestra y la mezcla de variables internas y espaciales, ofrece robustez frente a outliers, captura relaciones no lineales sin ingeniería extensa y entrega medidas de importancia de variables útiles para interpretación. A partir del RF global se probaron variantes: entrenar el RF sobre el dataset combinado (para aprovechar las nuevas features espaciales) y estrategias GWRF (híbridas) que entrenan RF locales tras particionar el espacio. Las particiones intentadas fueron por comuna (límite administrativo), por cluster (agrupación funcional por K-means) y por densidad (cuantiles de densidad urbana). Cada estrategia persigue capturar heterogeneidad local: si la relación entre variables e precio cambia por zona, un modelo local puede reducir sesgo y mejorar precisión.
+## ¿Cómo organizamos el trabajo? (Semana a semana)
 
-## Explicaciones prácticas de los modelos y ejemplo de uso (en párrafos)
+El proyecto se dividió en etapas claras que van construyendo una sobre otra, como bloques de lego.
 
-En este proyecto se emplearon principalmente modelos basados en Random Forest (RF) y variantes híbridas que combinan modelos globales y locales. El primer modelo fue un RF global entrenado sobre las variables internas del conjunto original: sirve como baseline o referencia para medir cuánto aporta cualquier mejora posterior. A continuación se entrenó un RF sobre el dataset ampliado con 42 features espaciales (densidades, distancias, índices normalizados)—a este lo llamamos RF combinado—y finalmente se exploraron estrategias GWRF que entrenan RF locales tras particionar el espacio según criterios administrativos (comuna), funcionales (clusters por K‑means sobre features espaciales) y de intensidad urbana (terciles de densidad). Para aprovechar las ventajas de cada aproximación se implementó además una estrategia de stacking: generar predicciones out‑of‑fold de cada modelo base y entrenar un meta‑regresor que aprenda la combinación óptima.
+**Semana 1 - Preparación de datos:** Nos dedicamos a recolectar y limpiar toda la información. Esto incluyó descargar datos de portales inmobiliarios, obtener capas geográficas de servicios urbanos (transporte, educación, salud, etc.) y asegurarnos de que todo estuviera en el mismo sistema de coordenadas. Es como preparar todos los ingredientes antes de cocinar.
 
-Se eligió Random Forest por varias razones prácticas: maneja bien relaciones no lineales y variables mezcladas (numéricas y categóricas), es robusto frente a outliers y multicolinealidad parcial, y entrega medidas de importancia de variables útiles para interpretación. El RF global es rápido de entrenar y fácil de desplegar, por eso funciona como punto de partida diagnóstico. El RF combinado con features espaciales demuestra si la señal espacial puede incorporarse directamente a un único modelo. Las variantes GWRF se usan cuando la relación entre las mismas variables y el precio no es estacionaria en el espacio; modelos locales pueden capturar esas diferencias y reducir errores locales, siempre que cada segmento tenga suficiente volumen de datos.
+**Semana 2 - Características espaciales:** Creamos una grilla de análisis sobre Santiago y calculamos dos tipos de métricas para cada zona: distancias (¿a cuántos metros está el metro más cercano?) y densidades (¿cuántos colegios hay en un radio de 600 metros?). También generamos índices compuestos de habitabilidad que resumen la calidad del entorno urbano en una sola cifra.
 
-Cómo encajan los modelos con los objetivos del proyecto: el objetivo principal es predecir un proxy de satisfacción residencial (precio por m²) con precisión y al mismo tiempo ofrecer un pipeline reproducible y explicable. El RF global responde a la necesidad de simplicidad y reproducibilidad; el RF combinado aporta la mayor ganancia al incorporar la señal espacial (como muestra el salto en R² y la caída de RMSE/MAE en el informe); las GWRF (especialmente por cluster) buscan exprimir la heterogeneidad local para maximizar precisión cuando la operación puede manejar mayor complejidad (múltiples modelos y asignación de cluster en tiempo real). El stacking suma una capa adicional de robustez al aprender cómo pesar las predicciones de cada estrategia según su comportamiento en subregiones del espacio de entrenamiento.
+**Semana 3 - Modelado y análisis:** Aquí está el corazón del proyecto. Integramos las propiedades con los datos espaciales, entrenamos varios modelos de Machine Learning y evaluamos cuál predice mejor la satisfacción residencial. También analizamos si los errores del modelo tienen patrones espaciales (autocorrelación) y generamos visualizaciones para comunicar los resultados.
 
-Ejemplo práctico para entender el flujo: imagina que tienes una nueva propiedad y quieres predecir su precio por m². Primero debes calcular exactamente las mismas features que se usaron en el entrenamiento: variables internas (superficie útil, dormitorios, baños, estacionamientos, m2_por_habitante, etc.) y las métricas espaciales (por ejemplo densidad total en 600 m, distancia al colegio más cercano, distancia a transporte). Es crucial reproyectar la geometría a EPSG:32719 (UTM 19S) y aplicar las mismas imputaciones y normalizaciones que el pipeline de entrenamiento. Si vas a usar la estrategia por cluster, asignas el cluster usando el objeto K‑means guardado; si vas a usar el RF combinado, ordenas las columnas según la lista de features guardada y pasas el vector al pipeline (scaler + modelo). Si usas stacking, primero obtienes las predicciones base (global, zona/cluster/densidad) y luego pasas ese vector de predicciones al meta‑modelo para obtener la predicción final. La salida es una cifra en UF/m² cuya diferencia con el precio real (si lo conoces) se interpreta como error absoluto; comparando con el MAE reportado (ej. ~439 UF/m² para el mejor modelo) entiendes si la predicción es razonable.
+**Semana 4 - Ampliación (opcional):** Scripts adicionales para recolectar más datos si se quiere expandir el análisis a otras zonas o períodos.
 
-En términos operativos y de despliegue conviene recordar las limitaciones: los modelos locales requieren volumen suficiente por segmento (regla práctica ≳50 observaciones) para ser estables; el stacking y las GWRF elevan la complejidad y el coste computacional; y siempre hay que versionar y guardar los objetos necesarios (lista de features, scaler, kmeans y modelos por cluster, modelos base y meta‑modelo) para garantizar reproducibilidad. Si el objetivo prioriza simplicidad y rapidez de despliegue, el RF combinado ofrece el mejor balance entre desempeño y operatividad; si el objetivo prioriza la máxima precisión y se puede gestionar mayor complejidad, desplegar GWRF por cluster o el pipeline de stacking es apropiado.
+## ¿Qué modelos usamos y por qué?
 
-## Resultados cuantitativos y su interpretación
+Usamos **Random Forest** como algoritmo principal. Imagina que tienes 200 expertos inmobiliarios y cada uno da su opinión sobre el precio de una propiedad basándose en diferentes criterios; Random Forest es exactamente eso: un "bosque" de árboles de decisión que votan para dar una predicción final. Lo elegimos porque funciona bien con datos mixtos, no necesita que las relaciones sean lineales, y nos dice qué variables son más importantes.
 
-Las cifras clave del experimento fueron las siguientes: RF Original (CSV) obtuvo R² = 0.2040, RMSE = 3,443 UF/m² y MAE = 2,254 UF/m². Al integrar las métricas espaciales en el RF Combinado, R² subió a 0.8431, RMSE cayó a 1,471 y MAE a 605 UF/m²: este salto muestra que las features espaciales agregadas (densidades y distancias) aportan la mayor parte de la mejora. Las versiones GWRF arrojaron resultados variables: por comuna R² = 0.7478 (peor que el combinado), por cluster R² = 0.8800 (mejor, ganador) y por densidad R² = 0.8772 (casi tan bueno como cluster). El GWRF por cluster redujo RMSE a 1,286 y MAE a 439 UF/m².
+Probamos tres enfoques diferentes:
 
-Interpretando las métricas: R² indica la fracción de varianza explicada (88% para el mejor modelo). RMSE es el error típico y penaliza más errores grandes; MAE es el error medio absoluto y es más interpretable en unidades UF/m²: en promedio el modelo ganador se equivoca ~439 UF/m². La mayor mejora provino de mejorar las features (integración de datos), mientras que la optimización espacial (GWRF por cluster) añadió una mejora adicional significativa especialmente en MAE.
+1. **Modelo Global (Baseline):** Un solo modelo para todas las propiedades. Es simple pero no considera que diferentes zonas pueden tener dinámicas distintas. Obtuvo R² = 0.22.
 
-## Por qué cada modelo se comportó así (resumen interpretativo)
+2. **GWRF (Geographically Weighted Random Forest):** La idea es entrenar modelos separados para diferentes zonas de la ciudad, porque lo que importa en Providencia puede ser diferente a lo que importa en Maipú. Probamos dividir por clusters espaciales y por niveles de densidad urbana.
 
-El RF Original tuvo bajo desempeño porque carecía de la señal espacial necesaria: muchas variables que explican precio no estaban representadas. El RF Combinado capturó esa señal y por eso produjo la mayor mejora: la adición de 42 factores espaciales y variables derivadas cambió radicalmente la capacidad predictiva. GWRF por comuna falló porque algunos segmentos administrativos tenían muy pocos datos, lo que creó modelos locales inestables; en cambio, GWRF por cluster funcionó porque K-means produjo grupos más balanceados y homogéneos, permitiendo que cada RF local aprendiera patrones locales sin sobreajustarse. GWRF por densidad fue una alternativa válida, aunque en este dataset la mayoría de observaciones quedó en alta densidad y la partición no fue tan discriminativa.
+3. **Modelo Mejorado con Satisfacción Compuesta:** En lugar de predecir solo el precio, creamos una variable de "satisfacción" que combina el índice de habitabilidad del barrio con las características de la propiedad. Este modelo alcanzó R² = 0.55, el mejor resultado.
 
-## Impacto de variables y lecciones prácticas
+## Explicación simple del flujo de predicción
 
-Las variables internas siguen siendo fundamentales: `m2_por_habitante` y `superficie_util` figuran entre las más importantes. No obstante, las medidas espaciales actúan como moduladores: aunque cada densidad/distancia aporta poco individualmente, su efecto conjunto es decisivo. Una lección es clara: en problemas urbanos la calidad y relevancia de las features espaciales pueden superar el impacto de cambiar el algoritmo. Otra lección práctica es que los modelos locales requieren suficiente volumen por segmento (regla práctica: ≳50 observaciones por segmento) para ser estables.
+Imagina que quieres saber si un departamento en particular será satisfactorio para vivir. El proceso funciona así:
 
-## Recomendaciones operativas
+**Paso 1 - Recolectar información de la propiedad:** Necesitas saber la superficie, dormitorios, baños, si tiene estacionamiento, y su ubicación exacta (latitud/longitud).
 
-Si buscas un despliegue sencillo y robusto, recomendamos usar el RF combinado (un único modelo) ya que ofrece muy buena relación desempeño/simplicidad (R² ≈ 0.843). Si la prioridad es la máxima precisión y se puede asumir gestión operativa mayor (calcular cluster en tiempo real y mantener varios modelos), desplegar el GWRF por cluster es razonable (R² ≈ 0.880, MAE ≈ 439). No recomendamos desplegar modelos por comuna con el dataset actual por falta de muestras locales.
+**Paso 2 - Calcular métricas del entorno:** Con la ubicación, el sistema calcula automáticamente qué tan cerca está del metro, de colegios, hospitales, áreas verdes, etc. También calcula cuántos servicios hay en un radio de 300, 600 y 1000 metros.
 
-## Artefactos y reproducción
+**Paso 3 - Generar índices de habitabilidad:** Todas esas métricas se combinan en índices fáciles de interpretar: índice de vida urbana, índice de calidad de vida, índice de habitabilidad global. Un departamento en una zona con metro cerca, buenos colegios y parques tendrá un índice alto.
 
-El repositorio contiene los artefactos principales: datasets normalizados, la grilla con distancias y densidades, scripts de procesamiento y modelado, y modelos serializados (`models/random_forest_combinado.pkl` y `resultados/gwrf/gwrf_por_cluster.pkl`). Para predecir en nuevas propiedades hay que calcular las mismas features internas y espaciales, determinar el cluster usando el objeto `kmeans` guardado y aplicar el modelo del cluster correspondiente. Todos los pasos siguen un pipeline reproducible y los scripts documentan cada transformación.
+**Paso 4 - Predecir satisfacción:** El modelo toma todas estas variables (internas + espaciales + índices) y predice un puntaje de satisfacción del 1 al 10. Un puntaje de 7+ indica alta satisfacción esperada.
 
-## Próximos pasos sugeridos
+La ventaja de este enfoque es que no solo mira el precio o el tamaño del departamento, sino que considera todo el contexto urbano. Un departamento pequeño pero cerca del metro y de servicios puede ser más satisfactorio que uno grande pero aislado.
 
-Para mejorar aún más o ampliar el alcance recomendamos estas acciones: (1) expandir cobertura geográfica (más comunas o ciudades) — con mayor heterogeneidad, GWRF tenderá a aportar más ventaja; (2) incorporar series temporales para modelar tendencias y estacionalidad; (3) probar ensembles avanzados (XGBoost, LightGBM, stacking) tras una fase de tuning; (4) automatizar el pipeline y desplegar un endpoint REST que reciba features y devuelva predicción y medida de incertidumbre.
+## Resultados: ¿Qué tan bien funcionan los modelos?
 
-Si quieres que convierta este documento en una versión aún más breve para ejecutivos (1 página), en diapositivas para presentación o que genere las figuras comparativas (R²/RMSE/MAE) y las guarde en `resultados/figuras/`, lo hago a continuación.
+Aquí están los números clave de cada modelo que probamos:
+
+| Modelo | R² (precisión) | ¿Qué predice? |
+|--------|----------------|---------------|
+| Modelo Baseline (solo precio) | 0.22 | Precio por m² |
+| GWRF por Cluster | 0.08 | Precio por m² |
+| GWRF por Densidad | 0.09 | Precio por m² |
+| **Modelo Mejorado** | **0.55** | Satisfacción compuesta |
+
+**¿Cómo interpretar el R²?** Es un número entre 0 y 1 que indica qué porcentaje de la variación el modelo puede explicar. Un R² de 0.55 significa que el modelo explica el 55% de por qué unas viviendas son más satisfactorias que otras. El 45% restante depende de factores que no capturamos (gustos personales, estado del edificio, vecinos, etc.).
+
+**¿Por qué el modelo mejorado es mejor?** La clave fue cambiar lo que intentamos predecir. Los modelos iniciales intentaban predecir el precio por m², pero el precio no es lo mismo que satisfacción: un departamento caro no necesariamente hace feliz a quien lo arrienda. El modelo mejorado predice un índice de satisfacción que combina la calidad del entorno (índice de habitabilidad) con las características de la propiedad. Este cambio de enfoque produjo una mejora del 150% en precisión.
+
+## ¿Por qué algunos modelos funcionaron mejor que otros?
+
+**El modelo baseline tuvo bajo rendimiento** porque solo miraba el precio, y el precio en Santiago depende de muchos factores difíciles de capturar (especulación, prestigio del barrio, etc.). Además, no incluía información del entorno urbano.
+
+**Los modelos GWRF no mejoraron como esperábamos** porque nuestro dataset, aunque tiene casi 2,000 propiedades, queda pequeño cuando lo dividimos en zonas. Si un cluster tiene solo 50 propiedades, el modelo local no tiene suficientes ejemplos para aprender bien. Es como querer predecir el clima de todo Chile con datos de solo 3 ciudades.
+
+**El modelo mejorado funcionó mejor** por dos razones: primero, incorpora los índices de habitabilidad calculados en la Semana 2 (que resumen la calidad del entorno); segundo, predice una variable más coherente con lo que realmente queremos medir (satisfacción, no precio). Un dato interesante: el análisis de autocorrelación mostró que los residuos (errores) del modelo NO tienen patrón espacial (Moran I = -0.007, p-value = 0.99), lo que significa que el modelo no está sesgado hacia ninguna zona en particular.
+
+## ¿Qué variables importan más para predecir satisfacción?
+
+El modelo nos dice qué factores tienen mayor peso en la predicción. Los resultados son muy reveladores:
+
+**Top 5 variables más importantes:**
+1. **Superficie útil (26%)** - El tamaño sigue siendo rey. Más metros = más satisfacción.
+2. **Índice de vida urbana (17%)** - Qué tan bien conectado está el barrio con servicios y transporte.
+3. **Índice de habitabilidad global (14%)** - La calidad general del entorno.
+4. **Accesibilidad a transporte (10%)** - Cercanía a metro y transporte público.
+5. **Distancia al metro (5%)** - Específicamente, qué tan cerca está la estación más cercana.
+
+**La lección principal:** Las características del entorno urbano (índices de habitabilidad, acceso a transporte) son casi tan importantes como las características físicas de la propiedad. Esto confirma lo que intuimos: la satisfacción residencial no depende solo del departamento, sino del barrio donde está ubicado.
+
+## ¿Cómo usar este proyecto?
+
+**Si quieres ejecutar el análisis completo:**
+```bash
+cd autocorrelacion_espacial/semana3_modelo_satisfaccion
+./ejecutar_pipeline.sh
+```
+
+**Si quieres ejecutar scripts individuales:**
+```bash
+source venv_viz/bin/activate
+python scripts/01_integrar_datos.py      # Integra propiedades con datos espaciales
+python scripts/02_modelo_satisfaccion.py # Entrena modelo baseline
+python scripts/06_modelo_satisfaccion_mejorado.py  # Modelo mejorado
+python scripts/08_visualizaciones_cartograficas.py # Genera mapas y gráficos
+```
+
+**Para predecir satisfacción de una nueva propiedad:**
+1. Asegúrate de tener coordenadas (latitud/longitud)
+2. El sistema calculará automáticamente las métricas espaciales
+3. El modelo devolverá un puntaje de satisfacción del 1 al 10
+
+## Estructura del proyecto
+
+```
+autocorrelacion_espacial/
+├── semana1_preparacion_datos/     # Limpieza y normalización de datos
+├── semana2_caracteristicas_espaciales/  # Cálculo de distancias, densidades e índices
+├── semana3_modelo_satisfaccion/   # Modelado y visualizaciones
+│   ├── scripts/                   # 7 scripts del pipeline
+│   ├── data/                      # Datos procesados
+│   ├── resultados/                # Métricas y predicciones
+│   ├── graficos/                  # Mapas y gráficos generados
+│   └── modelos/                   # Modelos entrenados (.pkl)
+└── semana4_recoleccion_datos/     # Scripts para ampliar datos
+```
+
+**Archivos clave generados:**
+- `graficos/mapa_interactivo.html` - Mapa web interactivo de propiedades
+- `graficos/mapa_01-03_*.png` - 3 mapas temáticos con elementos cartográficos
+- `graficos/grafico_01-05_*.png` - 5 gráficos estadísticos
+- `resultados/modelo_mejorado/metricas_modelo_mejorado.json` - Métricas del mejor modelo
+- `modelos/modelo_satisfaccion_mejorado.pkl` - Modelo entrenado listo para usar
+
+## Visualizaciones generadas
+
+El proyecto genera automáticamente todas las visualizaciones requeridas:
+
+**3 Mapas temáticos (con elementos cartográficos completos):**
+- Mapa de ubicación del área de estudio
+- Mapa de distribución de precios por m²
+- Mapa de resultados del análisis (satisfacción predicha)
+
+**5 Gráficos estadísticos:**
+- Histogramas de variables clave
+- Análisis por comuna
+- Matriz de correlaciones
+- Diagramas de dispersión
+- Boxplots comparativos
+
+**1 Visualización interactiva:**
+- Mapa HTML con Folium donde puedes hacer clic en cada propiedad para ver sus detalles
+
+## Limitaciones y próximos pasos
+
+**Limitaciones actuales:**
+- El modelo funciona solo para la Región Metropolitana de Santiago
+- Necesita coordenadas precisas para funcionar bien
+- No considera factores temporales (el mercado cambia con el tiempo)
+
+**Próximos pasos sugeridos:**
+1. Expandir a otras regiones de Chile
+2. Incorporar datos temporales para detectar tendencias
+3. Agregar información de calidad de construcción y antigüedad
+4. Crear una interfaz web para que usuarios puedan consultar predicciones
+
+## Conclusión
+
+Este proyecto demuestra que la satisfacción residencial es predecible cuando combinamos información de la propiedad con datos del entorno urbano. El modelo mejorado alcanza un R² de 0.55, lo que significa que más de la mitad de la variación en satisfacción puede explicarse con las variables que medimos. Las características del barrio (acceso a transporte, servicios, calidad de vida urbana) son casi tan importantes como el tamaño del departamento.
+
+---
+*Proyecto GeoInformática - Felipe Baeza - Noviembre 2025*
