@@ -120,39 +120,22 @@ def obtener_comunas_del_csv(archivo):
     return sorted(comunas)
 
 
-def generar_nombre_salida(comunas):
+def generar_nombre_salida(archivo_entrada):
     """
-    Genera el nombre del archivo de salida basado en las comunas.
-    Formato: Ubicaciones_[comuna1]_[comuna2].csv
+    Genera el nombre del archivo de salida basado en el nombre de entrada.
+    Formato: [nombre_original]_geolocacion.csv
     """
-    if not comunas:
-        return "Ubicaciones_sin_comuna.csv"
-    
-    # Limpiar nombres de comunas para el archivo (sin espacios ni caracteres especiales)
-    comunas_limpias = []
-    for comuna in comunas:
-        comuna_limpia = comuna.replace(" ", "_").replace("ñ", "n").replace("Ñ", "N")
-        comuna_limpia = ''.join(c for c in comuna_limpia if c.isalnum() or c == '_')
-        comunas_limpias.append(comuna_limpia)
-    
-    # Si hay muchas comunas, limitar a las primeras 3
-    if len(comunas_limpias) > 3:
-        nombre = "_".join(comunas_limpias[:3]) + "_y_mas"
-    else:
-        nombre = "_".join(comunas_limpias)
-    
-    return f"Ubicaciones_{nombre}.csv"
+    nombre_base = os.path.splitext(archivo_entrada)[0]
+    return f"{nombre_base}_geolocacion.csv"
 
 
 def geocodificar_csv(archivo_entrada, archivo_salida=None):
     """
     Lee un CSV de propiedades y agrega columnas de latitud y longitud.
+    Solo guarda las propiedades que tienen geolocalización encontrada.
     """
-    # Obtener comunas del archivo para generar nombre descriptivo
-    comunas = obtener_comunas_del_csv(archivo_entrada)
-    
     if not archivo_salida:
-        archivo_salida = generar_nombre_salida(comunas)
+        archivo_salida = generar_nombre_salida(archivo_entrada)
     
     # Inicializar geocodificador
     geolocator = Nominatim(user_agent="portal_inmobiliario_scraper_v1")
@@ -161,9 +144,9 @@ def geocodificar_csv(archivo_entrada, archivo_salida=None):
     print("🌍 GEOCODIFICADOR DE PROPIEDADES")
     print("=" * 60)
     print(f"\n📂 Archivo entrada: {archivo_entrada}")
-    print(f"🏘️  Comunas encontradas: {', '.join(comunas)}")
     print(f"📂 Archivo salida: {archivo_salida}")
     print(f"⏱️  Delay entre peticiones: {DELAY_ENTRE_PETICIONES}s")
+    print(f"⚠️  Solo se guardarán propiedades con geolocalización encontrada")
     
     # Leer CSV original
     with open(archivo_entrada, 'r', encoding='utf-8-sig') as f:
@@ -180,51 +163,53 @@ def geocodificar_csv(archivo_entrada, archivo_salida=None):
     # Procesar y geocodificar
     geocodificadas = 0
     no_encontradas = 0
+    filas_guardadas = []
     
     print("\n🔄 Iniciando geocodificación...\n")
     
+    for i, fila in enumerate(filas):
+        direccion_original = fila.get('ubicacion', '')
+        direccion_limpia = limpiar_direccion(direccion_original)
+        
+        print(f"[{i+1}/{total_filas}] {direccion_original[:60]}...")
+        
+        if direccion_limpia:
+            print(f"   → Buscando: {direccion_limpia}")
+            lat, lng = geocodificar_direccion(geolocator, direccion_limpia)
+            
+            if lat and lng:
+                print(f"   ✅ Encontrado: ({lat:.6f}, {lng:.6f})")
+                geocodificadas += 1
+                
+                # Solo agregar a la lista si se encontró geolocalización
+                fila['latitud'] = lat
+                fila['longitud'] = lng
+                fila['direccion_geocoded'] = direccion_limpia
+                filas_guardadas.append(fila)
+            else:
+                print(f"   ⚠️  No encontrado - NO se guardará")
+                no_encontradas += 1
+            
+            time.sleep(DELAY_ENTRE_PETICIONES)
+        else:
+            no_encontradas += 1
+            print(f"   ⚠️  Dirección no válida - NO se guardará")
+    
+    # Guardar solo las filas con geolocalización
     with open(archivo_salida, 'w', newline='', encoding='utf-8-sig') as f:
         writer = csv.DictWriter(f, fieldnames=nuevos_headers, delimiter=';')
         writer.writeheader()
-        
-        for i, fila in enumerate(filas):
-            direccion_original = fila.get('ubicacion', '')
-            direccion_limpia = limpiar_direccion(direccion_original)
-            
-            print(f"[{i+1}/{total_filas}] {direccion_original[:60]}...")
-            
-            if direccion_limpia:
-                print(f"   → Buscando: {direccion_limpia}")
-                lat, lng = geocodificar_direccion(geolocator, direccion_limpia)
-                
-                if lat and lng:
-                    print(f"   ✅ Encontrado: ({lat:.6f}, {lng:.6f})")
-                    geocodificadas += 1
-                else:
-                    print(f"   ⚠️  No encontrado")
-                    no_encontradas += 1
-                
-                time.sleep(DELAY_ENTRE_PETICIONES)
-            else:
-                lat, lng = None, None
-                no_encontradas += 1
-                print(f"   ⚠️  Dirección no válida")
-            
-            # Agregar datos a la fila
-            fila['latitud'] = lat if lat else ""
-            fila['longitud'] = lng if lng else ""
-            fila['direccion_geocoded'] = direccion_limpia if direccion_limpia else ""
-            
-            writer.writerow(fila)
+        writer.writerows(filas_guardadas)
     
     # Resumen
     print("\n" + "=" * 60)
     print("📋 RESUMEN GEOCODIFICACIÓN")
     print("=" * 60)
-    print(f"\n✅ Geocodificadas exitosamente: {geocodificadas}")
-    print(f"⚠️  No encontradas: {no_encontradas}")
+    print(f"\n✅ Geocodificadas y guardadas: {geocodificadas}")
+    print(f"❌ No encontradas (excluidas): {no_encontradas}")
     print(f"📊 Tasa de éxito: {geocodificadas/total_filas*100:.1f}%")
     print(f"\n📁 Archivo guardado: {archivo_salida}")
+    print(f"📊 Total filas en archivo: {len(filas_guardadas)}")
     
     return archivo_salida
 
@@ -235,11 +220,13 @@ if __name__ == "__main__":
     print("🌍 GEOCODIFICADOR DE DIRECCIONES")
     print("=" * 60)
     
-    # Listar archivos CSV disponibles
-    archivos_csv = [f for f in os.listdir('.') if f.startswith('propiedades_') and f.endswith('.csv') and '_geocoded' not in f]
+    # Listar archivos CSV disponibles (propiedades y ubicaciones, excluyendo los ya geolocalizados)
+    archivos_csv = [f for f in os.listdir('.') if f.endswith('.csv') 
+                    and (f.startswith('propiedades_') or f.startswith('Ubicaciones_'))
+                    and '_geolocacion' not in f]
     
     if not archivos_csv:
-        print("\n❌ No se encontraron archivos CSV de propiedades.")
+        print("\n❌ No se encontraron archivos CSV.")
         print("   Primero ejecute el scrapper para generar datos.")
     else:
         print("\n📂 Archivos CSV disponibles:\n")
