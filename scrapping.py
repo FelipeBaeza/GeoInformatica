@@ -236,6 +236,7 @@ def mostrar_menu():
         print(f"   [{key}] {value['nombre']}")
     
     print(f"\n   [9] 🚀 TODAS las opciones")
+    print(f"\n   [C] 🔄 CONTINUAR scraping anterior")
     print(f"   [0] ❌ Salir")
     print("\n" + "-" * 60)
 
@@ -245,13 +246,16 @@ def obtener_seleccion():
     while True:
         mostrar_menu()
         try:
-            opcion = input("\n👉 Ingrese su opción (puede ingresar varias separadas por coma, ej: 1,3,5): ").strip()
+            opcion = input("\n👉 Ingrese su opción (puede ingresar varias separadas por coma, ej: 1,3,5): ").strip().upper()
             
             if opcion == '0':
-                return None
+                return None, None
+            
+            if opcion == 'C':
+                return 'CONTINUAR', None
             
             if opcion == '9':
-                return list(URLS_TO_SCRAPE.keys())
+                return list(URLS_TO_SCRAPE.keys()), None
             
             # Parsear múltiples opciones
             opciones = [int(x.strip()) for x in opcion.split(',')]
@@ -265,12 +269,142 @@ def obtener_seleccion():
                     print(f"⚠️  Opción {op} no válida, ignorando...")
             
             if opciones_validas:
-                return opciones_validas
+                return opciones_validas, None
             else:
                 print("❌ Ninguna opción válida ingresada. Intente de nuevo.")
                 
         except ValueError:
             print("❌ Entrada inválida. Por favor ingrese números separados por coma.")
+
+
+def obtener_parametros_continuacion():
+    """Obtiene los parámetros para continuar un scraping anterior."""
+    print("\n" + "=" * 60)
+    print("🔄 CONTINUAR SCRAPING ANTERIOR")
+    print("=" * 60)
+    
+    # Mostrar opciones disponibles
+    print("\n📋 ¿Qué búsqueda desea continuar?\n")
+    for key, value in URLS_TO_SCRAPE.items():
+        print(f"   [{key}] {value['nombre']}")
+    
+    try:
+        opcion = int(input("\n👉 Seleccione la opción: ").strip())
+        if opcion not in URLS_TO_SCRAPE:
+            print("❌ Opción no válida.")
+            return None
+        
+        # Pedir el offset desde donde continuar
+        print(f"\n📍 Último offset exitoso (ej: si quedó en _Desde_337, ingrese 337)")
+        ultimo_offset = int(input("👉 Ingrese el último offset exitoso: ").strip())
+        
+        # Pedir archivo existente o crear nuevo
+        archivo_existente = input("\n📁 ¿Desea agregar a un archivo existente? (ingrese nombre o Enter para nuevo): ").strip()
+        
+        if archivo_existente:
+            if not os.path.exists(archivo_existente):
+                print(f"⚠️  Archivo {archivo_existente} no existe. Se creará uno nuevo.")
+                archivo_existente = None
+        
+        return {
+            'opcion': opcion,
+            'offset_inicial': ultimo_offset + ITEMS_POR_PAGINA,
+            'archivo': archivo_existente
+        }
+        
+    except ValueError:
+        print("❌ Entrada inválida.")
+        return None
+
+
+def scrapear_continuacion(params):
+    """Continúa el scraping desde donde quedó."""
+    opcion = params['opcion']
+    offset_inicial = params['offset_inicial']
+    archivo_existente = params.get('archivo')
+    
+    info = URLS_TO_SCRAPE[opcion]
+    base_url = info['url']
+    comuna = info['comuna']
+    tipo_propiedad = info['tipo']
+    
+    # Determinar archivo de salida
+    if archivo_existente:
+        archivo_salida = archivo_existente
+        print(f"\n📁 Continuando en archivo: {archivo_salida}")
+    else:
+        fecha_actual = datetime.now().strftime("%Y%m%d_%H%M%S")
+        archivo_salida = f"propiedades_{fecha_actual}.csv"
+        inicializar_csv(archivo_salida)
+    
+    print(f"\n🔄 Continuando scraping de: {info['nombre']}")
+    print(f"📍 Empezando desde offset: {offset_inicial}")
+    print(f"⏱️  Delay entre peticiones: {DELAY_MIN}-{DELAY_MAX} segundos")
+    
+    total_propiedades = 0
+    paginas_scrapeadas = 0
+    offset = offset_inicial
+    
+    # Obtener total de resultados para calcular páginas restantes
+    print(f"\n{'='*60}")
+    print(f"📊 Obteniendo información de paginación...")
+    results_inicial, total_results, _ = scrape_page(base_url)
+    
+    if total_results:
+        total_paginas = (total_results // ITEMS_POR_PAGINA) + 1
+        pagina_actual = offset_inicial // ITEMS_POR_PAGINA
+        max_paginas = min(total_paginas, 2000 // ITEMS_POR_PAGINA)
+        paginas_restantes = max_paginas - pagina_actual
+        print(f"📈 Total en sitio: {total_results} | Página actual: {pagina_actual}/{max_paginas}")
+        print(f"📄 Páginas restantes: {paginas_restantes}")
+    else:
+        max_paginas = 42  # Estimado por defecto
+        paginas_restantes = max_paginas
+    
+    esperar_aleatorio()
+    
+    # Continuar paginación
+    while True:
+        paginated_url = f"{base_url}/_Desde_{offset}_NoIndex_True"
+        page_results, _, _ = scrape_page(paginated_url)
+        
+        if not page_results:
+            print("🛑 No hay más resultados.")
+            break
+        
+        propiedades = [item for item in page_results if item.get('id') == 'POLYCARD']
+        
+        # Guardar en CSV (modo append si es archivo existente)
+        if archivo_existente:
+            guardar_propiedades_csv(archivo_salida, propiedades, comuna, tipo_propiedad)
+        else:
+            guardar_propiedades_csv(archivo_salida, propiedades, comuna, tipo_propiedad)
+        
+        total_propiedades += len(propiedades)
+        paginas_scrapeadas += 1
+        
+        pagina_actual = offset // ITEMS_POR_PAGINA
+        print(f"   📊 Página {pagina_actual}/{max_paginas} | Offset: {offset} | Total nuevas: {total_propiedades}")
+        
+        offset += ITEMS_POR_PAGINA
+        
+        # Verificar si llegamos al límite
+        if offset > 2000:
+            print("🛑 Alcanzado límite de 2000 resultados del sitio.")
+            break
+        
+        esperar_aleatorio()
+    
+    # Resumen
+    print("\n" + "=" * 60)
+    print("📋 RESUMEN CONTINUACIÓN")
+    print("=" * 60)
+    print(f"\n✅ Páginas scrapeadas en esta sesión: {paginas_scrapeadas}")
+    print(f"✅ Propiedades nuevas extraídas: {total_propiedades}")
+    print(f"📁 Archivo: {archivo_salida}")
+    print(f"📍 Ubicación: {os.path.abspath(archivo_salida)}")
+    
+    return archivo_salida
 
 
 def scrapear_seleccion(opciones_seleccionadas):
@@ -359,12 +493,23 @@ def scrapear_seleccion(opciones_seleccionadas):
 # --- Script Principal ---
 if __name__ == "__main__":
     try:
-        opciones = obtener_seleccion()
+        opciones, _ = obtener_seleccion()
         
         if opciones is None:
             print("\n👋 ¡Hasta luego!")
+        
+        elif opciones == 'CONTINUAR':
+            # Modo continuación
+            params = obtener_parametros_continuacion()
+            if params:
+                confirmar = input("\n¿Continuar scraping? (s/n): ").strip().lower()
+                if confirmar == 's':
+                    scrapear_continuacion(params)
+                else:
+                    print("\n❌ Operación cancelada.")
+        
         else:
-            # Mostrar resumen de selección
+            # Modo normal
             print("\n📝 Has seleccionado:")
             for op in opciones:
                 print(f"   ✓ {URLS_TO_SCRAPE[op]['nombre']}")
@@ -379,3 +524,4 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print("\n\n⚠️  Scraping interrumpido por el usuario.")
         print("💾 Los datos obtenidos hasta el momento fueron guardados.")
+        print("💡 Tip: Use la opción [C] para continuar desde donde quedó.")
