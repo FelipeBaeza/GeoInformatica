@@ -1,17 +1,20 @@
 """
 Script para geocodificar direcciones del CSV de propiedades.
-Agrega columnas de latitud y longitud usando Nominatim (OpenStreetMap).
+Agrega columnas de latitud y longitud usando múltiples servicios de geocodificación.
+Soporta procesamiento paralelo para mayor velocidad.
 """
 
 import csv
 import time
 import os
-from geopy.geocoders import Nominatim
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from geopy.geocoders import Nominatim, Photon, ArcGIS
 from geopy.exc import GeocoderTimedOut, GeocoderServiceError
 
 # Configuración
-DELAY_ENTRE_PETICIONES = 1.5  # Nominatim requiere mínimo 1 segundo entre peticiones
+DELAY_ENTRE_PETICIONES = 0.3  # Delay reducido para Photon
 TIMEOUT = 10  # Segundos de timeout por petición
+MAX_WORKERS = 5  # Número de hilos paralelos
 
 
 def limpiar_direccion(direccion_raw):
@@ -106,6 +109,36 @@ def geocodificar_direccion(geolocator, direccion):
         return None, None
 
 
+def geocodificar_item(args):
+    """
+    Geocodifica un item individual. Usado para procesamiento paralelo.
+    """
+    idx, fila, total, servicio = args
+    
+    direccion_original = fila.get('ubicacion', '')
+    direccion_limpia = limpiar_direccion(direccion_original)
+    
+    if not direccion_limpia:
+        return idx, fila, None, None, None, False
+    
+    # Crear geolocalizador para este hilo
+    try:
+        if servicio == 'photon':
+            geolocator = Photon(user_agent="portal_inmobiliario_scraper_v1", timeout=TIMEOUT)
+        elif servicio == 'arcgis':
+            geolocator = ArcGIS(timeout=TIMEOUT)
+        else:
+            geolocator = Nominatim(user_agent="portal_inmobiliario_scraper_v1", timeout=TIMEOUT)
+        
+        lat, lng = geocodificar_direccion(geolocator, direccion_limpia)
+        
+        time.sleep(DELAY_ENTRE_PETICIONES)
+        
+        return idx, fila, lat, lng, direccion_limpia, True
+    except Exception:
+        return idx, fila, None, None, direccion_limpia, True
+
+
 def obtener_comunas_del_csv(archivo):
     """
     Lee el CSV y obtiene las comunas únicas presentes en los datos.
@@ -129,22 +162,27 @@ def generar_nombre_salida(archivo_entrada):
     return f"{nombre_base}_geolocacion.csv"
 
 
-def geocodificar_csv(archivo_entrada, archivo_salida=None):
+def geocodificar_csv(archivo_entrada, archivo_salida=None, usar_paralelo=True, servicio='photon'):
     """
     Lee un CSV de propiedades y agrega columnas de latitud y longitud.
     Solo guarda las propiedades que tienen geolocalización encontrada.
+    
+    Args:
+        archivo_entrada: Ruta al archivo CSV
+        archivo_salida: Ruta de salida (opcional)
+        usar_paralelo: Si True, usa procesamiento paralelo
+        servicio: 'photon' (rápido), 'nominatim' (lento pero preciso), 'arcgis'
     """
     if not archivo_salida:
         archivo_salida = generar_nombre_salida(archivo_entrada)
-    
-    # Inicializar geocodificador
-    geolocator = Nominatim(user_agent="portal_inmobiliario_scraper_v1")
     
     print("=" * 60)
     print("🌍 GEOCODIFICADOR DE PROPIEDADES")
     print("=" * 60)
     print(f"\n📂 Archivo entrada: {archivo_entrada}")
     print(f"📂 Archivo salida: {archivo_salida}")
+    print(f"🔧 Servicio: {servicio.upper()}")
+    print(f"⚡ Modo paralelo: {'Sí' if usar_paralelo else 'No'} ({MAX_WORKERS} hilos)")
     print(f"⏱️  Delay entre peticiones: {DELAY_ENTRE_PETICIONES}s")
     print(f"⚠️  Solo se guardarán propiedades con geolocalización encontrada")
     
@@ -157,6 +195,13 @@ def geocodificar_csv(archivo_entrada, archivo_salida=None):
     total_filas = len(filas)
     print(f"\n📊 Total de propiedades: {total_filas}")
     
+    # Estimar tiempo
+    if usar_paralelo:
+        tiempo_estimado = (total_filas * DELAY_ENTRE_PETICIONES) / MAX_WORKERS / 60
+    else:
+        tiempo_estimado = total_filas * DELAY_ENTRE_PETICIONES / 60
+    print(f"⏱️  Tiempo estimado: {tiempo_estimado:.1f} minutos")
+    
     # Agregar nuevas columnas
     nuevos_headers = headers_originales + ['latitud', 'longitud', 'direccion_geocoded']
     
@@ -167,33 +212,79 @@ def geocodificar_csv(archivo_entrada, archivo_salida=None):
     
     print("\n🔄 Iniciando geocodificación...\n")
     
-    for i, fila in enumerate(filas):
-        direccion_original = fila.get('ubicacion', '')
-        direccion_limpia = limpiar_direccion(direccion_original)
+    inicio = time.time()
+    
+    if usar_paralelo:
+        # Procesamiento paralelo
+        args_list = [(i, fila, total_filas, servicio) for i, fila in enumerate(filas)]
         
-        print(f"[{i+1}/{total_filas}] {direccion_original[:60]}...")
-        
-        if direccion_limpia:
-            print(f"   → Buscando: {direccion_limpia}")
-            lat, lng = geocodificar_direccion(geolocator, direccion_limpia)
+        with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+            futures = {executor.submit(geocodificar_item, args): args[0] for args in args_list}
             
-            if lat and lng:
-                print(f"   ✅ Encontrado: ({lat:.6f}, {lng:.6f})")
-                geocodificadas += 1
+            completados = 0
+            for future in as_completed(futures):
+                try:
+                    idx, fila, lat, lng, direccion_limpia, valido = future.result()
+                    completados += 1
+                    
+                    if valido and lat and lng:
+                        fila['latitud'] = lat
+                        fila['longitud'] = lng
+                        fila['direccion_geocoded'] = direccion_limpia
+                        filas_guardadas.append((idx, fila))
+                        geocodificadas += 1
+                        estado = "✅"
+                    else:
+                        no_encontradas += 1
+                        estado = "❌"
+                    
+                    # Mostrar progreso cada 10 items
+                    if completados % 10 == 0 or completados == total_filas:
+                        transcurrido = time.time() - inicio
+                        velocidad = completados / transcurrido if transcurrido > 0 else 0
+                        restante = (total_filas - completados) / velocidad / 60 if velocidad > 0 else 0
+                        print(f"   [{completados}/{total_filas}] ✅ {geocodificadas} | ❌ {no_encontradas} | ⏱️ {restante:.1f} min restantes")
+                        
+                except Exception as e:
+                    no_encontradas += 1
+        
+        # Ordenar por índice original
+        filas_guardadas.sort(key=lambda x: x[0])
+        filas_guardadas = [fila for _, fila in filas_guardadas]
+    
+    else:
+        # Procesamiento secuencial (original)
+        if servicio == 'photon':
+            geolocator = Photon(user_agent="portal_inmobiliario_scraper_v1", timeout=TIMEOUT)
+        elif servicio == 'arcgis':
+            geolocator = ArcGIS(timeout=TIMEOUT)
+        else:
+            geolocator = Nominatim(user_agent="portal_inmobiliario_scraper_v1", timeout=TIMEOUT)
+        
+        for i, fila in enumerate(filas):
+            direccion_original = fila.get('ubicacion', '')
+            direccion_limpia = limpiar_direccion(direccion_original)
+            
+            if direccion_limpia:
+                lat, lng = geocodificar_direccion(geolocator, direccion_limpia)
                 
-                # Solo agregar a la lista si se encontró geolocalización
-                fila['latitud'] = lat
-                fila['longitud'] = lng
-                fila['direccion_geocoded'] = direccion_limpia
-                filas_guardadas.append(fila)
+                if lat and lng:
+                    geocodificadas += 1
+                    fila['latitud'] = lat
+                    fila['longitud'] = lng
+                    fila['direccion_geocoded'] = direccion_limpia
+                    filas_guardadas.append(fila)
+                else:
+                    no_encontradas += 1
+                
+                time.sleep(DELAY_ENTRE_PETICIONES)
             else:
-                print(f"   ⚠️  No encontrado - NO se guardará")
                 no_encontradas += 1
             
-            time.sleep(DELAY_ENTRE_PETICIONES)
-        else:
-            no_encontradas += 1
-            print(f"   ⚠️  Dirección no válida - NO se guardará")
+            if (i + 1) % 10 == 0 or (i + 1) == total_filas:
+                print(f"   [{i+1}/{total_filas}] ✅ {geocodificadas} | ❌ {no_encontradas}")
+    
+    tiempo_total = time.time() - inicio
     
     # Guardar solo las filas con geolocalización
     with open(archivo_salida, 'w', newline='', encoding='utf-8-sig') as f:
@@ -208,6 +299,8 @@ def geocodificar_csv(archivo_entrada, archivo_salida=None):
     print(f"\n✅ Geocodificadas y guardadas: {geocodificadas}")
     print(f"❌ No encontradas (excluidas): {no_encontradas}")
     print(f"📊 Tasa de éxito: {geocodificadas/total_filas*100:.1f}%")
+    print(f"⏱️  Tiempo total: {tiempo_total/60:.1f} minutos")
+    print(f"🚀 Velocidad: {total_filas/tiempo_total:.1f} propiedades/segundo")
     print(f"\n📁 Archivo guardado: {archivo_salida}")
     print(f"📊 Total filas en archivo: {len(filas_guardadas)}")
     
@@ -229,9 +322,17 @@ if __name__ == "__main__":
         print("\n❌ No se encontraron archivos CSV.")
         print("   Primero ejecute el scrapper para generar datos.")
     else:
+        # Ordenar por fecha
+        archivos_csv.sort(key=lambda x: os.path.getmtime(x), reverse=True)
+        
         print("\n📂 Archivos CSV disponibles:\n")
         for i, archivo in enumerate(archivos_csv, 1):
-            print(f"   [{i}] {archivo}")
+            try:
+                with open(archivo, 'r', encoding='utf-8-sig') as f:
+                    total = sum(1 for _ in f) - 1
+            except:
+                total = "?"
+            print(f"   [{i}] {archivo} ({total} filas)")
         
         print(f"\n   [0] Salir")
         
@@ -247,15 +348,39 @@ if __name__ == "__main__":
                     
                     # Contar filas para estimar tiempo
                     with open(archivo, 'r', encoding='utf-8-sig') as f:
-                        total = sum(1 for _ in f) - 1  # -1 por header
+                        total = sum(1 for _ in f) - 1
                     
-                    tiempo_estimado = total * DELAY_ENTRE_PETICIONES / 60
+                    # Preguntar por modo
+                    print("\n⚡ Seleccione el modo de geocodificación:")
+                    print("   [1] 🚀 Rápido (Photon + paralelo) - Recomendado para muchos datos")
+                    print("   [2] 🎯 Preciso (Nominatim + secuencial) - Más lento pero más exacto")
+                    print("   [3] 🔄 ArcGIS (paralelo) - Alternativa")
+                    
+                    modo = input("\n👉 Seleccione modo [1]: ").strip() or "1"
+                    
+                    if modo == "1":
+                        servicio = 'photon'
+                        paralelo = True
+                        tiempo_estimado = (total * DELAY_ENTRE_PETICIONES) / MAX_WORKERS / 60
+                    elif modo == "2":
+                        servicio = 'nominatim'
+                        paralelo = False
+                        tiempo_estimado = total * 1.5 / 60  # Nominatim necesita más delay
+                    elif modo == "3":
+                        servicio = 'arcgis'
+                        paralelo = True
+                        tiempo_estimado = (total * DELAY_ENTRE_PETICIONES) / MAX_WORKERS / 60
+                    else:
+                        servicio = 'photon'
+                        paralelo = True
+                        tiempo_estimado = (total * DELAY_ENTRE_PETICIONES) / MAX_WORKERS / 60
+                    
                     print(f"\n⏱️  Tiempo estimado: {tiempo_estimado:.1f} minutos")
                     
                     confirmar = input("¿Continuar? (s/n): ").strip().lower()
                     
                     if confirmar == 's':
-                        geocodificar_csv(archivo)
+                        geocodificar_csv(archivo, usar_paralelo=paralelo, servicio=servicio)
                     else:
                         print("\n❌ Operación cancelada.")
                 else:
