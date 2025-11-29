@@ -277,39 +277,128 @@ def obtener_seleccion():
             print("❌ Entrada inválida. Por favor ingrese números separados por coma.")
 
 
+def obtener_ultimo_offset_del_archivo(archivo):
+    """Lee el archivo CSV y obtiene el último offset basado en las filas."""
+    try:
+        with open(archivo, 'r', encoding='utf-8-sig') as f:
+            reader = csv.DictReader(f, delimiter=';')
+            filas = list(reader)
+            return len(filas)
+    except:
+        return 0
+
+
+def obtener_comuna_tipo_del_archivo(archivo):
+    """Lee el archivo CSV y obtiene la comuna y tipo de propiedad."""
+    try:
+        with open(archivo, 'r', encoding='utf-8-sig') as f:
+            reader = csv.DictReader(f, delimiter=';')
+            for fila in reader:
+                comuna = fila.get('comuna', '')
+                tipo = fila.get('tipo_propiedad', '')
+                if comuna and tipo:
+                    return comuna, tipo
+        return None, None
+    except:
+        return None, None
+
+
+def buscar_opcion_por_comuna_tipo(comuna, tipo):
+    """Busca la opción correspondiente en URLS_TO_SCRAPE basado en comuna y tipo."""
+    for key, value in URLS_TO_SCRAPE.items():
+        if value['comuna'] == comuna and value['tipo'] == tipo:
+            return key
+    return None
+
+
 def obtener_parametros_continuacion():
     """Obtiene los parámetros para continuar un scraping anterior."""
     print("\n" + "=" * 60)
     print("🔄 CONTINUAR SCRAPING ANTERIOR")
     print("=" * 60)
     
-    # Mostrar opciones disponibles
-    print("\n📋 ¿Qué búsqueda desea continuar?\n")
-    for key, value in URLS_TO_SCRAPE.items():
-        print(f"   [{key}] {value['nombre']}")
+    # Buscar archivos CSV existentes
+    archivos_csv = [f for f in os.listdir('.') if f.startswith('propiedades_') and f.endswith('.csv') and 'geocoded' not in f.lower()]
+    
+    if not archivos_csv:
+        print("\n❌ No se encontraron archivos CSV de propiedades.")
+        return None
+    
+    # Ordenar por fecha de modificación (más reciente primero)
+    archivos_csv.sort(key=lambda x: os.path.getmtime(x), reverse=True)
+    
+    print("\n📂 Archivos CSV disponibles (más reciente primero):\n")
+    for i, archivo in enumerate(archivos_csv, 1):
+        # Obtener info del archivo
+        total_filas = 0
+        comuna, tipo = obtener_comuna_tipo_del_archivo(archivo)
+        try:
+            with open(archivo, 'r', encoding='utf-8-sig') as f:
+                total_filas = sum(1 for _ in f) - 1  # -1 por header
+        except:
+            pass
+        
+        info_extra = f" | {comuna} - {tipo}" if comuna else ""
+        print(f"   [{i}] {archivo} ({total_filas} filas{info_extra})")
+    
+    print(f"\n   [0] Cancelar")
     
     try:
-        opcion = int(input("\n👉 Seleccione la opción: ").strip())
-        if opcion not in URLS_TO_SCRAPE:
+        opcion_archivo = input("\n👉 Seleccione el archivo a continuar: ").strip()
+        
+        if opcion_archivo == '0':
+            return None
+        
+        idx = int(opcion_archivo) - 1
+        if idx < 0 or idx >= len(archivos_csv):
             print("❌ Opción no válida.")
             return None
         
-        # Pedir el offset desde donde continuar
-        print(f"\n📍 Último offset exitoso (ej: si quedó en _Desde_337, ingrese 337)")
-        ultimo_offset = int(input("👉 Ingrese el último offset exitoso: ").strip())
+        archivo_seleccionado = archivos_csv[idx]
         
-        # Pedir archivo existente o crear nuevo
-        archivo_existente = input("\n📁 ¿Desea agregar a un archivo existente? (ingrese nombre o Enter para nuevo): ").strip()
+        # Obtener comuna y tipo del archivo
+        comuna, tipo = obtener_comuna_tipo_del_archivo(archivo_seleccionado)
         
-        if archivo_existente:
-            if not os.path.exists(archivo_existente):
-                print(f"⚠️  Archivo {archivo_existente} no existe. Se creará uno nuevo.")
-                archivo_existente = None
+        if not comuna or not tipo:
+            print("❌ No se pudo determinar la comuna/tipo del archivo.")
+            # Pedir manualmente
+            print("\n📋 ¿Qué búsqueda desea continuar?\n")
+            for key, value in URLS_TO_SCRAPE.items():
+                print(f"   [{key}] {value['nombre']}")
+            
+            opcion = int(input("\n👉 Seleccione la opción: ").strip())
+            if opcion not in URLS_TO_SCRAPE:
+                print("❌ Opción no válida.")
+                return None
+        else:
+            # Buscar la opción correspondiente
+            opcion = buscar_opcion_por_comuna_tipo(comuna, tipo)
+            if not opcion:
+                print(f"❌ No se encontró configuración para {comuna} - {tipo}")
+                return None
+            print(f"\n✅ Detectado: {URLS_TO_SCRAPE[opcion]['nombre']}")
+        
+        # Calcular el offset automáticamente basado en las filas existentes
+        total_filas_existentes = obtener_ultimo_offset_del_archivo(archivo_seleccionado)
+        
+        # El offset se calcula como: siguiente página después de las filas existentes
+        # Cada página tiene ITEMS_POR_PAGINA items
+        offset_calculado = ((total_filas_existentes // ITEMS_POR_PAGINA) + 1) * ITEMS_POR_PAGINA + 1
+        
+        print(f"\n📊 Filas existentes: {total_filas_existentes}")
+        print(f"📍 Offset calculado para continuar: {offset_calculado}")
+        
+        # Preguntar si desea ajustar el offset
+        ajustar = input("\n¿Desea ajustar el offset manualmente? (s/n): ").strip().lower()
+        
+        if ajustar == 's':
+            offset_manual = int(input("👉 Ingrese el offset desde donde continuar: ").strip())
+            offset_calculado = offset_manual
         
         return {
             'opcion': opcion,
-            'offset_inicial': ultimo_offset + ITEMS_POR_PAGINA,
-            'archivo': archivo_existente
+            'offset_inicial': offset_calculado,
+            'archivo': archivo_seleccionado
         }
         
     except ValueError:
@@ -318,7 +407,7 @@ def obtener_parametros_continuacion():
 
 
 def scrapear_continuacion(params):
-    """Continúa el scraping desde donde quedó."""
+    """Continúa el scraping desde donde quedó, usando el mismo archivo."""
     opcion = params['opcion']
     offset_inicial = params['offset_inicial']
     archivo_existente = params.get('archivo')
@@ -328,14 +417,16 @@ def scrapear_continuacion(params):
     comuna = info['comuna']
     tipo_propiedad = info['tipo']
     
-    # Determinar archivo de salida
-    if archivo_existente:
+    # Usar siempre el archivo existente (no crear uno nuevo)
+    if archivo_existente and os.path.exists(archivo_existente):
         archivo_salida = archivo_existente
-        print(f"\n📁 Continuando en archivo: {archivo_salida}")
+        print(f"\n📁 Continuando en archivo existente: {archivo_salida}")
     else:
+        # Solo si no hay archivo, crear uno nuevo
         fecha_actual = datetime.now().strftime("%Y%m%d_%H%M%S")
         archivo_salida = f"propiedades_{fecha_actual}.csv"
         inicializar_csv(archivo_salida)
+        print(f"\n📁 Creando nuevo archivo: {archivo_salida}")
     
     print(f"\n🔄 Continuando scraping de: {info['nombre']}")
     print(f"📍 Empezando desde offset: {offset_inicial}")
@@ -374,11 +465,8 @@ def scrapear_continuacion(params):
         
         propiedades = [item for item in page_results if item.get('id') == 'POLYCARD']
         
-        # Guardar en CSV (modo append si es archivo existente)
-        if archivo_existente:
-            guardar_propiedades_csv(archivo_salida, propiedades, comuna, tipo_propiedad)
-        else:
-            guardar_propiedades_csv(archivo_salida, propiedades, comuna, tipo_propiedad)
+        # Guardar en CSV (siempre en modo append)
+        guardar_propiedades_csv(archivo_salida, propiedades, comuna, tipo_propiedad)
         
         total_propiedades += len(propiedades)
         paginas_scrapeadas += 1
@@ -395,12 +483,16 @@ def scrapear_continuacion(params):
         
         esperar_aleatorio()
     
+    # Contar total de filas en el archivo
+    total_filas_final = obtener_ultimo_offset_del_archivo(archivo_salida)
+    
     # Resumen
     print("\n" + "=" * 60)
     print("📋 RESUMEN CONTINUACIÓN")
     print("=" * 60)
     print(f"\n✅ Páginas scrapeadas en esta sesión: {paginas_scrapeadas}")
     print(f"✅ Propiedades nuevas extraídas: {total_propiedades}")
+    print(f"📊 Total de propiedades en archivo: {total_filas_final}")
     print(f"📁 Archivo: {archivo_salida}")
     print(f"📍 Ubicación: {os.path.abspath(archivo_salida)}")
     
