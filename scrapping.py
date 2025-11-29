@@ -1,21 +1,163 @@
 import requests
 import json
 import time
+import random
+import csv
+import os
+from datetime import datetime
 from bs4 import BeautifulSoup
+
+# Headers para simular un navegador real
+HEADERS = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+    'Accept-Language': 'es-CL,es;q=0.9,en;q=0.8',
+    'Connection': 'keep-alive',
+    'Upgrade-Insecure-Requests': '1',
+}
+
+# URLs a scrapear (todas las comunas y tipos de propiedad)
+URLS_TO_SCRAPE = {
+    1: {
+        'nombre': 'Departamentos - Estación Central',
+        'url': 'https://www.portalinmobiliario.com/venta/departamento/estacion-central-metropolitana',
+        'comuna': 'Estación Central',
+        'tipo': 'departamento'
+    },
+    2: {
+        'nombre': 'Casas - Estación Central',
+        'url': 'https://www.portalinmobiliario.com/venta/casa/estacion-central-metropolitana',
+        'comuna': 'Estación Central',
+        'tipo': 'casa'
+    },
+    3: {
+        'nombre': 'Departamentos - Santiago',
+        'url': 'https://www.portalinmobiliario.com/venta/departamento/santiago-metropolitana',
+        'comuna': 'Santiago',
+        'tipo': 'departamento'
+    },
+    4: {
+        'nombre': 'Casas - Santiago',
+        'url': 'https://www.portalinmobiliario.com/venta/casa/santiago-metropolitana',
+        'comuna': 'Santiago',
+        'tipo': 'casa'
+    },
+    5: {
+        'nombre': 'Departamentos - Ñuñoa',
+        'url': 'https://www.portalinmobiliario.com/venta/departamento/nunoa-metropolitana',
+        'comuna': 'Ñuñoa',
+        'tipo': 'departamento'
+    },
+    6: {
+        'nombre': 'Casas - Ñuñoa',
+        'url': 'https://www.portalinmobiliario.com/venta/casa/nunoa-metropolitana',
+        'comuna': 'Ñuñoa',
+        'tipo': 'casa'
+    },
+    7: {
+        'nombre': 'Departamentos - La Reina',
+        'url': 'https://www.portalinmobiliario.com/venta/departamento/la-reina-metropolitana',
+        'comuna': 'La Reina',
+        'tipo': 'departamento'
+    },
+    8: {
+        'nombre': 'Casas - La Reina',
+        'url': 'https://www.portalinmobiliario.com/venta/casa/la-reina-metropolitana',
+        'comuna': 'La Reina',
+        'tipo': 'casa'
+    },
+}
+
+# Configuración de delays y paginación
+DELAY_MIN = 5  # Segundos mínimos entre peticiones
+DELAY_MAX = 60  # Segundos máximos entre peticiones
+ITEMS_POR_PAGINA = 48  # Cantidad de items por página (según el sitio)
+
+
+def inicializar_csv(archivo):
+    """Inicializa el archivo CSV con los headers."""
+    headers = [
+        'fecha_extraccion',
+        'comuna',
+        'tipo_propiedad',
+        'titulo',
+        'precio',
+        'moneda',
+        'dormitorios',
+        'banos',
+        'metros_utiles',
+        'caracteristicas_raw',
+        'ubicacion',
+        'url'
+    ]
+    with open(archivo, 'w', newline='', encoding='utf-8-sig') as f:
+        writer = csv.writer(f, delimiter=';')
+        writer.writerow(headers)
+    print(f"📁 Archivo CSV creado: {archivo}")
+
+
+def guardar_propiedades_csv(archivo, propiedades, comuna, tipo_propiedad):
+    """Guarda una lista de propiedades en el archivo CSV."""
+    fecha = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    
+    with open(archivo, 'a', newline='', encoding='utf-8-sig') as f:
+        writer = csv.writer(f, delimiter=';')
+        
+        for prop in propiedades:
+            datos = extraer_datos_propiedad(prop)
+            
+            # Parsear características para extraer dormitorios, baños y metros
+            dormitorios = ""
+            banos = ""
+            metros = ""
+            
+            for caract in datos['caracteristicas']:
+                caract_lower = caract.lower()
+                if 'dormitorio' in caract_lower:
+                    dormitorios = caract
+                elif 'baño' in caract_lower:
+                    banos = caract
+                elif 'm²' in caract_lower or 'útiles' in caract_lower:
+                    metros = caract
+            
+            row = [
+                fecha,
+                comuna,
+                tipo_propiedad,
+                datos['titulo'],
+                datos['precio'] if datos['precio'] else "",
+                datos['moneda'],
+                dormitorios,
+                banos,
+                metros,
+                ' | '.join(datos['caracteristicas']) if datos['caracteristicas'] else "",
+                datos['ubicacion'],
+                datos['url'] if datos['url'] else ""
+            ]
+            writer.writerow(row)
+    
+    print(f"   💾 Guardadas {len(propiedades)} propiedades en CSV")
+
+
+def esperar_aleatorio():
+    """Espera un tiempo aleatorio entre peticiones para simular comportamiento humano."""
+    delay = random.uniform(DELAY_MIN, DELAY_MAX)
+    print(f"⏳ Esperando {delay:.1f} segundos antes de la siguiente petición...")
+    time.sleep(delay)
+
 
 def scrape_page(url):
     """Función para scrapear una sola página y devolver sus resultados."""
-    print(f"Scrapeando URL: {url}")
+    print(f"\n🔍 Scrapeando URL: {url}")
     try:
-        response = requests.get(url)
-        # Esto generará un error para códigos como 404, 500, etc.
-        response.raise_for_status()  
+        response = requests.get(url, headers=HEADERS, timeout=30)
+        response.raise_for_status()
         
         soup = BeautifulSoup(response.text, 'html.parser')
         script_tag = soup.find('script', {'id': '__PRELOADED_STATE__'})
         
         if not script_tag:
-            print("No se encontró la etiqueta __PRELOADED_STATE__ en esta página.")
+            print("❌ No se encontró la etiqueta __PRELOADED_STATE__ en esta página.")
             return [], None, None
 
         json_data = json.loads(script_tag.string)
@@ -25,81 +167,215 @@ def scrape_page(url):
         items_per_page = initial_state.get('melidata_track', {}).get('event_data', {}).get('limit', 50)
         
         results = initial_state.get('results', [])
+        print(f"✅ Encontrados {len(results)} resultados en esta página")
         return results, total_results, items_per_page
 
-    # Si ocurre un error de HTTP (como un 404), la función devolverá una lista vacía
     except requests.exceptions.RequestException as e:
-        print(f"Error al obtener la URL {url}: {e}")
+        print(f"❌ Error al obtener la URL {url}: {e}")
         return [], None, None
     except Exception as e:
-        print(f"Ocurrió un error procesando la página {url}: {e}")
+        print(f"❌ Ocurrió un error procesando la página {url}: {e}")
         return [], None, None
 
-# --- Script Principal ---
-base_url = 'https://www.portalinmobiliario.com/venta/departamento/estacion-central-metropolitana'
-all_properties = []
 
-print("Obteniendo información inicial de paginación...")
-results, total_results, items_per_page = scrape_page(base_url)
-
-if total_results and items_per_page:
-    print(f"Total de resultados (según el sitio): {total_results}")
-    print(f"Resultados por página: {items_per_page}")
-
-    all_properties.extend(results)
-
-    # El límite real suele ser 2000, así que lo usamos como tope seguro
-    # aunque el sitio reporte más.
-    limit_real = min(total_results + 1, 2051)
-
-    for offset in range(items_per_page + 1, limit_real, items_per_page):
-        paginated_url = f"{base_url}/_Desde_{offset}_NoIndex_True"
-        
-        page_results, _, _ = scrape_page(paginated_url)
-        
-        # ---> ¡ESTA ES LA LÍNEA CLAVE! <---
-        # Si la página dio un error 404 o no trajo resultados, nos detenemos.
-        if not page_results:
-            print("No se encontraron más resultados o se alcanzó el límite del sitio. Deteniendo el scraper.")
-            break
-            
-        all_properties.extend(page_results)
-        
-        time.sleep(1)
-
-print("\n--- Extracción Completa ---")
-# Filtramos para asegurarnos de que solo procesamos tarjetas de propiedades
-property_cards = [item for item in all_properties if item.get('id') == 'POLYCARD']
-print(f"Total de tarjetas de propiedades procesadas: {len(property_cards)}")
-
-print("\n--- Procesando Datos de Propiedades ---")
-for item in property_cards:
+def extraer_datos_propiedad(item):
+    """Extrae los datos estructurados de una propiedad."""
     polycard = item.get('polycard', {})
     components = polycard.get('components', [])
     
-    title = "No disponible"
-    price = "No disponible"
-    currency = ""
-    attributes = []
-    location = "No disponible"
+    datos = {
+        'titulo': "No disponible",
+        'precio': None,
+        'moneda': "",
+        'caracteristicas': [],
+        'ubicacion': "No disponible",
+        'url': None,
+    }
+    
+    # Extraer URL del track
+    track = polycard.get('tracks', {}).get('melidata_track', {})
+    datos['url'] = track.get('event_data', {}).get('url')
 
     for component in components:
-        if component.get('type') == 'title':
-            title = component.get('title', {}).get('text')
-        elif component.get('type') == 'price':
+        tipo = component.get('type')
+        if tipo == 'title':
+            datos['titulo'] = component.get('title', {}).get('text')
+        elif tipo == 'price':
             price_info = component.get('price', {})
-            price = price_info.get('current_price', {}).get('value')
-            currency = price_info.get('current_price', {}).get('currency')
-        elif component.get('type') == 'attributes_list':
-            attributes = component.get('attributes_list', {}).get('texts')
-        elif component.get('type') == 'location':
-            location = component.get('location', {}).get('text')
+            datos['precio'] = price_info.get('current_price', {}).get('value')
+            datos['moneda'] = price_info.get('current_price', {}).get('currency', '')
+        elif tipo == 'attributes_list':
+            datos['caracteristicas'] = component.get('attributes_list', {}).get('texts', [])
+        elif tipo == 'location':
+            datos['ubicacion'] = component.get('location', {}).get('text')
     
-    print(f"Título: {title}")
-    print(f"Precio: {price} {currency if price != 'No disponible' else ''}")
-    if attributes:
-        print(f"Características: {', '.join(attributes)}")
-    else:
-        print("Características: No especificadas")
-    print(f"Ubicación: {location}")
-    print("-" * 20)
+    return datos
+
+
+def mostrar_propiedad(datos):
+    """Muestra los datos de una propiedad de forma legible."""
+    print(f"  📍 Título: {datos['titulo']}")
+    precio_str = f"{datos['precio']:,.0f} {datos['moneda']}" if datos['precio'] else "No disponible"
+    print(f"  💰 Precio: {precio_str}")
+    if datos['caracteristicas']:
+        print(f"  🏠 Características: {', '.join(datos['caracteristicas'])}")
+    print(f"  📌 Ubicación: {datos['ubicacion']}")
+    if datos['url']:
+        print(f"  🔗 URL: {datos['url']}")
+    print("-" * 50)
+
+
+def mostrar_menu():
+    """Muestra el menú de selección."""
+    print("\n" + "=" * 60)
+    print("🏠 SCRAPER DE PORTAL INMOBILIARIO")
+    print("=" * 60)
+    print("\n📋 Seleccione qué desea scrapear:\n")
+    
+    for key, value in URLS_TO_SCRAPE.items():
+        print(f"   [{key}] {value['nombre']}")
+    
+    print(f"\n   [9] 🚀 TODAS las opciones")
+    print(f"   [0] ❌ Salir")
+    print("\n" + "-" * 60)
+
+
+def obtener_seleccion():
+    """Obtiene la selección del usuario."""
+    while True:
+        mostrar_menu()
+        try:
+            opcion = input("\n👉 Ingrese su opción (puede ingresar varias separadas por coma, ej: 1,3,5): ").strip()
+            
+            if opcion == '0':
+                return None
+            
+            if opcion == '9':
+                return list(URLS_TO_SCRAPE.keys())
+            
+            # Parsear múltiples opciones
+            opciones = [int(x.strip()) for x in opcion.split(',')]
+            
+            # Validar que todas las opciones sean válidas
+            opciones_validas = []
+            for op in opciones:
+                if op in URLS_TO_SCRAPE:
+                    opciones_validas.append(op)
+                else:
+                    print(f"⚠️  Opción {op} no válida, ignorando...")
+            
+            if opciones_validas:
+                return opciones_validas
+            else:
+                print("❌ Ninguna opción válida ingresada. Intente de nuevo.")
+                
+        except ValueError:
+            print("❌ Entrada inválida. Por favor ingrese números separados por coma.")
+
+
+def scrapear_seleccion(opciones_seleccionadas):
+    """Ejecuta el scraping para las opciones seleccionadas."""
+    # Generar nombre de archivo
+    fecha_actual = datetime.now().strftime("%Y%m%d_%H%M%S")
+    archivo_salida = f"propiedades_{fecha_actual}.csv"
+    
+    # Inicializar archivo CSV
+    inicializar_csv(archivo_salida)
+    
+    total_propiedades = 0
+    total_urls = len(opciones_seleccionadas)
+    
+    print(f"\n🚀 Iniciando scraping de {total_urls} búsqueda(s)...")
+    print(f"📁 Guardando en: {archivo_salida}")
+    print(f"⏱️  Delay entre peticiones: {DELAY_MIN}-{DELAY_MAX} segundos")
+    
+    for i, opcion in enumerate(opciones_seleccionadas):
+        info = URLS_TO_SCRAPE[opcion]
+        base_url = info['url']
+        comuna = info['comuna']
+        tipo_propiedad = info['tipo']
+        
+        print(f"\n{'='*60}")
+        print(f"📊 Procesando {i+1}/{total_urls}: {info['nombre']}")
+        print(f"{'='*60}")
+        
+        # Primera página
+        results, total_results, _ = scrape_page(base_url)
+        paginas_scrapeadas = 1
+        
+        if results:
+            propiedades = [item for item in results if item.get('id') == 'POLYCARD']
+            guardar_propiedades_csv(archivo_salida, propiedades, comuna, tipo_propiedad)
+            total_propiedades += len(propiedades)
+            
+            if total_results:
+                print(f"📈 Total en el sitio: {total_results} propiedades")
+                total_paginas = (total_results // ITEMS_POR_PAGINA) + 1
+                # Límite real del sitio es ~2000 resultados
+                max_paginas = min(total_paginas, 2000 // ITEMS_POR_PAGINA)
+                print(f"📄 Páginas a scrapear: {max_paginas}")
+            else:
+                max_paginas = 1
+            
+            # Paginación
+            offset = ITEMS_POR_PAGINA + 1
+            
+            while paginas_scrapeadas < max_paginas:
+                esperar_aleatorio()
+                
+                paginated_url = f"{base_url}/_Desde_{offset}_NoIndex_True"
+                page_results, _, _ = scrape_page(paginated_url)
+                
+                if not page_results:
+                    print("🛑 No hay más resultados.")
+                    break
+                
+                propiedades = [item for item in page_results if item.get('id') == 'POLYCARD']
+                guardar_propiedades_csv(archivo_salida, propiedades, comuna, tipo_propiedad)
+                total_propiedades += len(propiedades)
+                
+                paginas_scrapeadas += 1
+                offset += ITEMS_POR_PAGINA
+                
+                print(f"   📊 Progreso: {paginas_scrapeadas}/{max_paginas} páginas | Total: {total_propiedades} propiedades")
+        
+        print(f"\n✅ Completado: {paginas_scrapeadas} páginas para {info['nombre']}")
+        
+        # Esperar antes de la siguiente URL
+        if i < total_urls - 1:
+            esperar_aleatorio()
+    
+    # Resumen final
+    print("\n" + "=" * 60)
+    print("📋 RESUMEN FINAL")
+    print("=" * 60)
+    print(f"\n✅ Total de propiedades extraídas: {total_propiedades}")
+    print(f"📁 Archivo guardado: {archivo_salida}")
+    print(f"📍 Ubicación: {os.path.abspath(archivo_salida)}")
+    
+    return archivo_salida
+
+
+# --- Script Principal ---
+if __name__ == "__main__":
+    try:
+        opciones = obtener_seleccion()
+        
+        if opciones is None:
+            print("\n👋 ¡Hasta luego!")
+        else:
+            # Mostrar resumen de selección
+            print("\n📝 Has seleccionado:")
+            for op in opciones:
+                print(f"   ✓ {URLS_TO_SCRAPE[op]['nombre']}")
+            
+            confirmar = input("\n¿Continuar? (s/n): ").strip().lower()
+            
+            if confirmar == 's':
+                scrapear_seleccion(opciones)
+            else:
+                print("\n❌ Operación cancelada.")
+                
+    except KeyboardInterrupt:
+        print("\n\n⚠️  Scraping interrumpido por el usuario.")
+        print("💾 Los datos obtenidos hasta el momento fueron guardados.")
