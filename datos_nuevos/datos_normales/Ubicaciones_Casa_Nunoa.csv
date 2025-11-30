@@ -1,4 +1,5 @@
-﻿2025-11-29 18:08:24;Ñuñoa;casa;Seduce El Precio. 5 Dormitorios, Condominio Cerrado. ;11300;CLF;4 dormitorios;3 baños;200 m² útiles;4 dormitorios | 3 baños | 200 m² útiles;Luis Pereira 1200 - 1500, Ñuñoa, Parque Botánico, Ñuñoa;
+﻿fecha_extraccion;comuna;tipo_propiedad;titulo;precio;moneda;dormitorios;banos;metros_utiles;caracteristicas_raw;ubicacion
+2025-11-29 18:08:24;Ñuñoa;casa;Seduce El Precio. 5 Dormitorios, Condominio Cerrado. ;11300;CLF;4 dormitorios;3 baños;200 m² útiles;4 dormitorios | 3 baños | 200 m² útiles;Luis Pereira 1200 - 1500, Ñuñoa, Parque Botánico, Ñuñoa;
 2025-11-29 18:08:24;Ñuñoa;casa;Bella Casa Con Piso De Parquet Y Con Chimenea ;8950;CLF;3 dormitorios;3 baños;169 m² útiles;3 dormitorios | 3 baños | 169 m² útiles;Los Jazmines 600 - 900, Ñuñoa, Chile, Estadio Nacional, Ñuñoa;
 2025-11-29 18:08:24;Ñuñoa;casa;Casa Remodelada En Venta De 3 Dorm. En Ñuñoa Villa Frei;7500;CLF;3 dormitorios;2 baños;150 m² útiles;3 dormitorios | 2 baños | 150 m² útiles;Eduardo Castillo Velasco/Ramón Cruz, Villa Frei, Ñuñoa;
 2025-11-29 18:08:24;Ñuñoa;casa;Impresionante Casa Estilo Francés;22000;CLF;6 dormitorios;4 baños;270 m² útiles;6 dormitorios | 4 baños | 270 m² útiles;Pedro De Valdivia, Estadio Nacional, Ñuñoa;
@@ -252,7 +253,6 @@
 2025-11-29 18:11:34;Ñuñoa;casa;Casa De 4d 3b Gran Ubicación Habitacional O Comercial;12300;CLF;4 dormitorios;3 baños;145 m² útiles;4 dormitorios | 3 baños | 145 m² útiles;Simon Bolivar 2965, Plaza Ñuñoa, Ñuñoa;
 2025-11-29 18:11:34;Ñuñoa;casa;Casa En Venta En Ñuñoa;12000;CLF;4 dormitorios;3 baños;177 m² útiles;4 dormitorios | 3 baños | 177 m² útiles;Juan Moya Morales, Ñuñoa, Macul, Villa Los Jardínes - Villa Los Presidentes, Ñuñoa;
 2025-11-29 18:11:34;Ñuñoa;casa;¡atención! Oportunidad En Ñuñoa Casa 5d-4b;13000;CLF;5 dormitorios;4 baños;171 m² útiles;5 dormitorios | 4 baños | 171 m² útiles;Luis Pereira, 600 - 900, Parque Botánico, Ñuñoa;
-2025-11-29 18:11:34;Ñuñoa;casa;Casa De 4d 3b Gran Ubicación Habitacional O Comercial;12300;CLF;4 dormitorios;3 baños;145 m² útiles;4 dormitorios | 3 baños | 145 m² útiles;Simon Bolivar 2965, Plaza Ñuñoa, Ñuñoa;
 2025-11-29 18:11:34;Ñuñoa;casa;Elegante Casa Esquina 2 Pisos Para Institución O Negocio;27900;CLF;6 dormitorios;4 baños;364 m² útiles;6 dormitorios | 4 baños | 364 m² útiles;General Miranda / Campos De Deportes, Estadio Nacional, Ñuñoa;
 2025-11-29 18:11:34;Ñuñoa;casa;Casa En Venta En Ñuñoa;20500;CLF;17 dormitorios;17 baños;240 m² útiles;17 dormitorios | 17 baños | 240 m² útiles;Matta Oriente, Ñuñoa, Chile, Metro Irarrázaval, Ñuñoa;
 2025-11-29 18:11:34;Ñuñoa;casa;Carmen Covarrubias 117;465000000;CLP;5 dormitorios;4 baños;214 m² útiles;5 dormitorios | 4 baños | 214 m² útiles;Carmen Covarrubias 117, Santiago, Ñuñoa, Metro Monseñor Eyzaguirre, Ñuñoa;
