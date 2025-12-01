@@ -1,105 +1,86 @@
-# Semana 3: Modelo de Satisfacción Residencial
+# Modelo de Satisfacción Residencial - Propiedades en Venta
 
 ## 📋 Descripción
-Pipeline completo para análisis de autocorrelación espacial y predicción de satisfacción residencial utilizando Random Forest y GWRF (Geographically Weighted Random Forest).
+Modelo predictivo de satisfacción residencial para propiedades en venta en Santiago de Chile, utilizando Machine Learning (Random Forest + Gradient Boosting) con factores espaciales externos.
 
 ## 🚀 Ejecución Rápida
 
 ```bash
-# Opción 1: Pipeline completo (automatizado)
-./ejecutar_pipeline.sh
+# Activar entorno virtual
+source /home/felipe/Documentos/GeoInformatica/.venv/bin/activate
 
-# Opción 2: Scripts individuales (con venv)
-source venv_viz/bin/activate
-python scripts/01_integrar_datos.py
-python scripts/02_modelo_satisfaccion.py
-python scripts/03_autocorrelacion_residuos.py
-python scripts/04_validar_autocorrelacion.py
-python scripts/05_implementar_gwrf.py
-python scripts/06_modelo_satisfaccion_mejorado.py
-python scripts/08_visualizaciones_cartograficas.py
+# Entrenar modelo (procesa datos de DATOS_FILTRADOS)
+python scripts/modelo_satisfaccion.py
+
+# Usar predictor
+python scripts/predecir_satisfaccion.py
 ```
 
 ## 📁 Estructura del Proyecto
 
 ```
 semana3_modelo_satisfaccion/
-├── scripts/                          # Scripts activos del pipeline
-│   ├── 01_integrar_datos.py         # Integración de propiedades + grilla espacial
-│   ├── 02_modelo_satisfaccion.py    # Modelo baseline Random Forest
-│   ├── 03_autocorrelacion_residuos.py  # Análisis Moran's I de residuos
-│   ├── 04_validar_autocorrelacion.py   # Test de permutación estadístico
-│   ├── 05_implementar_gwrf.py       # GWRF + Stacking (meta-modelo)
-│   ├── 06_modelo_satisfaccion_mejorado.py  # Modelo con idx_habitabilidad
-│   └── 08_visualizaciones_cartograficas.py # Mapas y gráficos finales
+├── scripts/                    # Scripts activos
+│   ├── modelo_satisfaccion.py  # Entrenamiento del modelo
+│   └── predecir_satisfaccion.py # API de predicción
 │
-├── scripts_obsoletos/               # Scripts deprecados (respaldo)
-│   ├── 00_imputar_valores_faltantes.py
-│   ├── 04_integrar_datos_y_reentrenar.py
-│   └── 07_visualizaciones_completas.py
+├── scripts_obsoletos/          # Scripts del pipeline antiguo (respaldo)
 │
-├── data/                            # Datos procesados
-│   ├── propiedades_con_factores_espaciales.csv
-│   ├── propiedades_con_factores_espaciales.geojson
-│   └── propiedades_con_residuos.geojson
+├── resultados/modelo_venta/    # Resultados del modelo
+│   ├── metricas_modelo_venta.json
+│   ├── feature_importance_venta.csv
+│   └── propiedades_venta_con_satisfaccion.csv
 │
-├── resultados/                      # Resultados del análisis
-│   ├── autocorrelacion_residuos.csv
-│   ├── test_autocorrelacion.csv
-│   ├── distribucion_permutaciones.csv
-│   ├── gwrf/                        # Resultados GWRF + Stacking
-│   └── modelo_mejorado/             # Modelo con satisfacción compuesta
+├── graficos/                   # Visualizaciones
+│   ├── feature_importance_venta.png
+│   ├── prediccion_vs_real_venta.png
+│   └── distribucion_satisfaccion_venta.png
 │
-├── graficos/                        # Visualizaciones generadas
-│   ├── mapa_01_ubicacion_area_estudio.png
-│   ├── mapa_02_precio_m2.png
-│   ├── mapa_03_resultado_analisis.png
-│   ├── grafico_01-05_*.png
-│   ├── mapa_interactivo.html
-│   └── reporte_eda.json
+├── modelos/                    # Modelo entrenado
+│   └── modelo_satisfaccion_venta.pkl
 │
-├── modelos/                         # Modelos entrenados (.pkl)
-├── venv_viz/                        # Entorno virtual Python
-├── ejecutar_pipeline.sh             # Script de ejecución automatizada
-└── README.md                        # Este archivo
+└── README.md
 ```
 
-## 📊 Flujo del Pipeline
+## 📈 Resultados del Modelo
 
+| Métrica | Valor |
+|---------|-------|
+| R² Test | **0.852** |
+| RMSE | 0.349 |
+| MAE | 0.276 |
+| CV R² (5-fold) | 0.850 ± 0.016 |
+| Features | 42 |
+
+### Top Features más importantes
+1. **dist_salud_m** (50%) - Distancia a centros de salud
+2. **precio_m2_uf** (16%) - Precio por metro cuadrado
+3. **dens_comercio_600m_km2** (8%) - Densidad comercial
+4. **dist_transporte_min_m** (7%) - Acceso a transporte
+
+## 🎭 Perfiles de Usuario
+
+| Perfil | Descripción |
+|--------|-------------|
+| familia_con_ninos | Prioriza espacio, educación, seguridad |
+| profesional_joven | Prioriza transporte, comercio, precio |
+| inversionista | Prioriza ROI, transporte, seguridad |
+| adulto_mayor | Prioriza salud, seguridad, áreas verdes |
+| balanceado | Equilibrado en todas las dimensiones |
+
+## 🔮 Uso del Predictor
+
+```python
+from predecir_satisfaccion import PredictorSatisfaccion
+
+predictor = PredictorSatisfaccion()
+
+resultado = predictor.predecir({
+    'superficie_util': 65,
+    'dormitorios': 2,
+    'precio_uf': 4500,
+    'tipo_propiedad': 'departamento'
+})
+
+print(f"Satisfacción: {resultado['satisfaccion']}/10")
 ```
-01_integrar_datos → 02_modelo → 03_moran → 04_test → 05_gwrf → 06_mejorado → 08_viz
-```
-
-## 📈 Resultados Principales
-
-| Modelo | R² Test | Target |
-|--------|---------|--------|
-| Original | 0.22 | precio_m2 |
-| **Mejorado** | **0.55** | satisfaccion_compuesta |
-
-**Mejora: +150%**
-
-### Features más importantes
-1. `superficie_util` (26%)
-2. `idx_vida_urbana` (17%)
-3. `idx_habitabilidad_global` (14%)
-4. `acc_transporte` (10%)
-
-## ✅ Requisitos Cumplidos
-
-- ✅ 3 mapas temáticos con elementos cartográficos
-- ✅ 5 gráficos estadísticos
-- ✅ 1 visualización interactiva (Folium)
-- ✅ Datos organizados
-- ✅ Código documentado
-- ✅ Análisis EDA completo
-
-## 🔧 Dependencias
-
-```bash
-source venv_viz/bin/activate
-# Ya incluye: pandas, numpy, geopandas, sklearn, matplotlib, seaborn, folium, plotly
-```
-
-## 👤 Autor
-Felipe Baeza - Proyecto GeoInformática - Noviembre 2025
