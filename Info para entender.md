@@ -89,6 +89,37 @@ Después de comparar **21 modelos diferentes** (Random Forest, XGBoost, CatBoost
 
 ---
 
+## 🧭 ¿Qué es Random Forest y por qué lo usamos inicialmente?
+
+Random Forest (Bosque Aleatorio) es un algoritmo de ensamble que combina muchos árboles de decisión independientes. Cada árbol se entrena con una muestra aleatoria de los datos y un subconjunto aleatorio de variables; la predicción final se obtiene promediando las salidas de todos los árboles.
+
+Por qué se eligió al inicio:
+- Es robusto frente a datos ruidosos y outliers.
+- Maneja bien variables mixtas (numéricas y categóricas) sin mucha transformación.
+- Proporciona medidas de importancia de variables útiles para interpretación inicial.
+- Requiere poco ajuste por defecto y funciona como buen baseline para problemas tabulares.
+
+En este proyecto se usó Random Forest como punto de partida porque permitió validar rápidamente que las features internas y espaciales contenían señal para predecir satisfacción, y ofreció una referencia estable para comparar modelos más sofisticados.
+
+## ⚙️ ¿Qué es LightGBM y por qué lo usamos ahora?
+
+LightGBM es un algoritmo de boosting basado en árboles (gradient boosting) diseñado para ser rápido y eficiente con grandes cantidades de datos y muchas features. A diferencia de Random Forest (que entrena árboles en paralelo), LightGBM construye los árboles de forma secuencial corrigiendo errores previos, lo que suele producir modelos más precisos cuando se hace un ajuste razonable de hiperparámetros.
+
+Por qué lo elegimos tras la comparación exhaustiva:
+- Mejor rendimiento en R² y RMSE en validación cruzada para nuestros datos.
+- Mayor eficiencia en tiempo de entrenamiento y uso de memoria.
+- Capacidad para explotar interacciones complejas entre variables (especialmente útiles con 75 features espaciales).
+
+## 🔍 ¿Cómo cambia esto los resultados y la interpretación?
+
+- Precisión: LightGBM mejora la capacidad predictiva global (R² sube de ~0.79 en GWRF a ~0.86), lo que reduce el error promedio de predicción.
+- Estabilidad: la validación cruzada muestra menor varianza (CV R² más consistente), por lo que las predicciones son más confiables fuera de la muestra de entrenamiento.
+- Interpretabilidad: aunque Random Forest y LightGBM ofrecen importancias de variables, LightGBM permite además técnicas como SHAP para interpretar efectos locales; sin embargo, los modelos de boosting pueden ser algo más complejos de interpretar que un RF simple.
+- Comportamiento espacial: dado que nuestras features ya codifican información espacial (grilla, distancias, densidades), un modelo global como LightGBM aprovecha esa información y reduce la necesidad de un modelo explícitamente local como GWRF. Aún así, si se requiere explicar variaciones a muy pequeña escala, puede ser útil complementar con análisis local (p. ej. GWRF o maps de residuos).
+
+En resumen: mantenemos Random Forest como referencia e instrumento de interpretación, pero usamos LightGBM en producción por su mayor precisión y eficiencia con las features espaciales que ya calculamos.
+
+
 ## 📈 Variables Más Importantes
 
 El modelo identificó estas variables como las más predictivas de satisfacción:
@@ -195,21 +226,68 @@ autocorrelacion_espacial/
 
 ---
 
-## 📊 Archivos Generados
+## 📊 Visualizaciones del Proyecto
+
+El proyecto genera visualizaciones que cumplen con los requisitos mínimos establecidos:
+- **3 mapas temáticos** con elementos cartográficos (flecha norte, escala, leyenda)
+- **5 gráficos estadísticos** que exploran los datos y resultados
+- **1 visualización interactiva** funcional
+
+### 🗺️ Mapas Temáticos (3)
+
+| Mapa | Archivo | Descripción |
+|------|---------|-------------|
+| **Mapa 1** | `mapa_01_ubicacion_area_estudio.png` | Muestra la distribución de las 7,702 propiedades en las 4 comunas de estudio (La Reina, Ñuñoa, Santiago, Estación Central). Diferencia departamentos (azul) de casas (rojo). |
+| **Mapa 2** | `mapa_02_precio_m2.png` | Representa el precio por metro cuadrado en UF mediante escala de colores (verde=barato, rojo=caro). Permite identificar zonas de alto y bajo costo. |
+| **Mapa 3** | `mapa_03_satisfaccion_predicha.png` | Resultado principal del análisis: el índice de satisfacción predicho por LightGBM (1-10). Colores verdes indican alta satisfacción, rojos baja. |
+
+**Elementos cartográficos incluidos:** Flecha de norte, barra de escala, leyenda, etiquetas de ejes, título descriptivo, estadísticas en recuadro.
+
+### 📊 Gráficos Estadísticos (5)
+
+| Gráfico | Archivo | Qué muestra | Interpretación |
+|---------|---------|-------------|----------------|
+| **Gráfico 1** | `grafico_01_histogramas.png` | Histogramas de 6 variables clave: precio, superficie, precio/m², dormitorios, baños y satisfacción | Permite ver la distribución de cada variable. La línea roja indica la media, la naranja la mediana. |
+| **Gráfico 2** | `grafico_02_analisis_comunas.png` | Análisis comparativo por comuna: boxplots de precio y satisfacción, conteo de propiedades por tipo | Revela diferencias entre comunas: La Reina tiene precios más altos, Santiago más oferta de departamentos. |
+| **Gráfico 3** | `grafico_03_correlaciones.png` | Matriz de correlación entre variables principales y espaciales | Valores cercanos a 1 (azul) o -1 (rojo) indican relaciones fuertes. El precio/m² tiene correlación negativa con satisfacción. |
+| **Gráfico 4** | `grafico_04_dispersion.png` | 4 diagramas de dispersión: precio vs superficie, precio/m² vs satisfacción, dormitorios vs satisfacción, predicción vs real | Visualiza relaciones bivariadas y valida que el modelo predice bien (puntos cercanos a la diagonal). |
+| **Gráfico 5** | `grafico_05_importancia_metricas.png` | Top 15 variables más importantes + comparación de métricas entre modelos (LightGBM vs RF vs GWRF) | Confirma que precio/m², superficie y variables espaciales son las más predictivas. LightGBM supera a los otros modelos. |
+
+### 🌐 Visualización Interactiva (1)
+
+**Archivo:** `mapa_interactivo.html`
+
+Mapa web interactivo creado con Folium que permite:
+- **Explorar propiedades:** Clic en marcadores para ver detalles (tipo, comuna, precio, superficie, satisfacción)
+- **Ver patrones espaciales:** Heatmap de satisfacción residencial
+- **Controlar capas:** Activar/desactivar marcadores y heatmap
+- **Navegar:** Zoom, pan, vista de calle
+
+**Cómo abrirlo:** Doble clic en el archivo HTML o abrirlo en cualquier navegador web.
+
+---
+
+## 📁 Archivos Generados
 
 ### Modelo
-- \`modelos/modelo_satisfaccion_venta.pkl\` - Modelo LightGBM entrenado
+- `modelos/modelo_satisfaccion_venta.pkl` - Modelo LightGBM entrenado
 
 ### Resultados
-- \`resultados/modelo_venta/metricas_modelo_venta.json\` - Métricas del modelo
-- \`resultados/modelo_venta/propiedades_venta_con_satisfaccion.csv\` - Dataset con predicciones
-- \`resultados/comparacion_modelos/comparacion_modelos.csv\` - Comparación de 21 modelos
+- `resultados/modelo_venta/metricas_modelo_venta.json` - Métricas del modelo
+- `resultados/modelo_venta/propiedades_venta_con_satisfaccion.csv` - Dataset con predicciones
+- `resultados/comparacion_modelos/comparacion_modelos.csv` - Comparación de 21 modelos
 
-### Gráficos
-- \`graficos/feature_importance_venta.png\` - Importancia de variables
-- \`graficos/prediccion_vs_real_venta.png\` - Scatter plot predicción vs real
-- \`graficos/distribucion_satisfaccion_venta.png\` - Distribución por tipo
-- \`graficos/comparacion_r2_modelos.png\` - Comparación de modelos
+### Visualizaciones
+- `graficos/mapa_01_ubicacion_area_estudio.png` - Mapa de ubicación
+- `graficos/mapa_02_precio_m2.png` - Mapa de precios
+- `graficos/mapa_03_satisfaccion_predicha.png` - Mapa de resultados
+- `graficos/grafico_01_histogramas.png` - Histogramas
+- `graficos/grafico_02_analisis_comunas.png` - Análisis por comuna
+- `graficos/grafico_03_correlaciones.png` - Correlaciones
+- `graficos/grafico_04_dispersion.png` - Dispersión
+- `graficos/grafico_05_importancia_metricas.png` - Importancia y métricas
+- `graficos/mapa_interactivo.html` - Mapa interactivo
+- `graficos/INDICE_VISUALIZACIONES.json` - Índice de visualizaciones
 
 ---
 
