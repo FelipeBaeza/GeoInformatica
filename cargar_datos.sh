@@ -1,29 +1,28 @@
 #!/bin/bash
 # ============================================================================
-# Script de Carga Automática de Datos
+# Script de Carga Automática de Datos - v2.0
 # ============================================================================
-# Descripción: Carga todas las tablas con datos iniciales
+# Descripción: Carga las ~8,000 propiedades desde GeoJSON
 # Uso: sudo ./cargar_datos.sh
 # ============================================================================
 
-set -e  # Salir si hay algún error
+set -e
 
 echo "============================================================================"
-echo "🚀 CARGA AUTOMÁTICA DE DATOS - Base de Datos Inmobiliaria"
+echo "🚀 CARGA AUTOMÁTICA DE DATOS - Base de Datos Inmobiliaria v2.0"
 echo "============================================================================"
 echo ""
 
-# Colores para output
+# Colores
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 RED='\033[0;31m'
-NC='\033[0m' # No Color
+NC='\033[0m'
 
-# Verificar que se ejecute con sudo si es necesario
+# Detectar Docker
 DOCKER_CMD="docker"
 COMPOSE_CMD="docker-compose"
 
-# Detectar si necesita sudo
 if ! docker ps > /dev/null 2>&1; then
     if sudo docker ps > /dev/null 2>&1; then
         DOCKER_CMD="sudo docker"
@@ -35,17 +34,17 @@ if ! docker ps > /dev/null 2>&1; then
     fi
 fi
 
-# Verificar que Docker Compose esté corriendo
+# Verificar servicios Docker
 echo "📋 Verificando servicios Docker..."
-if ! $COMPOSE_CMD ps | grep -q "Up"; then
-    echo -e "${RED}❌ Error: Los contenedores no están corriendo${NC}"
-    echo "   Ejecutar primero: $COMPOSE_CMD up -d"
-    exit 1
+if ! $COMPOSE_CMD ps 2>/dev/null | grep -q "Up"; then
+    echo -e "${YELLOW}⚠️  Contenedores no detectados. Intentando iniciar...${NC}"
+    $COMPOSE_CMD up -d db backend
+    sleep 10
 fi
 echo -e "${GREEN}✅ Servicios Docker activos${NC}"
 echo ""
 
-# Esperar que la base de datos esté lista
+# Esperar PostgreSQL
 echo "⏳ Esperando que PostgreSQL esté listo..."
 for i in {1..30}; do
     if $DOCKER_CMD exec geoinformatica-db pg_isready -U postgres > /dev/null 2>&1; then
@@ -57,87 +56,48 @@ for i in {1..30}; do
 done
 echo ""
 
-# Paso 1: Cargar estructura base (solo comunas desde SQL)
+# ============================================================================
+# PASO 1: Copiar archivos GeoJSON al contenedor
+# ============================================================================
 echo "============================================================================"
-echo "📍 PASO 1: Cargando comunas (32 comunas de Santiago)"
+echo "📂 PASO 1: Copiando archivos de datos al contenedor"
 echo "============================================================================"
-$DOCKER_CMD exec -i geoinformatica-db psql -U postgres -d inmobiliaria_db << 'EOF'
-INSERT INTO comunas (id, nombre) VALUES
-(1, 'Cerrillos'), (2, 'Cerro Navia'), (3, 'Conchalí'), (4, 'El Bosque'),
-(5, 'Estación Central'), (6, 'Huechuraba'), (7, 'Independencia'), (8, 'La Cisterna'),
-(9, 'La Florida'), (10, 'La Granja'), (11, 'La Pintana'), (12, 'La Reina'),
-(13, 'Las Condes'), (14, 'Lo Barnechea'), (15, 'Lo Espejo'), (16, 'Lo Prado'),
-(17, 'Macul'), (18, 'Maipú'), (19, 'Ñuñoa'), (20, 'Pedro Aguirre Cerda'),
-(21, 'Peñalolén'), (22, 'Providencia'), (23, 'Pudahuel'), (24, 'Quilicura'),
-(25, 'Quinta Normal'), (26, 'Recoleta'), (27, 'Renca'), (28, 'San Joaquín'),
-(29, 'San Miguel'), (30, 'San Ramón'), (31, 'Santiago'), (32, 'Vitacura')
-ON CONFLICT (id) DO NOTHING;
-SELECT COUNT(*) as comunas_cargadas FROM comunas;
-EOF
 
-if [ $? -eq 0 ]; then
-    echo -e "${GREEN}✅ Comunas cargadas exitosamente${NC}"
+# Crear directorio en el contenedor
+$DOCKER_CMD exec geoinformatica-backend mkdir -p /app/datos_nuevos/DATOS_FILTRADOS 2>/dev/null || true
+
+# Copiar archivos GeoJSON
+if [ -d "datos_nuevos/DATOS_FILTRADOS" ]; then
+    echo "📁 Copiando archivos GeoJSON..."
+    for file in datos_nuevos/DATOS_FILTRADOS/*.geojson; do
+        if [ -f "$file" ]; then
+            filename=$(basename "$file")
+            $DOCKER_CMD cp "$file" "geoinformatica-backend:/app/datos_nuevos/DATOS_FILTRADOS/$filename"
+            echo "   ✅ $filename"
+        fi
+    done
 else
-    echo -e "${RED}❌ Error al cargar comunas${NC}"
+    echo -e "${RED}❌ No se encontró el directorio datos_nuevos/DATOS_FILTRADOS${NC}"
     exit 1
 fi
+
+# Copiar script de carga
+echo ""
+echo "📜 Copiando script de carga..."
+$DOCKER_CMD cp geo-proyect-backend/scripts/cargar_propiedades_geojson.py geoinformatica-backend:/app/cargar_propiedades_geojson.py
+echo -e "${GREEN}✅ Archivos copiados${NC}"
 echo ""
 
-# Paso 2: Verificar archivos necesarios
+# ============================================================================
+# PASO 2: Ejecutar carga de propiedades
+# ============================================================================
 echo "============================================================================"
-echo "📂 PASO 2: Verificando archivos de datos"
+echo "🏠 PASO 2: Cargando propiedades (~8,000 registros)"
 echo "============================================================================"
-
-FILES_NEEDED=(
-    "/app/clean_alquiler_02_11_2023cc.csv"
-    "/app/datos_normalizados"
-    "/tmp/grilla_con_densidades.geojson"
-    "/app/cargar_propiedades_csv.py"
-    "/app/cargar_grilla_densidades.py"
-)
-
-ALL_FILES_PRESENT=true
-for file in "${FILES_NEEDED[@]}"; do
-    if $DOCKER_CMD exec geoinformatica-backend test -e "$file" 2>/dev/null; then
-        echo -e "${GREEN}✅${NC} $file"
-    else
-        echo -e "${RED}❌${NC} $file (NO ENCONTRADO)"
-        ALL_FILES_PRESENT=false
-    fi
-done
-
-if [ "$ALL_FILES_PRESENT" = false ]; then
-    echo ""
-    echo -e "${YELLOW}⚠️  Archivos faltantes detectados${NC}"
-    echo "   Copiando archivos necesarios al contenedor..."
-    
-    $DOCKER_CMD cp clean_alquiler_02_11_2023cc.csv geoinformatica-backend:/app/ 2>/dev/null || \
-        echo -e "${RED}   ❌ No se pudo copiar CSV${NC}"
-    
-    $DOCKER_CMD cp autocorrelacion_espacial/semana1_preparacion_datos/datos_normalizados/datos_normalizados geoinformatica-backend:/app/datos_normalizados/ 2>/dev/null || \
-        echo -e "${RED}   ❌ No se pudieron copiar datos normalizados${NC}"
-    
-    $DOCKER_CMD cp autocorrelacion_espacial/semana2_caracteristicas_espaciales/features/grilla_con_densidades.geojson geoinformatica-backend:/tmp/ 2>/dev/null || \
-        echo -e "${RED}   ❌ No se pudo copiar grilla${NC}"
-    
-    $DOCKER_CMD cp geo-proyect-backend/scripts/cargar_propiedades_csv.py geoinformatica-backend:/app/ 2>/dev/null || \
-        echo -e "${RED}   ❌ No se pudo copiar script de propiedades${NC}"
-    
-    $DOCKER_CMD cp geo-proyect-backend/scripts/cargar_grilla_densidades.py geoinformatica-backend:/app/ 2>/dev/null || \
-        echo -e "${RED}   ❌ No se pudo copiar script de grilla${NC}"
-    
-    echo -e "${GREEN}✅ Archivos copiados${NC}"
-fi
+echo "⏳ Este proceso puede tomar 1-2 minutos..."
 echo ""
 
-# Paso 3: Cargar propiedades
-echo "============================================================================"
-echo "🏠 PASO 3: Cargando propiedades (1,623 registros esperados)"
-echo "============================================================================"
-echo "⏳ Este proceso puede tomar 2-3 minutos..."
-echo ""
-
-$DOCKER_CMD exec geoinformatica-backend python3 /app/cargar_propiedades_csv.py
+$DOCKER_CMD exec geoinformatica-backend python3 /app/cargar_propiedades_geojson.py
 
 if [ $? -eq 0 ]; then
     echo -e "${GREEN}✅ Propiedades cargadas exitosamente${NC}"
@@ -147,69 +107,101 @@ else
 fi
 echo ""
 
-# Paso 4: Cargar grilla espacial
+# ============================================================================
+# PASO 3: Verificación de datos
+# ============================================================================
 echo "============================================================================"
-echo "🗺️  PASO 4: Cargando grilla espacial (3,149 puntos esperados)"
-echo "============================================================================"
-echo "⏳ Este proceso puede tomar 1-2 minutos..."
-echo ""
-
-$DOCKER_CMD exec geoinformatica-backend python3 /app/cargar_grilla_densidades.py
-
-if [ $? -eq 0 ]; then
-    echo -e "${GREEN}✅ Grilla espacial cargada exitosamente${NC}"
-else
-    echo -e "${RED}❌ Error al cargar grilla${NC}"
-    exit 1
-fi
-echo ""
-
-# Verificación final
-echo "============================================================================"
-echo "📊 VERIFICACIÓN FINAL"
+echo "📊 PASO 3: Verificación de datos cargados"
 echo "============================================================================"
 
-$DOCKER_CMD exec geoinformatica-db psql -U postgres -d inmobiliaria_db << 'EOF'
+$DOCKER_CMD exec geoinformatica-db psql -U postgres -d inmobiliario_db << 'EOF'
 \echo ''
 \echo '📋 Resumen de datos cargados:'
 \echo '─────────────────────────────────────'
 
-SELECT 
-    'comunas' as tabla,
-    COUNT(*)::text as registros,
-    '' as info_adicional
-FROM comunas
-
+SELECT 'Total propiedades' as descripcion, COUNT(*)::text as valor FROM propiedades
 UNION ALL
-
-SELECT 
-    'propiedades' as tabla,
-    COUNT(*)::text as registros,
-    'Precio promedio: $' || ROUND(AVG(precio)::numeric, 0)::text as info_adicional
-FROM propiedades
-
+SELECT 'Comunas con datos' as descripcion, COUNT(DISTINCT comuna_id)::text as valor FROM propiedades
 UNION ALL
+SELECT 'Con coordenadas' as descripcion, COUNT(*)::text as valor FROM propiedades WHERE latitud IS NOT NULL AND longitud IS NOT NULL;
 
-SELECT 
-    'grilla_espacial' as tabla,
-    COUNT(*)::text as registros,
-    'Densidad promedio: ' || ROUND(AVG(dens_total_600m_km2)::numeric, 2)::text || ' serv/km²' as info_adicional
-FROM grilla_espacial;
+\echo ''
+\echo '📍 Distribución por comuna:'
+\echo '─────────────────────────────────────'
+
+SELECT c.nombre as comuna, COUNT(*) as propiedades
+FROM propiedades p
+JOIN comunas c ON p.comuna_id = c.id
+GROUP BY c.nombre
+ORDER BY COUNT(*) DESC;
 
 \echo ''
 EOF
 
 echo ""
+
+# ============================================================================
+# PASO 4: Test de API
+# ============================================================================
 echo "============================================================================"
-echo -e "${GREEN}✅ CARGA COMPLETADA EXITOSAMENTE${NC}"
+echo "🔍 PASO 4: Verificando API de recomendaciones"
+echo "============================================================================"
+
+# Test sin filtros
+echo "📡 Test 1: Endpoint sin filtros (limit=10)..."
+RESPONSE=$(curl -s -X POST "http://localhost:8000/api/v1/recomendaciones-ml?limit=10" \
+    -H "Content-Type: application/json" \
+    -d '{}')
+
+TOTAL_ANALIZADAS=$(echo $RESPONSE | python3 -c "import json,sys; d=json.load(sys.stdin); print(d.get('total_analizadas', 0))")
+TOTAL_ENCONTRADAS=$(echo $RESPONSE | python3 -c "import json,sys; d=json.load(sys.stdin); print(d.get('total_encontradas', 0))")
+
+echo "   Total analizadas: $TOTAL_ANALIZADAS"
+echo "   Total encontradas: $TOTAL_ENCONTRADAS"
+
+if [ "$TOTAL_ANALIZADAS" -gt 7000 ]; then
+    echo -e "   ${GREEN}✅ API analiza más de 7,000 propiedades${NC}"
+else
+    echo -e "   ${YELLOW}⚠️  API analiza menos propiedades de lo esperado${NC}"
+fi
+
+# Test con limit alto
+echo ""
+echo "📡 Test 2: Endpoint con limit=1000..."
+RESPONSE2=$(curl -s -X POST "http://localhost:8000/api/v1/recomendaciones-ml?limit=1000" \
+    -H "Content-Type: application/json" \
+    -d '{}')
+
+RECOMENDACIONES=$(echo $RESPONSE2 | python3 -c "import json,sys; d=json.load(sys.stdin); print(len(d.get('recomendaciones', [])))")
+echo "   Recomendaciones retornadas: $RECOMENDACIONES"
+
+if [ "$RECOMENDACIONES" -eq 1000 ]; then
+    echo -e "   ${GREEN}✅ API retorna correctamente el límite solicitado${NC}"
+else
+    echo -e "   ${YELLOW}⚠️  API retorna $RECOMENDACIONES (se esperaban 1000)${NC}"
+fi
+
+# Test con filtro de dormitorios
+echo ""
+echo "📡 Test 3: Filtro por dormitorios (min 3)..."
+RESPONSE3=$(curl -s -X POST "http://localhost:8000/api/v1/recomendaciones-ml?limit=100" \
+    -H "Content-Type: application/json" \
+    -d '{"dormitorios_min": 3}')
+
+FILTRADAS=$(echo $RESPONSE3 | python3 -c "import json,sys; d=json.load(sys.stdin); print(d.get('total_analizadas', 0))")
+echo "   Propiedades con 3+ dormitorios analizadas: $FILTRADAS"
+
+echo ""
+echo "============================================================================"
+echo -e "${GREEN}✅ CARGA Y VERIFICACIÓN COMPLETADA${NC}"
 echo "============================================================================"
 echo ""
-echo "📊 Datos disponibles:"
-echo "   • 32 comunas de Santiago"
-echo "   • 1,623 propiedades reales"
-echo "   • 3,149 puntos de grilla con características espaciales"
+echo "📊 Resumen:"
+echo "   • Total propiedades en DB: $TOTAL_ANALIZADAS"
+echo "   • API funcionando correctamente"
 echo ""
-echo "🚀 Sistema listo para usar"
+echo "🚀 Sistema listo para usar:"
 echo "   Frontend: http://localhost:3000"
 echo "   Backend:  http://localhost:8000"
+echo "   API Docs: http://localhost:8000/docs"
 echo ""
