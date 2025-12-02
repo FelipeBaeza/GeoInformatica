@@ -7,7 +7,7 @@ services:
     environment:
       POSTGRES_DB: inmobiliario_db
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: felipeb222
+      POSTGRES_PASSWORD: geo_pass
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
       - postgres_data:/var/lib/postgresql/data
@@ -31,12 +31,12 @@ services:
     restart: unless-stopped
     environment:
       # Base de datos
-      DATABASE_URL: postgresql://postgres:felipeb222@db:5432/inmobiliario_db
+      DATABASE_URL: postgresql://postgres:geo_pass@db:5432/inmobiliario_db
       DB_HOST: db
       DB_PORT: 5432
       DB_NAME: inmobiliario_db
       DB_USER: postgres
-      DB_PASSWORD: felipeb222
+      DB_PASSWORD: geo_pass
       
       # FastAPI
       BACKEND_CORS_ORIGINS: '["http://localhost:3000","http://localhost","http://frontend:3000"]'
