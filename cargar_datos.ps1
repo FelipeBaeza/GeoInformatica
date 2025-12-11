@@ -109,6 +109,46 @@ if ($LASTEXITCODE -eq 0) {
 Write-Host ""
 
 # ============================================================================
+# PASO 2.5: Cargar puntos de interes (servicios)
+# ============================================================================
+Write-Host "============================================================================" -ForegroundColor Cyan
+Write-Host "PASO 2.5: Cargando puntos de interes (servicios cercanos)" -ForegroundColor Cyan
+Write-Host "============================================================================" -ForegroundColor Cyan
+Write-Host "Cargando colegios, hospitales, farmacias, metro, parques, etc..." -ForegroundColor Yellow
+Write-Host ""
+
+# Crear directorio de datos normalizados en el contenedor
+& docker exec geoinformatica-backend mkdir -p /app/datos_normalizados 2>$null
+
+# Copiar archivos de datos normalizados
+$datosNormalizadosPath = "autocorrelacion_espacial\semana1_preparacion_datos\datos_normalizados\datos_normalizados"
+if (Test-Path -Path $datosNormalizadosPath) {
+    Write-Host "Copiando archivos de servicios..." -ForegroundColor Cyan
+    Get-ChildItem -Path "$datosNormalizadosPath\*.geojson" | ForEach-Object {
+        $filename = $_.Name
+        docker cp $_.FullName "geoinformatica-backend:/app/datos_normalizados/$filename"
+    }
+    ok "Archivos de servicios copiados"
+} else {
+    warn "No se encontro el directorio de datos normalizados"
+}
+
+# Copiar script de carga de servicios
+docker cp "geo-proyect-backend\scripts\cargar_servicios.py" "geoinformatica-backend:/app/cargar_servicios.py"
+
+# Ejecutar carga de servicios
+Write-Host ""
+Write-Host "Ejecutando carga de servicios..." -ForegroundColor Cyan
+& docker exec geoinformatica-backend python3 /app/cargar_servicios.py
+
+if ($LASTEXITCODE -eq 0) {
+    ok "Servicios cargados exitosamente"
+} else {
+    warn "Algunos servicios no se pudieron cargar (continuando...)"
+}
+Write-Host ""
+
+# ============================================================================
 # PASO 3: Verificacion de datos
 # ============================================================================
 Write-Host "============================================================================" -ForegroundColor Cyan
@@ -137,6 +177,17 @@ JOIN comunas c ON p.comuna_id = c.id
 GROUP BY c.nombre
 ORDER BY COUNT(*) DESC;
 
+\echo ''
+\echo 'Puntos de Interes (Servicios) cargados:'
+\echo '-------------------------------------'
+
+SELECT tipo, COUNT(*) as cantidad
+FROM puntos_interes
+GROUP BY tipo
+ORDER BY cantidad DESC;
+
+\echo ''
+SELECT 'Total puntos de interes' as descripcion, COUNT(*)::text as valor FROM puntos_interes;
 \echo ''
 '@
 $verifySql | docker exec -i geoinformatica-db psql -U postgres -d inmobiliaria_db

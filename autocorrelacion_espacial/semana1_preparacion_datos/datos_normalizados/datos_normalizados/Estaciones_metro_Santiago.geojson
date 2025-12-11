@@ -1,0 +1,1932 @@
+{
+  "type": "FeatureCollection",
+  "name": "Estaciones_Metro_Santiago",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:EPSG::4326"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro San Pablo",
+        "tipo": "metro",
+        "linea": "Línea 1",
+        "descripcion": "Estación de metro San Pablo - Línea 1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6823,
+          -33.4252
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Neptuno",
+        "tipo": "metro",
+        "linea": "Línea 1",
+        "descripcion": "Estación de metro Neptuno - Línea 1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6754,
+          -33.4243
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Pajaritos",
+        "tipo": "metro",
+        "linea": "Línea 1",
+        "descripcion": "Estación de metro Pajaritos - Línea 1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6674,
+          -33.4244
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Las Rejas",
+        "tipo": "metro",
+        "linea": "Línea 1",
+        "descripcion": "Estación de metro Las Rejas - Línea 1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.657,
+          -33.4237
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Ecuador",
+        "tipo": "metro",
+        "linea": "Línea 1",
+        "descripcion": "Estación de metro Ecuador - Línea 1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6517,
+          -33.4228
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro San Alberto Hurtado",
+        "tipo": "metro",
+        "linea": "Línea 1",
+        "descripcion": "Estación de metro San Alberto Hurtado - Línea 1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6456,
+          -33.4214
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Universidad de Santiago",
+        "tipo": "metro",
+        "linea": "Línea 1",
+        "descripcion": "Estación de metro Universidad de Santiago - Línea 1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6789,
+          -33.45
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Estación Central",
+        "tipo": "metro",
+        "linea": "Línea 1",
+        "descripcion": "Estación de metro Estación Central - Línea 1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6772,
+          -33.4522
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Unión Latinoamericana",
+        "tipo": "metro",
+        "linea": "Línea 1",
+        "descripcion": "Estación de metro Unión Latinoamericana - Línea 1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6686,
+          -33.4533
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro República",
+        "tipo": "metro",
+        "linea": "Línea 1",
+        "descripcion": "Estación de metro República - Línea 1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6608,
+          -33.4535
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Los Héroes",
+        "tipo": "metro",
+        "linea": "Línea 1",
+        "descripcion": "Estación de metro Los Héroes - Línea 1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6542,
+          -33.4495
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro La Moneda",
+        "tipo": "metro",
+        "linea": "Línea 1",
+        "descripcion": "Estación de metro La Moneda - Línea 1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6535,
+          -33.4425
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Universidad de Chile",
+        "tipo": "metro",
+        "linea": "Línea 1",
+        "descripcion": "Estación de metro Universidad de Chile - Línea 1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6495,
+          -33.442
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Santa Lucía",
+        "tipo": "metro",
+        "linea": "Línea 1",
+        "descripcion": "Estación de metro Santa Lucía - Línea 1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6437,
+          -33.4407
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Universidad Católica",
+        "tipo": "metro",
+        "linea": "Línea 1",
+        "descripcion": "Estación de metro Universidad Católica - Línea 1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.64,
+          -33.4417
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Baquedano",
+        "tipo": "metro",
+        "linea": "Línea 1",
+        "descripcion": "Estación de metro Baquedano - Línea 1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6348,
+          -33.4376
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Salvador",
+        "tipo": "metro",
+        "linea": "Línea 1",
+        "descripcion": "Estación de metro Salvador - Línea 1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6275,
+          -33.4379
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Manuel Montt",
+        "tipo": "metro",
+        "linea": "Línea 1",
+        "descripcion": "Estación de metro Manuel Montt - Línea 1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6198,
+          -33.4378
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Pedro de Valdivia",
+        "tipo": "metro",
+        "linea": "Línea 1",
+        "descripcion": "Estación de metro Pedro de Valdivia - Línea 1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6117,
+          -33.4374
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Los Leones",
+        "tipo": "metro",
+        "linea": "Línea 1",
+        "descripcion": "Estación de metro Los Leones - Línea 1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6037,
+          -33.438
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Tobalaba",
+        "tipo": "metro",
+        "linea": "Línea 1",
+        "descripcion": "Estación de metro Tobalaba - Línea 1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.5873,
+          -33.4191
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro El Golf",
+        "tipo": "metro",
+        "linea": "Línea 1",
+        "descripcion": "Estación de metro El Golf - Línea 1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.5844,
+          -33.4155
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Alcántara",
+        "tipo": "metro",
+        "linea": "Línea 1",
+        "descripcion": "Estación de metro Alcántara - Línea 1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.5758,
+          -33.4147
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Escuela Militar",
+        "tipo": "metro",
+        "linea": "Línea 1",
+        "descripcion": "Estación de metro Escuela Militar - Línea 1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.5672,
+          -33.4116
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Manquehue",
+        "tipo": "metro",
+        "linea": "Línea 1",
+        "descripcion": "Estación de metro Manquehue - Línea 1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.5588,
+          -33.4035
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Hernando de Magallanes",
+        "tipo": "metro",
+        "linea": "Línea 1",
+        "descripcion": "Estación de metro Hernando de Magallanes - Línea 1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.5517,
+          -33.3965
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Los Dominicos",
+        "tipo": "metro",
+        "linea": "Línea 1",
+        "descripcion": "Estación de metro Los Dominicos - Línea 1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.5415,
+          -33.3901
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Vespucio Norte",
+        "tipo": "metro",
+        "linea": "Línea 2",
+        "descripcion": "Estación de metro Vespucio Norte - Línea 2"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6083,
+          -33.3899
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Zapadores",
+        "tipo": "metro",
+        "linea": "Línea 2",
+        "descripcion": "Estación de metro Zapadores - Línea 2"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6089,
+          -33.3979
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Dorsal",
+        "tipo": "metro",
+        "linea": "Línea 2",
+        "descripcion": "Estación de metro Dorsal - Línea 2"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6088,
+          -33.4079
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Einstein",
+        "tipo": "metro",
+        "linea": "Línea 2",
+        "descripcion": "Estación de metro Einstein - Línea 2"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6085,
+          -33.4179
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Cementerios",
+        "tipo": "metro",
+        "linea": "Línea 2",
+        "descripcion": "Estación de metro Cementerios - Línea 2"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6083,
+          -33.4259
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Cerro Blanco",
+        "tipo": "metro",
+        "linea": "Línea 2",
+        "descripcion": "Estación de metro Cerro Blanco - Línea 2"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6077,
+          -33.4339
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Patronato",
+        "tipo": "metro",
+        "linea": "Línea 2",
+        "descripcion": "Estación de metro Patronato - Línea 2"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6085,
+          -33.4399
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Puente Cal y Canto",
+        "tipo": "metro",
+        "linea": "Línea 2",
+        "descripcion": "Estación de metro Puente Cal y Canto - Línea 2"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6405,
+          -33.4359
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Santa Ana",
+        "tipo": "metro",
+        "linea": "Línea 2",
+        "descripcion": "Estación de metro Santa Ana - Línea 2"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6455,
+          -33.4375
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Los Héroes L2",
+        "tipo": "metro",
+        "linea": "Línea 2",
+        "descripcion": "Estación de metro Los Héroes L2 - Línea 2"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6542,
+          -33.4495
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Toesca",
+        "tipo": "metro",
+        "linea": "Línea 2",
+        "descripcion": "Estación de metro Toesca - Línea 2"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6543,
+          -33.4565
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Parque O'Higgins",
+        "tipo": "metro",
+        "linea": "Línea 2",
+        "descripcion": "Estación de metro Parque O'Higgins - Línea 2"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6535,
+          -33.4655
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Rondizzoni",
+        "tipo": "metro",
+        "linea": "Línea 2",
+        "descripcion": "Estación de metro Rondizzoni - Línea 2"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6525,
+          -33.4749
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Franklin",
+        "tipo": "metro",
+        "linea": "Línea 2",
+        "descripcion": "Estación de metro Franklin - Línea 2"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6515,
+          -33.4845
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro El Llano",
+        "tipo": "metro",
+        "linea": "Línea 2",
+        "descripcion": "Estación de metro El Llano - Línea 2"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6495,
+          -33.4945
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro San Miguel",
+        "tipo": "metro",
+        "linea": "Línea 2",
+        "descripcion": "Estación de metro San Miguel - Línea 2"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6485,
+          -33.5035
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Lo Vial",
+        "tipo": "metro",
+        "linea": "Línea 2",
+        "descripcion": "Estación de metro Lo Vial - Línea 2"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6477,
+          -33.5125
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Departamental",
+        "tipo": "metro",
+        "linea": "Línea 2",
+        "descripcion": "Estación de metro Departamental - Línea 2"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6468,
+          -33.5225
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Ciudad del Niño",
+        "tipo": "metro",
+        "linea": "Línea 2",
+        "descripcion": "Estación de metro Ciudad del Niño - Línea 2"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6459,
+          -33.5315
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Lo Ovalle",
+        "tipo": "metro",
+        "linea": "Línea 2",
+        "descripcion": "Estación de metro Lo Ovalle - Línea 2"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6449,
+          -33.5415
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro El Parrón",
+        "tipo": "metro",
+        "linea": "Línea 2",
+        "descripcion": "Estación de metro El Parrón - Línea 2"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.644,
+          -33.5495
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro La Cisterna",
+        "tipo": "metro",
+        "linea": "Línea 2",
+        "descripcion": "Estación de metro La Cisterna - Línea 2"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6623,
+          -33.5295
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Los Libertadores",
+        "tipo": "metro",
+        "linea": "Línea 3",
+        "descripcion": "Estación de metro Los Libertadores - Línea 3"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6423,
+          -33.3818
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Plaza Chacabuco",
+        "tipo": "metro",
+        "linea": "Línea 3",
+        "descripcion": "Estación de metro Plaza Chacabuco - Línea 3"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6423,
+          -33.3918
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Independencia",
+        "tipo": "metro",
+        "linea": "Línea 3",
+        "descripcion": "Estación de metro Independencia - Línea 3"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6423,
+          -33.4018
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Hospitales",
+        "tipo": "metro",
+        "linea": "Línea 3",
+        "descripcion": "Estación de metro Hospitales - Línea 3"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6423,
+          -33.4118
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Vivaceta",
+        "tipo": "metro",
+        "linea": "Línea 3",
+        "descripcion": "Estación de metro Vivaceta - Línea 3"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6423,
+          -33.4218
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Plaza de Armas",
+        "tipo": "metro",
+        "linea": "Línea 3",
+        "descripcion": "Estación de metro Plaza de Armas - Línea 3"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6498,
+          -33.4378
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Universidad de Chile L3",
+        "tipo": "metro",
+        "linea": "Línea 3",
+        "descripcion": "Estación de metro Universidad de Chile L3 - Línea 3"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6495,
+          -33.442
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Parque Almagro",
+        "tipo": "metro",
+        "linea": "Línea 3",
+        "descripcion": "Estación de metro Parque Almagro - Línea 3"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6395,
+          -33.452
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Matta",
+        "tipo": "metro",
+        "linea": "Línea 3",
+        "descripcion": "Estación de metro Matta - Línea 3"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6395,
+          -33.462
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Irarrázaval",
+        "tipo": "metro",
+        "linea": "Línea 3",
+        "descripcion": "Estación de metro Irarrázaval - Línea 3"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6095,
+          -33.442
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Ñuñoa",
+        "tipo": "metro",
+        "linea": "Línea 3",
+        "descripcion": "Estación de metro Ñuñoa - Línea 3"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.5995,
+          -33.452
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Plaza Egaña",
+        "tipo": "metro",
+        "linea": "Línea 3",
+        "descripcion": "Estación de metro Plaza Egaña - Línea 3"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.5795,
+          -33.452
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Fernando Castillo Velasco",
+        "tipo": "metro",
+        "linea": "Línea 3",
+        "descripcion": "Estación de metro Fernando Castillo Velasco - Línea 3"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.5595,
+          -33.462
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Tobalaba L4",
+        "tipo": "metro",
+        "linea": "Línea 4",
+        "descripcion": "Estación de metro Tobalaba L4 - Línea 4"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.5873,
+          -33.4191
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Cristóbal Colón",
+        "tipo": "metro",
+        "linea": "Línea 4",
+        "descripcion": "Estación de metro Cristóbal Colón - Línea 4"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.5883,
+          -33.4281
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Francisco Bilbao",
+        "tipo": "metro",
+        "linea": "Línea 4",
+        "descripcion": "Estación de metro Francisco Bilbao - Línea 4"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.5893,
+          -33.4381
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Príncipe de Gales",
+        "tipo": "metro",
+        "linea": "Línea 4",
+        "descripcion": "Estación de metro Príncipe de Gales - Línea 4"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.5903,
+          -33.4481
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Simón Bolívar",
+        "tipo": "metro",
+        "linea": "Línea 4",
+        "descripcion": "Estación de metro Simón Bolívar - Línea 4"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.5913,
+          -33.4581
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Plaza Egaña L4",
+        "tipo": "metro",
+        "linea": "Línea 4",
+        "descripcion": "Estación de metro Plaza Egaña L4 - Línea 4"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.5795,
+          -33.452
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Los Orientales",
+        "tipo": "metro",
+        "linea": "Línea 4",
+        "descripcion": "Estación de metro Los Orientales - Línea 4"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.5923,
+          -33.4681
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Grecia",
+        "tipo": "metro",
+        "linea": "Línea 4",
+        "descripcion": "Estación de metro Grecia - Línea 4"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.5933,
+          -33.4781
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Los Presidentes",
+        "tipo": "metro",
+        "linea": "Línea 4",
+        "descripcion": "Estación de metro Los Presidentes - Línea 4"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.5943,
+          -33.4881
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Quilín",
+        "tipo": "metro",
+        "linea": "Línea 4",
+        "descripcion": "Estación de metro Quilín - Línea 4"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.5953,
+          -33.4981
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Las Torres",
+        "tipo": "metro",
+        "linea": "Línea 4",
+        "descripcion": "Estación de metro Las Torres - Línea 4"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.5963,
+          -33.5081
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Macul",
+        "tipo": "metro",
+        "linea": "Línea 4",
+        "descripcion": "Estación de metro Macul - Línea 4"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.5973,
+          -33.5181
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Vicuña Mackenna",
+        "tipo": "metro",
+        "linea": "Línea 4",
+        "descripcion": "Estación de metro Vicuña Mackenna - Línea 4"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.5983,
+          -33.5281
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Vicente Valdés",
+        "tipo": "metro",
+        "linea": "Línea 4",
+        "descripcion": "Estación de metro Vicente Valdés - Línea 4"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.5993,
+          -33.5381
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Rojas Magallanes",
+        "tipo": "metro",
+        "linea": "Línea 4",
+        "descripcion": "Estación de metro Rojas Magallanes - Línea 4"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6003,
+          -33.5481
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Trinidad",
+        "tipo": "metro",
+        "linea": "Línea 4",
+        "descripcion": "Estación de metro Trinidad - Línea 4"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6013,
+          -33.5581
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro San José de la Estrella",
+        "tipo": "metro",
+        "linea": "Línea 4",
+        "descripcion": "Estación de metro San José de la Estrella - Línea 4"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6023,
+          -33.5681
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Los Quillayes",
+        "tipo": "metro",
+        "linea": "Línea 4",
+        "descripcion": "Estación de metro Los Quillayes - Línea 4"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6033,
+          -33.5781
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Elisa Correa",
+        "tipo": "metro",
+        "linea": "Línea 4",
+        "descripcion": "Estación de metro Elisa Correa - Línea 4"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6043,
+          -33.5881
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Hospital Sótero del Río",
+        "tipo": "metro",
+        "linea": "Línea 4",
+        "descripcion": "Estación de metro Hospital Sótero del Río - Línea 4"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6053,
+          -33.5981
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Protectora de la Infancia",
+        "tipo": "metro",
+        "linea": "Línea 4",
+        "descripcion": "Estación de metro Protectora de la Infancia - Línea 4"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6063,
+          -33.6081
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Las Mercedes",
+        "tipo": "metro",
+        "linea": "Línea 4",
+        "descripcion": "Estación de metro Las Mercedes - Línea 4"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6073,
+          -33.6181
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Plaza de Puente Alto",
+        "tipo": "metro",
+        "linea": "Línea 4",
+        "descripcion": "Estación de metro Plaza de Puente Alto - Línea 4"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6083,
+          -33.6281
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Plaza de Maipú",
+        "tipo": "metro",
+        "linea": "Línea 5",
+        "descripcion": "Estación de metro Plaza de Maipú - Línea 5"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.756,
+          -33.51
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Santiago Bueras",
+        "tipo": "metro",
+        "linea": "Línea 5",
+        "descripcion": "Estación de metro Santiago Bueras - Línea 5"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.748,
+          -33.504
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Del Sol",
+        "tipo": "metro",
+        "linea": "Línea 5",
+        "descripcion": "Estación de metro Del Sol - Línea 5"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.74,
+          -33.498
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Monte Tabor",
+        "tipo": "metro",
+        "linea": "Línea 5",
+        "descripcion": "Estación de metro Monte Tabor - Línea 5"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.732,
+          -33.492
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Las Parcelas",
+        "tipo": "metro",
+        "linea": "Línea 5",
+        "descripcion": "Estación de metro Las Parcelas - Línea 5"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.724,
+          -33.486
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Laguna Sur",
+        "tipo": "metro",
+        "linea": "Línea 5",
+        "descripcion": "Estación de metro Laguna Sur - Línea 5"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.716,
+          -33.48
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Barrancas",
+        "tipo": "metro",
+        "linea": "Línea 5",
+        "descripcion": "Estación de metro Barrancas - Línea 5"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.7082,
+          -33.4741
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Pudahuel",
+        "tipo": "metro",
+        "linea": "Línea 5",
+        "descripcion": "Estación de metro Pudahuel - Línea 5"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.743,
+          -33.4365
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro San Pablo L5",
+        "tipo": "metro",
+        "linea": "Línea 5",
+        "descripcion": "Estación de metro San Pablo L5 - Línea 5"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6823,
+          -33.4252
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Lo Prado",
+        "tipo": "metro",
+        "linea": "Línea 5",
+        "descripcion": "Estación de metro Lo Prado - Línea 5"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6923,
+          -33.4452
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Blanqueado",
+        "tipo": "metro",
+        "linea": "Línea 5",
+        "descripcion": "Estación de metro Blanqueado - Línea 5"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6642,
+          -33.4495
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Gruta de Lourdes",
+        "tipo": "metro",
+        "linea": "Línea 5",
+        "descripcion": "Estación de metro Gruta de Lourdes - Línea 5"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6592,
+          -33.4548
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Quinta Normal",
+        "tipo": "metro",
+        "linea": "Línea 5",
+        "descripcion": "Estación de metro Quinta Normal - Línea 5"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6696,
+          -33.4377
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Cumming",
+        "tipo": "metro",
+        "linea": "Línea 5",
+        "descripcion": "Estación de metro Cumming - Línea 5"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6647,
+          -33.448
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Santa Ana L5",
+        "tipo": "metro",
+        "linea": "Línea 5",
+        "descripcion": "Estación de metro Santa Ana L5 - Línea 5"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6455,
+          -33.4375
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Bellas Artes",
+        "tipo": "metro",
+        "linea": "Línea 5",
+        "descripcion": "Estación de metro Bellas Artes - Línea 5"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6428,
+          -33.4383
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Baquedano L5",
+        "tipo": "metro",
+        "linea": "Línea 5",
+        "descripcion": "Estación de metro Baquedano L5 - Línea 5"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6348,
+          -33.4376
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Parque Bustamante",
+        "tipo": "metro",
+        "linea": "Línea 5",
+        "descripcion": "Estación de metro Parque Bustamante - Línea 5"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6248,
+          -33.4476
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Santa Isabel",
+        "tipo": "metro",
+        "linea": "Línea 5",
+        "descripcion": "Estación de metro Santa Isabel - Línea 5"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6148,
+          -33.4576
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Ñuble",
+        "tipo": "metro",
+        "linea": "Línea 5",
+        "descripcion": "Estación de metro Ñuble - Línea 5"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6048,
+          -33.4676
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Rodrigo de Araya",
+        "tipo": "metro",
+        "linea": "Línea 5",
+        "descripcion": "Estación de metro Rodrigo de Araya - Línea 5"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.5948,
+          -33.4776
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Carlos Valdovinos",
+        "tipo": "metro",
+        "linea": "Línea 5",
+        "descripcion": "Estación de metro Carlos Valdovinos - Línea 5"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.5848,
+          -33.4876
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Camino Agrícola",
+        "tipo": "metro",
+        "linea": "Línea 5",
+        "descripcion": "Estación de metro Camino Agrícola - Línea 5"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.5748,
+          -33.4976
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Pedrero",
+        "tipo": "metro",
+        "linea": "Línea 5",
+        "descripcion": "Estación de metro Pedrero - Línea 5"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.5648,
+          -33.5076
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Mirador",
+        "tipo": "metro",
+        "linea": "Línea 5",
+        "descripcion": "Estación de metro Mirador - Línea 5"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.5548,
+          -33.5176
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Bellavista de la Florida",
+        "tipo": "metro",
+        "linea": "Línea 5",
+        "descripcion": "Estación de metro Bellavista de la Florida - Línea 5"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.5448,
+          -33.5276
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Vicente Valdés L5",
+        "tipo": "metro",
+        "linea": "Línea 5",
+        "descripcion": "Estación de metro Vicente Valdés L5 - Línea 5"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.5993,
+          -33.5381
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Los Leones L6",
+        "tipo": "metro",
+        "linea": "Línea 6",
+        "descripcion": "Estación de metro Los Leones L6 - Línea 6"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6037,
+          -33.438
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Inés de Suárez",
+        "tipo": "metro",
+        "linea": "Línea 6",
+        "descripcion": "Estación de metro Inés de Suárez - Línea 6"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6137,
+          -33.434
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Ñuñoa L6",
+        "tipo": "metro",
+        "linea": "Línea 6",
+        "descripcion": "Estación de metro Ñuñoa L6 - Línea 6"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.5995,
+          -33.452
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Estadio Nacional",
+        "tipo": "metro",
+        "linea": "Línea 6",
+        "descripcion": "Estación de metro Estadio Nacional - Línea 6"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6095,
+          -33.462
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Ñuble L6",
+        "tipo": "metro",
+        "linea": "Línea 6",
+        "descripcion": "Estación de metro Ñuble L6 - Línea 6"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6048,
+          -33.4676
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Biobío",
+        "tipo": "metro",
+        "linea": "Línea 6",
+        "descripcion": "Estación de metro Biobío - Línea 6"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.5948,
+          -33.4776
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Franklin L6",
+        "tipo": "metro",
+        "linea": "Línea 6",
+        "descripcion": "Estación de metro Franklin L6 - Línea 6"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6515,
+          -33.4845
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Metro Cerrillos",
+        "tipo": "metro",
+        "linea": "Línea 6",
+        "descripcion": "Estación de metro Cerrillos - Línea 6"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.7115,
+          -33.4945
+        ]
+      }
+    }
+  ]
+}
