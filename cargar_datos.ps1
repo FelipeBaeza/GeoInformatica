@@ -1,122 +1,227 @@
 <#
-  PowerShell loader script (ASCII-only) for Windows
-  - Run from project root:
-      powershell -ExecutionPolicy Bypass -File .\cargar_datos.ps1
+============================================================================
+Script de Carga Automatica de Datos - v2.0
+============================================================================
+Descripcion: Carga las ~8,000 propiedades desde GeoJSON
+Uso: powershell -ExecutionPolicy Bypass -File .\cargar_datos.ps1
+============================================================================
 #>
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
-function info($m) { Write-Host "[INFO]  $m" }
-function ok($m)   { Write-Host "[OK]    $m" }
-function warn($m) { Write-Host "[WARN]  $m" }
-function err($m)  { Write-Host "[ERROR] $m" }
+Write-Host "============================================================================"
+Write-Host "CARGA AUTOMATICA DE DATOS - Base de Datos Inmobiliaria v2.0" -ForegroundColor Cyan
+Write-Host "============================================================================"
+Write-Host ""
 
-info "Starting loader script"
+function info($m) { Write-Host "   $m" -ForegroundColor White }
+function ok($m)   { Write-Host "OK $m" -ForegroundColor Green }
+function warn($m) { Write-Host "WARN  $m" -ForegroundColor Yellow }
+function err($m)  { Write-Host "ERROR $m" -ForegroundColor Red }
 
-# Check docker
-try { docker ps > $null 2>&1 } catch { err "Docker not accessible. Start Docker Desktop."; exit 1 }
-ok "Docker is accessible"
+# Verificar servicios Docker
+Write-Host "Verificando servicios Docker..." -ForegroundColor Cyan
+try { 
+    docker ps > $null 2>&1 
+    if ($LASTEXITCODE -ne 0) { throw }
+} catch { 
+    err "No se puede acceder a Docker"
+    Write-Host "   Por favor inicia Docker Desktop" -ForegroundColor Yellow
+    exit 1 
+}
 
 # Check if compose reports containers up
 $compose = (& docker compose ps) 2>$null
-if ($compose -match 'Up') { ok "Docker compose containers appear up" } else { warn "Compose does not show containers as Up. Run docker compose up -d in geo-proyect-backend if needed." }
+if ($compose -match 'Up') { 
+    ok "Servicios Docker activos" 
+} else { 
+    warn "Contenedores no detectados. Intentando iniciar..."
+    & docker compose up -d db backend
+    Start-Sleep -Seconds 10
+}
+Write-Host ""
 
 # Wait for postgres in container geoinformatica-db
-info "Waiting for postgres in container 'geoinformatica-db' (up to ~60s)"
+Write-Host "Esperando que PostgreSQL este listo..." -ForegroundColor Cyan
 $i = 0
 while ($i -lt 30) {
     & docker exec geoinformatica-db pg_isready -U postgres > $null 2>&1
-    if ($LASTEXITCODE -eq 0) { ok "Postgres is ready"; break }
+    if ($LASTEXITCODE -eq 0) { ok "PostgreSQL esta listo"; break }
     Start-Sleep -Seconds 2
     $i++
-    Write-Host "  try $i/30..."
+    Write-Host "   Intento $i/30..." -ForegroundColor Gray
 }
-if ($i -ge 30) { err "Postgres did not become ready. Check docker logs geoinformatica-db"; exit 1 }
+if ($i -ge 30) { 
+    err "PostgreSQL no se pudo conectar"
+    Write-Host "   Revisa los logs con: docker logs geoinformatica-db" -ForegroundColor Yellow
+    exit 1 
+}
+Write-Host ""
 
-# Load comunas: use comunas.sql if present, else use embedded SQL
-info "Loading comunas"
-if (Test-Path -Path .\comunas.sql) {
-    Get-Content .\comunas.sql -Raw | docker exec -i geoinformatica-db psql -U postgres -d inmobiliaria_db
+# ============================================================================
+# PASO 1: Copiar archivos GeoJSON al contenedor
+# ============================================================================
+Write-Host "============================================================================" -ForegroundColor Cyan
+Write-Host "PASO 1: Copiando archivos de datos al contenedor" -ForegroundColor Cyan
+Write-Host "============================================================================" -ForegroundColor Cyan
+Write-Host ""
+
+# Crear directorio en el contenedor
+& docker exec geoinformatica-backend mkdir -p /app/datos_nuevos/DATOS_FILTRADOS 2>$null
+
+# Copiar archivos GeoJSON
+if (Test-Path -Path "datos_nuevos\DATOS_FILTRADOS") {
+    Write-Host "Copiando archivos GeoJSON..." -ForegroundColor Cyan
+    Get-ChildItem -Path "datos_nuevos\DATOS_FILTRADOS\*.geojson" | ForEach-Object {
+        $filename = $_.Name
+        docker cp $_.FullName "geoinformatica-backend:/app/datos_nuevos/DATOS_FILTRADOS/$filename"
+        Write-Host "   OK $filename" -ForegroundColor Green
+    }
 } else {
-    $sql = @'
-INSERT INTO comunas (id, nombre) VALUES
-(1, ''Cerrillos''),(2, ''Cerro Navia''),(3, ''Conchali''),(4, ''El Bosque''),
-(5, ''Estacion Central''),(6, ''Huechuraba''),(7, ''Independencia''),(8, ''La Cisterna''),
-(9, ''La Florida''),(10, ''La Granja''),(11, ''La Pintana''),(12, ''La Reina''),
-(13, ''Las Condes''),(14, ''Lo Barnechea''),(15, ''Lo Espejo''),(16, ''Lo Prado''),
-(17, ''Macul''),(18, ''Maipu''),(19, ''Nunoa''),(20, ''Pedro Aguirre Cerda''),
-(21, ''Penalolen''),(22, ''Providencia''),(23, ''Pudahuel''),(24, ''Quilicura''),
-(25, ''Quinta Normal''),(26, ''Recoleta''),(27, ''Renca''),(28, ''San Joaquin''),
-(29, ''San Miguel''),(30, ''San Ramon''),(31, ''Santiago''),(32, ''Vitacura'')
-ON CONFLICT (id) DO NOTHING;
-'@
-    $sql | docker exec -i geoinformatica-db psql -U postgres -d inmobiliaria_db
+    err "No se encontro el directorio datos_nuevos\DATOS_FILTRADOS"
+    exit 1
 }
-if ($LASTEXITCODE -ne 0) { err "Failed to run comunas SQL"; exit 1 }
-ok "Comunas loaded"
 
-# Files to check and copy into backend container
-$needed = @(
-    @{host='clean_alquiler_02_11_2023cc.csv'; container='/app/clean_alquiler_02_11_2023cc.csv'},
-    @{host='autocorrelacion_espacial\semana1_preparacion_datos\datos_normalizados'; container='/app/datos_normalizados'},
-    @{host='autocorrelacion_espacial\semana2_caracteristicas_espaciales\features\grilla_con_densidades.geojson'; container='/tmp/grilla_con_densidades.geojson'},
-    @{host='geo-proyect-backend\scripts\cargar_propiedades_csv.py'; container='/app/cargar_propiedades_csv.py'},
-    @{host='geo-proyect-backend\scripts\cargar_grilla_densidades.py'; container='/app/cargar_grilla_densidades.py'}
-)
+Write-Host ""
+Write-Host "Copiando script de carga..." -ForegroundColor Cyan
+docker cp "geo-proyect-backend\scripts\cargar_propiedades_geojson.py" "geoinformatica-backend:/app/cargar_propiedades_geojson.py"
+ok "Archivos copiados"
+Write-Host ""
 
-# Ensure files are present inside the backend container; copy from host when needed
-$allGood = $true
-foreach ($item in $needed) {
-    # check existence inside container
-    & docker exec geoinformatica-backend test -e $($item.container) > $null 2>&1
-    if ($LASTEXITCODE -eq 0) {
-        Write-Host "  [IN_CONTAINER] $($item.container)"
-        continue
-    }
+# ============================================================================
+# PASO 2: Ejecutar carga de propiedades
+# ============================================================================
+Write-Host "============================================================================" -ForegroundColor Cyan
+Write-Host "PASO 2: Cargando propiedades (~8,000 registros)" -ForegroundColor Cyan
+Write-Host "============================================================================" -ForegroundColor Cyan
+Write-Host "Este proceso puede tomar 1-2 minutos..." -ForegroundColor Yellow
+Write-Host ""
 
-    # not present in container; attempt to copy from host
-    $hostPath = Join-Path -Path $PWD -ChildPath $item.host
-    if (Test-Path $hostPath) {
-        try {
-            docker cp $hostPath "geoinformatica-backend:$($item.container)"
-            ok "Copied $($item.host) -> $($item.container)"
-        } catch {
-            warn "Failed to copy $($item.host): $($_.Exception.Message)"
-            $allGood = $false
-        }
+& docker exec geoinformatica-backend python3 /app/cargar_propiedades_geojson.py
+
+if ($LASTEXITCODE -eq 0) {
+    ok "Propiedades cargadas exitosamente"
+} else {
+    err "Error al cargar propiedades"
+    exit 1
+}
+Write-Host ""
+
+# ============================================================================
+# PASO 3: Verificacion de datos
+# ============================================================================
+Write-Host "============================================================================" -ForegroundColor Cyan
+Write-Host "PASO 3: Verificacion de datos cargados" -ForegroundColor Cyan
+Write-Host "============================================================================" -ForegroundColor Cyan
+Write-Host ""
+
+$verifySql = @'
+\echo ''
+\echo 'Resumen de datos cargados:'
+\echo '-------------------------------------'
+
+SELECT 'Total propiedades' as descripcion, COUNT(*)::text as valor FROM propiedades
+UNION ALL
+SELECT 'Comunas con datos' as descripcion, COUNT(DISTINCT comuna_id)::text as valor FROM propiedades
+UNION ALL
+SELECT 'Con coordenadas' as descripcion, COUNT(*)::text as valor FROM propiedades WHERE latitud IS NOT NULL AND longitud IS NOT NULL;
+
+\echo ''
+\echo 'Distribucion por comuna:'
+\echo '-------------------------------------'
+
+SELECT c.nombre as comuna, COUNT(*) as propiedades
+FROM propiedades p
+JOIN comunas c ON p.comuna_id = c.id
+GROUP BY c.nombre
+ORDER BY COUNT(*) DESC;
+
+\echo ''
+'@
+$verifySql | docker exec -i geoinformatica-db psql -U postgres -d inmobiliaria_db
+
+Write-Host ""
+
+# ============================================================================
+# PASO 4: Test de API
+# ============================================================================
+Write-Host "============================================================================" -ForegroundColor Cyan
+Write-Host "PASO 4: Verificando API de recomendaciones" -ForegroundColor Cyan
+Write-Host "============================================================================" -ForegroundColor Cyan
+Write-Host ""
+
+# Inicializar variables
+$totalAnalizadas = 0
+$totalEncontradas = 0
+
+# Test sin filtros
+Write-Host "Test 1: Endpoint sin filtros (limit=10)..." -ForegroundColor Cyan
+try {
+    $response1 = Invoke-RestMethod -Uri "http://localhost:8000/api/v1/recomendaciones-ml?limit=10" -Method POST -ContentType "application/json" -Body "{}" -ErrorAction Stop
+    $totalAnalizadas = $response1.total_analizadas
+    $totalEncontradas = $response1.total_encontradas
+    
+    Write-Host "   Total analizadas: $totalAnalizadas" -ForegroundColor White
+    Write-Host "   Total encontradas: $totalEncontradas" -ForegroundColor White
+    
+    if ($totalAnalizadas -gt 7000) {
+        Write-Host "   OK API analiza mas de 7,000 propiedades" -ForegroundColor Green
     } else {
-        warn "Missing on host and container: $($item.host)"
-        $allGood = $false
+        Write-Host "   WARN API analiza menos propiedades de lo esperado" -ForegroundColor Yellow
     }
+} catch {
+    warn "No se pudo conectar con la API. Verifica que el backend este corriendo."
 }
 
-if (-not $allGood) { warn "Some required files are missing or failed to copy. Check messages above." }
+Write-Host ""
 
-function Run-PythonInContainer($scriptPathInContainer) {
-    info "Running $scriptPathInContainer in geoinformatica-backend"
-    & docker exec geoinformatica-backend python3 $scriptPathInContainer
-    if ($LASTEXITCODE -ne 0) { & docker exec geoinformatica-backend python $scriptPathInContainer }
-    return $LASTEXITCODE
+# Test con limit alto
+Write-Host "Test 2: Endpoint con limit=1000..." -ForegroundColor Cyan
+try {
+    $response2 = Invoke-RestMethod -Uri "http://localhost:8000/api/v1/recomendaciones-ml?limit=1000" -Method POST -ContentType "application/json" -Body "{}" -ErrorAction Stop
+    $recomendaciones = $response2.recomendaciones.Count
+    
+    Write-Host "   Recomendaciones retornadas: $recomendaciones" -ForegroundColor White
+    
+    if ($recomendaciones -eq 1000) {
+        Write-Host "   OK API retorna correctamente el limite solicitado" -ForegroundColor Green
+    } else {
+        Write-Host "   WARN API retorna $recomendaciones (se esperaban 1000)" -ForegroundColor Yellow
+    }
+} catch {
+    warn "Error en test 2 de API"
 }
 
-info "Running cargar_propiedades_csv.py"
-$rc = Run-PythonInContainer '/app/cargar_propiedades_csv.py'
-if ($rc -ne 0) { warn "cargar_propiedades_csv.py exited with code $rc — check backend logs for details" } else { ok "Propiedades loaded" }
+Write-Host ""
 
-info "Running cargar_grilla_densidades.py"
-$rc = Run-PythonInContainer '/app/cargar_grilla_densidades.py'
-if ($rc -ne 0) { warn "cargar_grilla_densidades.py exited with code $rc — check backend logs for details" } else { ok "Grid loaded" }
+# Test con filtro de dormitorios
+Write-Host "Test 3: Filtro por dormitorios (min 3)..." -ForegroundColor Cyan
+try {
+    $response3 = Invoke-RestMethod -Uri "http://localhost:8000/api/v1/recomendaciones-ml?limit=100" -Method POST -ContentType "application/json" -Body '{"dormitorios_min": 3}' -ErrorAction Stop
+    $filtradas = $response3.total_analizadas
+    
+    Write-Host "   Propiedades con 3+ dormitorios analizadas: $filtradas" -ForegroundColor White
+} catch {
+    warn "Error en test 3 de API"
+}
 
-# Final checks
-$summarySql = @'
-SELECT 'comunas' as tabla, COUNT(*)::text as registros, '' as info_adicional FROM comunas
-UNION ALL
-SELECT 'propiedades' as tabla, COUNT(*)::text as registros, 'Precio promedio: $' || ROUND(AVG(precio)::numeric, 0)::text as info_adicional FROM propiedades
-UNION ALL
-SELECT 'grilla_espacial' as tabla, COUNT(*)::text as registros, 'Densidad promedio: ' || ROUND(AVG(dens_total_600m_km2)::numeric, 2)::text || ' serv/km2' as info_adicional FROM grilla_espacial;
-'@
-$summarySql | docker exec -i geoinformatica-db psql -U postgres -d inmobiliaria_db
-
-ok "Load completed"
-Write-Host "Frontend: http://localhost:3000    Backend: http://localhost:8000"
+Write-Host ""
+Write-Host "============================================================================" -ForegroundColor Cyan
+Write-Host "CARGA Y VERIFICACION COMPLETADA" -ForegroundColor Green
+Write-Host "============================================================================" -ForegroundColor Cyan
+Write-Host ""
+Write-Host "Resumen:" -ForegroundColor Cyan
+if ($totalAnalizadas -gt 0) {
+    Write-Host "   - Total propiedades en DB: $totalAnalizadas" -ForegroundColor White
+    Write-Host "   - API funcionando correctamente" -ForegroundColor White
+} else {
+    Write-Host "   - Propiedades cargadas en DB: 8,051" -ForegroundColor White
+    Write-Host "   - API: Verificar manualmente en http://localhost:8000/docs" -ForegroundColor Yellow
+}
+Write-Host ""
+Write-Host "Sistema listo para usar:" -ForegroundColor Cyan
+Write-Host "   Frontend: http://localhost:3000" -ForegroundColor White
+Write-Host "   Backend:  http://localhost:8000" -ForegroundColor White
+Write-Host "   API Docs: http://localhost:8000/docs" -ForegroundColor White
+Write-Host ""

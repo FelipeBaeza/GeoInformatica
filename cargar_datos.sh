@@ -114,7 +114,7 @@ echo "==========================================================================
 echo "📊 PASO 3: Verificación de datos cargados"
 echo "============================================================================"
 
-$DOCKER_CMD exec geoinformatica-db psql -U postgres -d inmobiliario_db << 'EOF'
+$DOCKER_CMD exec geoinformatica-db psql -U postgres -d inmobiliaria_db << 'EOF'
 \echo ''
 \echo '📋 Resumen de datos cargados:'
 \echo '─────────────────────────────────────'
