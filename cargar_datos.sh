@@ -99,6 +99,34 @@ echo ""
 
 $DOCKER_CMD exec geoinformatica-backend python3 /app/cargar_propiedades_geojson.py
 
+# ============================================================================
+# PASO 2.5: Cargar puntos de interés (servicios)
+# ============================================================================
+echo ""
+echo "============================================================================"
+echo "📍 PASO 2.5: Cargando puntos de interés (servicios cercanos)"
+echo "============================================================================"
+echo "⏳ Cargando colegios, hospitales, farmacias, metro, parques, etc..."
+echo ""
+
+# Crear directorio de datos normalizados en el contenedor
+$DOCKER_CMD exec geoinformatica-backend mkdir -p /app/datos_normalizados 2>/dev/null || true
+
+# Copiar archivos de datos normalizados
+if [ -d "autocorrelacion_espacial/semana1_preparacion_datos/datos_normalizados/datos_normalizados" ]; then
+    echo "📁 Copiando archivos de servicios..."
+    $DOCKER_CMD cp autocorrelacion_espacial/semana1_preparacion_datos/datos_normalizados/datos_normalizados/. geoinformatica-backend:/app/datos_normalizados/
+    echo "   ✅ Archivos de servicios copiados"
+else
+    echo -e "${YELLOW}⚠️  No se encontró el directorio de datos normalizados${NC}"
+fi
+
+# Copiar script de carga de servicios
+$DOCKER_CMD cp geo-proyect-backend/scripts/cargar_servicios.py geoinformatica-backend:/app/cargar_servicios.py
+
+# Ejecutar carga de servicios
+$DOCKER_CMD exec geoinformatica-backend python3 /app/cargar_servicios.py
+
 if [ $? -eq 0 ]; then
     echo -e "${GREEN}✅ Propiedades cargadas exitosamente${NC}"
 else
@@ -135,6 +163,17 @@ JOIN comunas c ON p.comuna_id = c.id
 GROUP BY c.nombre
 ORDER BY COUNT(*) DESC;
 
+\echo ''
+\echo '🏪 Puntos de Interés (Servicios) cargados:'
+\echo '─────────────────────────────────────'
+
+SELECT tipo, COUNT(*) as cantidad
+FROM puntos_interes
+GROUP BY tipo
+ORDER BY cantidad DESC;
+
+\echo ''
+SELECT 'Total puntos de interés' as descripcion, COUNT(*)::text as valor FROM puntos_interes;
 \echo ''
 EOF
 
