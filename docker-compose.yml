@@ -70,7 +70,7 @@ services:
   # Frontend Nuxt 3
   frontend:
     build:
-      context: ./geo-proyect-frontend/geo-proyect-frontend
+      context: ./geo-proyect-frontend
       dockerfile: Dockerfile
     container_name: geoinformatica-frontend
     restart: unless-stopped
