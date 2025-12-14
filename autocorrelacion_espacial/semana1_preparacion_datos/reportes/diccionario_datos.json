@@ -1,0 +1,266 @@
+{
+  "proyecto": {
+    "nombre": "Sistema de Valoración Inmobiliaria Geoespacial con Satisfacción Personalizada",
+    "fecha_creacion": "2025-12-11T20:53:47.562173",
+    "version": "1.0.0",
+    "descripcion": "Predicción dual de precio y satisfacción personalizada para propiedades inmobiliarias",
+    "crs_proyecto": "EPSG:32719 (UTM 19S)",
+    "area_estudio": "Gran Santiago - Comunas seleccionadas"
+  },
+  "metadatos_generales": {
+    "total_archivos": 0,
+    "total_geometrias": 0,
+    "clasificacion_tematica": {
+      "transporte_movilidad": [
+        "Lineas_de_metro_de_Santiago.geojson",
+        "estaciones_carga_filtradas.geojson",
+        "circuito_turistico_filtrado.geojson"
+      ],
+      "servicios_amenidades": [
+        "servicios_filtrados.geojson",
+        "tiendas_filtradas.geojson",
+        "puntos_de_interes_filtrados.geojson",
+        "puntos_medicos_farmacias_hospitales_filtrados.geojson",
+        "redes_de_clinicas_filtradas.geojson",
+        "atracciones_turisticas_filtradas.geojson"
+      ],
+      "educacion": [
+        "establecimientos_educacion_escolar.geojson",
+        "establecimientos_educacion_superior.geojson",
+        "establecimientos_parvularia_filtrados.geojson"
+      ],
+      "seguridad": [
+        "cuarteles_filtrados.geojson",
+        "cuerpos_de_bomberos_filtrados.geojson",
+        "unidades_operativas_pdi_filtradas.geojson"
+      ],
+      "ambiente_espacios": [
+        "areas_verdes_filtradas.geojson",
+        "ocio_filtrado.geojson",
+        "estaciones_calidad_aire_filtrada.geojson",
+        "estaciones_metereológicas_filtradas.geojson",
+        "vertedores_ilegales_filtrados.geojson"
+      ],
+      "limites_administrativos": [
+        "comunas_buffer.geojson",
+        "unidades_vecinales_filtradas.geojson",
+        "poblacion_filtrada.geojson",
+        "poblacion2_filtrada.geojson",
+        "municipios_filtrados.geojson"
+      ],
+      "socioeconomico": [
+        "delincuencia_comunas_anual.geojson",
+        "campamentos.geojson",
+        "centros_sernam_filtrados.geojson",
+        "base_maestra_comunas_filtradas.geojson"
+      ]
+    },
+    "fuentes_originales": {
+      "Lineas_de_metro_de_Santiago.geojson": {
+        "fuente_original": "Metro de Santiago / DTPM",
+        "tipo_fuente": "Oficial",
+        "url": "https://www.metro.cl",
+        "licencia": "Datos abiertos",
+        "fecha_descarga": "2024-2025",
+        "cobertura_temporal": "Actual",
+        "descripcion": "Red de líneas del Metro de Santiago"
+      },
+      "servicios_filtrados.geojson": {
+        "fuente_original": "OpenStreetMap",
+        "tipo_fuente": "Colaborativa",
+        "url": "https://www.openstreetmap.org",
+        "licencia": "ODbL",
+        "fecha_descarga": "2024-2025",
+        "cobertura_temporal": "Actual",
+        "descripcion": "Servicios urbanos diversos extraídos de OSM"
+      },
+      "tiendas_filtradas.geojson": {
+        "fuente_original": "OpenStreetMap",
+        "tipo_fuente": "Colaborativa",
+        "url": "https://www.openstreetmap.org",
+        "licencia": "ODbL",
+        "fecha_descarga": "2024-2025",
+        "cobertura_temporal": "Actual",
+        "descripcion": "Comercio y tiendas de OSM"
+      },
+      "establecimientos_educacion_escolar.geojson": {
+        "fuente_original": "MINEDUC - Ministerio de Educación",
+        "tipo_fuente": "Oficial",
+        "url": "https://www.mineduc.cl",
+        "licencia": "Datos abiertos gubernamentales",
+        "fecha_descarga": "2024-2025",
+        "cobertura_temporal": "2024",
+        "descripcion": "Establecimientos de educación escolar registrados"
+      },
+      "poblacion_filtrada.geojson": {
+        "fuente_original": "INE - Instituto Nacional de Estadísticas",
+        "tipo_fuente": "Oficial",
+        "url": "https://www.ine.cl",
+        "licencia": "Datos abiertos gubernamentales",
+        "fecha_descarga": "2024-2025",
+        "cobertura_temporal": "Censo 2017",
+        "descripcion": "Manzanas censales con datos de población y vivienda"
+      },
+      "unidades_vecinales_filtradas.geojson": {
+        "fuente_original": "INE - Instituto Nacional de Estadísticas",
+        "tipo_fuente": "Oficial",
+        "url": "https://www.ine.cl",
+        "licencia": "Datos abiertos gubernamentales",
+        "fecha_descarga": "2024-2025",
+        "cobertura_temporal": "2024",
+        "descripcion": "Unidades vecinales con indicadores socioeconómicos"
+      }
+    },
+    "variables_para_features": {
+      "accesibilidad_transporte": {
+        "descripcion": "Variables para calcular accesibilidad a transporte público",
+        "archivos_fuente": [
+          "Lineas_de_metro_de_Santiago.geojson"
+        ],
+        "variables_usar": [
+          "geometry"
+        ],
+        "features_derivar": [
+          "distancia_metro_m",
+          "tiempo_metro_min",
+          "estaciones_1km"
+        ],
+        "notas": "Falta agregar estaciones puntuales desde OSM"
+      },
+      "densidad_servicios": {
+        "descripcion": "Densidad de servicios urbanos en diferentes radios",
+        "archivos_fuente": [
+          "servicios_filtrados.geojson",
+          "tiendas_filtradas.geojson",
+          "puntos_medicos_farmacias_hospitales_filtrados.geojson"
+        ],
+        "variables_usar": [
+          "geometry",
+          "amenity",
+          "shop",
+          "healthcare"
+        ],
+        "features_derivar": [
+          "servicios_300m",
+          "servicios_600m",
+          "servicios_1km",
+          "tiendas_300m",
+          "salud_1km"
+        ]
+      },
+      "educacion_acceso": {
+        "descripcion": "Acceso a educación por niveles",
+        "archivos_fuente": [
+          "establecimientos_educacion_escolar.geojson",
+          "establecimientos_parvularia_filtrados.geojson",
+          "establecimientos_educacion_superior.geojson"
+        ],
+        "variables_usar": [
+          "geometry",
+          "tipo",
+          "nivel"
+        ],
+        "features_derivar": [
+          "colegios_1km",
+          "jardines_500m",
+          "universidades_2km",
+          "distancia_colegio_m"
+        ]
+      },
+      "seguridad_proximidad": {
+        "descripcion": "Proximidad a servicios de seguridad",
+        "archivos_fuente": [
+          "cuarteles_filtrados.geojson",
+          "unidades_operativas_pdi_filtradas.geojson",
+          "cuerpos_de_bomberos_filtrados.geojson"
+        ],
+        "variables_usar": [
+          "geometry",
+          "tipo_unidad",
+          "categoria"
+        ],
+        "features_derivar": [
+          "seguridad_1km_dummy",
+          "distancia_pdi_m",
+          "distancia_bomberos_m"
+        ]
+      },
+      "ambiente_calidad": {
+        "descripcion": "Calidad ambiental y espacios verdes",
+        "archivos_fuente": [
+          "areas_verdes_filtradas.geojson",
+          "ocio_filtrado.geojson",
+          "vertedores_ilegales_filtrados.geojson"
+        ],
+        "variables_usar": [
+          "geometry",
+          "area_m2",
+          "tipo"
+        ],
+        "features_derivar": [
+          "pct_area_verde_600m",
+          "distancia_parque_m",
+          "area_parque_cercano_m2",
+          "vertederos_1km_dummy"
+        ]
+      },
+      "contexto_socioeconomico": {
+        "descripcion": "Variables de contexto socioeconómico por zona",
+        "archivos_fuente": [
+          "unidades_vecinales_filtradas.geojson",
+          "poblacion_filtrada.geojson"
+        ],
+        "variables_usar": [
+          "geometry",
+          "total_poblacion",
+          "densidad_vivienda",
+          "indicadores_ndpet*"
+        ],
+        "features_derivar": [
+          "densidad_poblacional",
+          "indicadores_socioeconomicos_uv",
+          "tipologia_barrio"
+        ],
+        "metodo_join": "point_in_polygon"
+      }
+    }
+  },
+  "esquemas_archivos": [],
+  "proceso_normalizacion": {
+    "descripcion": "Todos los archivos fueron normalizados a EPSG:32719",
+    "transformaciones_aplicadas": [
+      "Detección y asignación de CRS faltantes",
+      "Reproyección a UTM 19S (EPSG:32719)",
+      "Reparación de geometrías inválidas",
+      "Eliminación de geometrías nulas",
+      "Cálculo de áreas y perímetros en metros",
+      "Agregación de coordenadas de centroides",
+      "Eliminación de campos Shape__Area/Length en grados"
+    ],
+    "campos_agregados": [
+      "area_m2: Área en metros cuadrados (solo polígonos)",
+      "perimeter_m: Perímetro en metros (solo polígonos)",
+      "centroide_x: Coordenada X del centroide (UTM)",
+      "centroide_y: Coordenada Y del centroide (UTM)",
+      "crs_original: CRS original antes de normalización",
+      "fecha_normalizacion: Timestamp del procesamiento"
+    ]
+  },
+  "pipeline_features": {
+    "descripcion": "Variables espaciales a derivar para modelos de precio y satisfacción",
+    "escalas_analisis": [
+      "300m",
+      "600m",
+      "1000m",
+      "2000m"
+    ],
+    "tipos_features": [
+      "Distancias euclidianas y tiempos de viaje",
+      "Densidades por buffer circular",
+      "Porcentajes de cobertura (áreas verdes)",
+      "Dummies de proximidad (seguridad, des-amenidades)",
+      "Variables socioeconómicas por join espacial",
+      "Coordenadas UTM para tendencias espaciales"
+    ]
+  }
+}

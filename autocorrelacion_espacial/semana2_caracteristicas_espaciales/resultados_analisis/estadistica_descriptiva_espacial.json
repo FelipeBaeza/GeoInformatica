@@ -1,0 +1,92 @@
+{
+  "titulo": "Estadística Descriptiva Espacial",
+  "fecha_generacion": "2025-12-13T20:37:08.191527",
+  "preguntas_investigacion": {
+    "pregunta_1": "¿Cuál es la distribución de comercios por zonas de una ciudad?",
+    "pregunta_2": "¿En qué lugares existe una alta concentración de servicios de seguridad?"
+  },
+  "area_estudio": {
+    "comunas": [
+      "Santiago",
+      "La Reina",
+      "Ñuñoa",
+      "Estación Central"
+    ],
+    "total_comunas": 4
+  },
+  "analisis_comercios": {
+    "total_comercios": 532,
+    "promedio_por_comuna": 133.0,
+    "desviacion_estandar": 167.97023545854785,
+    "densidad_promedio_km2": 3.2843736770197127,
+    "por_comuna": {
+      "Santiago": {
+        "total_comercios": 383,
+        "area_km2": 42.03047945432012,
+        "densidad_por_km2": 9.11243471339067,
+        "porcentaje_total": 71.99
+      },
+      "La Reina": {
+        "total_comercios": 74,
+        "area_km2": 44.69814605406606,
+        "densidad_por_km2": 1.6555496487592787,
+        "porcentaje_total": 13.91
+      },
+      "Ñuñoa": {
+        "total_comercios": 52,
+        "area_km2": 31.76765908978162,
+        "densidad_por_km2": 1.6368848536506209,
+        "porcentaje_total": 9.77
+      },
+      "Estación Central": {
+        "total_comercios": 23,
+        "area_km2": 31.39393898030453,
+        "densidad_por_km2": 0.7326254922782836,
+        "porcentaje_total": 4.32
+      }
+    }
+  },
+  "analisis_seguridad": {
+    "total_servicios": 57,
+    "total_carabineros": 28,
+    "total_bomberos": 4,
+    "total_pdi": 25,
+    "densidad_promedio_km2": 0.3763717110163047,
+    "por_comuna": {
+      "Santiago": {
+        "carabineros": 17,
+        "bomberos": 3,
+        "pdi": 11,
+        "total": 31,
+        "densidad_por_km2": 0.737559989856686
+      },
+      "Estación Central": {
+        "carabineros": 7,
+        "bomberos": 0,
+        "pdi": 4,
+        "total": 11,
+        "densidad_por_km2": 0.3503861050026573
+      },
+      "Ñuñoa": {
+        "carabineros": 2,
+        "bomberos": 1,
+        "pdi": 6,
+        "total": 9,
+        "densidad_por_km2": 0.283306993901069
+      },
+      "La Reina": {
+        "carabineros": 2,
+        "bomberos": 0,
+        "pdi": 4,
+        "total": 6,
+        "densidad_por_km2": 0.13423375530480638
+      }
+    }
+  },
+  "hallazgos_principales": [
+    "La comuna con mayor densidad de comercios es Santiago con 9.1 comercios/km²",
+    "La comuna con mayor concentración de servicios de seguridad es Santiago con 0.738 servicios/km²",
+    "Se identificaron un total de 532 comercios en el área de estudio",
+    "Se registraron 57 servicios de seguridad (Carabineros, Bomberos y PDI)"
+  ]
+}

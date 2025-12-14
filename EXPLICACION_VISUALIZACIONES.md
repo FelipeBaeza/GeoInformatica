@@ -370,6 +370,138 @@ Este proyecto desarrolló un sistema completo que:
 
 ---
 
+## 📍 Estadística Descriptiva Espacial: Comercios y Seguridad
+
+Esta sección presenta el análisis exploratorio de datos espaciales (EDA espacial) que responde a dos preguntas clave de investigación sobre la distribución de infraestructura urbana en las 4 comunas de estudio.
+
+---
+
+### Pregunta 1: ¿Cuál es la distribución de comercios por zonas de una ciudad?
+
+El análisis reveló patrones significativos en la distribución espacial de los 532 comercios identificados en el área de estudio.
+
+#### Resultados por Comuna
+
+| Comuna | Total Comercios | Área (km²) | Densidad (comercios/km²) | % del Total |
+|--------|-----------------|------------|--------------------------|-------------|
+| **Santiago** | 383 | 42.03 | **9.11** | 72.0% |
+| La Reina | 74 | 44.70 | 1.66 | 13.9% |
+| Ñuñoa | 52 | 31.77 | 1.64 | 9.8% |
+| Estación Central | 23 | 31.39 | 0.73 | 4.3% |
+
+#### Patrones Identificados
+
+1. **Concentración centro-periferia**: Santiago Centro concentra el **72%** de todos los comercios del área de estudio, con una densidad de 9.11 comercios/km² - más de 5 veces el promedio de las otras comunas.
+
+2. **Tipos de comercio predominantes**:
+   - Autopartes (14.7%)
+   - Tiendas de conveniencia (11.9%)
+   - Botillerías/alcohol (6.7%)
+   - Peluquerías (4.7%)
+   - Panaderías (4.2%)
+
+3. **Heterogeneidad espacial**: La desviación estándar de 168 comercios indica alta variabilidad entre comunas, sugiriendo especialización funcional del territorio.
+
+#### Visualización: Mapa de Distribución de Comercios
+
+📍 **Archivo**: `autocorrelacion_espacial/semana2_caracteristicas_espaciales/graficos/mapa_distribucion_comercios.png`
+
+**Interpretación del mapa:**
+- **Panel izquierdo**: Puntos rojos indican la ubicación exacta de cada comercio. Se observa clara aglomeración en Santiago Centro.
+- **Panel derecho**: Mapa coroplético que muestra la densidad por comuna. Los tonos más oscuros indican mayor concentración comercial.
+
+---
+
+### Pregunta 2: ¿En qué lugares existe una alta concentración de servicios de seguridad?
+
+Se analizaron **57 servicios de seguridad**: Carabineros/Policía (28 unidades), PDI (25 unidades) y Bomberos (4 compañías).
+
+> **Nota**: Los datos incluyen registros de `cuarteles_filtrados.geojson`, `cuerpos_de_bomberos_filtrados.geojson` y datos adicionales de `servicios_filtrados.geojson` (amenity = police/fire_station).
+
+#### Resultados por Comuna
+
+| Comuna | Carabineros | Bomberos | PDI | Total | Densidad (serv/km²) |
+|--------|-------------|----------|-----|-------|---------------------|
+| **Santiago** | 17 | 3 | 11 | 31 | **0.738** |
+| Estación Central | 7 | 0 | 4 | 11 | 0.350 |
+| Ñuñoa | 2 | 1 | 6 | 9 | 0.283 |
+| La Reina | 2 | 0 | 4 | 6 | 0.134 |
+
+#### Zonas de Alta Concentración
+
+Las comunas con densidad superior al promedio (0.376 servicios/km²) son:
+- **Santiago**: 0.738 servicios/km² - Concentra más de la mitad de todos los servicios
+
+#### Patrones Identificados
+
+1. **Distribución estratégica**: Los servicios de seguridad se concentran en zonas de alta actividad comercial y poblacional.
+
+2. **Complementariedad institucional**: Carabineros, Bomberos y PDI muestran patrones de distribución complementarios, maximizando la cobertura territorial.
+
+3. **Relación comercio-seguridad**: Las comunas con mayor densidad comercial (Santiago) también tienen mayor presencia de servicios de seguridad.
+
+#### Visualización: Mapa de Servicios de Seguridad
+
+📍 **Archivo**: `autocorrelacion_espacial/semana2_caracteristicas_espaciales/graficos/mapa_servicios_seguridad.png`
+
+**Interpretación del mapa:**
+- **Panel izquierdo**: Ubicación de cada servicio con simbología diferenciada:
+  - 🔺 Triángulos azules: Carabineros
+  - 🟥 Cuadrados rojos: Bomberos  
+  - 🟢 Círculos verdes: PDI
+- **Panel derecho**: Mapa coroplético de concentración. Los tonos azules más intensos indican mayor presencia de seguridad.
+
+---
+
+### Mapa Integrado: Comercios y Servicios de Seguridad
+
+📍 **Archivo**: `autocorrelacion_espacial/semana2_caracteristicas_espaciales/graficos/mapa_integrado_comercios_seguridad.png`
+
+Este mapa combina ambas capas de información, permitiendo visualizar la **correlación espacial** entre actividad comercial y presencia de servicios de seguridad. Se observa que:
+
+- Las zonas con alta densidad comercial (puntos naranjas) coinciden con mayor presencia de servicios de seguridad
+- Santiago Centro emerge como el principal nodo urbano del área de estudio
+- Las comunas periféricas (La Reina, Ñuñoa) muestran distribuciones más dispersas
+
+---
+
+### Gráficos Estadísticos Comparativos
+
+📍 **Archivo**: `autocorrelacion_espacial/semana2_caracteristicas_espaciales/graficos/graficos_estadisticos_espaciales.png`
+
+Los gráficos de barras permiten comparar visualmente:
+1. **Total de comercios** por comuna (arriba izquierda)
+2. **Densidad de comercios** con línea de promedio (arriba derecha)
+3. **Servicios de seguridad apilados** por tipo (abajo izquierda)
+4. **Densidad de servicios** de seguridad (abajo derecha)
+
+---
+
+### Implicaciones para la Valoración Inmobiliaria
+
+Los hallazgos de este análisis espacial tienen relevancia directa para el modelo de satisfacción residencial:
+
+1. **Proximidad a comercios**: Las propiedades cercanas a zonas comerciales densas pueden tener mayor valoración por accesibilidad a servicios.
+
+2. **Cobertura de seguridad**: La cercanía a servicios de seguridad puede ser un factor positivo en la percepción de satisfacción, especialmente para familias con niños y adultos mayores.
+
+3. **Diferenciación comunal**: La clara diferencia en densidades sugiere que el factor "comuna" captura características urbanas distintivas que afectan la satisfacción residencial.
+
+---
+
+### Archivos Generados - Estadística Descriptiva Espacial
+
+| Archivo | Descripción |
+|---------|-------------|
+| `mapa_distribucion_comercios.png/pdf` | Mapa de distribución y densidad de comercios |
+| `mapa_servicios_seguridad.png/pdf` | Mapa de ubicación y concentración de seguridad |
+| `mapa_integrado_comercios_seguridad.png/pdf` | Vista combinada de comercios y seguridad |
+| `graficos_estadisticos_espaciales.png/pdf` | Gráficos de barras comparativos |
+| `estadistica_descriptiva_espacial.json` | Reporte completo en formato JSON |
+| `ESTADISTICA_DESCRIPTIVA_ESPACIAL.md` | Resumen ejecutivo en Markdown |
+
+---
+
 ## Conclusiones Principales
 
 1. **El precio por metro cuadrado es el factor más determinante** en la satisfacción residencial. No es sorprendente: todos queremos maximizar el espacio por nuestro dinero.
@@ -381,6 +513,8 @@ Este proyecto desarrolló un sistema completo que:
 4. **Los perfiles de usuario personalizan las recomendaciones**: Una familia con niños y un profesional joven recibirán sugerencias diferentes aunque miren las mismas propiedades.
 
 5. **La visualización de datos geográficos es poderosa**: Los mapas permiten identificar patrones que los números solos no revelan.
+
+6. **La distribución de comercios y seguridad es heterogénea**: Santiago concentra el 72% de comercios y el 54% de servicios de seguridad (31 de 57), evidenciando una clara centralización urbana.
 
 ---
 
