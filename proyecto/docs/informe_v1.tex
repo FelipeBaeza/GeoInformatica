@@ -144,7 +144,6 @@
 \newpage
 \section*{Resumen Ejecutivo}
 \addcontentsline{toc}{section}{Resumen Ejecutivo}
-
 % [Máximo 1 página]
 % Incluir: problema abordado, área de estudio, metodología principal,
 % resultados preliminares clave, y próximos pasos.
@@ -156,11 +155,6 @@ El proyecto se desarrolla sobre cuatro comunas de la Región Metropolitana de Sa
 La metodología implementada comprende cinco etapas: extracción automatizada de 7.702 propiedades mediante web scraping de Portal Inmobiliario, geocodificación de direcciones utilizando Google Maps API en el sistema de coordenadas EPSG:32719 (UTM Zone 19S), cálculo de 42 variables espaciales mediante distancias euclidianas a puntos de interés (estaciones de metro, centros educacionales, de salud, seguridad, comercio y áreas verdes), diseño de un índice de satisfacción residencial como variable objetivo, y entrenamiento de modelos predictivos mediante Machine Learning.
 
 Los resultados preliminares demuestran que el modelo exploratorio híbrido GWRF por cluster explica el 88\% de la varianza observada con un error medio absoluto de 439 UF/m². Tras una comparación exhaustiva de algoritmos, el modelo LightGBM fue seleccionado como modelo final, alcanzando un R² de 0.8635 con RMSE de 0.3357 y baja autocorrelación espacial de residuos (Moran's I = 0.0695), lo que indica ausencia de sesgo geográfico en las predicciones. Las próximas fases contemplan la expansión geográfica a comunas adicionales, incorporación de variables temporales, desarrollo de API REST para predicciones en tiempo real, implementación de interfaz web interactiva, y validación mediante encuestas de satisfacción real de usuarios.
-
-
-
-
-
 
 % ====================================================================
 % ÍNDICE
@@ -177,21 +171,17 @@ Los resultados preliminares demuestran que el modelo exploratorio híbrido GWRF 
 \section{Introducción}
 
 \subsection{Contexto y Motivación}
-
 % Explicar el contexto del problema, por qué es importante,
 % y qué motivó la selección de este proyecto
 Entre 2021 y 2023 comenzo una fuerte contracción en la demanda de viviendas, especialmente en el segmento de casas nuevas sin subsidio que cayó un 11,8\% entre enero y octubre de 2023, las ventas de casas nuevas alcanzaron en octubre de este año a tan solo 330 unidades con una tasa de desistimientos del 33\% en casas sin subsidio y del 15\% en departamentos, niveles históricamente altos a esta alturas del año. Este desplome se debio al deterioro de las condiciones de crédito, el aumento de las tasas de interés, restricciones bancarias y el impacto de la inflación sobre la capacidad de endeudamiento manteniendose durante los años siguientes.
 \\ 
 Debido a lo anterior a comienzos del 2025 el alto stock de propiedades no vendidas, estimado en alrededor de 70.000 unidades, comenzo a transformar el mercado inmobiliario ofreciendo unas nueva posibilidades para compradores que buscan oportunidades de inversión o vivienda propia, especialmente mediante ofertas directas o grupos de compra \cite{biobio_ciper_2025}.
-\\Segun el estudio ``monitor de viviendas 2025'' \cite{ipsos_monitor_2025} realizado por la consultora multinacional IPSOS en enero de este año 2025 mostro que el "60 \% de los encuestados estan contentos con la situacion actual de la vivienda" en Chile, de donde "tres de cada cuatro (74\%) propietarios esta satisfecho con su situacion de vivienda" y "solo cuatro de diez arrendatarios (39\%) dice estar feliz de su situacion habitacional", lo que alienta a nuevos clientes y a actuales arrendatarios a considerar la inversion inmobiliaria como un objetivo plausible en el actual contexto chileno.
 \\
-\\Respecto a esto se ha determinado que los principales desafios para los clientes al momento de comprar o arrendar una vivienda se identifican de la siguiente forma:
-
-\begin{itemize}
-    \item Precios altos de la propiedades
-    \item Tasas de interes muy altas
-    \item Aumento de los costos de construccion de viviendas y edificios
-\end{itemize}
+Segun el estudio ``monitor de viviendas 2025'' \cite{ipsos_monitor_2025} realizado por la consultora multinacional IPSOS en enero de este año 2025 mostro que el "60 \% de los encuestados estan contentos con la situacion actual de la vivienda" en Chile, de donde "tres de cada cuatro (74\%) propietarios esta satisfecho con su situacion de vivienda" y "solo cuatro de diez arrendatarios (39\%) dice estar feliz de su situacion habitacional", lo que alienta a nuevos clientes y a actuales arrendatarios a considerar la inversion inmobiliaria como un objetivo plausible en el actual contexto chileno.
+\\
+\\
+Respecto a esto se ha determinado que los principales desafios para los clientes al momento de comprar o arrendar una vivienda son los precios altos de las propiedades, tazas de interes muy altas y aumento de costos en material de contrucción.
+\\
 Esta dificultad para conseguir vivienda a llevado a que los clientes tomen en consideracion los siguientes aspectos al momentos de comprar una propiedad:
 
 \begin{itemize}
@@ -209,12 +199,10 @@ Por todo lo anterior, hoy se presenta una oportunidad interesante dentro del mun
 \subsection{Objetivos}
 
 \subsubsection{Objetivo General}
-
 % Un objetivo general claro y alcanzable
 Desarrollar un sistema de recomendación inmobiliaria inteligente que prediga la satisfacción residencial de propiedades en venta mediante la integración de características internas de las viviendas con factores geoespaciales del entorno urbano, empleando técnicas de Machine Learning (LightGBM) para proporcionar recomendaciones personalizadas que faciliten la toma de decisiones de compra en el mercado inmobiliario de la Región Metropolitana de Santiago.
 
 \subsubsection{Objetivos Específicos}
-
 \begin{enumerate}
     \item \textbf{Consolidar y normalizar información geoespacial}: Integrar 29 datasets geográficos heterogéneos de la Región Metropolitana, normalizando sistemas de coordenadas al CRS EPSG:32719 (UTM Zone 19S), validando calidad geométrica, y estandarizando estructuras de datos para garantizar consistencia y trazabilidad en el análisis espacial.
     
@@ -229,16 +217,11 @@ Desarrollar un sistema de recomendación inmobiliaria inteligente que prediga la
     \item \textbf{Desarrollar API de recomendación}: Crear sistema de predicción funcional que permita: (a) estimar satisfacción de propiedades nuevas, (b) generar rankings personalizados por perfil de usuario, (c) comparar múltiples opciones simultáneamente, y (d) explicar factores determinantes de cada predicción mediante análisis de importancia de variables.
     \item \textbf{Visualizar patrones espaciales y resultados}: Generar 3 mapas temáticos con elementos cartográficos estándar (ubicación de propiedades, distribución de precios, satisfacción predicha), 5 gráficos estadísticos de análisis exploratorio (histogramas, correlaciones, dispersión, importancia de variables), y 1 visualización interactiva web (mapa Folium con popups informativos y heatmap).
     \item \textbf{Evaluar desempeño comparativo de modelos}: Implementar línea base con Random Forest, comparar rendimiento con al menos 3 algoritmos adicionales (XGBoost, CatBoost, Neural Networks), documentar métricas de evaluación (R², RMSE, MAE, tiempo de entrenamiento), y justificar selección del modelo final mediante análisis cuantitativo de trade-offs precisión-interpretabilidad-eficiencia.
-    
 \end{enumerate}
 
 \subsection{Preguntas de Investigación}
 
-\
-El proyecto busca responder las siguientes preguntas clave mediante análisis geoespacial cuantitativo:
-
 \subsubsection{Pregunta Principal}
-
 \textbf{¿Qué hace que una vivienda sea satisfactoria para vivir en el contexto urbano de Santiago?}
 
 Esta pregunta se descompone en sub-preguntas específicas que el proyecto aborda:
@@ -268,11 +251,9 @@ Esta pregunta se descompone en sub-preguntas específicas que el proyecto aborda
 \end{itemize}
 
 \subsubsection{Hipótesis de Trabajo}
-
 Basándonos en la literatura de geografía urbana y economía espacial, planteamos:
 
-
-latex\begin{itemize}
+\begin{itemize}
     \item \textbf{H1}: La satisfacción residencial está significativamente influenciada por factores espaciales externos, más allá del precio y características internas de la vivienda.
     
     \item \textbf{H2}: Existe autocorrelación espacial positiva en la satisfacción residencial (Moran's $I > 0$), indicando clustering de zonas de alta/baja satisfacción.
@@ -282,18 +263,10 @@ latex\begin{itemize}
     \item \textbf{H4}: Modelos de Machine Learning que integran características espaciales superan en capacidad predictiva ($R^2 > +10\%$) a modelos que solo consideran atributos de la propiedad.
 \end{itemize}
 
-
 \subsection{Alcance y Limitaciones}
 
 \subsubsection{Alcance Geográfico}
-Este proyecto considera información geoespacial para las siguientes cuatro comunas de la Región Metropolitana de Santiago:
-
-\begin{itemize}
-    \item Ñuñoa
-    \item La Reina
-    \item Santiago Centro
-    \item Estación Central
-\end{itemize}
+Este proyecto considera información geoespacial para las comunas de la Región Metropolitana de Santiago, Ñuñoa, La Reina, Estación Central y Santiago Centro.
 
 \subsubsection{Datos de Propiedades}
 El análisis contempla un total de \textbf{7,702 propiedades} en venta, distribuidas en:
@@ -337,19 +310,12 @@ El modelo de satisfacción residencial presenta las siguientes limitaciones que 
 
 \begin{enumerate}
     \item \textbf{Cobertura geográfica limitada:} Solo se analizan 4 comunas de la Región Metropolitana, por lo que los resultados no son generalizables a otras comunas o regiones de Chile.
-    
     \item \textbf{Antigüedad y estado de conservación:} No se dispone de información sobre el año de construcción ni el estado actual de las propiedades.
-    
     \item \textbf{Características del edificio:} No se consideran factores como presencia de ascensor, piso del departamento, vista, orientación, estacionamiento o bodega.
-    
     \item \textbf{Datos estáticos:} Los datos corresponden a un período específico (2025) y no capturan la evolución temporal del mercado inmobiliario.
-    
     \item \textbf{Factores socioeconómicos:} No se incluyen variables detalladas del nivel socioeconómico del vecindario más allá de la comuna.
-    
     \item \textbf{Calidad de construcción:} No existe información disponible sobre la calidad de los materiales o terminaciones.
-    
     \item \textbf{Solo propiedades en venta:} El análisis no incluye propiedades en arriendo, limitando el alcance a compradores potenciales.
-    
     \item \textbf{Gastos adicionales:} No se dispone de información sobre gastos comunes, contribuciones o costos de mantenimiento.
 \end{enumerate}
 
@@ -393,32 +359,9 @@ Falta resumirlo todavía lo veré el sábado 20 en la mañana este informe
 % Descripción precisa con coordenadas
 Este proyecto se realizara sobre un sector del pais de Chile conocido como "Región Metropolitana de Santiago", la cual es una de las 16 divisiones territoriales de alto nivel denominadas regiones; Se encuentra ubicada en la zona central de Chile, entre los 32°55' y 34°19' de latitud sur, y entre los 69°46' y 71°43' de longitud oeste.\\
 Con una superficie de 15,403.2 km² es la única región chilena que no tiene litoral (costas) y se encuentra rodeada por otras regiones y países: al norte y oeste limita con la Región de Valparaíso, al sur con la Región del Libertador General Bernardo O'Higgins, y al este con la República Argentina.\\
-Su capital es Santiago de Chile, que también es la capital nacional. Geográficamente, la región se caracteriza por una depresión intermedia, conocida como el Valle de Santiago, que está rodeada por la Cordillera de los Andes al este y la Cordillera de la Costa al oeste.
+Su capital es Santiago de Chile, que también es la capital nacional. Geográficamente, la región se caracteriza por una depresión intermedia, conocida como el Valle de Santiago, que está rodeada por la Cordillera de los Andes al este y la Cordillera de la Costa al oeste (ver Figuras \ref{fig:ubicacion} y \ref{fig:ubicacion_area}).
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.2\textwidth]{figuras/figura1_chile_rm.png}
-    \caption{Mapa ubicación Región Metropolitana de Santiago}
-    \label{fig:ubicacion}
-\end{figure}
-
-Debido al alcance reducido del proyecto solo se consideraran las siguientes cuatro comunas dentro la Región Metropolitana de Santiago como parte del área de estudio (ver Figura \ref{fig:ubicacion_area}).
-
-\begin{table}[H]
-\centering
-\caption{Comunas alcance área de estudio}
-\label{tab:comunas}
-\begin{tabular}{@{}llll@{}}
-\toprule
-\textbf{Nombre Comuna} & \textbf{Coordenadas} & \textbf{Superficie total (km²)} & \textbf{Altura promedio (m)}\\
-\midrule 
-Estación Central & $33^\circ 27' 07''\mathrm{S} \quad 70^\circ 40' 44''\mathrm{O}$ & 14.1 & 512\\
-La Reina &  $33^\circ 27' 00''\mathrm{S} \quad 70^\circ 33' 00''\mathrm{O}$ & 23.4 & 680\\
-Ñuñoa &  $33^\circ 28' 00''\mathrm{S} \quad 70^\circ 36' 00''\mathrm{O}$ & 16.9 & 560\\
-Santiago Centro &  $33^\circ 27' 00''\mathrm{S} \quad 70^\circ 40' 00''\mathrm{O}$ & 22.4 & 520\\
-\bottomrule
-\end{tabular}
-\end{table}
+Debido a lo acotado del proyecto solo se consideraran las cuatro comunas dentro la Región Metropolitana indicadas en el alcance de este informe y en la tabla \ref{tab:comunas}.
 
 \subsection{Características del Territorio}
 
@@ -495,41 +438,7 @@ La selección de estas cuatro comunas responde a criterios metodológicos y prá
 
 \subsection{Fuentes de Datos}
 
-Este proyecto utiliza 29 datasets diferentes con informacion geografica de santiago considerando datos sobre: colegios, hospitales, parques, estaciones de metro, etc. Cada datasets se encuentra en diferentes formatos como se muestra en la Tabla 1.
-
-%
-\begin{table}[H]
-\centering
-\caption{Resumen de fuentes de datos utilizadas}
-\label{tab:datos}
-\begin{tabular}{@{}llllll@{}}
-\toprule
-\textbf{Dato} & \textbf{Fuente} & \textbf{Formato} & \textbf{Resolución} & \textbf{Fecha} & \textbf{Acceso} \\
-\midrule
-Buffer La Reina & GoogleMaps & .geojson & Poligono & 2025 & GoogleMaps API \\
-Buffer Estación Central & GoogleMaps & .geojson & Poligono & 2025 & GoogleMaps API \\
-Buffer Ñuñoa & GoogleMaps & .geojson & Poligono & 2025 & GoogleMaps API \\
-Buffer Santiago Centro & GoogleMaps & .geojson & Poligono & 2025 & GoogleMaps API \\
-Ubicación Casas La Reina & GoogleMaps & .geojson & Punto & 2025 & GoogleMaps API \\
-Ubicación Casas Estación Central & GoogleMaps & .geojson & Punto & 2025 & GoogleMaps API \\
-Ubicación Casas Ñuñoa & GoogleMaps & .geojson & Punto & 2025 & GoogleMaps API \\
-Ubicación Casas Santiago Centro & GoogleMaps & .geojson & Punto & 2025 & GoogleMaps API \\
-Descripción Casas La Reina & PortalInmobiliario & .csv & Punto & 2025 & Scraping \\
-Descripción Casas Estación Central & PortalInmobiliario & .csv & Punto & 2025 & Scraping \\
-Descripción Casas Ñuñoa & PortalInmobiliario & .csv & Punto & 2025 & Scraping \\
-Descripción Casas Santiago Centro & PortalInmobiliario & .csv & Punto & 2025 & Scraping \\
-Ubicación Deptos La Reina & GoogleMaps & .geojson & Punto & 2025 & GoogleMaps API \\
-Ubicación Deptos Estación Central & GoogleMaps & .geojson & Punto & 2025 & GoogleMaps API \\
-Ubicación Deptos Ñuñoa & GoogleMaps & .geojson & Punto & 2025 & GoogleMaps API \\
-Ubicación Deptos Santiago Centro & GoogleMaps & .geojson & Punto & 2025 & GoogleMaps API \\
-Descripción Deptos La Reina & PortalInmobiliario & .csv & Punto & 2025 & Scraping \\
-Descripción Deptos Estación Central & PortalInmobiliario & .csv & Punto & 2025 & Scraping \\
-Descripción Deptos Ñuñoa & PortalInmobiliario & .csv & Punto & 2025 & Scraping \\
-Descripción Deptos Santiago Centro & PortalInmobiliario & .csv & Punto & 2025 & Scraping \\
-Censo & INE Chile & .csv & Manzana & 2017 & Portal INE \\
-\bottomrule
-\end{tabular}
-\end{table}
+Este proyecto utiliza 29 datasets diferentes con informacion geografica de las cuatro comunas de santiago considerando datos geoespaciales sobre: colegios, hospitales, parques, estaciones de metro, etc. Cada datasets se encuentra en diferentes formatos como se muestra en la Tabla \ref{tab:datos}.
 
 \subsection{Preprocesamiento de Datos}
 
@@ -1743,9 +1652,63 @@ El principal factor de éxito será la validación empírica con usuarios reales
 
 \subsection{Anexo B: Tablas Complementarias}
 
-% Tablas de datos adicionales
+\begin{table}[H]
+\centering
+\caption{Comunas alcance área de estudio}
+\label{tab:comunas}
+\begin{tabular}{@{}llll@{}}
+\toprule
+\textbf{Nombre Comuna} & \textbf{Coordenadas} & \textbf{Superficie total} & \textbf{Altura promedio}\\
+\midrule 
+Estación Central & $33^\circ 27' 07''\mathrm{S} \quad 70^\circ 40' 44''\mathrm{O}$ & 14.1 km² & 512 m\\
+La Reina &  $33^\circ 27' 00''\mathrm{S} \quad 70^\circ 33' 00''\mathrm{O}$ & 23.4 km² & 680 m\\
+Ñuñoa &  $33^\circ 28' 00''\mathrm{S} \quad 70^\circ 36' 00''\mathrm{O}$ & 16.9 km² & 560 m\\
+Santiago Centro &  $33^\circ 27' 00''\mathrm{S} \quad 70^\circ 40' 00''\mathrm{O}$ & 22.4 km² & 520 m\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Resumen de fuentes de datos utilizadas}
+\label{tab:datos}
+\begin{tabular}{@{}llllll@{}}
+\toprule
+\textbf{Dato} & \textbf{Fuente} & \textbf{Formato} & \textbf{Resolución} & \textbf{Fecha} & \textbf{Acceso} \\
+\midrule
+Buffer La Reina & GoogleMaps & .geojson & Poligono & 2025 & GoogleMaps API \\
+Buffer Est. Central & GoogleMaps & .geojson & Poligono & 2025 & GoogleMaps API \\
+Buffer Ñuñoa & GoogleMaps & .geojson & Poligono & 2025 & GoogleMaps API \\
+Buffer Stgo. Centro & GoogleMaps & .geojson & Poligono & 2025 & GoogleMaps API \\
+Ubic. Casas La Reina & GoogleMaps & .geojson & Punto & 2025 & GoogleMaps API \\
+Ubic. Casas Est. Central & GoogleMaps & .geojson & Punto & 2025 & GoogleMaps API \\
+Ubic. Casas Ñuñoa & GoogleMaps & .geojson & Punto & 2025 & GoogleMaps API \\
+Ubic. Casas Stgo. Centro & GoogleMaps & .geojson & Punto & 2025 & GoogleMaps API \\
+Descrip. Casas La Reina & PortalInmobiliario & .csv & Punto & 2025 & Scraping \\
+Descrip. Casas Est. Central & PortalInmobiliario & .csv & Punto & 2025 & Scraping \\
+Descrip. Casas Ñuñoa & PortalInmobiliario & .csv & Punto & 2025 & Scraping \\
+Descrip. Casas Stgo. Centro & PortalInmobiliario & .csv & Punto & 2025 & Scraping \\
+Ubic. Deptos La Reina & GoogleMaps & .geojson & Punto & 2025 & GoogleMaps API \\
+Ubic. Deptos Est. Central & GoogleMaps & .geojson & Punto & 2025 & GoogleMaps API \\
+Ubic. Deptos Ñuñoa & GoogleMaps & .geojson & Punto & 2025 & GoogleMaps API \\
+Ubic. Deptos Stgo. Centro & GoogleMaps & .geojson & Punto & 2025 & GoogleMaps API \\
+Descrip. Deptos La Reina & PortalInmobiliario & .csv & Punto & 2025 & Scraping \\
+Descrip. Deptos Est. Central & PortalInmobiliario & .csv & Punto & 2025 & Scraping \\
+Descrip. Deptos Ñuñoa & PortalInmobiliario & .csv & Punto & 2025 & Scraping \\
+Descrip. Deptos Stgo. Centro & PortalInmobiliario & .csv & Punto & 2025 & Scraping \\
+Censo & INE Chile & .csv & Manzana & 2017 & Portal INE \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \subsection{Anexo C: Mapas Adicionales}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figuras/figura1_chile_rm.png}
+    \caption{Mapa ubicación Región Metropolitana de Santiago}
+    \label{fig:ubicacion}
+\end{figure}
 
 \begin{figure}[H]
     \centering
