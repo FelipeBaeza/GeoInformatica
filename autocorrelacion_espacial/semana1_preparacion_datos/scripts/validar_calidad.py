@@ -251,43 +251,43 @@ def imprimir_resumen_validacion(reporte):
     """Imprime resumen de validación en consola"""
     
     print("\n" + "="*80)
-    print(" REPORTE DE VALIDACIÓN DE CALIDAD")
+    print("[INFO] REPORTE DE VALIDACION DE CALIDAD")
     print("="*80)
     
     resumen = reporte['resumen']
     
-    print(f"\n ESTADÍSTICAS GENERALES:")
+    print(f"\n[STATS] ESTADISTICAS GENERALES:")
     print(f"   Total archivos analizados: {resumen['total_archivos']}")
-    print(f"    Archivos OK: {resumen['archivos_ok']}")
-    print(f"    Archivos con error: {resumen['archivos_error']}")
-    print(f"    Archivos vacíos: {resumen['archivos_vacios']}")
-    print(f"    Total geometrías: {resumen['total_geometrias']:,}")
+    print(f"   [OK] Archivos OK: {resumen['archivos_ok']}")
+    print(f"   [ERROR] Archivos con error: {resumen['archivos_error']}")
+    print(f"   [VACIO] Archivos vacios: {resumen['archivos_vacios']}")
+    print(f"   Total geometrias: {resumen['total_geometrias']:,}")
     
-    print(f"\n PROBLEMAS DETECTADOS:")
-    print(f"    Críticos: {resumen['problemas_criticos']}")
-    print(f"   🟡 Menores: {resumen['problemas_menores']}")
+    print(f"\n[PROBLEMAS] PROBLEMAS DETECTADOS:")
+    print(f"   [CRITICO] Criticos: {resumen['problemas_criticos']}")
+    print(f"   [MENOR] Menores: {resumen['problemas_menores']}")
     
     # Mostrar problemas críticos
     if reporte['problemas_detectados']['criticos']:
-        print(f"\n PROBLEMAS CRÍTICOS (requieren atención):")
+        print(f"\n[CRITICO] PROBLEMAS CRITICOS (requieren atencion):")
         for problema in reporte['problemas_detectados']['criticos'][:10]:
             print(f"   - {problema}")
         if len(reporte['problemas_detectados']['criticos']) > 10:
-            print(f"   ... y {len(reporte['problemas_detectados']['criticos'])-10} más")
+            print(f"   ... y {len(reporte['problemas_detectados']['criticos'])-10} mas")
     
     # Mostrar problemas menores
     if reporte['problemas_detectados']['menores']:
-        print(f"\n🟡 PROBLEMAS MENORES (revisar cuando sea posible):")
+        print(f"\n[MENOR] PROBLEMAS MENORES (revisar cuando sea posible):")
         for problema in reporte['problemas_detectados']['menores'][:5]:
             print(f"   - {problema}")
         if len(reporte['problemas_detectados']['menores']) > 5:
-            print(f"   ... y {len(reporte['problemas_detectados']['menores'])-5} más")
+            print(f"   ... y {len(reporte['problemas_detectados']['menores'])-5} mas")
     
     # Consistencia entre archivos
     consistencia = reporte['consistencia_entre_archivos']
-    print(f"\n CONSISTENCIA ENTRE ARCHIVOS:")
-    print(f"   CRS consistente: {'' if consistencia['crs_consistente'] else ''}")
-    print(f"   Bounds coherentes: {'' if consistencia['bounds_coherentes'] else ''}")
+    print(f"\n[CONSISTENCIA] CONSISTENCIA ENTRE ARCHIVOS:")
+    print(f"   CRS consistente: {'SI' if consistencia['crs_consistente'] else 'NO'}")
+    print(f"   Bounds coherentes: {'SI' if consistencia['bounds_coherentes'] else 'NO'}")
     
     if consistencia['problemas_detectados']:
         print(f"   Problemas de consistencia:")

@@ -1,0 +1,126 @@
+{
+  "fecha_analisis": "2025-12-20T20:46:50.608658",
+  "pregunta_investigacion": "¿Los factores de satisfacción están correlacionados espacialmente con zonas específicas (comunas)?",
+  "metodologia": {
+    "nombre": "LISA (Local Indicators of Spatial Association)",
+    "estadistico": "Local Moran's I",
+    "matriz_pesos": "K-Nearest Neighbors (k=8)",
+    "permutaciones": 999,
+    "alpha": 0.05,
+    "indice_satisfaccion": {
+      "descripcion": "Índice compuesto de satisfacción residencial",
+      "componentes": {
+        "accesibilidad": "40% - Distancias mínimas a servicios (invertido)",
+        "densidad": "35% - Densidad de servicios en 1000m",
+        "diversidad": "25% - Diversidad de servicios disponibles"
+      }
+    }
+  },
+  "moran_global": {
+    "I": 0.9749,
+    "valor_esperado": -0.0006,
+    "varianza": 0.000136,
+    "z_score": 83.6803,
+    "p_value": 0.0,
+    "significativo": true,
+    "tipo_autocorrelacion": "positiva"
+  },
+  "total_propiedades": 1742,
+  "distribucion_clusters": {
+    "conteos": {
+      "No Significativo": 801,
+      "Low-Low": 510,
+      "High-High": 429,
+      "Low-High": 2
+    },
+    "porcentajes": {
+      "No Significativo": 45.98,
+      "Low-Low": 29.28,
+      "High-High": 24.63,
+      "Low-High": 0.11
+    }
+  },
+  "analisis_por_comuna": {
+    "Estación Central": {
+      "total_propiedades": 272,
+      "distribucion_clusters": {
+        "No Significativo": 238,
+        "High-High": 31,
+        "Low-Low": 3
+      },
+      "indice_satisfaccion_promedio": 0.4942,
+      "indice_satisfaccion_std": 0.0725,
+      "pct_high_high": 11.4,
+      "pct_low_low": 1.1,
+      "idx_accesibilidad_prom": 0.8078,
+      "idx_densidad_prom": 1.4516,
+      "idx_diversidad_prom": 6.4359
+    },
+    "La Reina": {
+      "total_propiedades": 33,
+      "distribucion_clusters": {
+        "No Significativo": 28,
+        "Low-Low": 5
+      },
+      "indice_satisfaccion_promedio": 0.4033,
+      "indice_satisfaccion_std": 0.0974,
+      "pct_high_high": 0.0,
+      "pct_low_low": 15.15,
+      "idx_accesibilidad_prom": 0.7286,
+      "idx_densidad_prom": 0.9858,
+      "idx_diversidad_prom": 5.4545
+    },
+    "Ñuñoa": {
+      "total_propiedades": 195,
+      "distribucion_clusters": {
+        "No Significativo": 136,
+        "High-High": 47,
+        "Low-Low": 12
+      },
+      "indice_satisfaccion_promedio": 0.4444,
+      "indice_satisfaccion_std": 0.1298,
+      "pct_high_high": 24.1,
+      "pct_low_low": 6.15,
+      "idx_accesibilidad_prom": 0.7652,
+      "idx_densidad_prom": 1.4213,
+      "idx_diversidad_prom": 5.5812
+    },
+    "Santiago": {
+      "total_propiedades": 486,
+      "distribucion_clusters": {
+        "High-High": 351,
+        "No Significativo": 130,
+        "Low-Low": 3,
+        "Low-High": 2
+      },
+      "indice_satisfaccion_promedio": 0.6842,
+      "indice_satisfaccion_std": 0.1842,
+      "pct_high_high": 72.22,
+      "pct_low_low": 0.62,
+      "idx_accesibilidad_prom": 0.8623,
+      "idx_densidad_prom": 3.0683,
+      "idx_diversidad_prom": 7.7663
+    }
+  },
+  "conclusiones": {
+    "autocorrelacion_detectada": true,
+    "tipo": "positiva",
+    "interpretacion": [
+      "✓ EXISTE AUTOCORRELACIÓN ESPACIAL POSITIVA SIGNIFICATIVA",
+      "→ Los factores de satisfacción SÍ están ligados a zonas específicas",
+      "→ Las propiedades con alta satisfacción tienden a agruparse (Hot Spots)",
+      "→ Las propiedades con baja satisfacción también se agrupan (Cold Spots)",
+      "→ La ubicación geográfica es un determinante clave de la satisfacción"
+    ],
+    "zonas_premium": {
+      "comuna": "Santiago",
+      "pct_hotspots": 72.22,
+      "descripcion": "Santiago tiene la mayor concentración de Hot Spots (72.2%)"
+    },
+    "zonas_desarrollo": {
+      "comuna": "La Reina",
+      "pct_coldspots": 15.15,
+      "descripcion": "La Reina tiene mayor potencial de desarrollo (15.2% Cold Spots)"
+    }
+  }
+}

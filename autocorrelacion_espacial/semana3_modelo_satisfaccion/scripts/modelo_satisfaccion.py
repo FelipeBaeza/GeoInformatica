@@ -50,12 +50,17 @@ except ImportError:
 # =============================================================================
 # CONFIGURACIÓN
 # =============================================================================
-BASE_DIR = Path('/home/felipe/Documentos/GeoInformatica')
+# Usar rutas relativas al script
+SCRIPT_DIR = Path(__file__).parent.resolve()
+SEMANA3_DIR = SCRIPT_DIR.parent
+AUTOCORRELACION_DIR = SEMANA3_DIR.parent
+BASE_DIR = AUTOCORRELACION_DIR.parent
+
 DATOS_DIR = BASE_DIR / 'datos_nuevos' / 'DATOS_FILTRADOS'
-SEMANA2_DIR = BASE_DIR / 'autocorrelacion_espacial' / 'semana2_caracteristicas_espaciales'
-OUTPUT_DIR = BASE_DIR / 'autocorrelacion_espacial' / 'semana3_modelo_satisfaccion' / 'resultados' / 'modelo_venta'
-GRAFICOS_DIR = BASE_DIR / 'autocorrelacion_espacial' / 'semana3_modelo_satisfaccion' / 'graficos'
-MODELOS_DIR = BASE_DIR / 'autocorrelacion_espacial' / 'semana3_modelo_satisfaccion' / 'modelos'
+SEMANA2_DIR = AUTOCORRELACION_DIR / 'semana2_caracteristicas_espaciales'
+OUTPUT_DIR = SEMANA3_DIR / 'resultados' / 'modelo_venta'
+GRAFICOS_DIR = SEMANA3_DIR / 'graficos'
+MODELOS_DIR = SEMANA3_DIR / 'modelos'
 
 for d in [OUTPUT_DIR, GRAFICOS_DIR, MODELOS_DIR]:
     d.mkdir(parents=True, exist_ok=True)
@@ -380,135 +385,103 @@ print("\n🎯 PASO 6: Calculando satisfacción por perfil...")
 # IMPORTANTE: Para evitar data leakage, la satisfacción usa features
 # que NO serán usadas directamente en el modelo de ML
 
-def calcular_satisfaccion_objetivo(row, df_completo, perfil='balanceado'):
+def calcular_satisfaccion_vectorizada(df, perfil='balanceado'):
     """
-    Calcula satisfacción basada en múltiples dimensiones.
-    Esta función usa información contextual (percentiles, comparaciones)
-    que no se pasará directamente al modelo.
+    Calcula satisfacción de forma vectorizada (mucho más rápido que apply).
     """
     pesos = PERFILES_USUARIO[perfil]['pesos']
-    scores = {}
+    n = len(df)
     
-    # 1. Score de ESPACIO - basado en m² por habitante (óptimo: 15-25)
-    m2_ph = row.get('m2_por_habitante', 15)
-    if pd.isna(m2_ph) or m2_ph <= 0:
-        m2_ph = 15
-    # Función de utilidad para espacio
-    if m2_ph < 10:
-        score_esp = (m2_ph / 10) * 5  # 0-5 para <10 m²/h
-    elif m2_ph <= 25:
-        score_esp = 5 + (m2_ph - 10) / 15 * 4  # 5-9 para 10-25 m²/h
-    elif m2_ph <= 40:
-        score_esp = 9 + (1 - (m2_ph - 25) / 15) * 1  # 9-10 para 25-40 (decrece un poco)
+    # Inicializar scores
+    scores = {k: np.zeros(n) for k in pesos.keys()}
+    
+    # 1. Score de ESPACIO - basado en m² por habitante
+    m2_ph = df['m2_por_habitante'].fillna(15).clip(lower=1).values
+    score_esp = np.where(m2_ph < 10, (m2_ph / 10) * 5,
+                np.where(m2_ph <= 25, 5 + (m2_ph - 10) / 15 * 4,
+                np.where(m2_ph <= 40, 9 + (1 - (m2_ph - 25) / 15) * 1,
+                         np.maximum(6, 10 - (m2_ph - 40) / 30 * 3))))
+    scores['espacio'] = np.clip(score_esp, 0, 10) * pesos['espacio']
+    
+    # 2. Score de VALOR - basado en percentil del precio
+    precio_m2 = df['precio_m2_uf'].fillna(50).clip(lower=1).values
+    # Calcular percentil global (simplificado para velocidad)
+    percentiles = pd.Series(precio_m2).rank(pct=True).values
+    score_valor = 10 * (1 - percentiles)  # Menor precio = mejor score
+    scores['valor'] = np.clip(score_valor, 0, 10) * pesos['valor']
+    
+    # 3. Score de EDUCACIÓN
+    if 'acc_educacion' in df.columns:
+        scores['educacion'] = np.clip(df['acc_educacion'].fillna(5).values, 0, 10) * pesos['educacion']
+    elif 'dist_educacion_min_m' in df.columns:
+        dist = df['dist_educacion_min_m'].fillna(500).values
+        scores['educacion'] = np.clip(10 - dist / 500, 0, 10) * pesos['educacion']
     else:
-        score_esp = max(6, 10 - (m2_ph - 40) / 30 * 3)  # Decrece para muy grande
-    scores['espacio'] = min(10, max(0, score_esp)) * pesos['espacio']
+        scores['educacion'] = np.full(n, 5.0) * pesos['educacion']
     
-    # 2. Score de VALOR - basado en precio relativo a la zona/tipo
-    # Usamos percentil invertido (menor precio = mejor)
-    precio_m2 = row.get('precio_m2_uf', 50)
-    if pd.isna(precio_m2) or precio_m2 <= 0:
-        precio_m2 = 50
-    
-    # Calcular percentil del precio dentro de su tipo y comuna
-    tipo = row.get('tipo_propiedad', 'departamento')
-    comuna = row.get('comuna_norm', '')
-    
-    # Filtrar propiedades similares
-    mask = (df_completo['tipo_propiedad'] == tipo)
-    if comuna:
-        mask_comuna = df_completo['comuna_norm'].str.contains(comuna, na=False)
-        if mask_comuna.sum() > 10:
-            mask = mask & mask_comuna
-    
-    similar = df_completo[mask]['precio_m2_uf']
-    if len(similar) > 5:
-        percentil = (similar < precio_m2).mean()  # % de propiedades más baratas
-        score_valor = 10 * (1 - percentil)  # Invertir: bajo percentil = alto score
+    # 4. Score de ÁREAS VERDES
+    if 'acc_entorno' in df.columns:
+        scores['areas_verdes'] = np.clip(df['acc_entorno'].fillna(5).values, 0, 10) * pesos['areas_verdes']
+    elif 'dist_areas_verdes_m' in df.columns:
+        dist = df['dist_areas_verdes_m'].fillna(300).values
+        scores['areas_verdes'] = np.clip(10 - dist / 300, 0, 10) * pesos['areas_verdes']
     else:
-        # Sin suficientes comparables, usar mediana global
-        mediana = df_completo['precio_m2_uf'].median()
-        ratio = precio_m2 / mediana
-        score_valor = max(0, min(10, 10 - (ratio - 0.7) * 5))  # 10 si es 70% de mediana
-    scores['valor'] = min(10, max(0, score_valor)) * pesos['valor']
+        scores['areas_verdes'] = np.full(n, 5.0) * pesos['areas_verdes']
     
-    # 3-7. Scores espaciales (si existen)
-    # Educación
-    if 'acc_educacion' in row.index and pd.notna(row.get('acc_educacion')):
-        scores['educacion'] = min(10, row['acc_educacion']) * pesos['educacion']
-    elif 'dist_educacion_min_m' in row.index and pd.notna(row.get('dist_educacion_min_m')):
-        dist = row['dist_educacion_min_m']
-        scores['educacion'] = max(0, 10 - dist / 500) * pesos['educacion']
+    # 5. Score de SEGURIDAD
+    if 'acc_seguridad' in df.columns:
+        scores['seguridad'] = np.clip(df['acc_seguridad'].fillna(5).values, 0, 10) * pesos['seguridad']
+    elif 'dist_seguridad_min_m' in df.columns:
+        dist = df['dist_seguridad_min_m'].fillna(800).values
+        scores['seguridad'] = np.clip(10 - dist / 800, 0, 10) * pesos['seguridad']
     else:
-        # Aproximar por comuna
-        scores['educacion'] = 5.0 * pesos['educacion']
+        scores['seguridad'] = np.full(n, 5.0) * pesos['seguridad']
     
-    # Áreas verdes
-    if 'acc_entorno' in row.index and pd.notna(row.get('acc_entorno')):
-        scores['areas_verdes'] = min(10, row['acc_entorno']) * pesos['areas_verdes']
-    elif 'dist_areas_verdes_m' in row.index and pd.notna(row.get('dist_areas_verdes_m')):
-        dist = row['dist_areas_verdes_m']
-        scores['areas_verdes'] = max(0, 10 - dist / 300) * pesos['areas_verdes']
+    # 6. Score de SALUD
+    if 'acc_salud' in df.columns:
+        scores['salud'] = np.clip(df['acc_salud'].fillna(5).values, 0, 10) * pesos['salud']
+    elif 'dist_salud_min_m' in df.columns:
+        dist = df['dist_salud_min_m'].fillna(500).values
+        scores['salud'] = np.clip(10 - dist / 500, 0, 10) * pesos['salud']
     else:
-        scores['areas_verdes'] = 5.0 * pesos['areas_verdes']
+        scores['salud'] = np.full(n, 5.0) * pesos['salud']
     
-    # Seguridad
-    if 'acc_seguridad' in row.index and pd.notna(row.get('acc_seguridad')):
-        scores['seguridad'] = min(10, row['acc_seguridad']) * pesos['seguridad']
-    elif 'dist_seguridad_min_m' in row.index and pd.notna(row.get('dist_seguridad_min_m')):
-        dist = row['dist_seguridad_min_m']
-        scores['seguridad'] = max(0, 10 - dist / 800) * pesos['seguridad']
+    # 7. Score de TRANSPORTE
+    if 'acc_transporte' in df.columns:
+        scores['transporte'] = np.clip(df['acc_transporte'].fillna(5).values, 0, 10) * pesos['transporte']
+    elif 'dist_transporte_min_m' in df.columns:
+        dist = df['dist_transporte_min_m'].fillna(400).values
+        scores['transporte'] = np.clip(10 - dist / 400, 0, 10) * pesos['transporte']
     else:
-        scores['seguridad'] = 5.0 * pesos['seguridad']
+        scores['transporte'] = np.full(n, 5.0) * pesos['transporte']
     
-    # Salud
-    if 'acc_salud' in row.index and pd.notna(row.get('acc_salud')):
-        scores['salud'] = min(10, row['acc_salud']) * pesos['salud']
-    elif 'dist_salud_min_m' in row.index and pd.notna(row.get('dist_salud_min_m')):
-        dist = row['dist_salud_min_m']
-        scores['salud'] = max(0, 10 - dist / 500) * pesos['salud']
+    # 8. Score de COMERCIO
+    if 'acc_comercial' in df.columns:
+        scores['comercio'] = np.clip(df['acc_comercial'].fillna(5).values, 0, 10) * pesos['comercio']
+    elif 'dist_comercio_m' in df.columns:
+        dist = df['dist_comercio_m'].fillna(400).values
+        scores['comercio'] = np.clip(10 - dist / 400, 0, 10) * pesos['comercio']
     else:
-        scores['salud'] = 5.0 * pesos['salud']
-    
-    # Transporte
-    if 'acc_transporte' in row.index and pd.notna(row.get('acc_transporte')):
-        scores['transporte'] = min(10, row['acc_transporte']) * pesos['transporte']
-    elif 'dist_transporte_min_m' in row.index and pd.notna(row.get('dist_transporte_min_m')):
-        dist = row['dist_transporte_min_m']
-        scores['transporte'] = max(0, 10 - dist / 400) * pesos['transporte']
-    else:
-        scores['transporte'] = 5.0 * pesos['transporte']
-    
-    # Comercio
-    if 'acc_comercial' in row.index and pd.notna(row.get('acc_comercial')):
-        scores['comercio'] = min(10, row['acc_comercial']) * pesos['comercio']
-    elif 'dist_comercio_m' in row.index and pd.notna(row.get('dist_comercio_m')):
-        dist = row['dist_comercio_m']
-        scores['comercio'] = max(0, 10 - dist / 400) * pesos['comercio']
-    else:
-        scores['comercio'] = 5.0 * pesos['comercio']
+        scores['comercio'] = np.full(n, 5.0) * pesos['comercio']
     
     # Calcular satisfacción total ponderada
     total_peso = sum(pesos.values())
     satisfaccion = sum(scores.values()) / total_peso
     
-    # Agregar algo de ruido para evitar overfitting perfecto
-    ruido = np.random.normal(0, 0.3)  # std = 0.3
+    # Agregar ruido para evitar overfitting
+    ruido = np.random.normal(0, 0.3, n)
     satisfaccion = satisfaccion + ruido
     
-    return min(10, max(1, satisfaccion))
+    return np.clip(satisfaccion, 1, 10)
 
-# Calcular satisfacción para cada perfil
-print("   Calculando satisfacción por perfil...")
+# Calcular satisfacción para cada perfil (versión vectorizada - mucho más rápida)
+print("   Calculando satisfacción por perfil (vectorizado)...")
 
 np.random.seed(42)  # Para reproducibilidad
 
 for perfil in PERFILES_USUARIO.keys():
     col_name = f'satisfaccion_{perfil}'
-    df[col_name] = df.apply(
-        lambda row: calcular_satisfaccion_objetivo(row, df, perfil), 
-        axis=1
-    )
+    df[col_name] = calcular_satisfaccion_vectorizada(df, perfil)
     print(f"   ✓ {perfil}: media={df[col_name].mean():.2f}, std={df[col_name].std():.2f}")
 
 # Satisfacción principal

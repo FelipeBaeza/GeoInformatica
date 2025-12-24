@@ -1,7 +1,7 @@
 {
   "proyecto": {
     "nombre": "Sistema de Valoración Inmobiliaria Geoespacial con Satisfacción Personalizada",
-    "fecha_creacion": "2025-12-11T20:53:47.562173",
+    "fecha_creacion": "2025-12-23T23:42:42.603234",
     "version": "1.0.0",
     "descripcion": "Predicción dual de precio y satisfacción personalizada para propiedades inmobiliarias",
     "crs_proyecto": "EPSG:32719 (UTM 19S)",

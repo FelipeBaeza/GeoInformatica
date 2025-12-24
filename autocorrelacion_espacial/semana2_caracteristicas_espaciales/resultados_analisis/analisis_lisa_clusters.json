@@ -1,0 +1,83 @@
+{
+  "fecha_analisis": "2025-12-20T20:32:09.013440",
+  "metodologia": {
+    "nombre": "LISA (Local Indicators of Spatial Association)",
+    "estadistico": "Local Moran's I",
+    "matriz_pesos": "K-Nearest Neighbors (k=8)",
+    "permutaciones": 999,
+    "alpha": 0.05
+  },
+  "moran_global": {
+    "I": 0.97,
+    "valor_esperado": -0.0006,
+    "z_score": 82.6913,
+    "p_value": 0.001,
+    "significativo": true,
+    "tipo_autocorrelacion": "positiva"
+  },
+  "variables_analizadas": [
+    "dist_educacion_min_m",
+    "dist_salud_min_m",
+    "dist_seguridad_min_m",
+    "dist_transporte_min_m",
+    "dens_norm_educacion_1000m_km2",
+    "dens_norm_salud_1000m_km2",
+    "dens_norm_comercio_1000m_km2",
+    "dens_norm_seguridad_1000m_km2",
+    "dens_norm_transporte_1000m_km2",
+    "dens_norm_recreacion_1000m_km2",
+    "dens_norm_total_1000m_km2",
+    "div_norm_servicios_300m",
+    "div_norm_servicios_600m",
+    "div_norm_servicios_1000m"
+  ],
+  "total_propiedades": 1554,
+  "distribucion_clusters": {
+    "High-High": {
+      "total": 373,
+      "porcentaje": 24.0,
+      "por_comuna": {
+        "Santiago": 275,
+        "Estación Central": 53,
+        "Ñuñoa": 45
+      },
+      "indice_accesibilidad_promedio": 0.6872
+    },
+    "Low-Low": {
+      "total": 490,
+      "porcentaje": 31.53,
+      "por_comuna": {
+        "La Reina": 197,
+        "Estación Central": 133,
+        "Ñuñoa": 119,
+        "Santiago": 41
+      },
+      "indice_accesibilidad_promedio": 0.2945
+    },
+    "Low-High": {
+      "total": 2,
+      "porcentaje": 0.13,
+      "por_comuna": {
+        "Santiago": 2
+      },
+      "indice_accesibilidad_promedio": 0.4541
+    },
+    "No Significativo": {
+      "total": 689,
+      "porcentaje": 44.34,
+      "por_comuna": {
+        "Santiago": 289,
+        "Estación Central": 224,
+        "Ñuñoa": 133,
+        "La Reina": 43
+      },
+      "indice_accesibilidad_promedio": 0.4751
+    }
+  },
+  "interpretacion": {
+    "High-High": "Hot Spots - Zonas premium con alta accesibilidad y servicios",
+    "Low-Low": "Cold Spots - Zonas con menor accesibilidad, potencial de desarrollo",
+    "High-Low": "Outliers positivos - Propiedades premium en zonas menos desarrolladas",
+    "Low-High": "Outliers negativos - Propiedades con menor acceso en zonas premium"
+  }
+}

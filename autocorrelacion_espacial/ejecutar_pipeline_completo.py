@@ -21,16 +21,21 @@ import os
 from pathlib import Path
 from datetime import datetime
 import time
+import shutil
 
 # =============================================================================
 # CONFIGURACIÓN
 # =============================================================================
-BASE_DIR = Path('/home/felipe/Documentos/GeoInformatica')
-AUTOCORRELACION_DIR = BASE_DIR / 'autocorrelacion_espacial'
 
-SEMANA1_DIR = AUTOCORRELACION_DIR / 'semana1_preparacion_datos'
-SEMANA2_DIR = AUTOCORRELACION_DIR / 'semana2_caracteristicas_espaciales'
-SEMANA3_DIR = AUTOCORRELACION_DIR / 'semana3_modelo_satisfaccion'
+# Directorio base (donde está este script)
+BASE_DIR = Path(__file__).parent.resolve()
+
+SEMANA1_DIR = BASE_DIR / 'semana1_preparacion_datos'
+SEMANA2_DIR = BASE_DIR / 'semana2_caracteristicas_espaciales'
+SEMANA3_DIR = BASE_DIR / 'semana3_modelo_satisfaccion'
+
+# Carpeta de resultados (se inicializa en main)
+RESULTADOS_DIR = None
 
 # Colores para terminal
 class Colors:
@@ -69,7 +74,7 @@ def verificar_dependencias():
     
     dependencias = [
         'geopandas', 'pandas', 'numpy', 'scipy', 'shapely',
-        'sklearn', 'matplotlib', 'seaborn', 'folium'
+        'sklearn', 'matplotlib', 'seaborn', 'folium', 'matplotlib_scalebar'
     ]
     
     faltantes = []
@@ -121,6 +126,111 @@ def verificar_estructura():
     print_success("Estructura de directorios verificada")
     return True
 
+def crear_carpeta_resultados():
+    """Crea la carpeta de resultados con subcarpetas por semana (sobrescribe existente)"""
+    global RESULTADOS_DIR
+    
+    RESULTADOS_DIR = BASE_DIR / 'resultados_pipeline'
+    
+    # Limpiar carpeta existente si existe
+    if RESULTADOS_DIR.exists():
+        shutil.rmtree(RESULTADOS_DIR)
+    
+    # Crear estructura de subcarpetas
+    subcarpetas = [
+        RESULTADOS_DIR / 'semana1_preparacion_datos' / 'datos_normalizados',
+        RESULTADOS_DIR / 'semana1_preparacion_datos' / 'reportes',
+        RESULTADOS_DIR / 'semana2_caracteristicas_espaciales' / 'features',
+        RESULTADOS_DIR / 'semana2_caracteristicas_espaciales' / 'reportes',
+        RESULTADOS_DIR / 'semana3_modelo_satisfaccion' / 'resultados',
+        RESULTADOS_DIR / 'semana3_modelo_satisfaccion' / 'graficos',
+        RESULTADOS_DIR / 'semana3_modelo_satisfaccion' / 'modelos',
+    ]
+    
+    for carpeta in subcarpetas:
+        carpeta.mkdir(parents=True, exist_ok=True)
+    
+    print_success(f"Carpeta de resultados creada: {RESULTADOS_DIR.name}")
+    return RESULTADOS_DIR
+
+def copiar_resultados_semana1():
+    """Copia los resultados de semana 1 a la carpeta de resultados"""
+    if RESULTADOS_DIR is None:
+        return
+    
+    destino = RESULTADOS_DIR / 'semana1_preparacion_datos'
+    
+    # Copiar datos normalizados
+    origen_datos = SEMANA1_DIR / 'datos_normalizados'
+    if origen_datos.exists():
+        for archivo in origen_datos.glob('*.geojson'):
+            shutil.copy2(archivo, destino / 'datos_normalizados' / archivo.name)
+    
+    # Copiar reportes
+    origen_reportes = SEMANA1_DIR / 'reportes'
+    if origen_reportes.exists():
+        for archivo in origen_reportes.glob('*'):
+            if archivo.is_file():
+                shutil.copy2(archivo, destino / 'reportes' / archivo.name)
+    
+    print_info(f"Resultados Semana 1 copiados a: {destino.relative_to(BASE_DIR)}")
+
+def copiar_resultados_semana2():
+    """Copia los resultados de semana 2 a la carpeta de resultados"""
+    if RESULTADOS_DIR is None:
+        return
+    
+    destino = RESULTADOS_DIR / 'semana2_caracteristicas_espaciales'
+    
+    # Copiar features (grillas)
+    origen_features = SEMANA2_DIR / 'features'
+    if origen_features.exists():
+        for archivo in origen_features.glob('*.geojson'):
+            shutil.copy2(archivo, destino / 'features' / archivo.name)
+    
+    # Copiar reportes
+    origen_reportes = SEMANA2_DIR / 'reportes'
+    if origen_reportes.exists():
+        for archivo in origen_reportes.glob('*'):
+            if archivo.is_file():
+                shutil.copy2(archivo, destino / 'reportes' / archivo.name)
+    
+    print_info(f"Resultados Semana 2 copiados a: {destino.relative_to(BASE_DIR)}")
+
+def copiar_resultados_semana3():
+    """Copia los resultados de semana 3 a la carpeta de resultados"""
+    if RESULTADOS_DIR is None:
+        return
+    
+    destino = RESULTADOS_DIR / 'semana3_modelo_satisfaccion'
+    
+    # Copiar resultados (CSVs)
+    origen_resultados = SEMANA3_DIR / 'resultados'
+    if origen_resultados.exists():
+        for archivo in origen_resultados.rglob('*'):
+            if archivo.is_file():
+                # Mantener estructura de subdirectorios
+                rel_path = archivo.relative_to(origen_resultados)
+                dest_path = destino / 'resultados' / rel_path
+                dest_path.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(archivo, dest_path)
+    
+    # Copiar gráficos
+    origen_graficos = SEMANA3_DIR / 'graficos'
+    if origen_graficos.exists():
+        for archivo in origen_graficos.glob('*'):
+            if archivo.is_file():
+                shutil.copy2(archivo, destino / 'graficos' / archivo.name)
+    
+    # Copiar modelos
+    origen_modelos = SEMANA3_DIR / 'modelos'
+    if origen_modelos.exists():
+        for archivo in origen_modelos.glob('*'):
+            if archivo.is_file():
+                shutil.copy2(archivo, destino / 'modelos' / archivo.name)
+    
+    print_info(f"Resultados Semana 3 copiados a: {destino.relative_to(BASE_DIR)}")
+
 # =============================================================================
 # EJECUCIÓN DE SCRIPTS
 # =============================================================================
@@ -133,12 +243,18 @@ def ejecutar_script(script_path, descripcion, cwd=None):
     inicio = time.time()
     
     try:
+        # Configurar entorno para permitir UTF-8 en scripts hijos
+        env = os.environ.copy()
+        env['PYTHONIOENCODING'] = 'utf-8'
+        
         result = subprocess.run(
             [sys.executable, str(script_path)],
             cwd=cwd or script_path.parent,
             capture_output=True,
             text=True,
-            encoding='utf-8'
+            encoding='utf-8',
+            errors='replace',
+            env=env
         )
         
         duracion = time.time() - inicio
@@ -228,9 +344,6 @@ def ejecutar_semana2():
     └── Crear índices de accesibilidad compuestos
     """)
     
-    # Cambiar al directorio de semana 2 para rutas relativas
-    os.chdir(SEMANA2_DIR)
-    
     scripts = [
         ('generar_grilla.py', 'Generación de grilla de evaluación'),
         ('calcular_distancias.py', 'Cálculo de distancias a servicios'),
@@ -261,7 +374,7 @@ def ejecutar_semana2():
     
     print("\n   Archivos generados:")
     for archivo in archivos_esperados:
-        path = SEMANA2_DIR / archivo
+        path = SEMANA2_DIR / Path(archivo)
         if path.exists():
             size_mb = path.stat().st_size / (1024*1024)
             print_success(f"{archivo} ({size_mb:.2f} MB)")
@@ -296,9 +409,6 @@ def ejecutar_semana3():
     └── Crear visualización interactiva funcional
     """)
     
-    # Cambiar al directorio de semana 3
-    os.chdir(SEMANA3_DIR)
-    
     scripts = [
         ('modelo_satisfaccion.py', 'Modelo LightGBM de satisfacción'),
         ('generar_visualizaciones.py', 'Generación de visualizaciones'),
@@ -326,7 +436,7 @@ def ejecutar_semana3():
     ]
     
     for archivo, desc in resultados_esperados:
-        path = SEMANA3_DIR / archivo
+        path = SEMANA3_DIR / Path(archivo)
         if path.exists():
             print_success(f"{desc}: {archivo}")
         else:
@@ -343,54 +453,35 @@ def main():
     
     inicio = datetime.now()
     
-    print(f"""
-{Colors.BOLD}
-╔══════════════════════════════════════════════════════════════════════════╗
-║                                                                          ║
-║   ████████╗███████╗██████╗ ██████╗  █████╗ ███╗   ███╗ █████╗ ████████╗  ║
-║   ╚══██╔══╝██╔════╝██╔══██╗██╔══██╗██╔══██╗████╗ ████║██╔══██╗╚══██╔══╝  ║
-║      ██║   █████╗  ██████╔╝██████╔╝███████║██╔████╔██║███████║   ██║     ║
-║      ██║   ██╔══╝  ██╔══██╗██╔══██╗██╔══██║██║╚██╔╝██║██╔══██║   ██║     ║
-║      ██║   ███████╗██║  ██║██║  ██║██║  ██║██║ ╚═╝ ██║██║  ██║   ██║     ║
-║      ╚═╝   ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝   ╚═╝     ║
-║                                                                          ║
-║         Sistema de Recomendación Inmobiliaria Geoespacial                ║
-║                                                                          ║
-╚══════════════════════════════════════════════════════════════════════════╝
-{Colors.END}
-    """)
-    
     print(f"Inicio: {inicio.strftime('%Y-%m-%d %H:%M:%S')}")
-    print(f"Directorio base: {BASE_DIR}")
     
     # Verificaciones previas
     print_header("VERIFICACIONES PREVIAS")
     verificar_dependencias()
     verificar_estructura()
     
-    # Preguntar qué semanas ejecutar
-    print("\n¿Qué semanas desea ejecutar?")
-    print("  1. Solo Semana 1 (Preparación de datos)")
-    print("  2. Solo Semana 2 (Características espaciales)")
-    print("  3. Solo Semana 3 (Modelo y visualizaciones)")
-    print("  4. Pipeline completo (Semanas 1, 2 y 3)")
-    print("  5. Semanas 2 y 3 (si ya tiene datos preparados)")
+    # Crear carpeta de resultados
+    carpeta_resultados = crear_carpeta_resultados()
     
-    try:
-        opcion = input("\nSeleccione opción [4]: ").strip() or "4"
-    except EOFError:
-        opcion = "4"
+    # Ejecutar pipeline completo (3 semanas)
+    print_info("Ejecutando pipeline completo (Semanas 1, 2 y 3)...")
     
     resultados = {'semana1': None, 'semana2': None, 'semana3': None}
     
-    if opcion in ['1', '4']:
-        resultados['semana1'] = ejecutar_semana1()
+    # Semana 1
+    resultados['semana1'] = ejecutar_semana1()
+    if resultados['semana1']:
+        copiar_resultados_semana1()
     
-    if opcion in ['2', '4', '5']:
-        resultados['semana2'] = ejecutar_semana2()
+    # Semana 2
+    resultados['semana2'] = ejecutar_semana2()
+    if resultados['semana2']:
+        copiar_resultados_semana2()
     
-    if opcion in ['3', '4', '5']:
-        resultados['semana3'] = ejecutar_semana3()
+    # Semana 3
+    resultados['semana3'] = ejecutar_semana3()
+    if resultados['semana3']:
+        copiar_resultados_semana3()
     
     # Resumen final
     fin = datetime.now()
@@ -415,15 +506,21 @@ def main():
                          PIPELINE FINALIZADO
 ════════════════════════════════════════════════════════════════════════════
 {Colors.END}
-    Resultados en:
-    ├── Datos normalizados: semana1_preparacion_datos/datos_normalizados/
-    ├── Grilla espacial: semana2_caracteristicas_espaciales/features/
-    ├── Modelo entrenado: semana3_modelo_satisfaccion/modelos/
-    ├── Gráficos: semana3_modelo_satisfaccion/graficos/
-    └── Predicciones: semana3_modelo_satisfaccion/resultados/
+    Resultados consolidados en:
+    resultados_pipeline/
+    ├── semana1_preparacion_datos/
+    │   ├── datos_normalizados/
+    │   └── reportes/
+    ├── semana2_caracteristicas_espaciales/
+    │   ├── features/
+    │   └── reportes/
+    └── semana3_modelo_satisfaccion/
+        ├── resultados/
+        ├── graficos/
+        └── modelos/
     
     Para ver el mapa interactivo:
-    $ open semana3_modelo_satisfaccion/graficos/mapa_interactivo.html
+    $ start resultados_pipeline/semana3_modelo_satisfaccion/graficos/mapa_interactivo.html
     """)
     
     return all(v is None or v for v in resultados.values())

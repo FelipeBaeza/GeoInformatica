@@ -37,8 +37,12 @@ plt.rcParams['axes.labelsize'] = 12
 # =============================================================================
 # CONFIGURACIÓN DE PATHS
 # =============================================================================
-BASE_DIR = Path('/home/felipe/Documentos/GeoInformatica')
-SEMANA3_DIR = BASE_DIR / 'autocorrelacion_espacial' / 'semana3_modelo_satisfaccion'
+# Usar rutas relativas al script
+SCRIPT_DIR = Path(__file__).parent.resolve()
+SEMANA3_DIR = SCRIPT_DIR.parent
+AUTOCORRELACION_DIR = SEMANA3_DIR.parent
+BASE_DIR = AUTOCORRELACION_DIR.parent
+
 GRAFICOS_DIR = SEMANA3_DIR / 'graficos'
 RESULTADOS_DIR = SEMANA3_DIR / 'resultados' / 'modelo_venta'
 DATOS_DIR = BASE_DIR / 'datos_nuevos' / 'DATOS_FILTRADOS'

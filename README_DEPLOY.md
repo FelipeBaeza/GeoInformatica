@@ -17,7 +17,7 @@
 
 ```bash
 # Desde el directorio raíz del proyecto
-cd /home/felipe/Documentos/GeoInformatica
+cd nombreDirectorioRaiz
 
 # Construir y levantar todos los servicios
 sudo docker compose up -d --build
