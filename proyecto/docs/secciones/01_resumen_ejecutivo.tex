@@ -1,0 +1,19 @@
+% ====================================================================
+% RESUMEN EJECUTIVO
+% ====================================================================
+
+\newpage
+\section*{Resumen Ejecutivo}
+\addcontentsline{toc}{section}{Resumen Ejecutivo}
+
+% [Máximo 1 página]
+% Incluir: problema abordado, área de estudio, metodología principal,
+% resultados preliminares clave, y próximos pasos.
+
+El mercado inmobiliario chileno atraviesa una crisis de acceso a la vivienda caracterizada por el requisito de un 20\% de pie inicial para créditos hipotecarios, monto que representa aproximadamente 32 veces el ingreso mediano del país y que coloca a numerosos hogares en una situación donde no califican para créditos bancarios ni para subsidios estatales. Esta realidad ha generado consumidores cada vez más exigentes que buscan maximizar la satisfacción de su inversión inmobiliaria, demandando herramientas objetivas que les permitan evaluar propiedades más allá del precio. En este contexto, TerraMatch surge como un sistema de apoyo a la decisión que integra información geoespacial para estimar la satisfacción residencial potencial de propiedades en venta.
+
+El proyecto se desarrolla sobre cuatro comunas de la Región Metropolitana de Santiago: Estación Central, La Reina, Ñuñoa y Santiago Centro. Esta selección responde a criterios de diversidad socioeconómica (desde estratos altos en La Reina hasta medios-bajos en Estación Central), heterogeneidad urbana (zonas de alta densificación vertical versus sectores residenciales tradicionales) y disponibilidad de datos suficientes para el entrenamiento de modelos predictivos.
+
+La metodología implementada comprende cinco etapas: extracción automatizada de 7.702 propiedades mediante web scraping de Portal Inmobiliario, geocodificación de direcciones utilizando Google Maps API en el sistema de coordenadas EPSG:32719 (UTM Zone 19S), cálculo de 42 variables espaciales mediante distancias euclidianas a puntos de interés (estaciones de metro, centros educacionales, de salud, seguridad, comercio y áreas verdes), diseño de un índice de satisfacción residencial como variable objetivo, y entrenamiento de modelos predictivos mediante Machine Learning.
+
+Los resultados preliminares demuestran que el modelo exploratorio híbrido GWRF por cluster explica el 88\% de la varianza observada con un error medio absoluto de 439 UF/m². Tras una comparación exhaustiva de algoritmos, el modelo LightGBM fue seleccionado como modelo final, alcanzando un R² de 0.8635 con RMSE de 0.3357 y baja autocorrelación espacial de residuos (Moran's I = 0.0695), lo que indica ausencia de sesgo geográfico en las predicciones. Las próximas fases contemplan la expansión geográfica a comunas adicionales, incorporación de variables temporales, desarrollo de API REST para predicciones en tiempo real, implementación de interfaz web interactiva, y validación mediante encuestas de satisfacción real de usuarios.

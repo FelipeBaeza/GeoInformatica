@@ -1,0 +1,126 @@
+% ====================================================================
+% PLANTILLA INFORME PRIMERA ENTREGA - GEOINFORMÁTICA USACH
+% Autor: Prof. Francisco Parra O.
+% Archivo Principal (con includes a secciones)
+% ====================================================================
+
+\documentclass[11pt,letterpaper]{article}
+
+% PAQUETES ESENCIALES
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-tabla]{babel}
+\usepackage[left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{newunicodechar}
+\newunicodechar{≥}{\geq}
+\usepackage{subcaption}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage[backend=biber,style=apa]{biblatex}
+
+% Configuración de bibliografía
+%\addbibresource{referencias.bib} % Crear este archivo para las referencias
+
+% Colores institucionales
+\definecolor{usachblue}{RGB}{0,46,93}
+\definecolor{usachred}{RGB}{200,16,46}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+% Configuración de código
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    language=Python
+}
+\lstset{style=mystyle}
+
+% Configuración de hyperref
+\hypersetup{
+    colorlinks=true,
+    linkcolor=usachblue,
+    filecolor=magenta,
+    urlcolor=usachblue,
+    citecolor=usachblue
+}
+
+% Encabezado y pie de página
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\textcolor{usachblue}{Geoinformática - Primera Entrega}}
+\rhead{\textcolor{usachblue}{USACH 2025}}
+\lfoot{\small\textit{Terramatch}}
+\cfoot{\thepage\ de \pageref{LastPage}}
+\rfoot{\today}
+
+% ====================================================================
+% INICIO DEL DOCUMENTO
+% ====================================================================
+
+\begin{document}
+
+% Portada
+\input{secciones/00_portada}
+
+% Resumen Ejecutivo
+\input{secciones/01_resumen_ejecutivo}
+
+% Índice
+\newpage
+\tableofcontents
+\newpage
+
+% Sección 1: Introducción
+\input{secciones/02_introduccion}
+
+% Sección 2: Área de Estudio
+\input{secciones/03_area_estudio}
+
+% Sección 3: Datos y Metodología
+\input{secciones/04_datos_metodologia}
+
+% Sección 4: Resultados Preliminares
+\input{secciones/05_resultados_preliminares}
+
+% Sección 5: Discusión
+\input{secciones/06_discusion}
+
+% Sección 6: Conclusiones Preliminares
+\input{secciones/07_conclusiones_preliminares}
+
+% Referencias
+\newpage
+\printbibliography%[heading=bibintoc,title={Referencias}]
+
+% Anexos
+\newpage
+\appendix
+\input{secciones/08_anexos}
+
+\end{document}

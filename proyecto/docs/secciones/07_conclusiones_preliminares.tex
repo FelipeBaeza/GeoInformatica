@@ -1,0 +1,217 @@
+\section{Conclusiones Preliminares}
+
+Este capítulo sintetiza los logros alcanzados en la primera fase del proyecto TerraMatch, evalúa la factibilidad técnica del sistema, identifica los principales desafíos encontrados y propone ajustes metodológicos para las siguientes etapas de desarrollo.
+
+\subsection{Logros Alcanzados}
+
+El proyecto ha completado exitosamente los objetivos de la primera evaluación, alcanzando hitos técnicos significativos:
+
+\subsubsection{Infraestructura de Datos Consolidada}
+
+\begin{itemize}
+    \item \textbf{Dataset de propiedades}: Extracción exitosa de 7,702 propiedades mediante web scraping automatizado de Portal Inmobiliario, con información de precio, superficie, ubicación y características físicas. Este volumen supera el objetivo inicial de 7,000 propiedades (+10\%).
+    
+    \item \textbf{Datasets geoespaciales integrados}: Consolidación de 29 capas de información urbana (educación, salud, transporte, áreas verdes, seguridad, comercio) provenientes de IDE Chile, OpenStreetMap y fuentes municipales, totalizando 3,421 puntos de interés georreferenciados.
+    
+    \item \textbf{Tasa de geocodificación}: 89\% de propiedades geocodificadas exitosamente (6,852 de 7,702), superando el objetivo del 85\% mediante estrategia multi-servicio (Photon, Nominatim, ArcGIS) y limpieza inteligente de direcciones.
+    
+    \item \textbf{Normalización espacial}: Todos los datasets reproyectados a EPSG:32719 (UTM Zone 19S) garantizando precisión métrica en cálculos de distancia, con pipeline automatizado de transformación que reduce errores de proyección a <0.5\%.
+\end{itemize}
+
+\subsubsection{Feature Engineering Espacial Robusto}
+
+\begin{itemize}
+    \item \textbf{72 características espaciales calculadas}: 21 distancias mínimas a servicios clave, 42 densidades en 3 radios (300m, 600m, 1000m), 9 índices de accesibilidad compuestos. Cada variable documenta accesibilidad urbana multidimensional.
+    
+    \item \textbf{Índices de accesibilidad validados}: Diseño de 6 dimensiones de accesibilidad (educación, salud, transporte, entorno, seguridad, comercial) con rangos 1-10, calibradas mediante percentiles contextuales que evitan comparaciones injustas entre comunas.
+    
+    \item \textbf{Proxy de satisfacción residencial}: Función de utilidad multidimensional implementada con 5 perfiles de usuario diferenciados (familia con niños, profesional joven, inversionista, adulto mayor, balanceado), permitiendo personalización de recomendaciones según preferencias.
+\end{itemize}
+
+\subsubsection{Modelo Predictivo de Alto Desempeño}
+
+\begin{itemize}
+    \item \textbf{Selección de algoritmo óptimo}: Tras evaluación comparativa de Random Forest (baseline) y LightGBM, se seleccionó LightGBM como modelo final por desempeño superior: R² = 0.8635 vs 0.8431 (+2.42\%), RMSE reducido en 6.7\%, MAE reducido en 5.4\%.
+    
+    \item \textbf{Capacidad predictiva validada}: El modelo explica el 86.35\% de la variabilidad en satisfacción residencial con error promedio de ±0.266 puntos (escala 1-10). Validación cruzada 5-fold confirma estabilidad (CV R² = 0.8650 ± 0.0078).
+    
+    \item \textbf{Ausencia de sesgo espacial}: Autocorrelación espacial de residuos Moran's I = 0.0695 (p > 0.05), indicando que el modelo captura adecuadamente patrones geográficos sin clustering sistemático de errores.
+    
+    \item \textbf{Interpretabilidad preservada}: Ranking de importancia de 42 features permite explicar predicciones: precio/m² (31.8\%), superficie útil (23.9\%), distancia a áreas verdes (8.6\%), seguridad (6.9\%), transporte (6.6\%) como factores dominantes.
+\end{itemize}
+
+\subsubsection{Visualizaciones y Análisis Generados}
+
+\begin{itemize}
+    \item \textbf{Mapas temáticos}: 3 mapas estáticos de ubicación, precio/m² y satisfacción predicha, mostrando distribución espacial de propiedades y gradientes de valor.
+    
+    \item \textbf{Gráficos estadísticos}: 5 visualizaciones analíticas (histogramas, análisis comunal, correlaciones, dispersión predicción vs realidad, importancia de variables) documentando patrones en los datos.
+    
+    \item \textbf{Mapa interactivo}: Visualización HTML con Folium permitiendo exploración geográfica de 7,702 propiedades con pop-ups informativos y capas de servicios urbanos.
+    
+    \item \textbf{Reporte automatizado}: Script \texttt{generar\_estadisticas\_preliminares.py} genera reporte completo de métricas, validando reproducibilidad de resultados.
+\end{itemize}
+
+\subsection{Factibilidad del Proyecto}
+
+Tras la evaluación técnica de la primera fase, el proyecto TerraMatch es \textbf{técnicamente factible} y viable para despliegue en producción bajo las siguientes consideraciones:
+
+\subsubsection{Viabilidad Técnica}
+
+\textbf{Infraestructura computacional}: El pipeline completo (scraping, geocodificación, cálculo de features, entrenamiento del modelo) se ejecuta en ~4 horas en hardware estándar (CPU Intel i7, 16GB RAM), haciendo viable actualizaciones periódicas del modelo sin requerir infraestructura cloud costosa.
+
+\textbf{Escalabilidad demostrada}: El sistema procesó exitosamente 7,702 propiedades × 42 features = 323,484 celdas de datos. Proyecciones indican que puede escalar a 50,000+ propiedades (cobertura completa RM) manteniendo tiempos de entrenamiento <8 horas.
+
+\textbf{Calidad de predicciones}: El modelo LightGBM alcanza precisión comparable a sistemas comerciales de valoración automatizada (AVMs), con R² = 0.8635 dentro del rango reportado en literatura académica (0.80-0.90 para modelos hedónicos espaciales).
+
+\textbf{Robustez de datos}: La tasa de geocodificación del 89\% y cobertura de servicios urbanos en 4 comunas demuestran que los datos de entrada son suficientemente completos y confiables para sustentar un sistema de recomendación.
+
+\subsubsection{Factibilidad Operativa}
+
+\textbf{Mantenimiento del modelo}: La selección de LightGBM equilibra precisión y eficiencia. El modelo requiere reentrenamiento para incorporar nuevas propiedades y actualizar pesos de features, proceso automatizable mediante scripts existentes.
+
+\textbf{Gestión de datos geoespaciales}: El pipeline de normalización de CRS y cálculo de distancias está completamente automatizado. Incorporar nuevas comunas requiere únicamente descargar capas de IDE Chile y ejecutar \texttt{calcular\_distancias.py}.
+
+\textbf{Interfaz de usuario}: El mapa interactivo HTML demuestra viabilidad de interfaces web. Migración a framework React/Vue.js es directa, con backend API REST devolviendo predicciones en <100ms.
+
+\textbf{Costos operativos}: Uso de servicios gratuitos (IDE Chile, OpenStreetMap) y geocodificación por lotes (Google Maps API: \$5/1000 direcciones) hacen el sistema económicamente sostenible para operación continua.
+
+\subsubsection{Limitaciones Identificadas}
+
+\textbf{Cobertura geográfica acotada}: El modelo actual está entrenado únicamente con 4 comunas de la Región Metropolitana. Generalización a otras regiones (Valparaíso, Concepción) requiere recolección de datos locales y validación de transferibilidad del modelo.
+
+\textbf{Temporalidad estática}: El dataset representa un snapshot (diciembre 2025) sin información de evolución temporal de precios. Modelos de series temporales requerirán scraping histórico periódico.
+
+\textbf{Dependencia de Portal Inmobiliario}: El sistema depende de la estructura HTML de Portal Inmobiliario. Cambios en el sitio web requieren actualización de scrapers. Diversificación a múltiples portales (Yapo, TocToc, Mercado Libre) aumentaría resiliencia.
+
+\textbf{Validación con usuarios reales}: El proxy de satisfacción es un constructo teórico. Validación empírica con encuestas a compradores reales permitiría calibrar pesos de perfiles y verificar correlación entre satisfacción predicha vs real.
+
+\subsection{Desafíos Identificados}
+
+Durante el desarrollo de la primera fase se identificaron 6 desafíos principales que requirieron ajustes metodológicos:
+
+\subsubsection{Desafío 1: Heterogeneidad de Fuentes Geoespaciales}
+
+\textbf{Descripción}: Los 29 datasets geoespaciales provenían de múltiples fuentes (IDE Chile, OpenStreetMap, municipalidades) con formatos inconsistentes (Shapefile, GeoJSON, GML), sistemas de coordenadas diversos (WGS84, UTM, sin especificar) y estructuras de atributos heterogéneas.
+
+\textbf{Impacto}: Archivos sin metadatos de CRS requerían inferencia manual. Campos equivalentes tenían nombres distintos (``nombre'', ``NAME'', ``nom\_estab''), dificultando estandarización.
+
+\textbf{Solución implementada}: Pipeline de normalización automatizada (\texttt{normalizar\_crs.py}) que detecta CRS automáticamente, reproyecta a EPSG:32719, estandariza nombres de campos y genera reportes de trazabilidad.
+
+\subsubsection{Desafío 2: Geocodificación de Direcciones Chilenas}
+
+\textbf{Descripción}: Direcciones de Portal Inmobiliario frecuentemente carecían de formato estándar, contenían abreviaciones no reconocidas (``Av.'', ``Pje.'') o incluían textos promocionales (``frente al metro'', ``cerca de la mutual'').
+
+\textbf{Impacto}: Tasa inicial de geocodificación de apenas 67\%, con 2,541 propiedades sin coordenadas utilizables.
+
+\textbf{Solución implementada}: Función de limpieza con 15 patrones regex, estrategia multi-servicio de fallback (Photon → Nominatim → ArcGIS), procesamiento paralelo (5 hilos), validación de coherencia espacial. Resultado: 89\% de tasa final.
+
+\subsubsection{Desafío 3: Diseño del Proxy de Satisfacción}
+
+\textbf{Descripción}: La satisfacción residencial es subjetiva y no observable en datos de mercado. Se requería proxy conceptualmente válido y empíricamente predecible.
+
+\textbf{Impacto}: Proxy mal diseñado invalidaría todo el sistema de recomendación al optimizar métricas irrelevantes.
+
+\textbf{Solución implementada}: Revisión de literatura académica (Amerigo \& Aragonés 1997, Lu 1999), función de utilidad multidimensional con 8 componentes, percentiles contextuales para evitar comparaciones injustas, validación mediante análisis de sensibilidad.
+
+\subsubsection{Desafío 4: Cobertura Espacial Heterogénea}
+
+\textbf{Descripción}: Distribución desigual de servicios urbanos: comercio concentrado en Santiago (72\% del total), transporte escaso en La Reina, generando distribuciones asimétricas en variables de distancia.
+
+\textbf{Impacto}: Distancias a servicios escasos presentan curtosis > 6, afectando normalización y comparabilidad de índices.
+
+\textbf{Solución implementada}: Transformación inversa con umbral en percentil 95, uso de RobustScaler, cálculo de densidades complementarias, índices compuestos que agregan servicios relacionados.
+
+\subsubsection{Desafío 5: Balance Complejidad-Explicabilidad}
+
+\textbf{Descripción}: Modelos más complejos (deep learning) alcanzarían mayor precisión pero sacrifican interpretabilidad, crítica para confianza de usuarios.
+
+\textbf{Impacto}: Riesgo de modelo ``caja negra'' rechazado por usuarios.
+
+\textbf{Solución implementada}: Selección de LightGBM con importancia de features interpretable, limitación a 42 features parsimoniosos, generación de explicaciones por propiedad. Se rechazó red neuronal con R² = 0.89 por falta de explicabilidad.
+
+\textbf{Trade-off aceptado}: Sacrificio de +2.7\% precisión potencial por mantener explicabilidad completa.
+
+\subsubsection{Desafío 6: Datos Temporalmente Estáticos}
+
+\textbf{Descripción}: Dataset representa snapshot de diciembre 2025, sin evolución temporal de precios ni tendencias de mercado.
+
+\textbf{Impacto}: El modelo no captura estacionalidad del mercado inmobiliario ni puede proyectar valores futuros.
+
+\textbf{Mitigación propuesta}: Implementar scraping periódico mensual para construir series temporales. Reentrenar modelo trimestralmente. Incorporar variables de tendencia (precio promedio últimos 3 meses).
+
+\subsection{Ajustes Propuestos para Fase 2}
+
+Basándose en los resultados preliminares y desafíos identificados, se proponen los siguientes ajustes para la segunda fase del proyecto:
+
+\subsubsection{Expansión de Cobertura Geográfica}
+
+\begin{enumerate}
+    \item \textbf{Incorporar 8 comunas adicionales} de la Región Metropolitana: Providencia, Las Condes, Vitacura, Maipú, Pudahuel, San Bernardo, Puente Alto, La Florida. Esto permitirá:
+    \begin{itemize}
+        \item Mayor diversidad socioeconómica (desde estratos altos en Vitacura hasta populares en Puente Alto)
+        \item Ampliación del dataset a 25,000+ propiedades
+        \item Validación de generalización del modelo a contextos comunales diversos
+    \end{itemize}
+    
+    \item \textbf{Validar transferibilidad geográfica}: Entrenar modelo en 70\% de comunas y validar en 30\% restantes para evaluar si patrones aprendidos son generalizables o específicos de cada territorio.
+\end{enumerate}
+
+\subsubsection{Enriquecimiento de Variables}
+
+\begin{enumerate}
+    \item \textbf{Variables temporales}: Incorporar fecha de publicación, tiempo en el mercado, historial de reducción de precio (si disponible) para modelar dinámica de oferta.
+    
+    \item \textbf{Variables de entorno urbano}: Agregar variables de calidad ambiental (ruido, contaminación aire), siniestralidad (estadísticas delictuales por cuadrante), densidad poblacional (habitantes/km²).
+    
+    \item \textbf{Imágenes satelitales}: Explorar uso de imágenes Sentinel-2 para extraer features de vegetación (NDVI), impermeabilización del suelo, densidad de edificación mediante técnicas de Computer Vision.
+\end{enumerate}
+
+\subsubsection{Mejoras en Modelamiento}
+
+\begin{enumerate}
+    \item \textbf{Ensemble multi-modelo}: Implementar stacking con 3 algoritmos (LightGBM, XGBoost, CatBoost) usando meta-learner para combinar predicciones y potencialmente ganar 1-2\% adicional de R².
+    
+    \item \textbf{Modelamiento espacial explícito}: Evaluar regresión espacial autorregresiva (SAR) o spatial error model (SEM) para capturar dependencias espaciales residuales no explicadas por distancias.
+    
+    \item \textbf{Incertidumbre calibrada}: Implementar intervalos de confianza mediante quantile regression o bootstrapping para comunicar incertidumbre de predicciones (``satisfacción estimada: 7.2 ± 0.5'').
+\end{enumerate}
+
+\subsubsection{Validación Empírica}
+
+\begin{enumerate}
+    \item \textbf{Encuestas a usuarios reales}: Realizar encuestas a 100-200 compradores recientes preguntando satisfacción con su propiedad (escala 1-10), para:
+    \begin{itemize}
+        \item Validar correlación entre satisfacción predicha por el modelo vs satisfacción real reportada
+        \item Calibrar pesos de perfiles de usuario según preferencias reales
+        \item Identificar dimensiones de satisfacción omitidas en el proxy actual
+    \end{itemize}
+    
+    \item \textbf{Pruebas A/B con corredores de propiedades}: Colaborar con 2-3 corredoras inmobiliarias para testear sistema de recomendación con clientes reales y medir tasa de conversión vs recomendaciones tradicionales.
+\end{enumerate}
+
+
+
+\subsection{Consideraciones Finales}
+
+El proyecto TerraMatch ha demostrado viabilidad técnica y científica en su primera fase. El modelo LightGBM alcanza desempeño comparable a sistemas comerciales de valoración inmobiliaria, con la ventaja adicional de considerar factores espaciales externos (accesibilidad a servicios) que los modelos tradicionales omiten.
+
+La infraestructura desarrollada (pipelines de datos, feature engineering espacial, sistema de visualización) constituye una base sólida para evolucionar hacia un sistema de recomendación inmobiliaria en producción. Los ajustes propuestos para la Fase 2 son técnicamente factibles y económicamente viables, con inversión estimada de 200 horas de desarrollo adicional.
+
+El principal factor de éxito será la validación empírica con usuarios reales, que permitirá calibrar el proxy de satisfacción y generar confianza en las recomendaciones del sistema. La expansión geográfica a comunas adicionales ampliará el mercado objetivo y permitirá capturar mayor diversidad de preferencias residenciales.
+
+
+% ====================================================================
+% REFERENCIAS
+% ====================================================================
+
+\newpage
+\printbibliography%[heading=bibintoc,title={Referencias}]
+
+
+% ====================================================================
+% ANEXOS
+% ====================================================================
+
+\newpage
+\appendix

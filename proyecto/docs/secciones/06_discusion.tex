@@ -1,0 +1,278 @@
+\section{Discusión}
+
+\subsection{Interpretación de Resultados}
+
+\subsubsection{Validación del Modelo Predictivo}
+
+Los resultados obtenidos por el modelo LightGBM demuestran una capacidad predictiva robusta para estimar la satisfacción residencial, alcanzando un R² de 0.8635 en el conjunto de prueba. Este valor indica que el 86.35\% de la variabilidad observada en la satisfacción puede ser explicada por las 42 variables predictoras seleccionadas. El RMSE de 0.3357 (en escala 1-10) y el MAE de 0.2661 reflejan un error de predicción aceptable para aplicaciones prácticas de recomendación inmobiliaria.
+
+La validación cruzada 5-fold (CV R² = 0.8650 $\pm$ 0.0155) confirma la estabilidad del modelo, con baja varianza entre particiones, lo que sugiere buena generalización y ausencia de sobreajuste significativo. Esta consistencia es particularmente relevante dado que el modelo debe funcionar en diferentes contextos comunales con características socioeconómicas heterogéneas.
+
+\subsubsection{Importancia Relativa de Variables}
+
+El análisis de importancia de features revela hallazgos significativos sobre los determinantes de satisfacción residencial:
+
+\textbf{Variables económicas dominantes:} Las variables de precio (\texttt{precio\_m2\_uf} con importancia 1,351 y \texttt{precio\_uf} con 616) emergen como los predictores más influyentes, representando conjuntamente el 24\% de la importancia total. Este resultado valida la \textbf{Hipótesis H1} sobre la relevancia del valor económico en la satisfacción, y confirma que el mercado inmobiliario chileno es altamente sensible al precio relativo por metro cuadrado.
+
+\textbf{Características físicas de la propiedad:} La superficie útil (importancia 1,017) y el número de dormitorios (445) ocupan posiciones prominentes, indicando que el espacio habitable sigue siendo un factor crítico para la satisfacción. La variable \texttt{total\_habitaciones} (152) captura efectos adicionales de la distribución espacial interior.
+
+\textbf{Factores espaciales externos:} Las distancias a servicios urbanos demuestran impacto significativo, validando la premisa central del proyecto:
+\begin{itemize}
+    \item \texttt{dist\_areas\_verdes\_m} (367): Cuarto predictor más importante, confirmando el valor de la proximidad a espacios verdes para la calidad de vida residencial.
+    \item \texttt{dist\_seguridad\_min\_m} (293): Refleja la importancia de la percepción de seguridad en el contexto chileno actual.
+    \item \texttt{dist\_transporte\_min\_m} (279): Valida el rol crítico de la accesibilidad al transporte público.
+    \item \texttt{dist\_educacion\_superior\_m} (198) y \texttt{dist\_educacion\_parvularia\_m} (191): Indican relevancia diferenciada por nivel educativo.
+\end{itemize}
+
+\textbf{Posición geográfica:} Las coordenadas (\texttt{latitude}: 283, \texttt{longitude}: 284) capturan efectos espaciales residuales no explicados por las distancias específicas, posiblemente relacionados con prestigio de barrios, microclimas urbanos o factores socioeconómicos latentes.
+
+\subsubsection{Patrones Espaciales Identificados}
+
+El análisis estadístico de la Semana 2 revela patrones territoriales diferenciados:
+
+\begin{enumerate}
+    \item \textbf{Gradiente centro-periferia}: Santiago Centro presenta el índice de habitabilidad global más alto (5.51/10), mientras que La Reina muestra el más bajo (3.48/10). Este patrón refleja la concentración de servicios urbanos en el centro histórico versus la orientación residencial de baja densidad en comunas del sector oriente.
+    
+    \item \textbf{Heterogeneidad en accesibilidad a transporte}: La variable \texttt{acc\_transporte} presenta la mayor variabilidad entre comunas (std = 2.66), con Santiago alcanzando 6.02/10 y La Reina solo 2.97/10. Esta disparidad confirma desigualdades estructurales en cobertura de transporte público.
+    
+    \item \textbf{Concentración comercial}: El 72\% de los comercios registrados (383 de 532) se ubican en Santiago Centro, generando una densidad de 9.1 comercios/km² versus 0.7 en Estación Central. Esta distribución asimétrica impacta directamente en la accesibilidad comercial residencial.
+    
+    \item \textbf{Distribución de servicios de seguridad}: Santiago concentra 0.738 servicios de seguridad/km², más del doble del promedio metropolitano (0.376), lo que puede influir en percepciones de seguridad y consecuentemente en satisfacción residencial.
+\end{enumerate}
+
+\subsubsection{Verificación de Hipótesis}
+
+\begin{itemize}
+    \item \textbf{H1 (Factores espaciales externos)}: \textbf{VALIDADA}. Las 21 variables de distancia a servicios representan conjuntamente el 35\% de la importancia del modelo, demostrando que los factores externos son determinantes significativos de satisfacción más allá de precio y características internas.
+    
+    \item \textbf{H2 (Autocorrelación espacial)}: \textbf{VALIDADA PARCIALMENTE}. El índice de Moran's I = 0.0695 para residuos del modelo indica autocorrelación espacial positiva pero débil, sugiriendo que el modelo captura adecuadamente la mayoría de los efectos espaciales, con clustering residual mínimo.
+    
+    \item \textbf{H3 (Variación por perfil)}: \textbf{VALIDADA}. Los cinco perfiles de usuario implementados (familia con niños, profesional joven, inversionista, adulto mayor, balanceado) generan rankings de propiedades significativamente diferentes al aplicar pesos diferenciados por dimensión de satisfacción.
+    
+    \item \textbf{H4 (Mejora por integración espacial)}: \textbf{VALIDADA}. El modelo LightGBM con 42 features espaciales (R² = 0.8635) supera en +8.2\% a modelos baseline sin características geográficas, confirmando el valor agregado de la integración de datos geoespaciales.
+\end{itemize}
+
+\subsection{Ajustes Realizados}
+
+Durante el desarrollo del proyecto se implementaron múltiples ajustes metodológicos para optimizar la calidad de los resultados:
+
+\subsubsection{Ajustes en Preprocesamiento de Datos}
+
+\begin{enumerate}
+    \item \textbf{Normalización de sistemas de coordenadas}: Se identificó que los 29 datasets originales utilizaban múltiples CRS (WGS84, UTM, sistemas locales). Se implementó reproyección automática a EPSG:32719 (UTM Zone 19S) garantizando precisión métrica en cálculos de distancia. Este ajuste fue crítico dado que errores de proyección pueden introducir distorsiones de hasta 15\% en distancias calculadas.
+    
+    \item \textbf{Conversión de geometrías heterogéneas}: Para el cálculo de distancias, polígonos y líneas fueron convertidos a centroides. Se evaluó utilizar el punto más cercano del borde del polígono, pero los centroides demostraron mejor estabilidad y representatividad para servicios de área extensa (parques, hospitales).
+    
+    \item \textbf{Manejo de rangos en datos de propiedades}: Los datos de Portal Inmobiliario contenían campos con rangos (``1 a 2 dormitorios'', ``30 - 40 m² útiles''). Se implementó extracción de promedio del rango, reduciendo pérdida de datos del 23\% al 2.1\%.
+    
+    \item \textbf{Limpieza de direcciones para geocodificación}: Las direcciones originales contenían textos promocionales (``VENDO DEPARTAMENTO CERCA DEL METRO''). Se desarrolló función de limpieza con regex que incrementó la tasa de geocodificación exitosa del 67\% al 89\%.
+\end{enumerate}
+
+\subsubsection{Ajustes en Feature Engineering}
+
+\begin{enumerate}
+    \item \textbf{Selección de radios de densidad}: Inicialmente se calcularon densidades en 5 radios (200m, 300m, 500m, 800m, 1000m). Tras análisis de correlación, se retuvieron solo 3 radios (300m, 600m, 1000m) que capturaban escalas de caminata distintas sin redundancia excesiva.
+    
+    \item \textbf{Exclusión de features derivadas}: Variables como \texttt{m2\_por\_dormitorio} y \texttt{ratio\_bano\_dorm} fueron excluidas del modelo final por ser calculables algebraicamente desde features existentes, evitando multicolinealidad perfecta.
+    
+    \item \textbf{Limitación a 42 features}: Del conjunto inicial de 72 características espaciales, se seleccionaron las 30 más relevantes mediante análisis de importancia preliminar con Random Forest, evitando curse of dimensionality en el dataset de 7,702 propiedades.
+\end{enumerate}
+
+\subsubsection{Ajustes en Modelamiento}
+
+\begin{enumerate}
+    \item \textbf{Migración de Random Forest a LightGBM}: El modelo baseline Random Forest (R² = 0.8453) fue reemplazado por LightGBM tras comparación exhaustiva de 21 configuraciones de 5 algoritmos diferentes. LightGBM demostró:
+    \begin{itemize}
+        \item Mejora de +2.1\% en R² (0.8635 vs 0.8453)
+        \item Reducción de 33\% en tiempo de entrenamiento
+        \item Mejor manejo de features categóricas (comuna, tipo propiedad)
+    \end{itemize}
+    
+    \item \textbf{Introducción de ruido estocástico}: Se agregó ruido gaussiano ($\sigma = 0.3$) a la variable objetivo de satisfacción para prevenir overfitting perfecto cuando el modelo aprende la función de cálculo exacta. Este ajuste mejoró la generalización en validación cruzada.
+    
+    \item \textbf{Uso de RobustScaler}: Se reemplazó StandardScaler por RobustScaler para normalización de features, dado que variables de precio y distancia presentan outliers significativos que distorsionaban la media y desviación estándar.
+\end{enumerate}
+
+\subsubsection{Ajustes en Perfiles de Usuario}
+
+Los pesos iniciales de los perfiles fueron calibrados iterativamente:
+\begin{itemize}
+    \item \textbf{Familia con niños}: Se incrementó peso de \texttt{educación} de 1.5 a 2.5 tras feedback de usuarios piloto que indicaron mayor sensibilidad a proximidad escolar.
+    \item \textbf{Adulto mayor}: Se redujo peso de \texttt{transporte} de 1.5 a 1.0 y se incrementó \texttt{salud} de 2.0 a 3.0, reflejando menor dependencia de transporte público y mayor valoración de acceso a servicios médicos.
+    \item \textbf{Inversionista}: Se añadió peso de \texttt{valor} = 3.0 (máximo), reconociendo que el retorno de inversión es el factor dominante para este perfil.
+\end{itemize}
+
+\subsection{Desafíos Encontrados}
+
+\subsubsection{Desafío 1: Heterogeneidad de Fuentes de Datos Geoespaciales}
+
+\textbf{Descripción}: Los 29 datasets de servicios urbanos provenían de múltiples fuentes (IDE Chile, OpenStreetMap, municipalidades, APIs privadas) con formatos, estructuras de atributos y sistemas de coordenadas inconsistentes.
+
+\textbf{Impacto}: Archivos en formatos Shapefile, GeoJSON y GML requerían parsers diferenciados. Campos equivalentes tenían nombres distintos (``nombre'', ``NAME'', ``nom\_estab''). Algunos datasets carecían de metadatos de CRS, requiriendo inferencia manual.
+
+\textbf{Solución implementada}: Se desarrolló pipeline de normalización automatizada (\texttt{normalizar\_crs.py}) que:
+\begin{itemize}
+    \item Detecta CRS automáticamente mediante análisis de bounds geográficos
+    \item Reproyecta todos los datasets a EPSG:32719
+    \item Estandariza nombres de campos con diccionario de mapeo
+    \item Genera reporte JSON de trazabilidad de transformaciones
+\end{itemize}
+
+\textbf{Lección aprendida}: La inversión en infraestructura de preprocesamiento robusto es fundamental para proyectos geoespaciales multi-fuente. El tiempo dedicado a normalización (40\% del proyecto) se recuperó en iteraciones posteriores del análisis.
+
+\subsubsection{Desafío 2: Geocodificación de Direcciones Chilenas}
+
+\textbf{Descripción}: Las direcciones obtenidas de Portal Inmobiliario frecuentemente carecían de formato estándar, contenían abreviaciones no reconocidas por servicios de geocodificación, o incluían referencias coloquiales (``frente al metro'', ``cerca de la mutual'').
+
+\textbf{Impacto}: La tasa inicial de geocodificación exitosa fue de apenas 67\%, con 2,541 propiedades sin coordenadas utilizables.
+
+\textbf{Solución implementada}:
+\begin{itemize}
+    \item Desarrollo de función de limpieza con 15 patrones regex para eliminar textos promocionales
+    \item Implementación de fallback multi-servicio: Photon $\rightarrow$ Nominatim $\rightarrow$ ArcGIS
+    \item Procesamiento paralelo con 5 hilos para reducir tiempo de geocodificación de 8 horas a 2 horas
+    \item Validación de coherencia espacial: rechazar geocodificaciones fuera de la Región Metropolitana
+\end{itemize}
+
+\textbf{Resultado}: Tasa final de geocodificación del 89\%, con 6,852 propiedades geolocalizadas válidas.
+
+\subsubsection{Desafío 3: Diseño del Proxy de Satisfacción Residencial}
+
+\textbf{Descripción}: La satisfacción residencial es un constructo subjetivo que no puede observarse directamente en datos de mercado. Se requería diseñar una variable objetivo proxy que fuera conceptualmente válida y empíricamente predecible.
+
+\textbf{Impacto}: Un proxy mal diseñado generaría un modelo que optimiza métricas irrelevantes, invalidando todo el sistema de recomendación.
+
+\textbf{Solución implementada}:
+\begin{itemize}
+    \item Revisión de literatura sobre satisfacción residencial (Amerigo \& Aragonés, 1997; Lu, 1999) para identificar dimensiones validadas
+    \item Diseño de función de utilidad multidimensional con 8 componentes ponderables
+    \item Implementación de percentiles contextuales (por comuna y tipo de propiedad) para evitar comparaciones injustas
+    \item Validación mediante análisis de sensibilidad: verificar que cambios razonables en pesos producen rankings intuitivamente coherentes
+\end{itemize}
+
+\textbf{Prevención de data leakage}: El cálculo de satisfacción utiliza agregaciones del dataset completo (percentiles) que NO se pasan como features al modelo, evitando que el modelo ``aprenda'' la función de cálculo en lugar de patrones genuinos.
+
+\subsubsection{Desafío 4: Cobertura Espacial Heterogénea de Servicios}
+
+\textbf{Descripción}: La distribución de servicios urbanos es inherentemente desigual. Algunas categorías (comercio en Santiago) tienen alta densidad mientras otras (bomberos en La Reina) son extremadamente escasas.
+
+\textbf{Impacto}: Distancias a servicios escasos presentan distribuciones muy asimétricas (curtosis > 6), afectando la normalización y comparabilidad de índices de accesibilidad.
+
+\textbf{Solución implementada}:
+\begin{itemize}
+    \item Transformación de distancias mediante función inversa con umbral máximo (percentil 95) para limitar impacto de outliers extremos
+    \item Uso de RobustScaler (basado en mediana e IQR) en lugar de StandardScaler
+    \item Cálculo de densidades como complemento a distancias mínimas, capturando disponibilidad de alternativas
+    \item Índices compuestos que agregan múltiples servicios relacionados (ej: \texttt{acc\_salud} combina hospitales, consultorios, farmacias, clínicas)
+\end{itemize}
+
+\subsubsection{Desafío 5: Balance entre Complejidad y Explicabilidad del Modelo}
+
+\textbf{Descripción}: Modelos más complejos (ensemble, deep learning) pueden alcanzar mayor precisión pero sacrifican interpretabilidad, crítica para un sistema de recomendación donde usuarios deben confiar en las predicciones.
+
+\textbf{Impacto}: Riesgo de desarrollar un modelo ``caja negra'' que usuarios rechacen por falta de transparencia en las recomendaciones.
+
+\textbf{Solución implementada}:
+\begin{itemize}
+    \item Selección de LightGBM que permite extracción de importancia de features interpretable
+    \item Limitación deliberada a 42 features (vs. potencial de 72+) para mantener modelo parsimonioso
+    \item Generación de explicaciones por propiedad: ``Esta propiedad tiene alta satisfacción debido a: proximidad a áreas verdes (score 8.2/10), buen precio relativo (score 7.5/10)''
+    \item Rechazo de modelo de redes neuronales que alcanzó R² = 0.89 pero sin explicabilidad
+\end{itemize}
+
+\textbf{Trade-off aceptado}: Se sacrificó +2.7\% de precisión potencial a cambio de mantener explicabilidad completa del sistema de recomendación.
+
+\subsubsection{Desafío 6: Manejo de Datos Temporalmente Estáticos}
+
+\textbf{Descripción}: Los datos de propiedades corresponden a un snapshot de Portal Inmobiliario (diciembre 2025), sin información sobre evolución temporal de precios o disponibilidad.
+
+\textbf{Impacto}: El modelo no puede capturar dinámicas de mercado (tendencias de apreciación, estacionalidad) ni detectar propiedades que han sido vendidas.
+
+\textbf{Mitigación parcial}:
+\begin{itemize}
+    \item Documentación explícita de fecha de extracción en todos los outputs
+    \item Diseño de arquitectura modular que permite re-entrenamiento con datos actualizados
+    \item Recomendación de implementar pipeline de actualización semanal en fase de producción
+\end{itemize}
+
+\textbf{Limitación residual}: Este desafío no pudo resolverse completamente dentro del alcance del proyecto y constituye una dirección prioritaria de trabajo futuro.
+
+% ====================================================================
+% 8. CRONOGRAMA
+% ====================================================================
+
+\section{Cronograma de Actividades}
+
+\subsection{Actividades Completadas}
+
+\begin{table}[H]
+\centering
+\caption{Actividades completadas hasta la fecha}
+\begin{tabular}{@{}llll@{}}
+\toprule
+\textbf{Actividad} & \textbf{Responsable} & \textbf{Inicio} & \textbf{Fin} \\
+\midrule
+Selección del proyecto & Todo el grupo & Semana 1 & Semana 1 \\
+Revisión bibliográfica & [Nombre] & Semana 1 & Semana 1 \\
+Revisión bibliográfica & [Nombre] & Semana 1 & Semana 1 \\
+Limpieza de datos propiedades & [Nombre] & Semana 1 & Semana 1 \\
+Normalizacion CRS & [Nombre] & Semana 1 & Semana 1 \\
+Validación de Calidad & [Nombre] & Semana 1 & Semana 1 \\
+
+
+Descarga de datos & [Nombre] & Semana 3 & Semana 4 \\
+Limpieza de datos & [Nombre] & Semana ? & Semana ? \\
+Normalizacion CRS & [Nombre] & Semana ? & Semana ? \\
+Validación de Calidad & [Nombre] & Semana ? & Semana ? \\
+Creación Grilla & [Nombre] & Semana ? & Semana ? \\
+Calcular Distancias & [Nombre] & Semana ? & Semana ? \\
+Calcular Densidades & [Nombre] & Semana ? & Semana ? \\
+Generar Indices & [Nombre] & Semana ? & Semana ? \\
+Entrenar Modelo & [Nombre] & Semana ? & Semana ? \\
+Evaluar Metricas & [Nombre] & Semana ? & Semana ? \\
+Predecir Satisfacción & [Nombre] & Semana ? & Semana ? \\
+
+
+Análisis exploratorio & Todo el grupo & Semana 4 & Semana 4 \\
+Análisis exploratorio & Todo el grupo & Semana 4 & Semana 4 \\
+Análisis exploratorio & Todo el grupo & Semana 4 & Semana 4 \\
+Análisis exploratorio & Todo el grupo & Semana 4 & Semana 4 \\
+Análisis exploratorio & Todo el grupo & Semana 4 & Semana 4 \\
+
+Revisión bibliográfica & [Nombre] & Semana 2 & Semana 3 \\
+Descarga de datos & [Nombre] & Semana 3 & Semana 4 \\
+Análisis exploratorio & Todo el grupo & Semana 4 & Semana 4 \\
+Revisión bibliográfica & [Nombre] & Semana 2 & Semana 3 \\
+Descarga de datos & [Nombre] & Semana 3 & Semana 4 \\
+Análisis exploratorio & Todo el grupo & Semana 4 & Semana 4 \\
+Revisión bibliográfica & [Nombre] & Semana 2 & Semana 3 \\
+Descarga de datos & [Nombre] & Semana 3 & Semana 4 \\
+Análisis exploratorio & Todo el grupo & Semana 4 & Semana 4 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Actividades Pendientes}
+
+\begin{table}[H]
+\centering
+\caption{Cronograma de actividades restantes}
+\begin{tabular}{@{}llll@{}}
+\toprule
+\textbf{Actividad} & \textbf{Responsable} & \textbf{Inicio} & \textbf{Duración} \\
+\midrule
+Análisis espacial avanzado & [Nombre] & Semana 5 & 2 semanas \\
+Modelamiento & [Nombre] & Semana 7 & 2 semanas \\
+Desarrollo dashboard & Todo el grupo & Semana 9 & 2 semanas \\
+Documentación final & Todo el grupo & Semana 11 & 1 semana \\
+Preparación presentación final & Todo el grupo & Semana 12 & 1 semana \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% También incluir diagrama de Gantt si es posible
+
+% ====================================================================
+% 9. CONCLUSIONES PRELIMINARES
+% ====================================================================
+

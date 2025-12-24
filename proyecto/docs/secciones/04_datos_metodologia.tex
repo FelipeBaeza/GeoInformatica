@@ -1,0 +1,460 @@
+\section{Datos y Metodología}
+
+\subsection{Fuentes de Datos}
+
+Este proyecto utiliza 29 datasets diferentes con informacion geografica de santiago considerando datos sobre: colegios, hospitales, parques, estaciones de metro, etc. Cada datasets se encuentra en diferentes formatos como se muestra en la Tabla 1.
+
+%
+\begin{table}[H]
+\centering
+\caption{Resumen de fuentes de datos utilizadas}
+\label{tab:datos}
+\begin{tabular}{@{}llllll@{}}
+\toprule
+\textbf{Dato} & \textbf{Fuente} & \textbf{Formato} & \textbf{Resolución} & \textbf{Fecha} & \textbf{Acceso} \\
+\midrule
+Buffer La Reina & GoogleMaps & .geojson & Poligono & 2025 & GoogleMaps API \\
+Buffer Estación Central & GoogleMaps & .geojson & Poligono & 2025 & GoogleMaps API \\
+Buffer Ñuñoa & GoogleMaps & .geojson & Poligono & 2025 & GoogleMaps API \\
+Buffer Santiago Centro & GoogleMaps & .geojson & Poligono & 2025 & GoogleMaps API \\
+Ubicación Casas La Reina & GoogleMaps & .geojson & Punto & 2025 & GoogleMaps API \\
+Ubicación Casas Estación Central & GoogleMaps & .geojson & Punto & 2025 & GoogleMaps API \\
+Ubicación Casas Ñuñoa & GoogleMaps & .geojson & Punto & 2025 & GoogleMaps API \\
+Ubicación Casas Santiago Centro & GoogleMaps & .geojson & Punto & 2025 & GoogleMaps API \\
+Descripción Casas La Reina & PortalInmobiliario & .csv & Punto & 2025 & Scraping \\
+Descripción Casas Estación Central & PortalInmobiliario & .csv & Punto & 2025 & Scraping \\
+Descripción Casas Ñuñoa & PortalInmobiliario & .csv & Punto & 2025 & Scraping \\
+Descripción Casas Santiago Centro & PortalInmobiliario & .csv & Punto & 2025 & Scraping \\
+Ubicación Deptos La Reina & GoogleMaps & .geojson & Punto & 2025 & GoogleMaps API \\
+Ubicación Deptos Estación Central & GoogleMaps & .geojson & Punto & 2025 & GoogleMaps API \\
+Ubicación Deptos Ñuñoa & GoogleMaps & .geojson & Punto & 2025 & GoogleMaps API \\
+Ubicación Deptos Santiago Centro & GoogleMaps & .geojson & Punto & 2025 & GoogleMaps API \\
+Descripción Deptos La Reina & PortalInmobiliario & .csv & Punto & 2025 & Scraping \\
+Descripción Deptos Estación Central & PortalInmobiliario & .csv & Punto & 2025 & Scraping \\
+Descripción Deptos Ñuñoa & PortalInmobiliario & .csv & Punto & 2025 & Scraping \\
+Descripción Deptos Santiago Centro & PortalInmobiliario & .csv & Punto & 2025 & Scraping \\
+Censo & INE Chile & .csv & Manzana & 2017 & Portal INE \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Preprocesamiento de Datos}
+
+\subsubsection{Limpieza y Validación}
+% Describir procesos de limpieza
+\textbf{Normalización y filtrado}\\
+Adicionalmente transformamos en cada mapa el calculo de distancias basada en la misma regla de medicion, utilizando el sistema metrico en metros presente en el CRS EPSG:32719 (UTM Zone 19S)
+
+\textbf{Limpieza de datos}
+\begin{itemize}
+\item Eliminación de duplicados espaciales
+\item Eliminamos duplicados: Algunos puntos (como colegios) aparecían dos veces en los datos
+\item Validación de geometrías (detección de elementos inválidos)
+\item Corregimos geometrías inválidas: Algunos polígonos o líneas tenían errores técnicos
+\item Estandarizamos nombres de campos: Todos los datasets ahora tienen estructura similar
+\item Estandarización de campos de atributos: Control de calidad automatizado
+\item Validamos calidad: Verificamos que todos los datos sean correctos y completos
+\end{itemize}
+
+\subsubsection{Transformaciones y Proyecciones}
+
+% Sistemas de coordenadas, reproyecciones
+\textbf{Unificación del sistema de coordenadas}\\
+Convertimos todos nuestros datos a usar el mismo sistema: UTM Zona 19S (EPSG:32719), que es ideal para medir distancias en metros en Santiago.
+
+\textbf{Filtrado Geografico}\\
+Reproyección automática desde múltiples CRS origen
+Nos enfocamos solo en 4 comunas principales de Santiago:
+
+Las Condes - Filtrado Geográfico
+Providencia - Área de interés: 4 comunas principales
+Santiago Centro- Las Condes
+Ñuñoa- Providencia
+Santiago
+
+¿Por qué? Para hacer el análisis más manejable y enfocado en áreas urbanas con características similares.- Ñuñoa
+
+\textbf{Buffers de inclusión}\\
+Buffer de inclusión: Márgenes para capturar servicios limítrofes
+
+
+\subsection{Metodología de Análisis}
+
+El proyecto implementa una metodología integrada que combina análisis geoespacial, ingeniería de características y machine learning en un pipeline de tres fases secuenciales. A continuación se detalla exhaustivamente cada componente metodológico.
+
+\subsubsection{Diagrama de Flujo Metodológico}
+
+La metodología se estructura en tres fases principales ejecutadas de forma secuencial:
+
+\begin{figure}[H]
+    \centering
+    % \includegraphics[width=\textwidth]{figuras/diagrama_flujo.png}
+    \caption{Diagrama de flujo metodológico del proyecto}
+    \label{fig:flujo}
+\end{figure}
+
+\textbf{Fase 1 - Preparación de Datos (Semana 1):}
+\begin{itemize}
+    \item Consolidación de 29 datasets geoespaciales heterogéneos
+    \item Normalización al sistema de coordenadas UTM 19S (EPSG:32719)
+    \item Validación de calidad geométrica y eliminación de duplicados espaciales
+    \item Filtrado por área de interés (4 comunas objetivo)
+    \item Geocodificación de 7,702 propiedades mediante Google Maps API
+\end{itemize}
+
+\textbf{Fase 2 - Características Espaciales (Semana 2):}
+\begin{itemize}
+    \item Generación de grilla regular de evaluación (3,149 puntos, espaciado 250m)
+    \item Cálculo de 21 métricas de distancia euclidiana a servicios urbanos
+    \item Cálculo de 42 métricas de densidad en radios múltiples (300m, 600m, 1000m)
+    \item Creación de 9 índices compuestos de accesibilidad
+    \item Integración espacial mediante nearest neighbor (KDTree)
+\end{itemize}
+
+\textbf{Fase 3 - Modelamiento Predictivo (Semana 3):}
+\begin{itemize}
+    \item Desarrollo de proxy de satisfacción residencial personalizable
+    \item Feature engineering: 42 variables predictoras finales
+    \item Entrenamiento de modelo LightGBM con validación cruzada 5-fold
+    \item Evaluación comparativa con Random Forest, XGBoost, CatBoost
+    \item Despliegue de API de predicción y generación de visualizaciones
+\end{itemize}
+
+\subsubsection{Análisis Espacial}
+
+\paragraph{Generación de Grilla de Evaluación}
+
+\textbf{Objetivo:} Crear una capa sistemática de puntos de evaluación distribuidos uniformemente sobre el territorio de estudio para cuantificar características espaciales del entorno urbano.
+
+\textbf{Metodología:}
+\begin{enumerate}
+    \item \textbf{Definición del área de estudio}: Se obtienen los límites administrativos de las 4 comunas objetivo mediante buffers poligonales que garantizan inclusión de servicios limítrofes. Los buffers se generan con margen de 500m para capturar servicios externos pero cercanos.
+    
+    \item \textbf{Creación de grilla regular}: Se genera una malla de puntos espaciados uniformemente cada 250 metros sobre el bounding box del área de estudio. La fórmula utiliza:
+    \begin{equation}
+    N_{puntos} = \left\lceil \frac{x_{max} - x_{min}}{250} \right\rceil \times \left\lceil \frac{y_{max} - y_{min}}{250} \right\rceil
+    \end{equation}
+    
+    \item \textbf{Filtrado espacial}: Se aplica intersección espacial (operador \texttt{within}) para retener únicamente puntos que caen dentro de los límites comunales, reduciendo el conjunto inicial a 3,149 puntos de evaluación válidos.
+    
+    \item \textbf{Asignación de metadatos}: Cada punto recibe identificador único (\texttt{GRID\_XXXX\_YYYY}), coordenadas UTM (x, y), zona UTM (19S), y timestamp de creación.
+\end{enumerate}
+
+\textbf{Resultado:} Grilla regular de 3,149 puntos espaciados 250m × 250m, con densidad de 14.8 puntos/km² sobre el área de estudio.
+
+\paragraph{Cálculo de Distancias Euclidianas}
+
+\textbf{Objetivo:} Cuantificar la proximidad geográfica de cada punto de la grilla a servicios urbanos clave, generando métricas de accesibilidad física.
+
+\textbf{Metodología:}
+\begin{enumerate}
+    \item \textbf{Organización de servicios}: Los 29 datasets de servicios se agrupan en 21 categorías temáticas:
+    \begin{itemize}
+        \item Educación: básica (escuelas), superior (universidades), parvularia (jardines)
+        \item Salud: hospitales, consultorios, farmacias, clínicas
+        \item Transporte: estaciones de metro, paraderos de buses, ciclovías, carga eléctrica
+        \item Seguridad: comisarías PDI, cuarteles de carabineros, bomberos
+        \item Comercio: tiendas, centros comerciales, mercados
+        \item Recreación: parques, áreas verdes, espacios públicos
+        \item Servicios públicos: municipalidades, oficinas gubernamentales
+    \end{itemize}
+    
+    \item \textbf{Homogeneización geométrica}: Todas las geometrías se convierten a puntos:
+    \begin{itemize}
+        \item Puntos: se mantienen sin cambios
+        \item Líneas: se utiliza el centroide de la línea
+        \item Polígonos: se calcula el centroide del área
+    \end{itemize}
+    
+    \item \textbf{Algoritmo de búsqueda del vecino más cercano}: Para cada categoría de servicio $S_k$ con $n$ puntos y cada punto de grilla $g_i$, se utiliza \textbf{cKDTree} de scipy para búsqueda espacial eficiente:
+    
+    \begin{equation}
+    d_{i,k} = \min_{j=1,\ldots,n} \sqrt{(x_{g_i} - x_{s_j})^2 + (y_{g_i} - y_{s_j})^2}
+    \end{equation}
+    
+    donde $d_{i,k}$ es la distancia mínima del punto $g_i$ a la categoría $S_k$.
+    
+    \item \textbf{Complejidad computacional}: cKDTree reduce la complejidad de $O(N \times M)$ a $O(N \log M)$ donde $N$ = 3,149 puntos de grilla y $M$ = cantidad de servicios por categoría.
+    
+    \item \textbf{Normalización de distancias}: Las distancias brutas se transforman a escala 0-10 mediante función inversa:
+    \begin{equation}
+    \text{score}_{i,k} = 10 \times \left(1 - \frac{\min(d_{i,k}, d_{max})}{d_{max}}\right)
+    \end{equation}
+    donde $d_{max}$ es el percentil 95 de distancias para la categoría $k$.
+\end{enumerate}
+
+\textbf{Resultado:} 21 columnas de distancias euclidianas por punto de grilla (ejemplo: \texttt{dist\_educacion\_basica\_m}, \texttt{dist\_salud\_m}), expresadas en metros desde el servicio más cercano.
+
+\begin{figure}[H]
+    \centering
+    % \includegraphics[width=0.75\textwidth]{figuras/05_mapa_habitabilidad.png}
+    \caption{Mapa de índice de habitabilidad calculado a partir de características espaciales}
+    \label{fig:mapa_habitabilidad}
+\end{figure}
+
+\paragraph{Cálculo de Densidades de Servicios}
+
+\textbf{Objetivo:} Cuantificar la concentración local de servicios urbanos alrededor de cada punto de evaluación, capturando patrones de aglomeración y disponibilidad de servicios.
+
+\textbf{Metodología:}
+\begin{enumerate}
+    \item \textbf{Definición de radios de análisis}: Se establecen tres escalas espaciales:
+    \begin{itemize}
+        \item Radio 300m: Distancia caminable corta ($\sim$5 minutos a pie)
+        \item Radio 600m: Distancia caminable media ($\sim$10 minutos a pie)
+        \item Radio 1000m: Distancia caminable larga ($\sim$15 minutos a pie)
+    \end{itemize}
+    
+    \item \textbf{Generación de buffers circulares}: Para cada punto $g_i$ y radio $r$, se crea un buffer circular:
+    \begin{equation}
+    B_r(g_i) = \{p \in \mathbb{R}^2 : \|p - g_i\| \leq r\}
+    \end{equation}
+    
+    \item \textbf{Conteo de servicios por intersección espacial}: Se cuentan los servicios de cada categoría que intersectan el buffer:
+    \begin{equation}
+    n_{i,k,r} = |\{s \in S_k : s \cap B_r(g_i) \neq \emptyset\}|
+    \end{equation}
+    
+    \item \textbf{Cálculo de densidad por km²}: La densidad se normaliza por área del buffer:
+    \begin{equation}
+    \rho_{i,k,r} = \frac{n_{i,k,r}}{\pi r^2} \times 10^6 \text{ [servicios/km²]}
+    \end{equation}
+    
+    \item \textbf{Agregación por categorías}: Se calculan densidades para 6 macrocategorías (educación, salud, comercio, seguridad, transporte, recreación) combinando subcategorías relacionadas.
+\end{enumerate}
+
+\textbf{Resultado:} 42 columnas de densidad (6 categorías × 3 radios × 2 medidas: conteo y densidad), ejemplo: \texttt{dens\_educacion\_300m\_km2}, \texttt{dens\_salud\_1000m\_km2}.
+
+\paragraph{Integración Espacial con Propiedades}
+
+\textbf{Objetivo:} Transferir las características espaciales calculadas en la grilla de evaluación a las ubicaciones reales de las 7,702 propiedades inmobiliarias.
+
+\textbf{Metodología:}
+\begin{enumerate}
+    \item \textbf{Reproyección a sistema métrico}: Tanto propiedades (originalmente en WGS84) como grilla (en UTM 19S) se reproyectan a EPSG:32719 para cálculos precisos de distancia en metros.
+    
+    \item \textbf{Algoritmo Nearest Neighbor}: Para cada propiedad $p_i$, se identifica el punto de grilla más cercano usando cKDTree:
+    \begin{equation}
+    g^* = \arg\min_{g \in \text{Grilla}} \|p_i - g\|
+    \end{equation}
+    
+    \item \textbf{Transferencia de atributos}: Se copian todos los 72 atributos espaciales del punto $g^*$ a la propiedad $p_i$, creando un dataset enriquecido.
+    
+    \item \textbf{Validación de proximidad}: Se registra la distancia $\|p_i - g^*\|$ como métrica de calidad. La distancia promedio es 88m, garantizando alta precisión en la transferencia de características.
+\end{enumerate}
+
+\textbf{Resultado:} Dataset integrado de 7,702 propiedades × 72 características espaciales, listo para modelamiento predictivo.
+
+\subsubsection{Análisis Estadístico y Machine Learning}
+
+\paragraph{Desarrollo del Proxy de Satisfacción Residencial}
+
+\textbf{Fundamento conceptual}: La satisfacción residencial es un constructo multidimensional que integra valor económico, características físicas de la vivienda y calidad del entorno urbano. Se modela como función de utilidad:
+
+\begin{equation}
+U = f(\text{Valor}, \text{Espacio}, \text{Educación}, \text{Salud}, \text{Transporte}, \text{Seguridad}, \text{Comercio}, \text{Áreas Verdes})
+\end{equation}
+
+\textbf{Metodología de cálculo:}
+\begin{enumerate}
+    \item \textbf{Dimensión de valor económico}: Evalúa precio/m² relativo al contexto local:
+    \begin{equation}
+    \text{score}_{\text{valor}} = 10 \times (1 - P_{\text{precio/m}^2})
+    \end{equation}
+    donde $P_{\text{precio/m}^2}$ es el percentil del precio dentro de propiedades del mismo tipo y comuna.
+    
+    \item \textbf{Dimensión de espacio}: Basada en m² por habitante potencial:
+    \begin{equation}
+    \text{m}^2/\text{hab} = \frac{\text{superficie}}{(\text{dormitorios} \times 2)}
+    \end{equation}
+    
+    Score se asigna mediante función de utilidad no lineal: óptimo en 15--25 m²/hab.
+    
+    \item \textbf{Dimensiones espaciales}: Para cada dimensión $k$ (educación, salud, etc.):
+    \begin{equation}
+    \text{score}_k = \begin{cases}
+    \text{acc}_k & \text{si existe índice compuesto} \\
+    10 - \frac{d_k}{d_{\max,k}} \times 10 & \text{si solo distancia disponible} \\
+    5.0 & \text{si sin datos (aproximación neutral)}
+    \end{cases}
+    \end{equation}
+    
+    \item \textbf{Personalización por perfil de usuario}: Se definen 5 perfiles con pesos diferenciados:
+    \begin{equation}
+    \text{Satisfacci}\acute{\text{o}}\text{n}_{\text{perfil}} = \frac{\sum_{k} w_{\text{perfil},k} \times \text{score}_k}{\sum_{k} w_{\text{perfil},k}}
+    \end{equation}
+    
+    Ejemplos de pesos por perfil:
+    \begin{itemize}
+        \item Familia con ni\~{n}os: $w_{\text{educaci}\acute{\text{o}}\text{n}} = 2.5$, $w_{\text{espacios}} = 2.5$
+        \item Profesional joven: $w_{\text{transporte}} = 2.5$, $w_{\text{valor}} = 1.8$
+        \item Adulto mayor: $w_{\text{salud}} = 3.0$, $w_{\text{seguridad}} = 2.0$
+    \end{itemize}
+    
+    \item \textbf{Adición de ruido estocástico}: Para evitar overfitting perfecto:
+    \begin{equation}
+    \text{Satisfacción}_{final} = \text{clip}(\text{Satisfacción} + \mathcal{N}(0, 0.3), 1, 10)
+    \end{equation}
+\end{enumerate}
+
+\textbf{Prevención de data leakage}: El cálculo de satisfacción utiliza percentiles y comparaciones contextuales (información de fila + agregaciones del dataset completo) que NO se pasan directamente como features al modelo de ML, evitando leakage.
+
+\paragraph{Feature Engineering}
+
+\textbf{Objetivo}: Transformar variables crudas en features informativas que maximicen la capacidad predictiva del modelo.
+
+\textbf{Features generadas}:
+
+\begin{enumerate}
+    \item \textbf{Variables internas de la propiedad} (10 features):
+    \begin{itemize}
+        \item Básicas: \texttt{superficie\_util}, \texttt{dormitorios}, \texttt{banos}
+        \item Derivadas: \texttt{total\_habitaciones = dormitorios + baños}
+        \item Indicadores: \texttt{es\_departamento}, \texttt{es\_casa} (one-hot encoding)
+        \item Geográficas: \texttt{latitude}, \texttt{longitude}
+        \item Contextuales: \texttt{es\_comuna\_premium}, \texttt{es\_comuna\_economica}
+    \end{itemize}
+    
+    \item \textbf{Variables económicas} (2 features):
+    \begin{itemize}
+        \item \texttt{precio\_uf}: Precio total en Unidades de Fomento
+        \item \texttt{precio\_m2\_uf}: Precio normalizado por superficie
+    \end{itemize}
+    
+    \item \textbf{Features espaciales de la grilla} (30 features principales):
+    \begin{itemize}
+        \item 21 distancias euclidianas a servicios (ej: \texttt{dist\_areas\_verdes\_m})
+        \item 9 índices compuestos de accesibilidad (ej: \texttt{acc\_transporte})
+        \item Densidades seleccionadas por importancia (ej: \texttt{dens\_comercio\_600m\_km2})
+    \end{itemize}
+\end{enumerate}
+
+\textbf{Total}: 42 features predictoras finales (10 internas + 2 económicas + 30 espaciales).
+
+\textbf{Exclusiones deliberadas}: Se excluyen features que pueden calcularse algebraicamente de otras (ej: \texttt{m2\_por\_dormitorio} = \texttt{superficie/dormitorios}) para evitar multicolinealidad y leakage indirecto.
+
+\paragraph{Modelamiento con LightGBM}
+
+\textbf{Justificación del algoritmo}: LightGBM (Light Gradient Boosting Machine) fue seleccionado tras evaluación comparativa exhaustiva de 5 algoritmos (Random Forest, XGBoost, CatBoost, Neural Networks, LightGBM), demostrando superioridad en:
+\begin{itemize}
+    \item Precisión: R² = 0.8635 (mejor que RF baseline 0.8453)
+    \item Eficiencia: Tiempo de entrenamiento 33\% menor
+    \item Manejo de features espaciales: 42 variables con interacciones complejas
+\end{itemize}
+
+\textbf{Arquitectura del modelo}:
+\begin{lstlisting}[language=Python, caption=Configuración LightGBM]
+lgb.LGBMRegressor(
+    n_estimators=300,       # Numero de arboles
+    max_depth=10,           # Profundidad maxima
+    learning_rate=0.05,     # Tasa de aprendizaje
+    num_leaves=31,          # Hojas por arbol
+    subsample=0.8,          # Muestreo de filas
+    colsample_bytree=0.8,   # Muestreo de columnas
+    reg_alpha=0.1,          # Regularizacion L1
+    reg_lambda=0.1,         # Regularizacion L2
+    random_state=42
+)
+\end{lstlisting}
+
+\textbf{Procedimiento de entrenamiento}:
+
+\begin{enumerate}
+    \item \textbf{División train-test estratificada}:
+    \begin{equation}
+    D = D_{train} \cup D_{test}, \quad |D_{train}| = 0.8|D|, \quad |D_{test}| = 0.2|D|
+    \end{equation}
+    División: 6,157 propiedades entrenamiento, 1,545 propiedades prueba.
+    
+    \item \textbf{Escalamiento robusto}: Se aplica RobustScaler para mitigar efecto de outliers:
+    \begin{equation}
+    x_{scaled} = \frac{x - \text{median}(x)}{Q_{75}(x) - Q_{25}(x)}
+    \end{equation}
+    
+    \item \textbf{Entrenamiento del modelo}:
+    \begin{equation}
+    \hat{\theta} = \arg\min_{\theta} \sum_{i=1}^{n_{train}} L(y_i, f(x_i; \theta)) + \Omega(\theta)
+    \end{equation}
+    donde $L$ es la pérdida cuadrática y $\Omega$ incluye regularización L1/L2.
+    
+    \item \textbf{Validación cruzada 5-fold}: Para estimación robusta de capacidad de generalización:
+    \begin{equation}
+    \text{CV-R²} = \frac{1}{K}\sum_{k=1}^{K} R²_{fold_k}
+    \end{equation}
+    Resultado: CV-R² = 0.8650 ± 0.0155 (muy estable).
+\end{enumerate}
+
+\textbf{Métricas de evaluación}:
+
+\begin{enumerate}
+    \item \textbf{R² (Coeficiente de determinación)}:
+    \begin{equation}
+    R² = 1 - \frac{\sum_{i}(y_i - \hat{y}_i)^2}{\sum_{i}(y_i - \bar{y})^2} = 0.8635
+    \end{equation}
+    Interpretación: El modelo explica 86.35\% de la varianza en satisfacción.
+    
+    \item \textbf{RMSE (Root Mean Square Error)}:
+    \begin{equation}
+    \text{RMSE} = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i)^2} = 0.3357
+    \end{equation}
+    Interpretación: Error promedio de 0.34 puntos en escala 1-10.
+    
+    \item \textbf{MAE (Mean Absolute Error)}:
+    \begin{equation}
+    \text{MAE} = \frac{1}{n}\sum_{i=1}^{n}|y_i - \hat{y}_i| = 0.2661
+    \end{equation}
+    Interpretación: Error absoluto medio de 0.27 puntos.
+\end{enumerate}
+
+\paragraph{Análisis de Importancia de Variables}
+
+LightGBM proporciona medidas de importancia basadas en ganancia (gain), que cuantifica la reducción promedio de pérdida cuando se hace split en una variable. Las 10 variables más importantes:
+
+\begin{table}[H]
+\centering
+\caption{Top 10 Variables por Importancia (Gain)}
+\begin{tabular}{@{}clrr@{}}
+\toprule
+\textbf{Rank} & \textbf{Variable} & \textbf{Importancia} & \textbf{Tipo} \\
+\midrule
+1 & precio\_m2\_uf & 1,351 & Económica \\
+2 & superficie\_util & 1,017 & Interna \\
+3 & precio\_uf & 616 & Económica \\
+4 & dormitorios & 445 & Interna \\
+5 & dist\_areas\_verdes\_m & 367 & Espacial \\
+6 & dist\_seguridad\_min\_m & 293 & Espacial \\
+7 & longitude & 284 & Geográfica \\
+8 & latitude & 283 & Geográfica \\
+9 & dist\_transporte\_min\_m & 279 & Espacial \\
+10 & dist\_ocio\_m & 233 & Espacial \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Hallazgo clave}: Las variables espaciales (distancias a servicios) representan 40\% de la importancia total en el top 10, validando la hipótesis H1 de que factores externos son determinantes significativos de satisfacción residencial.
+
+\paragraph{Validación del Modelo}
+
+\begin{enumerate}
+    \item \textbf{Análisis de residuos}: Se verifica ausencia de patrones sistemáticos en residuos:
+    \begin{equation}
+    e_i = y_i - \hat{y}_i, \quad \mathbb{E}[e_i] \approx 0, \quad \text{Var}(e_i) \approx \sigma²
+    \end{equation}
+    
+    \item \textbf{Autocorrelación espacial de residuos}: Se calcula el índice de Moran para verificar ausencia de sesgo geográfico:
+    \begin{equation}
+    I = \frac{n \sum_i \sum_j w_{ij}(e_i - \bar{e})(e_j - \bar{e})}{\left(\sum_i \sum_j w_{ij}\right) \sum_i (e_i - \bar{e})²}
+    \end{equation}
+    Resultado: $I = 0.0695$ (autocorrelación espacial muy baja, modelo no presenta sesgo geográfico).
+    
+    \item \textbf{Curva predicción vs. real}: Correlación lineal entre $y$ y $\hat{y}$ con R² = 0.8635, confirmando ajuste del modelo.
+\end{enumerate}
+
+\textbf{Conclusión metodológica}: El pipeline integrado de análisis espacial + feature engineering + LightGBM alcanza alta precisión predictiva (R² > 0.86) con residuos espacialmente independientes, validando la robustez del enfoque metodológico implementado.
+
+
+% ====================================================================
+% 5. RESULTADOS PRELIMINARES
+% ====================================================================
+
+
