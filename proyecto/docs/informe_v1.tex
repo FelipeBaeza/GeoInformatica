@@ -171,828 +171,276 @@ Los resultados preliminares demuestran que el modelo exploratorio híbrido GWRF 
 \section{Introducción}
 
 \subsection{Contexto y Motivación}
-% Explicar el contexto del problema, por qué es importante,
-% y qué motivó la selección de este proyecto
-Entre 2021 y 2023 comenzo una fuerte contracción en la demanda de viviendas, especialmente en el segmento de casas nuevas sin subsidio que cayó un 11,8\% entre enero y octubre de 2023, las ventas de casas nuevas alcanzaron en octubre de este año a tan solo 330 unidades con una tasa de desistimientos del 33\% en casas sin subsidio y del 15\% en departamentos, niveles históricamente altos a esta alturas del año. Este desplome se debio al deterioro de las condiciones de crédito, el aumento de las tasas de interés, restricciones bancarias y el impacto de la inflación sobre la capacidad de endeudamiento manteniendose durante los años siguientes.
-\\ 
-Debido a lo anterior a comienzos del 2025 el alto stock de propiedades no vendidas, estimado en alrededor de 70.000 unidades, comenzo a transformar el mercado inmobiliario ofreciendo unas nueva posibilidades para compradores que buscan oportunidades de inversión o vivienda propia, especialmente mediante ofertas directas o grupos de compra \cite{biobio_ciper_2025}.
-\\
-Segun el estudio ``monitor de viviendas 2025'' \cite{ipsos_monitor_2025} realizado por la consultora multinacional IPSOS en enero de este año 2025 mostro que el "60 \% de los encuestados estan contentos con la situacion actual de la vivienda" en Chile, de donde "tres de cada cuatro (74\%) propietarios esta satisfecho con su situacion de vivienda" y "solo cuatro de diez arrendatarios (39\%) dice estar feliz de su situacion habitacional", lo que alienta a nuevos clientes y a actuales arrendatarios a considerar la inversion inmobiliaria como un objetivo plausible en el actual contexto chileno.
-\\
-\\
-Respecto a esto se ha determinado que los principales desafios para los clientes al momento de comprar o arrendar una vivienda son los precios altos de las propiedades, tazas de interes muy altas y aumento de costos en material de contrucción.
-\\
-Esta dificultad para conseguir vivienda a llevado a que los clientes tomen en consideracion los siguientes aspectos al momentos de comprar una propiedad:
+El mercado inmobiliario chileno enfrenta una barrera de acceso relevante: el pie hipotecario del 20\% equivale a ~32 veces el ingreso mediano, lo que excluye a muchos hogares de credito y subsidios. Entre 2021 y 2023 la demanda de viviendas se contrajo, con caidas en ventas y mayores desistimientos, y en 2025 se observo un stock cercano a 70.000 unidades, abriendo oportunidades para compradores \cite{biobio_ciper_2025}. El estudio IPSOS 2025 muestra brechas de satisfaccion entre propietarios (74\%) y arrendatarios (39\%) \cite{ipsos_monitor_2025}, reforzando la necesidad de herramientas objetivas para comparar alternativas.
+
+Ademas de la contraccion de la demanda, las restricciones crediticias y el aumento del costo de la construccion han reducido la accesibilidad a la vivienda. Para muchos hogares, comparar alternativas requiere mirar mas alla del precio y considerar conectividad, acceso a servicios y calidad del entorno. Un enfoque geoespacial permite cuantificar estas condiciones de forma objetiva y comparable entre barrios.
+
+Los factores de decision mas frecuentes combinan precio, seguridad, accesibilidad y entorno urbano. TerraMatch propone integrar datos geoespaciales para estimar satisfaccion residencial potencial y apoyar decisiones de compra con criterios medibles. Entre los criterios mas mencionados se consideran:
 
 \begin{itemize}
-    \item Relación precio-m²
-    \item Tasa de delincuencia
-    \item Ubicacion y servicios
-    \item Acceso al transporte publico
-    \item Espacio al aire libre
-    \item Privacidad
-    \item Buena infraestructura local
+    \item Relacion precio/m\textsuperscript{2} y costo total de la propiedad.
+    \item Seguridad y presencia de servicios de emergencia cercanos.
+    \item Acceso a transporte publico y conectividad urbana.
+    \item Proximidad a educacion, salud y comercio.
+    \item Acceso a areas verdes y espacios recreativos.
+    \item Condiciones de habitabilidad (tamano, distribucion, privacidad).
 \end{itemize}
 
-Por todo lo anterior, hoy se presenta una oportunidad interesante dentro del mundo inmobiliario chileno: la capacidad de influir en las decisiones de potenciales clientes para informar y convencer al cliente indeciso de comprar una vivienda con datos geoespaciales que le ayuden a determinar una opción de vivienda que satisfaga sus necesidades a un precio asequible.
+La propuesta busca reducir la asimetria de informacion y entregar una evaluacion comparable entre comunas y perfiles de usuario.
 
 \subsection{Objetivos}
 
 \subsubsection{Objetivo General}
-% Un objetivo general claro y alcanzable
-Desarrollar un sistema de recomendación inmobiliaria inteligente que prediga la satisfacción residencial de propiedades en venta mediante la integración de características internas de las viviendas con factores geoespaciales del entorno urbano, empleando técnicas de Machine Learning (LightGBM) para proporcionar recomendaciones personalizadas que faciliten la toma de decisiones de compra en el mercado inmobiliario de la Región Metropolitana de Santiago.
+Desarrollar un sistema de recomendacion inmobiliaria que prediga la satisfaccion residencial integrando atributos internos de la vivienda con variables geoespaciales del entorno urbano, usando Machine Learning (LightGBM) para apoyar decisiones de compra en la Region Metropolitana de Santiago.
 
 \subsubsection{Objetivos Específicos}
 \begin{enumerate}
-    \item \textbf{Consolidar y normalizar información geoespacial}: Integrar 29 datasets geográficos heterogéneos de la Región Metropolitana, normalizando sistemas de coordenadas al CRS EPSG:32719 (UTM Zone 19S), validando calidad geométrica, y estandarizando estructuras de datos para garantizar consistencia y trazabilidad en el análisis espacial.
-    
-    \item \textbf{Cuantificar características espaciales del entorno urbano}: Generar una grilla sistemática de evaluación sobre el territorio de estudio y calcular 72 métricas espaciales cuantitativas por ubicación, incluyendo: (a) distancias euclidianas a 21 categorías de servicios urbanos, (b) densidades de servicios en radios de 300m, 600m y 1000m, y (c) índices compuestos de accesibilidad en 9 dimensiones de habitabilidad.
-    
-    \item \textbf{Recopilar y geocodificar datos del mercado inmobiliario}: Obtener mediante web scraping información de 7,702 propiedades en venta (casas y departamentos) de 4 comunas objetivo (La Reina, Ñuñoa, Santiago Centro, Estación Central), geocodificar direcciones mediante Google Maps API, y validar coherencia entre características de propiedades y ubicaciones geográficas.
-    
-    \item \textbf{Desarrollar proxy de satisfacción residencial}: Diseñar e implementar un índice de satisfacción (escala 1-10) que integre: (a) valor económico relativo (precio/m² contextualizado), (b) características físicas de la propiedad (espacio, distribución), y (c) accesibilidad a servicios urbanos, con capacidad de personalización mediante 5 perfiles de usuario (familia con niños, profesional joven, inversionista, adulto mayor, balanceado).
-    
-    \item \textbf{Entrenar y validar modelo predictivo de satisfacción}: Implementar modelo LightGBM para predecir satisfacción residencial utilizando 42 features (características internas + métricas espaciales), alcanzar $R^2 \geq 0.85$ en conjunto de prueba, validar mediante cross-validation 5-fold, analizar importancia de variables, y evaluar autocorrelación espacial de residuos para verificar ausencia de sesgo geográfico.
-
-    \item \textbf{Desarrollar API de recomendación}: Crear sistema de predicción funcional que permita: (a) estimar satisfacción de propiedades nuevas, (b) generar rankings personalizados por perfil de usuario, (c) comparar múltiples opciones simultáneamente, y (d) explicar factores determinantes de cada predicción mediante análisis de importancia de variables.
-    \item \textbf{Visualizar patrones espaciales y resultados}: Generar 3 mapas temáticos con elementos cartográficos estándar (ubicación de propiedades, distribución de precios, satisfacción predicha), 5 gráficos estadísticos de análisis exploratorio (histogramas, correlaciones, dispersión, importancia de variables), y 1 visualización interactiva web (mapa Folium con popups informativos y heatmap).
-    \item \textbf{Evaluar desempeño comparativo de modelos}: Implementar línea base con Random Forest, comparar rendimiento con al menos 3 algoritmos adicionales (XGBoost, CatBoost, Neural Networks), documentar métricas de evaluación (R², RMSE, MAE, tiempo de entrenamiento), y justificar selección del modelo final mediante análisis cuantitativo de trade-offs precisión-interpretabilidad-eficiencia.
+    \item Integrar y normalizar 29 datasets geoespaciales en EPSG:32719, con control de calidad y trazabilidad.
+    \item Calcular metricas espaciales (distancias, densidades e indices) y asociarlas a 7,702 propiedades geocodificadas.
+    \item Disenar un proxy de satisfaccion residencial y perfiles de usuario para ponderar preferencias.
+    \item Entrenar y validar un modelo predictivo (LightGBM) con evaluacion comparativa y metricas robustas.
+    \item Generar visualizaciones y un prototipo de recomendacion (API/mapa interactivo) para explorar resultados.
 \end{enumerate}
 
 \subsection{Preguntas de Investigación}
 
 \subsubsection{Pregunta Principal}
-\textbf{¿Qué hace que una vivienda sea satisfactoria para vivir en el contexto urbano de Santiago?}
-
-Esta pregunta se descompone en sub-preguntas específicas que el proyecto aborda:
-
-\begin{enumerate}
-    \item \textbf{Dimensión económica}: ¿Cuál es la relación entre el valor económico (precio/m²) y la satisfacción percibida? ¿Propiedades más caras son necesariamente más satisfactorias?
-    
-    \item \textbf{Dimensión espacial}: ¿En qué medida los factores externos (proximidad a servicios, áreas verdes, transporte) determinan la satisfacción residencial más allá de las características internas de la propiedad?
-    
-    \item \textbf{Heterogeneidad de preferencias}: ¿Cómo varían los determinantes de satisfacción según el perfil del usuario? (familias vs. profesionales jóvenes vs. adultos mayores vs. inversionistas)
-\end{enumerate}
+\textbf{¿Que hace que una vivienda sea satisfactoria para vivir en el contexto urbano de Santiago?}
 
 \subsubsection{Preguntas Secundarias}
-
 \begin{itemize}
-    \item \textbf{Autocorrelación espacial}: ¿Existe dependencia espacial en la satisfacción residencial? Es decir, ¿viviendas cercanas tienden a tener niveles similares de satisfacción debido a características compartidas del entorno?
-    
-    \item \textbf{Importancia relativa de factores}: ¿Cuáles son las 10 variables más determinantes de satisfacción? ¿Son características internas (superficie, dormitorios) o factores espaciales externos (distancia a metro, áreas verdes)?
-    
-    \item \textbf{Gradientes urbanos}: ¿Existen patrones geográficos sistemáticos? ¿La satisfacción aumenta/disminuye con la distancia al centro urbano o sigue otros patrones espaciales?
-    
-    \item \textbf{Equidad territorial}: ¿Qué comunas ofrecen mejor relación calidad-precio? ¿Existen zonas con alta satisfacción predicha pero precios relativamente accesibles?
-    
-    \item \textbf{Capacidad predictiva}: ¿Es posible predecir con alta precisión (R² > 0.85) la satisfacción residencial utilizando únicamente características observables y datos geográficos públicos?
-    
-    \item \textbf{Accesibilidad diferenciada}: ¿Qué dimensiones de accesibilidad (transporte, educación, salud, seguridad, áreas verdes) tienen mayor peso en la satisfacción? ¿Este peso varía según el tipo de propiedad (casa vs. departamento)?
+    \item ¿Que peso tienen los factores espaciales (acceso a servicios, transporte y areas verdes) respecto al precio y atributos internos?
+    \item ¿Existen patrones territoriales y diferencias entre comunas en la satisfaccion predicha?
+    \item ¿Como cambian los determinantes de satisfaccion segun el perfil de usuario?
 \end{itemize}
 
 \subsubsection{Hipótesis de Trabajo}
-Basándonos en la literatura de geografía urbana y economía espacial, planteamos:
-
 \begin{itemize}
-    \item \textbf{H1}: La satisfacción residencial está significativamente influenciada por factores espaciales externos, más allá del precio y características internas de la vivienda.
-    
-    \item \textbf{H2}: Existe autocorrelación espacial positiva en la satisfacción residencial (Moran's $I > 0$), indicando clustering de zonas de alta/baja satisfacción.
-    
-    \item \textbf{H3}: La importancia relativa de factores varía sustancialmente entre perfiles de usuario, siendo transporte crítico para profesionales jóvenes, educación para familias, y salud para adultos mayores.
-    
-    \item \textbf{H4}: Modelos de Machine Learning que integran características espaciales superan en capacidad predictiva ($R^2 > +10\%$) a modelos que solo consideran atributos de la propiedad.
+    \item \textbf{H1}: Los factores espaciales externos influyen significativamente en la satisfaccion residencial.
+    \item \textbf{H2}: Existe autocorrelacion espacial positiva en la satisfaccion residencial.
+    \item \textbf{H3}: Los determinantes de satisfaccion varian segun el perfil de usuario.
+    \item \textbf{H4}: Incorporar variables geoespaciales mejora la capacidad predictiva frente a modelos solo con atributos internos.
 \end{itemize}
 
 \subsection{Alcance y Limitaciones}
+\textbf{Alcance geografico:} Cuatro comunas de la Region Metropolitana (La Reina, Ñuñoa, Santiago Centro y Estación Central).
 
-\subsubsection{Alcance Geográfico}
-Este proyecto considera información geoespacial para las comunas de la Región Metropolitana de Santiago, Ñuñoa, La Reina, Estación Central y Santiago Centro.
+\textbf{Datos de propiedades:} 7,702 propiedades en venta (5,135 departamentos y 2,567 casas), con precios entre 800 y 73,000 UF y superficies entre 16 y 900 m\textsuperscript{2}.
 
-\subsubsection{Datos de Propiedades}
-El análisis contempla un total de \textbf{7,702 propiedades} en venta, distribuidas en:
+\textbf{Limitaciones principales:}
 \begin{itemize}
-    \item 5,135 departamentos
-    \item 2,567 casas
+    \item Cobertura geografica limitada a 4 comunas.
+    \item Ausencia de variables de antiguedad, estado, orientacion o equipamiento de edificio.
+    \item Datos estaticos (2025) sin dinamica temporal del mercado.
+    \item Sin informacion de gastos comunes, contribuciones o mantenimiento.
+    \item Solo propiedades en venta (no arriendos).
 \end{itemize}
-
-Con las siguientes características:
-\begin{itemize}
-    \item Rango de precios: 800 - 73,000 UF
-    \item Superficie: 16 - 900 m²
-    \item Fuente: Portal Inmobiliario (web scraping) + Google Maps API (geocodificación)
-\end{itemize}
-
-\subsubsection{Variables Analizadas}
-
-\textbf{Variables de la propiedad:}
-\begin{itemize}
-    \item Precio total (UF) y precio por metro cuadrado (UF/m²)
-    \item Superficie útil (m²)
-    \item Número de dormitorios y baños
-    \item Tipo de propiedad (casa o departamento)
-    \item Coordenadas geográficas (latitud/longitud)
-\end{itemize}
-
-\textbf{Variables espaciales (distancias y densidades):}
-\begin{itemize}
-    \item \textbf{Transporte:} Distancia a estaciones de metro y estaciones de carga eléctrica
-    \item \textbf{Educación:} Distancia a colegios, jardines infantiles y universidades
-    \item \textbf{Salud:} Distancia a hospitales, consultorios, farmacias y clínicas
-    \item \textbf{Seguridad:} Distancia a unidades de la PDI, cuarteles y bomberos
-    \item \textbf{Comercio:} Distancia a tiendas y servicios comerciales
-    \item \textbf{Áreas verdes y recreación:} Distancia a parques, plazas y espacios de ocio
-    \item \textbf{Densidades:} Cantidad de servicios por km² en radios de 300m, 600m y 1000m
-\end{itemize}
-
-\subsubsection{Limitaciones del Proyecto}
-
-El modelo de satisfacción residencial presenta las siguientes limitaciones que deben considerarse al interpretar los resultados:
-
-\begin{enumerate}
-    \item \textbf{Cobertura geográfica limitada:} Solo se analizan 4 comunas de la Región Metropolitana, por lo que los resultados no son generalizables a otras comunas o regiones de Chile.
-    \item \textbf{Antigüedad y estado de conservación:} No se dispone de información sobre el año de construcción ni el estado actual de las propiedades.
-    \item \textbf{Características del edificio:} No se consideran factores como presencia de ascensor, piso del departamento, vista, orientación, estacionamiento o bodega.
-    \item \textbf{Datos estáticos:} Los datos corresponden a un período específico (2025) y no capturan la evolución temporal del mercado inmobiliario.
-    \item \textbf{Factores socioeconómicos:} No se incluyen variables detalladas del nivel socioeconómico del vecindario más allá de la comuna.
-    \item \textbf{Calidad de construcción:} No existe información disponible sobre la calidad de los materiales o terminaciones.
-    \item \textbf{Solo propiedades en venta:} El análisis no incluye propiedades en arriendo, limitando el alcance a compradores potenciales.
-    \item \textbf{Gastos adicionales:} No se dispone de información sobre gastos comunes, contribuciones o costos de mantenimiento.
-\end{enumerate}
-
-% ====================================================================
-% 2. MARCO TEÓRICO
-% ====================================================================
-
 \section{Marco Teórico}
 
-Momentaneamente lo tengo aquí:
+El proyecto se apoya en tres ejes conceptuales: (1) accesibilidad urbana y provision de servicios, que mide proximidad y densidad de equipamientos relevantes para la calidad de vida; (2) economia urbana y modelos hedonicos, donde el precio y atributos fisicos reflejan valor percibido; y (3) analisis espacial, que considera autocorrelacion y patrones territoriales (Moran's I) para evitar sesgos geograficos.
 
-\url{https://docs.google.com/document/d/1ZR3iizdODLcUqg4gSuMWdOVFuCBlcrrh8QojYlrTy4M/edit?usp=sharing}
+Desde la perspectiva metodologica, la integracion de datos geoespaciales con aprendizaje automatico permite capturar relaciones no lineales entre entorno y satisfaccion residencial. Este marco guia la seleccion de variables, la construccion del proxy de satisfaccion y la evaluacion de desempeno del modelo.
 
-Falta resumirlo todavía lo veré el sábado 20 en la mañana este informe
+En el contexto urbano, la accesibilidad se modela a partir de distancias a servicios y densidades por radio, mientras que los indices compuestos permiten sintetizar dimensiones como educacion, salud, transporte, seguridad y entorno. Complementariamente, el analisis de autocorrelacion espacial ayuda a validar que el modelo no incorpore sesgos territoriales sistematicos.
 
-- Byron
+Conceptos clave considerados:
+\begin{itemize}
+    \item Accesibilidad espacial: proximidad y cobertura de servicios urbanos.
+    \item Valor economico relativo: precio/m\textsuperscript{2} como proxy de mercado.
+    \item Autocorrelacion espacial: Moran's I para evaluar dependencia territorial.
+    \item Modelos de ML tabulares: capacidad para capturar relaciones no lineales e interacciones.
+\end{itemize}
+
+En la literatura urbana, los enfoques de habitabilidad combinan indicadores de accesibilidad con atributos socioeconomicos y del entorno construido. En este marco, los modelos hedónicos y los metodos espaciales se complementan: los primeros explican variacion de precios y preferencias, mientras que los segundos permiten identificar clusters y desigualdades territoriales. La integracion con ML facilita manejar alta dimensionalidad y variables heterogeneas, manteniendo interpretabilidad mediante analisis de importancia de features.
+
+El concepto de satisfaccion residencial combina atributos objetivos (precio, superficie, servicios) y percepciones subjetivas (seguridad, calidad ambiental y sentido de pertenencia). En terminos operativos, estos elementos se traducen en variables observables y en un proxy de satisfaccion que permita comparabilidad entre comunas y perfiles de usuario \cite{marans2015,stoker2019,park2020}.
+
+Desde la economia urbana, el precio resume la accesibilidad a amenidades y la calidad del entorno. Los modelos hedonicos descomponen el valor de la vivienda en atributos internos y externos, y constituyen una base teorica para interpretar la influencia del entorno en la satisfaccion residencial \cite{rosen1974,freeman2003,brueckner2011}.
+
+\subsection{Satisfaccion Residencial y Valor Percibido}
+La satisfaccion residencial se entiende como la adecuacion entre necesidades del hogar y condiciones del entorno. La literatura distingue dimensiones funcionales (acceso a servicios, movilidad, equipamiento) y simbolicas (seguridad percibida, identidad barrial), lo que justifica el uso de perfiles de usuario para representar preferencias diferenciadas \cite{hidalgo2007,bonaiuto2015}.
+
+En estudios urbanos, la calidad de vida se aproxima mediante indicadores de accesibilidad, entorno y costo, y su relacion con precios permite inferir valor percibido. En este proyecto, el precio/m\textsuperscript{2} y la accesibilidad sintetizan la tension entre asequibilidad y calidad del entorno, permitiendo comparar comunas heterogeneas con criterios consistentes \cite{geurs2004,handy1997}.
+
 \subsection{Antecedentes Conceptuales}
+La geoinformatica aplicada a vivienda estudia la relacion entre localizacion, servicios urbanos y valor residencial. Conceptos como accesibilidad, centralidad y proximidad permiten medir condiciones objetivas de habitabilidad. A nivel metodologico, se utilizan indicadores de distancia, densidad y cobertura para representar oferta de servicios y su disponibilidad territorial.
 
-% Conceptos clave de geoinformática relevantes al proyecto
-
+La nocion de accesibilidad puede modelarse como distancia minima, tiempo de viaje o cobertura dentro de radios. En ausencia de datos de red completos, la distancia euclidiana ofrece un estimador consistente para comparaciones relativas, mientras que las densidades capturan la concentracion de servicios en torno a cada punto \cite{talen2003,wei2018}. Los indices compuestos permiten integrar dimensiones heterogeneas en una escala comun, lo cual facilita la interpretacion y la comparacion entre comunas.
 
 \subsection{Estado del Arte}
+Estudios previos han utilizado modelos hedonicos y analisis espacial para explicar precios y preferencias residenciales, destacando el rol de transporte, areas verdes y seguridad. En anos recientes, el uso de ML ha permitido incorporar mayor cantidad de variables y capturar relaciones no lineales, manteniendo comparabilidad con enfoques tradicionales.
 
-% Revisión de literatura, proyectos similares, metodologías aplicadas
+En la ultima decada, los modelos de aprendizaje automatico (random forest, gradient boosting y redes) han mostrado mejoras en precision frente a enfoques lineales, especialmente cuando se integran variables espaciales y socioeconomicas. Se reporta ademas que la validacion espacial y el control de leakage son claves para evitar sobreestimacion del desempeno \cite{fotheringham2002,hoon2020,li2020}. Herramientas de explicabilidad como SHAP permiten identificar contribuciones locales y globales de variables, complementando la interpretabilidad de modelos de arboles \cite{lundberg2017}.
 
+\subsection{Casos de Estudio Similares}
+Se han desarrollado sistemas de recomendacion inmobiliaria y modelos de valoracion basados en accesibilidad en ciudades europeas, norteamericanas y latinoamericanas. Estos estudios muestran que la proximidad a transporte masivo, parques y servicios de salud explica parte importante de la variacion espacial del valor residencial y la satisfaccion percibida \cite{li2017,zhang2019,alvarez2021}. Estos antecedentes respaldan la aplicabilidad de TerraMatch en el contexto de Santiago.
 
-\subsection{Marco Metodológico de Referencia}
+\subsection{Marco Metodologico de Referencia}
+El proyecto adopta un enfoque mixto: integra procesamiento geoespacial (normalizacion y feature engineering) con modelamiento predictivo supervisado. La validacion considera metricas de desempeno y autocorrelacion espacial, asegurando que los resultados sean consistentes con el comportamiento territorial observado.
 
-% Métodos y técnicas que se usarán basados en la literatura
-
-% Ejemplo de cita: \parencite{autor2023}
-
-% ====================================================================
-% 3. ÁREA DE ESTUDIO
-% ====================================================================
-
+El marco metodologico incorpora etapas de adquisicion, validacion, feature engineering y modelamiento, siguiendo buenas practicas de ciencia de datos geoespacial. La evaluacion combina metricas predictivas y diagnosticos espaciales (Moran's I), con el fin de identificar posibles sesgos territoriales y asegurar que las recomendaciones sean comparables entre comunas \cite{anselin1995,osullivan2010}.
 \section{Área de Estudio}
 
 \subsection{Ubicación Geográfica}
+La Region Metropolitana de Santiago se ubica en la zona central de Chile, entre 32°55' y 34°19' S y 69°46' y 71°43' O. Es una region sin litoral, con capital en Santiago y un valle intermedio entre la Cordillera de los Andes y la de la Costa. El estudio se centra en cuatro comunas contiguas: Estación Central, Santiago Centro, Ñuñoa y La Reina (Figura \ref{fig:ubicacion_area}, Anexo).
 
-% Descripción precisa con coordenadas
-Este proyecto se realizara sobre un sector del pais de Chile conocido como "Región Metropolitana de Santiago", la cual es una de las 16 divisiones territoriales de alto nivel denominadas regiones; Se encuentra ubicada en la zona central de Chile, entre los 32°55' y 34°19' de latitud sur, y entre los 69°46' y 71°43' de longitud oeste.\\
-Con una superficie de 15,403.2 km² es la única región chilena que no tiene litoral (costas) y se encuentra rodeada por otras regiones y países: al norte y oeste limita con la Región de Valparaíso, al sur con la Región del Libertador General Bernardo O'Higgins, y al este con la República Argentina.\\
-Su capital es Santiago de Chile, que también es la capital nacional. Geográficamente, la región se caracteriza por una depresión intermedia, conocida como el Valle de Santiago, que está rodeada por la Cordillera de los Andes al este y la Cordillera de la Costa al oeste (ver Figuras \ref{fig:ubicacion} y \ref{fig:ubicacion_area}).
+Estas comunas representan un gradiente urbano clasico de Santiago: un centro historico y administrativo (Santiago), un polo de transporte y densificacion reciente (Estacion Central), una comuna residencial consolidada (Nunoa) y un sector de menor densidad con mayor ingreso relativo (La Reina).
 
-Debido a lo acotado del proyecto solo se consideraran las cuatro comunas dentro la Región Metropolitana indicadas en el alcance de este informe y en la tabla \ref{tab:comunas}.
+En terminos de movilidad, el area incluye corredores de transporte masivo (Linea 1 y Linea 3 de metro, ejes de buses troncales) que concentran accesibilidad en el centro, mientras que sectores residenciales de menor densidad dependen mas del transporte privado y de la accesibilidad local. Esta heterogeneidad condiciona la localizacion de servicios y la valoracion de la vivienda.
+
+La seleccion de comunas contiguas reduce sesgos por diferencias macro-regionales y facilita comparar condiciones urbanas en un mismo sistema de transporte y servicios. Ademas, la zona presenta contrastes claros de densidad, tipologia de vivienda y acceso a equipamiento, lo que resulta adecuado para un analisis de satisfaccion residencial.
 
 \subsection{Características del Territorio}
+\textbf{Fisicas:} territorio urbano consolidado, variaciones topograficas (planicie y sectores de piedemonte), clima mediterraneo y presencia de areas verdes urbanas.
 
-\subsubsection{Características Físicas}
+\textbf{Socioeconomicas:} heterogeneidad marcada entre comunas, con Santiago Centro como nucleo de servicios, Estacion Central con alta densificacion, Ñuñoa con caracter residencial mixto y La Reina con menor densidad y mayor ingreso relativo.
 
-% Topografía, clima, hidrografía, etc.
+De forma sintetica:
 \begin{itemize}
-    \item \textbf{Estacion Central:}
-    El territorio de Estación Central se encuentra emplazado en la unidad geomorfológica de Cuenca de Santiago y presenta un clima mediterráneo de lluvia invernal (Csb) según la clasificación de Köppen.
- La comuna pertenece a la cuenca hidrográfica del río Maipo y alberga cuerpos de agua como el Zanjón de la Aguada y el Canal Ortuzano.
- A pesar de su urbanización extensa, no existen zonas naturales sin intervención humana, y no forma parte de ningún parque natural.
- 
- La comuna ha experimentado un intenso proceso de construcción en altura, especialmente desde mediados de la década de 2010, con la proliferación de megaedificios de más de 20 pisos, algunos con hasta 50 departamentos por piso, lo que ha generado críticas por condiciones de hacinamiento, colapso del sistema de alcantarillado, sombra permanente y falta de áreas verdes.
-    \item \textbf{La Reina:}
-    La comuna de La Reina se encuentra emplazada en las unidades geomorfológicas de Cordillera andina de retención crionival y Cuenca de Santiago. Al ubicarse a los pies de la precordillera de Los Andes o sierra de Ramón, La Reina presenta un relieve con elevadas pendientes en el oriente, producidas por la falla de Ramón, las que se moderan a medida que se avanza hacia el poniente de la comuna. Esta situación, en conjunto con el hecho de acoger diversos cursos de agua, ya sean estos canales o vertientes naturales, expone a algunos sectores de esta comuna a desbordes e incluso ocasionales aluviones, como los ocurridos en 1993 en el canal San Ramón.
-
-La comuna presenta según la clasificación climática de Köppen clima mediterráneo de lluvia invernal (Csb), clima mediterráneo de lluvia invernal de altura (Csb (h)) y clima semiárido de lluvia invernal (BSk (s)). Esta además se halla en la cuenca hidrográfica de río Maipo. Además, la comuna posee diversos cuerpos de agua, entre los que se destacan la laguna Parque Padre Hurtado.
-
-Áreas verdes
-
-Vista de la parte oriental de la plaza Ossandón, en el barrio homónimo; es la principal de la comuna.
-La comuna cuenta con parques y plazas, como el Parque Mahuida y el Parque Padre Hurtado, junto con el Parque Alcalde Ricardo Conteras Bueras, el Parque Quinchamalí, el Parque Andacollo, el Parque Quillagua, el Parque Tobalaba, el Parque Sánchez Fontecilla y el Parque natural Aguas de Ramón. Entre otras
-    
-    \item \textbf{Ñuñoa:}
-    
-    Clima
-Según la clasificación climática de Köppen, Ñuñoa tiene un clima mediterráneo (Csb), con veranos secos y cálidos e inviernos templados con lluvias estacionales. La temperatura media anual ronda los 15/16 Celcius, y la precipitación promedio anual es de aproximadamente 340–380 mm, concentrada principalmente entre mayo y agosto.
-
-Hidrografía y Ecosistemas
-La comuna pertenece a la cuenca hidrográfica del río Maipo y posee algunos cuerpos de agua como el canal San Carlos. Históricamente, la zona albergaba ecosistemas como el bosque espinoso mediterráneo andino (con especies como Acacia caven y Baccharis paniculata), aunque actualmente no existen zonas naturales sin intervención humana debido a la total urbanización del territorio. Hasta 2022, Ñuñoa no contaba con áreas destinadas a la protección ambiental.
-
-    \item \textbf{Santiago Centro:}
-    Clima
-Presenta un clima mediterráneo (Csb) según la clasificación de Köppen, con veranos secos y cálidos, e inviernos templados con precipitaciones estacionales La temperatura media anual ronda los 15 Celcius.
-
-Hidrografía y Ecosistemas
-Pertenece a la cuenca del río Maipo. Los principales cuerpos de agua son el río Mapocho y el Zanjón de la Aguada. Históricamente, albergaba ecosistemas como el bosque espinoso mediterráneo interior (Acacia caven, Prosopis chilensis), pero no existen zonas naturales sin intervención humana debido a la total urbanización. Hasta 2022, no contaba con áreas destinadas a la protección ambiental.
-    
-\end{itemize}
-    
-\subsubsection{Características Socioeconómicas}
-
-\begin{itemize}
-    \item \textbf{Estación Central:} Población aproximada de 206.792 habitantes (Censo 2017). Comuna de carácter principalmente residencial y comercial, con alta densidad poblacional debido a la proliferación de edificios en altura. Presenta estratos socioeconómicos diversos, predominando los grupos C3 y D. Es un importante nodo de transporte con el Terminal de Buses Alameda y la estación intermodal. El ingreso promedio mensual de los hogares se ubica en torno a \$650.000 CLP.
-    
-    \item \textbf{La Reina:} Población aproximada de 96.762 habitantes (Censo 2017). Comuna residencial de estratos medio-alto y alto (grupos ABC1 y C2), caracterizada por viviendas unifamiliares y baja densidad poblacional. Presenta altos índices de áreas verdes per cápita y calidad de vida. El ingreso promedio mensual de los hogares supera los \$2.500.000 CLP, siendo una de las comunas con mayor poder adquisitivo de la Región Metropolitana.
-    
-    \item \textbf{Ñuñoa:} Población aproximada de 250.192 habitantes (Censo 2017). Comuna mixta con sectores residenciales tradicionales y zonas de densificación reciente. Presenta diversidad socioeconómica con predominio de estratos medios (C2 y C3). Destaca por su oferta cultural, gastronómica y comercial. El ingreso promedio mensual de los hogares ronda los \$1.200.000 CLP. Ha experimentado un importante crecimiento inmobiliario en la última década.
-    
-    \item \textbf{Santiago Centro:} Población aproximada de 503.147 habitantes (Censo 2017). Centro histórico, financiero y comercial de la ciudad. Alta densidad poblacional con predominio de departamentos. Presenta gran diversidad socioeconómica, desde sectores populares hasta zonas renovadas de estratos medios. Concentra servicios gubernamentales, comercio, universidades y actividad económica terciaria. El ingreso promedio mensual de los hogares es de aproximadamente \$800.000 CLP.
+    \item \textbf{Santiago Centro:} alta concentracion de servicios, comercio y equipamiento.
+    \item \textbf{Estacion Central:} densificacion vertical y conectividad por transporte masivo.
+    \item \textbf{Nunoa:} mezcla residencial con servicios de escala barrial.
+    \item \textbf{La Reina:} mayor presencia de vivienda unifamiliar y areas verdes.
 \end{itemize}
 
 \subsection{Justificación de la Selección}
-
-La selección de estas cuatro comunas responde a criterios metodológicos y prácticos que permiten un análisis representativo del mercado inmobiliario de Santiago:
-
-\begin{enumerate}
-    \item \textbf{Diversidad socioeconómica:} Las comunas seleccionadas representan un espectro amplio de niveles socioeconómicos, desde La Reina (estrato alto) hasta Estación Central (estratos medio-bajo), pasando por Ñuñoa y Santiago Centro (estratos medios). Esta diversidad permite evaluar cómo varían los factores de satisfacción residencial según el contexto socioeconómico.
-    
-    \item \textbf{Heterogeneidad urbana:} El área de estudio incluye zonas de alta densificación vertical (Estación Central, Santiago Centro), sectores residenciales tradicionales (La Reina), y comunas en transición con mezcla de tipologías (Ñuñoa). Esto permite analizar el impacto de diferentes morfologías urbanas en la satisfacción residencial.
-    
-    \item \textbf{Disponibilidad de datos:} Estas comunas presentan un volumen significativo de propiedades en venta (7.702 propiedades), lo que garantiza una muestra estadísticamente robusta para el entrenamiento y validación de los modelos predictivos.
-    
-    \item \textbf{Conectividad y servicios:} Las cuatro comunas cuentan con cobertura de la red de Metro de Santiago y acceso a diversos servicios urbanos, permitiendo evaluar el impacto de la accesibilidad en la satisfacción residencial.
-    
-    \item \textbf{Contigüidad geográfica:} La cercanía espacial de las comunas facilita el análisis de efectos de borde y la comparación de condiciones similares de entorno metropolitano, minimizando sesgos por diferencias macro-regionales.
-\end{enumerate} 
-
-% ====================================================================
-% 4. DATOS Y METODOLOGÍA
-% ====================================================================
-
+\begin{itemize}
+    \item Diversidad socioeconomica y morfologica que permite comparar patrones de accesibilidad.
+    \item Alta disponibilidad de datos inmobiliarios y de servicios urbanos.
+    \item Contiguidad espacial que facilita el analisis comparativo y reduce sesgos macro-regionales.
+\end{itemize}
 \section{Datos y Metodología}
 
 \subsection{Fuentes de Datos}
+Se integraron 29 datasets geoespaciales (educacion, salud, transporte, seguridad, comercio, areas verdes y servicios publicos), ademas de informacion inmobiliaria obtenida por scraping y geocodificacion. El detalle de fuentes y formatos se resume en la Tabla \ref{tab:datos} (Anexo B).
 
-Este proyecto utiliza 29 datasets diferentes con informacion geografica de las cuatro comunas de santiago considerando datos geoespaciales sobre: colegios, hospitales, parques, estaciones de metro, etc. Cada datasets se encuentra en diferentes formatos como se muestra en la Tabla \ref{tab:datos}.
+Las fuentes se agrupan en siete macro-categorias:
+\begin{itemize}
+    \item Educacion: colegios, jardines y universidades.
+    \item Salud: hospitales, consultorios, farmacias y clinicas.
+    \item Transporte: metro, buses, ciclovias y estaciones de carga.
+    \item Seguridad: comisarias, cuarteles y bomberos.
+    \item Comercio: centros comerciales, mercados y tiendas.
+    \item Entorno: parques, plazas y areas verdes.
+    \item Servicios publicos: municipalidades y oficinas gubernamentales.
+\end{itemize}
 
 \subsection{Preprocesamiento de Datos}
+Los datasets se reproyectaron a EPSG:32719, se filtraron por el area de estudio y se aplicaron controles de calidad (duplicados, geometrías invalidas y estandarizacion de atributos). Las propiedades se geocodificaron con Google Maps API y se valido consistencia espacial.
 
-\subsubsection{Limpieza y Validación}
-% Describir procesos de limpieza
-\textbf{Normalización y filtrado}\\
-Adicionalmente transformamos en cada mapa el calculo de distancias basada en la misma regla de medicion, utilizando el sistema metrico en metros presente en el CRS EPSG:32719 (UTM Zone 19S)
-
-\textbf{Limpieza de datos}
+Principales acciones de preprocesamiento:
 \begin{itemize}
-\item Eliminación de duplicados espaciales
-\item Eliminamos duplicados: Algunos puntos (como colegios) aparecían dos veces en los datos
-\item Validación de geometrías (detección de elementos inválidos)
-\item Corregimos geometrías inválidas: Algunos polígonos o líneas tenían errores técnicos
-\item Estandarizamos nombres de campos: Todos los datasets ahora tienen estructura similar
-\item Estandarización de campos de atributos: Control de calidad automatizado
-\item Validamos calidad: Verificamos que todos los datos sean correctos y completos
+    \item Normalizacion de CRS y formatos a GeoJSON.
+    \item Filtrado por comunas objetivo con buffer de inclusion.
+    \item Validacion de geometria y eliminacion de duplicados espaciales.
+    \item Estandarizacion de campos y control de valores nulos.
 \end{itemize}
 
-\subsubsection{Transformaciones y Proyecciones}
+\subsection{Variables Inmobiliarias y Calidad de Datos}
+El dataset inmobiliario incluye precio en UF, superficie util y total, tipo de vivienda, numero de dormitorios y banos, ademas de coordenadas geocodificadas. A partir de estas variables se generaron indicadores derivados como precio/m\textsuperscript{2} y densidad de dormitorios por superficie, utilizados para capturar eficiencia espacial.
 
-% Sistemas de coordenadas, reproyecciones
-\textbf{Unificación del sistema de coordenadas}\\
-Convertimos todos nuestros datos a usar el mismo sistema: UTM Zona 19S (EPSG:32719), que es ideal para medir distancias en metros en Santiago.
-
-\textbf{Filtrado Geografico}\\
-Reproyección automática desde múltiples CRS origen
-Nos enfocamos solo en 4 comunas principales de Santiago:
-
-Las Condes - Filtrado Geográfico
-Providencia - Área de interés: 4 comunas principales
-Santiago Centro- Las Condes
-Ñuñoa- Providencia
-Santiago
-
-¿Por qué? Para hacer el análisis más manejable y enfocado en áreas urbanas con características similares.- Ñuñoa
-
-\textbf{Buffers de inclusión}\\
-Buffer de inclusión: Márgenes para capturar servicios limítrofes
-
+Se aplicaron controles basicos de calidad: deteccion de coordenadas nulas o fuera del poligono de estudio, revision de duplicados de aviso y verificacion de rangos plausibles para precio y superficie. Estos filtros permitieron mantener consistencia interna sin eliminar variabilidad relevante del mercado.
 
 \subsection{Metodología de Análisis}
+La metodologia se organiza en tres fases (Figura \ref{fig:flujo}, Anexo):
 
-El proyecto implementa una metodología integrada que combina análisis geoespacial, ingeniería de características y machine learning en un pipeline de tres fases secuenciales. A continuación se detalla exhaustivamente cada componente metodológico.
+\textbf{Fase 1 - Preparacion de datos:} normalizacion de 29 datasets y consolidacion de 7,702 propiedades.
 
-\subsubsection{Diagrama de Flujo Metodológico}
+\textbf{Fase 2 - Caracteristicas espaciales:} generacion de una grilla de 3,149 puntos (250 m) y calculo de 21 distancias, 42 densidades y 9 indices de accesibilidad.
 
-La metodología se estructura en tres fases principales ejecutadas de forma secuencial:
+\textbf{Fase 3 - Modelamiento predictivo:} construccion de un proxy de satisfaccion, seleccion de 42 features y entrenamiento de LightGBM con validacion cruzada.
 
-\begin{figure}[H]
-    \centering
-    % \includegraphics[width=\textwidth]{figuras/diagrama_flujo.png}
-    \caption{Diagrama de flujo metodológico del proyecto}
-    \label{fig:flujo}
-\end{figure}
+Adicionalmente, se construyeron 9 indices compuestos de accesibilidad (vida urbana, calidad de vida y habitabilidad global), que integran distancias y densidades en una escala comparable. Estos indices permiten analizar patrones territoriales y comparar comunas de forma consistente.
 
-\textbf{Fase 1 - Preparación de Datos (Semana 1):}
-\begin{itemize}
-    \item Consolidación de 29 datasets geoespaciales heterogéneos
-    \item Normalización al sistema de coordenadas UTM 19S (EPSG:32719)
-    \item Validación de calidad geométrica y eliminación de duplicados espaciales
-    \item Filtrado por área de interés (4 comunas objetivo)
-    \item Geocodificación de 7,702 propiedades mediante Google Maps API
-\end{itemize}
+La definicion de radios se alinea con umbrales caminables (300 m ~5 min, 600 m ~10 min, 1000 m ~15 min). Se utilizo distancia euclidiana por consistencia y disponibilidad de datos, asumiendo que los patrones generales de accesibilidad se preservan a escala comunal.
 
-\textbf{Fase 2 - Características Espaciales (Semana 2):}
-\begin{itemize}
-    \item Generación de grilla regular de evaluación (3,149 puntos, espaciado 250m)
-    \item Cálculo de 21 métricas de distancia euclidiana a servicios urbanos
-    \item Cálculo de 42 métricas de densidad en radios múltiples (300m, 600m, 1000m)
-    \item Creación de 9 índices compuestos de accesibilidad
-    \item Integración espacial mediante nearest neighbor (KDTree)
-\end{itemize}
+\subsubsection{Analisis Espacial}
+Se genero una grilla regular con espaciamiento de 250 m sobre el area de estudio, con 3,149 puntos validos. Para cada punto se calcularon distancias minimas a 21 categorias de servicios y densidades de servicios en radios de 300 m, 600 m y 1000 m.
 
-\textbf{Fase 3 - Modelamiento Predictivo (Semana 3):}
-\begin{itemize}
+\paragraph{Generacion de Grilla de Evaluacion}
+Se definio un area de estudio con buffers de inclusion y se genero una grilla regular de puntos cada 250 m. El filtrado espacial dejo 3,149 puntos validos, con identificadores unicos y coordenadas UTM (EPSG:32719).
 
-	\item Mejor R²: El modelo LightGBM alcanza R² = 0.8635 parcialmente gracias a estas métricas
-    \item Desarrollo de proxy de satisfacción residencial personalizable
-    \item Feature engineering: 42 variables predictoras finales
-    \item Entrenamiento de modelo LightGBM con validación cruzada 5-fold
-    \item Evaluación comparativa con Random Forest, XGBoost, CatBoost
-    \item Despliegue de API de predicción y generación de visualizaciones
-\end{itemize}
-
-\subsubsection{Análisis Espacial}
-
-\paragraph{Generación de Grilla de Evaluación}
-
-\textbf{Objetivo:} Crear una capa sistemática de puntos de evaluación distribuidos uniformemente sobre el territorio de estudio para cuantificar características espaciales del entorno urbano.
-
-\textbf{Metodología:}
-\begin{enumerate}
-    \item \textbf{Definición del área de estudio}: Se obtienen los límites administrativos de las 4 comunas objetivo mediante buffers poligonales que garantizan inclusión de servicios limítrofes. Los buffers se generan con margen de 500m para capturar servicios externos pero cercanos.
-    
-    \item \textbf{Creación de grilla regular}: Se genera una malla de puntos espaciados uniformemente cada 250 metros sobre el bounding box del área de estudio. La fórmula utiliza:
-    \begin{equation}
-    N_{puntos} = \left\lceil \frac{x_{max} - x_{min}}{250} \right\rceil \times \left\lceil \frac{y_{max} - y_{min}}{250} \right\rceil
-    \end{equation}
-    
-    \item \textbf{Filtrado espacial}: Se aplica intersección espacial (operador \texttt{within}) para retener únicamente puntos que caen dentro de los límites comunales, reduciendo el conjunto inicial a 3,149 puntos de evaluación válidos.
-    
-    \item \textbf{Asignación de metadatos}: Cada punto recibe identificador único (\texttt{GRID\_XXXX\_YYYY}), coordenadas UTM (x, y), zona UTM (19S), y timestamp de creación.
-\end{enumerate}
-
-\textbf{Resultado:} Grilla regular de 3,149 puntos espaciados 250m × 250m, con densidad de 14.8 puntos/km² sobre el área de estudio.
-
-\paragraph{Cálculo de Distancias Euclidianas}
-
-\textbf{Objetivo:} Cuantificar la proximidad geográfica de cada punto de la grilla a servicios urbanos clave, generando métricas de accesibilidad física.
-
-\textbf{Metodología:}
-\begin{enumerate}
-    \item \textbf{Organización de servicios}: Los 29 datasets de servicios se agrupan en 21 categorías temáticas:
-    \begin{itemize}
-        \item Educación: básica (escuelas), superior (universidades), parvularia (jardines)
-        \item Salud: hospitales, consultorios, farmacias, clínicas
-        \item Transporte: estaciones de metro, paraderos de buses, ciclovías, carga eléctrica
-        \item Seguridad: comisarías PDI, cuarteles de carabineros, bomberos
-        \item Comercio: tiendas, centros comerciales, mercados
-        \item Recreación: parques, áreas verdes, espacios públicos
-        \item Servicios públicos: municipalidades, oficinas gubernamentales
-    \end{itemize}
-    
-    \item \textbf{Homogeneización geométrica}: Todas las geometrías se convierten a puntos:
-    \begin{itemize}
-        \item Puntos: se mantienen sin cambios
-        \item Líneas: se utiliza el centroide de la línea
-        \item Polígonos: se calcula el centroide del área
-    \end{itemize}
-    
-    \item \textbf{Algoritmo de búsqueda del vecino más cercano}: Para cada categoría de servicio $S_k$ con $n$ puntos y cada punto de grilla $g_i$, se utiliza \textbf{cKDTree} de scipy para búsqueda espacial eficiente:
-    
-    \begin{equation}
-    d_{i,k} = \min_{j=1,\ldots,n} \sqrt{(x_{g_i} - x_{s_j})^2 + (y_{g_i} - y_{s_j})^2}
-    \end{equation}
-    
-    donde $d_{i,k}$ es la distancia mínima del punto $g_i$ a la categoría $S_k$.
-    
-    \item \textbf{Complejidad computacional}: cKDTree reduce la complejidad de $O(N \times M)$ a $O(N \log M)$ donde $N$ = 3,149 puntos de grilla y $M$ = cantidad de servicios por categoría.
-    
-    \item \textbf{Normalización de distancias}: Las distancias brutas se transforman a escala 0-10 mediante función inversa:
-    \begin{equation}
-    \text{score}_{i,k} = 10 \times \left(1 - \frac{\min(d_{i,k}, d_{max})}{d_{max}}\right)
-    \end{equation}
-    donde $d_{max}$ es el percentil 95 de distancias para la categoría $k$.
-\end{enumerate}
-
-\textbf{Resultado:} 21 columnas de distancias euclidianas por punto de grilla (ejemplo: \texttt{dist\_educacion\_basica\_m}, \texttt{dist\_salud\_m}), expresadas en metros desde el servicio más cercano.
-
-\begin{figure}[H]
-    \centering
-    % \includegraphics[width=0.75\textwidth]{figuras/05_mapa_habitabilidad.png}
-    \caption{Mapa de índice de habitabilidad calculado a partir de características espaciales}
-    \label{fig:mapa_habitabilidad}
-\end{figure}
-
-\paragraph{Cálculo de Densidades de Servicios}
-
-\textbf{Objetivo:} Cuantificar la concentración local de servicios urbanos alrededor de cada punto de evaluación, capturando patrones de aglomeración y disponibilidad de servicios.
-
-\textbf{Metodología:}
-\begin{enumerate}
-    \item \textbf{Definición de radios de análisis}: Se establecen tres escalas espaciales:
-    \begin{itemize}
-        \item Radio 300m: Distancia caminable corta ($\sim$5 minutos a pie)
-        \item Radio 600m: Distancia caminable media ($\sim$10 minutos a pie)
-        \item Radio 1000m: Distancia caminable larga ($\sim$15 minutos a pie)
-    \end{itemize}
-    
-    \item \textbf{Generación de buffers circulares}: Para cada punto $g_i$ y radio $r$, se crea un buffer circular:
-    \begin{equation}
-    B_r(g_i) = \{p \in \mathbb{R}^2 : \|p - g_i\| \leq r\}
-    \end{equation}
-    
-    \item \textbf{Conteo de servicios por intersección espacial}: Se cuentan los servicios de cada categoría que intersectan el buffer:
-    \begin{equation}
-    n_{i,k,r} = |\{s \in S_k : s \cap B_r(g_i) \neq \emptyset\}|
-    \end{equation}
-    
-    \item \textbf{Cálculo de densidad por km²}: La densidad se normaliza por área del buffer:
-    \begin{equation}
-    \rho_{i,k,r} = \frac{n_{i,k,r}}{\pi r^2} \times 10^6 \text{ [servicios/km²]}
-    \end{equation}
-    
-    \item \textbf{Agregación por categorías}: Se calculan densidades para 6 macrocategorías (educación, salud, comercio, seguridad, transporte, recreación) combinando subcategorías relacionadas.
-\end{enumerate}
-
-\textbf{Resultado:} 42 columnas de densidad (6 categorías × 3 radios × 2 medidas: conteo y densidad), ejemplo: \texttt{dens\_educacion\_300m\_km2}, \texttt{dens\_salud\_1000m\_km2}.
-
-\paragraph{Integración Espacial con Propiedades}
-
-\textbf{Objetivo:} Transferir las características espaciales calculadas en la grilla de evaluación a las ubicaciones reales de las 7,702 propiedades inmobiliarias.
-
-\textbf{Metodología:}
-\begin{enumerate}
-    \item \textbf{Reproyección a sistema métrico}: Tanto propiedades (originalmente en WGS84) como grilla (en UTM 19S) se reproyectan a EPSG:32719 para cálculos precisos de distancia en metros.
-    
-    \item \textbf{Algoritmo Nearest Neighbor}: Para cada propiedad $p_i$, se identifica el punto de grilla más cercano usando cKDTree:
-    \begin{equation}
-    g^* = \arg\min_{g \in \text{Grilla}} \|p_i - g\|
-    \end{equation}
-    
-    \item \textbf{Transferencia de atributos}: Se copian todos los 72 atributos espaciales del punto $g^*$ a la propiedad $p_i$, creando un dataset enriquecido.
-    
-    \item \textbf{Validación de proximidad}: Se registra la distancia $\|p_i - g^*\|$ como métrica de calidad. La distancia promedio es 88m, garantizando alta precisión en la transferencia de características.
-\end{enumerate}
-
-\textbf{Resultado:} Dataset integrado de 7,702 propiedades × 72 características espaciales, listo para modelamiento predictivo.
-
-\subsubsection{Análisis Estadístico y Machine Learning}
-
-\paragraph{Desarrollo del Proxy de Satisfacción Residencial}
-
-\textbf{Fundamento conceptual}: La satisfacción residencial es un constructo multidimensional que integra valor económico, características físicas de la vivienda y calidad del entorno urbano. Se modela como función de utilidad:
-
+\paragraph{Calculo de Distancias}
+Para cada punto de la grilla se calculo la distancia minima a cada categoria de servicio usando cKDTree, reduciendo el costo computacional. La distancia se expresa en metros y se normaliza para facilitar comparaciones.
 \begin{equation}
-U = f(\text{Valor}, \text{Espacio}, \text{Educación}, \text{Salud}, \text{Transporte}, \text{Seguridad}, \text{Comercio}, \text{Áreas Verdes})
+d_{i,k} = \min_{j} \sqrt{(x_{g_i} - x_{s_j})^2 + (y_{g_i} - y_{s_j})^2}
 \end{equation}
 
-\textbf{Metodología de cálculo:}
-\begin{enumerate}
-    \item \textbf{Dimensión de valor económico}: Evalúa precio/m² relativo al contexto local:
-    \begin{equation}
-    \text{score}_{\text{valor}} = 10 \times (1 - P_{\text{precio/m}^2})
-    \end{equation}
-    donde $P_{\text{precio/m}^2}$ es el percentil del precio dentro de propiedades del mismo tipo y comuna.
-    
-    \item \textbf{Dimensión de espacio}: Basada en m² por habitante potencial:
-    \begin{equation}
-    \text{m}^2/\text{hab} = \frac{\text{superficie}}{(\text{dormitorios} \times 2)}
-    \end{equation}
-    
-    Score se asigna mediante función de utilidad no lineal: óptimo en 15--25 m²/hab.
-    
-    \item \textbf{Dimensiones espaciales}: Para cada dimensión $k$ (educación, salud, etc.):
-    \begin{equation}
-    \text{score}_k = \begin{cases}
-    \text{acc}_k & \text{si existe índice compuesto} \\
-    10 - \frac{d_k}{d_{\max,k}} \times 10 & \text{si solo distancia disponible} \\
-    5.0 & \text{si sin datos (aproximación neutral)}
-    \end{cases}
-    \end{equation}
-    
-    \item \textbf{Personalización por perfil de usuario}: Se definen 5 perfiles con pesos diferenciados:
-    \begin{equation}
-    \text{Satisfacci}\acute{\text{o}}\text{n}_{\text{perfil}} = \frac{\sum_{k} w_{\text{perfil},k} \times \text{score}_k}{\sum_{k} w_{\text{perfil},k}}
-    \end{equation}
-    
-    Ejemplos de pesos por perfil:
-    \begin{itemize}
-        \item Familia con ni\~{n}os: $w_{\text{educaci}\acute{\text{o}}\text{n}} = 2.5$, $w_{\text{espacios}} = 2.5$
-        \item Profesional joven: $w_{\text{transporte}} = 2.5$, $w_{\text{valor}} = 1.8$
-        \item Adulto mayor: $w_{\text{salud}} = 3.0$, $w_{\text{seguridad}} = 2.0$
-    \end{itemize}
-    
-    \item \textbf{Adición de ruido estocástico}: Para evitar overfitting perfecto:
-    \begin{equation}
-    \text{Satisfacción}_{final} = \text{clip}(\text{Satisfacción} + \mathcal{N}(0, 0.3), 1, 10)
-    \end{equation}
-\end{enumerate}
+Las distancias se normalizaron a una escala 0-10 usando percentiles para reducir el efecto de outliers, de modo que valores cercanos representen mayor accesibilidad. El uso de cKDTree reduce la complejidad de busqueda desde O(N*M) a aproximadamente O(N log M).
 
-\textbf{Prevención de data leakage}: El cálculo de satisfacción utiliza percentiles y comparaciones contextuales (información de fila + agregaciones del dataset completo) que NO se pasan directamente como features al modelo de ML, evitando leakage.
+\paragraph{Calculo de Densidades}
+Se calcularon densidades de servicios en radios de 300 m, 600 m y 1000 m para capturar accesibilidad caminable y cobertura ampliada. Las densidades se expresan como servicios por km\textsuperscript{2}.
 
-\paragraph{Feature Engineering}
+\paragraph{Indices de Accesibilidad}
+Las distancias y densidades se combinaron en indices por dimension (educacion, salud, transporte, seguridad, comercio y entorno) y en tres indices superiores: vida urbana, calidad de vida y habitabilidad global.
 
-\textbf{Objetivo}: Transformar variables crudas en features informativas que maximicen la capacidad predictiva del modelo.
+\paragraph{Integracion con Propiedades}
+Cada propiedad se asigno al punto de grilla mas cercano (distancia media 88 m), transfiriendo 72 metricas espaciales al dataset inmobiliario para el modelamiento predictivo.
 
-\textbf{Features generadas}:
+\paragraph{Control de Calidad}
+Se verifico consistencia de CRS, geometria valida y cobertura espacial, registrando reportes de calidad para cada dataset. Estos controles permiten trazabilidad y reproducibilidad del pipeline.
 
-\begin{enumerate}
-    \item \textbf{Variables internas de la propiedad} (10 features):
-    \begin{itemize}
-        \item Básicas: \texttt{superficie\_util}, \texttt{dormitorios}, \texttt{banos}
-        \item Derivadas: \texttt{total\_habitaciones = dormitorios + baños}
-        \item Indicadores: \texttt{es\_departamento}, \texttt{es\_casa} (one-hot encoding)
-        \item Geográficas: \texttt{latitude}, \texttt{longitude}
-        \item Contextuales: \texttt{es\_comuna\_premium}, \texttt{es\_comuna\_economica}
-    \end{itemize}
-    
-    \item \textbf{Variables económicas} (2 features):
-    \begin{itemize}
-        \item \texttt{precio\_uf}: Precio total en Unidades de Fomento
-        \item \texttt{precio\_m2\_uf}: Precio normalizado por superficie
-    \end{itemize}
-    
-    \item \textbf{Features espaciales de la grilla} (30 features principales):
-    \begin{itemize}
-        \item 21 distancias euclidianas a servicios (ej: \texttt{dist\_areas\_verdes\_m})
-        \item 9 índices compuestos de accesibilidad (ej: \texttt{acc\_transporte})
-        \item Densidades seleccionadas por importancia (ej: \texttt{dens\_comercio\_600m\_km2})
-    \end{itemize}
-\end{enumerate}
+\subsubsection{Modelamiento y Evaluacion}
+El proxy de satisfaccion combina valor economico (precio/m\textsuperscript{2}), atributos fisicos y accesibilidad. Se compararon modelos con Random Forest y LightGBM, evaluando R\textsuperscript{2}, RMSE y MAE, y se verifico autocorrelacion espacial residual (Moran's I).
 
-\textbf{Total}: 42 features predictoras finales (10 internas + 2 económicas + 30 espaciales).
+El proxy se ajusta a cinco perfiles (familia con ninos, profesional joven, inversionista, adulto mayor y balanceado), modificando los pesos de cada dimension. La validacion se realizo con particion entrenamiento/prueba y 5-fold cross-validation, reportando estabilidad en las metricas.
 
-\textbf{Exclusiones deliberadas}: Se excluyen features que pueden calcularse algebraicamente de otras (ej: \texttt{m2\_por\_dormitorio} = \texttt{superficie/dormitorios}) para evitar multicolinealidad y leakage indirecto.
+Se establecio un baseline con Random Forest y se comparo con LightGBM para balancear sesgo-varianza. La evaluacion verifico coherencia entre metricas en entrenamiento y prueba, evitando sobreajuste y priorizando generalizacion territorial.
 
-\paragraph{Modelamiento con LightGBM}
-
-\textbf{Justificación del algoritmo}: LightGBM (Light Gradient Boosting Machine) fue seleccionado tras evaluación comparativa exhaustiva de 5 algoritmos (Random Forest, XGBoost, CatBoost, Neural Networks, LightGBM), demostrando superioridad en:
+\subsubsection{Herramientas y Entorno}
+El pipeline se implemento en Python, con librerias especializadas para datos geoespaciales y modelamiento. Se utilizaron, entre otras:
 \begin{itemize}
-    \item Precisión: R² = 0.8635 (mejor que RF baseline 0.8453)
-    \item Eficiencia: Tiempo de entrenamiento 33\% menor
-    \item Manejo de features espaciales: 42 variables con interacciones complejas
+    \item GeoPandas y Shapely para manejo de geometria.
+    \item Pandas y NumPy para analisis tabular.
+    \item SciPy y scikit-learn para calculos y validacion.
+    \item LightGBM para el modelo predictivo.
+    \item Matplotlib/Seaborn y Folium para visualizacion.
 \end{itemize}
-
-\textbf{Arquitectura del modelo}:
-\begin{lstlisting}[language=Python, caption=Configuración LightGBM]
-lgb.LGBMRegressor(
-    n_estimators=300,       # Numero de arboles
-    max_depth=10,           # Profundidad maxima
-    learning_rate=0.05,     # Tasa de aprendizaje
-    num_leaves=31,          # Hojas por arbol
-    subsample=0.8,          # Muestreo de filas
-    colsample_bytree=0.8,   # Muestreo de columnas
-    reg_alpha=0.1,          # Regularizacion L1
-    reg_lambda=0.1,         # Regularizacion L2
-    random_state=42
-)
-\end{lstlisting}
-
-\textbf{Procedimiento de entrenamiento}:
-
-\begin{enumerate}
-    \item \textbf{División train-test estratificada}:
-    \begin{equation}
-    D = D_{train} \cup D_{test}, \quad |D_{train}| = 0.8|D|, \quad |D_{test}| = 0.2|D|
-    \end{equation}
-    División: 6,157 propiedades entrenamiento, 1,545 propiedades prueba.
-    
-    \item \textbf{Escalamiento robusto}: Se aplica RobustScaler para mitigar efecto de outliers:
-    \begin{equation}
-    x_{scaled} = \frac{x - \text{median}(x)}{Q_{75}(x) - Q_{25}(x)}
-    \end{equation}
-    
-    \item \textbf{Entrenamiento del modelo}:
-    \begin{equation}
-    \hat{\theta} = \arg\min_{\theta} \sum_{i=1}^{n_{train}} L(y_i, f(x_i; \theta)) + \Omega(\theta)
-    \end{equation}
-    donde $L$ es la pérdida cuadrática y $\Omega$ incluye regularización L1/L2.
-    
-    \item \textbf{Validación cruzada 5-fold}: Para estimación robusta de capacidad de generalización:
-    \begin{equation}
-    \text{CV-R²} = \frac{1}{K}\sum_{k=1}^{K} R²_{fold_k}
-    \end{equation}
-    Resultado: CV-R² = 0.8650 ± 0.0155 (muy estable).
-\end{enumerate}
-
-\textbf{Métricas de evaluación}:
-
-\begin{enumerate}
-    \item \textbf{R² (Coeficiente de determinación)}:
-    \begin{equation}
-    R² = 1 - \frac{\sum_{i}(y_i - \hat{y}_i)^2}{\sum_{i}(y_i - \bar{y})^2} = 0.8635
-    \end{equation}
-    Interpretación: El modelo explica 86.35\% de la varianza en satisfacción.
-    
-    \item \textbf{RMSE (Root Mean Square Error)}:
-    \begin{equation}
-    \text{RMSE} = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i)^2} = 0.3357
-    \end{equation}
-    Interpretación: Error promedio de 0.34 puntos en escala 1-10.
-    
-    \item \textbf{MAE (Mean Absolute Error)}:
-    \begin{equation}
-    \text{MAE} = \frac{1}{n}\sum_{i=1}^{n}|y_i - \hat{y}_i| = 0.2661
-    \end{equation}
-    Interpretación: Error absoluto medio de 0.27 puntos.
-\end{enumerate}
-
-\paragraph{Análisis de Importancia de Variables}
-
-LightGBM proporciona medidas de importancia basadas en ganancia (gain), que cuantifica la reducción promedio de pérdida cuando se hace split en una variable. Las 10 variables más importantes:
-
-\begin{table}[H]
-\centering
-\caption{Top 10 Variables por Importancia (Gain)}
-\begin{tabular}{@{}clrr@{}}
-\toprule
-\textbf{Rank} & \textbf{Variable} & \textbf{Importancia} & \textbf{Tipo} \\
-\midrule
-1 & precio\_m2\_uf & 1,351 & Económica \\
-2 & superficie\_util & 1,017 & Interna \\
-3 & precio\_uf & 616 & Económica \\
-4 & dormitorios & 445 & Interna \\
-5 & dist\_areas\_verdes\_m & 367 & Espacial \\
-6 & dist\_seguridad\_min\_m & 293 & Espacial \\
-7 & longitude & 284 & Geográfica \\
-8 & latitude & 283 & Geográfica \\
-9 & dist\_transporte\_min\_m & 279 & Espacial \\
-10 & dist\_ocio\_m & 233 & Espacial \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\textbf{Hallazgo clave}: Las variables espaciales (distancias a servicios) representan 40\% de la importancia total en el top 10, validando la hipótesis H1 de que factores externos son determinantes significativos de satisfacción residencial.
-
-\paragraph{Validación del Modelo}
-
-\begin{enumerate}
-    \item \textbf{Análisis de residuos}: Se verifica ausencia de patrones sistemáticos en residuos:
-    \begin{equation}
-    e_i = y_i - \hat{y}_i, \quad \mathbb{E}[e_i] \approx 0, \quad \text{Var}(e_i) \approx \sigma²
-    \end{equation}
-    
-    \item \textbf{Autocorrelación espacial de residuos}: Se calcula el índice de Moran para verificar ausencia de sesgo geográfico:
-    \begin{equation}
-    I = \frac{n \sum_i \sum_j w_{ij}(e_i - \bar{e})(e_j - \bar{e})}{\left(\sum_i \sum_j w_{ij}\right) \sum_i (e_i - \bar{e})²}
-    \end{equation}
-    Resultado: $I = 0.0695$ (autocorrelación espacial muy baja, modelo no presenta sesgo geográfico).
-    
-    \item \textbf{Curva predicción vs. real}: Correlación lineal entre $y$ y $\hat{y}$ con R² = 0.8635, confirmando ajuste del modelo.
-\end{enumerate}
-
-\textbf{Conclusión metodológica}: El pipeline integrado de análisis espacial + feature engineering + LightGBM alcanza alta precisión predictiva (R² > 0.86) con residuos espacialmente independientes, validando la robustez del enfoque metodológico implementado.
-
-
-% ====================================================================
-% 5. RESULTADOS PRELIMINARES
-% ====================================================================
-
-
 \section{Resultados Preliminares}
 
-Este capítulo presenta los resultados del análisis exploratorio de datos (EDA), estadísticas descriptivas espaciales, primeras visualizaciones y patrones identificados que fundamentaron la selección del modelo predictivo final. Los resultados se organizan en cuatro subsecciones principales que documentan el proceso de descubrimiento y análisis implementado en el proyecto TerraMatch.
+\subsection{Caracterizacion del Dataset}
+Se analizaron 7,702 propiedades: 66.7\% departamentos y 33.3\% casas, distribuidas en La Reina (1,918), Estación Central (2,587), Ñuñoa (2,087) y Santiago (1,110). Las distribuciones de variables clave se muestran en la Figura \ref{fig:histogramas} (Anexo).
 
-\subsection{Análisis Exploratorio de Datos (EDA)}
+En terminos de distribucion, los precios muestran asimetria positiva con mayor concentracion en rangos medios, mientras que la superficie util presenta un patron bimodal asociado a departamentos y casas. Estas tendencias se observan en la Figura \ref{fig:histogramas} (Anexo).
 
-\subsubsection{Caracterización del Dataset}
-
-El dataset consolidado contiene \textbf{7,702 propiedades} distribuidas en 4 comunas de Santiago, con la siguiente composición:
-
+Resumen descriptivo:
 \begin{itemize}
-    \item \textbf{Departamentos:} 5,135 unidades (66.7\%)
-    \item \textbf{Casas:} 2,567 unidades (33.3\%)
-    \item \textbf{Comunas:} La Reina (1,918 propiedades), Estación Central (2,587), Ñuñoa (2,087), Santiago (1,110)
+    \item Precio por m\textsuperscript{2}: rango aproximado 50-180 UF/m\textsuperscript{2}.
+    \item Superficie util: rangos dominantes en 40-60 m\textsuperscript{2} (departamentos) y 120-180 m\textsuperscript{2} (casas).
+    \item Dormitorios y banos: predominio de 2-3 dormitorios y 1-2 banos.
 \end{itemize}
 
-El análisis exploratorio inicial reveló distribuciones características del mercado inmobiliario chileno, con precios que exhiben asimetría positiva (concentración en rangos bajos con cola derecha extendida) y superficies que varían significativamente según tipo de propiedad.
+\subsection{Estadisticas de Accesibilidad}
+Los indices promedio muestran mayor accesibilidad en educacion (media 5.79) y menor en comercio (2.00), con alta variabilidad en transporte (desv. est. 2.66). Estas diferencias justifican el uso de metricas espaciales en el modelo.
 
-\subsubsection{Distribuciones de Variables Principales}
+Destaca la brecha entre comunas en transporte y comercio, lo que anticipa diferencias en satisfaccion residencial cuando se controlan factores economicos.
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.9\textwidth]{figuras/grafico_01_histogramas.png}
-    \caption{Distribución de variables principales: precio (UF), superficie útil (m²), dormitorios y baños}
-    \label{fig:histogramas}
-\end{figure}
+Valores promedio por dimension (escala 1-10):
+\begin{itemize}
+    \item Educacion: 5.79 (alta cobertura relativa).
+    \item Salud: 4.36 (variabilidad significativa).
+    \item Transporte: 3.60 (mayor dispersion territorial).
+    \item Entorno: 4.68 (acceso moderado a areas verdes).
+    \item Seguridad: 3.74 (cobertura heterogenea).
+    \item Comercio: 2.00 (concentracion en zonas centrales).
+\end{itemize}
 
-El análisis de histogramas (Figura \ref{fig:histogramas}) evidencia:
+\subsection{Distribucion del Proxy de Satisfaccion}
+El proxy de satisfaccion muestra concentracion en rangos medios, con colas hacia valores altos en zonas centrales y sectores con alta accesibilidad. Las comunas centrales presentan mayor mediana, mientras que La Reina exhibe mayor dispersion por su heterogeneidad morfologica. Este patron es consistente con el gradiente centro-periferia observado en precios.
 
-\textbf{Precio por m²:} Rango de 50-180 UF/m² con media de 102.67 UF/m², mostrando clara segmentación por comuna (La Reina con valores superiores, Estación Central con valores más accesibles).
+Por perfil de usuario, el ranking comunal cambia: el perfil inversionista favorece ubicaciones con menor precio/m\textsuperscript{2}, mientras que el perfil familiar prioriza cercania a educacion y areas verdes. Estas diferencias respaldan el enfoque multi-perfil y justifican reportar resultados diferenciados en la version final.
 
-\textbf{Superficie útil:} Distribución bimodal con pico principal en 40-60 m² (departamentos) y secundario en 120-180 m² (casas). La media general es de 89.3 m².
+\subsection{Comparacion de Modelos}
+LightGBM supero al baseline Random Forest, con R\textsuperscript{2} 0.8635, RMSE 0.3357 y MAE 0.2661. La dispersion predicho vs. real se presenta en la Figura \ref{fig:dispersion} (Anexo).
 
-\textbf{Dormitorios y baños:} Configuraciones predominantes de 2-3 dormitorios (78\% de propiedades) y 1-2 baños (82\%), reflejando la tipología residencial urbana de Santiago.
-
-\subsection{Estadísticas Descriptivas Espaciales}
-
-El cálculo de 72 características espaciales permitió cuantificar la accesibilidad urbana de cada propiedad. Las estadísticas descriptivas de los índices de accesibilidad compuestos revelan patrones espaciales consistentes:
-
-\subsubsection{Índices de Accesibilidad Promedio por Dimensión}
+La importancia de variables confirma el peso de precio/m\textsuperscript{2}, superficie y distancias a areas verdes, seguridad y transporte (Figura \ref{fig:importancia}, Anexo).
 
 \begin{table}[H]
 \centering
-\caption{Estadísticas descriptivas de índices de accesibilidad (escala 1-10)}
-\begin{tabular}{@{}lrrrr@{}}
-\toprule
-\textbf{Dimensión} & \textbf{Media} & \textbf{Desv. Est.} & \textbf{Mín} & \textbf{Máx} \\
-\midrule
-Educación & 5.79 & 0.95 & 0.95 & 8.33 \\
-Salud & 4.36 & 2.17 & 0.00 & 10.00 \\
-Transporte & 3.60 & 2.66 & 0.00 & 10.00 \\
-Entorno (Áreas Verdes) & 4.68 & 1.90 & 0.43 & 10.00 \\
-Seguridad & 3.74 & 2.02 & 0.00 & 10.00 \\
-Comercial & 2.00 & 1.65 & 0.00 & 10.00 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\textbf{Hallazgos clave:}
-
-\begin{itemize}
-    \item \textbf{Educación:} Dimensión con mayor accesibilidad promedio (5.79), reflejando buena cobertura de establecimientos educacionales en las 4 comunas analizadas.
-    \item \textbf{Salud:} Accesibilidad intermedia (4.36) con alta variabilidad (±2.17), indicando concentración geográfica de servicios de salud.
-    \item \textbf{Transporte:} Media baja (3.60) con desviación estándar elevada (2.66), confirmando disparidades en conectividad de transporte público.
-    \item \textbf{Comercial:} Dimensión con menor accesibilidad (2.00), sugiriendo que servicios comerciales especializados tienen distribución más centralizada.
-\end{itemize}
-
-La variabilidad observada en las desviaciones estándar (desde 0.95 en educación hasta 2.66 en transporte) justifica la inclusión de estas características espaciales como predictores en el modelo, dado que capturan heterogeneidad urbana significativa.
-
-\subsection{Primeras Visualizaciones}
-
-\subsubsection{Análisis Comparativo por Comuna}
-
-\begin{figure}[H]
-    \centering
-    % \includegraphics[width=0.95\textwidth]{figuras/grafico_02_analisis_comunas.png}
-    \caption{Análisis comparativo de propiedades por comuna: distribución de precios, superficies y características}
-    \label{fig:analisis_comunas}
-\end{figure}
-
-El análisis comparativo por comuna revela diferencias significativas en características de propiedades y accesibilidad urbana, confirmando la necesidad de modelamiento que considere efectos comunales.
-
-\subsubsection{Distribuciones Espaciales}
-
-\begin{figure}[H]
-    \centering
-    % \includegraphics[width=0.9\textwidth]{figuras/mapa_02_precio_m2.png}
-    \caption{Distribución espacial del precio por metro cuadrado (UF/m²) en las 4 comunas}
-    \label{fig:mapa_precios}
-\end{figure}
-
-La visualización espacial de precios (Figura \ref{fig:mapa_precios}) evidencia clara segregación geográfica, con gradiente de precios decreciente desde La Reina hacia Estación Central, confirmando patrones socioeconómicos conocidos del Gran Santiago.
-
-\subsubsection{Correlaciones entre Variables}
-
-\begin{figure}[H]
-    \centering
-    % \includegraphics[width=0.85\textwidth]{figuras/grafico_03_correlaciones.png}
-    \caption{Matriz de correlaciones entre variables de propiedades y características espaciales}
-    \label{fig:correlaciones}
-\end{figure}
-
-El análisis de correlaciones revela:
-
-\begin{itemize}
-    \item Correlación positiva fuerte entre precio y superficie (r = 0.68)
-    \item Correlación moderada entre precio/m² y accesibilidad educacional (r = 0.43)
-    \item Correlación negativa entre distancia a áreas verdes y precio (r = -0.51)
-    \item Baja colinealidad entre índices de accesibilidad (r < 0.4 entre dimensiones), validando su inclusión simultánea en el modelo
-\end{itemize}
-
-\subsection{Patrones Identificados y Selección del Modelo}
-
-\subsubsection{Proceso de Selección}
-
-Para determinar el modelo predictivo óptimo, se implementó un proceso de evaluación comparativa utilizando Random Forest como línea base de referencia. Las métricas clave definidas para la evaluación fueron:
-
-\begin{enumerate}
-    \item \textbf{R²:} Fracción de varianza explicada (capacidad predictiva)
-    \item \textbf{RMSE:} Raíz del error cuadrático medio (penaliza errores grandes)
-    \item \textbf{MAE:} Error medio absoluto (interpretabilidad directa)
-\end{enumerate}
-
-\subsubsection{Comparación de Modelos}
-
-\begin{table}[H]
-\centering
-\caption{Comparación de modelos: Random Forest (línea base) vs. LightGBM (modelo final)}
+\caption{Comparacion de modelos: Random Forest vs. LightGBM}
 \begin{tabular}{@{}lrrr@{}}
 \toprule
-\textbf{Modelo} & \textbf{R²} & \textbf{RMSE} & \textbf{MAE} \\
+\textbf{Modelo} & \textbf{R\textsuperscript{2}} & \textbf{RMSE} & \textbf{MAE} \\
 \midrule
 Random Forest (baseline) & 0.8431 & 0.3598 & 0.2813 \\
 \textbf{LightGBM (final)} & \textbf{0.8635} & \textbf{0.3357} & \textbf{0.2661} \\
@@ -1001,648 +449,137 @@ Random Forest (baseline) & 0.8431 & 0.3598 & 0.2813 \\
 \label{tab:comparacion_modelos}
 \end{table}
 
-El modelo LightGBM fue seleccionado como modelo final basándose en su desempeño superior en todas las métricas evaluadas. Específicamente, LightGBM logró:
-
-\begin{itemize}
-    \item \textbf{+2.04 puntos porcentuales} de mejora en R² (86.35\% vs. 84.31\%)
-    \item \textbf{-6.7\%} de reducción en RMSE (0.3357 vs. 0.3598 en escala de satisfacción 1-10)
-    \item \textbf{-5.4\%} de reducción en MAE (0.2661 vs. 0.2813)
-\end{itemize}
-
-Adicionalmente, LightGBM presentó ventajas técnicas decisivas:
-
-\begin{itemize}
-    \item \textbf{Velocidad de entrenamiento:} 3.2× más rápido que Random Forest
-    \item \textbf{Eficiencia de memoria:} Uso de histogramas discretos reduce consumo de RAM
-    \item \textbf{Manejo de características:} Soporte nativo para variables categóricas sin one-hot encoding
-    \item \textbf{Robustez:} Menor tendencia al sobreajuste mediante regularización leaf-wise
-\end{itemize}
-
-\subsubsection{Métricas del Modelo Final}
-
-El modelo LightGBM final, entrenado con 42 características sobre 7,702 propiedades, alcanzó las siguientes métricas de desempeño:
-
 \begin{table}[H]
 \centering
-\caption{Métricas de desempeño del modelo LightGBM final}
+\caption{Metricas del modelo LightGBM final}
 \begin{tabular}{@{}lr@{}}
 \toprule
-\textbf{Métrica} & \textbf{Valor} \\
+\textbf{Metrica} & \textbf{Valor} \\
 \midrule
-R² (Test Set) & 0.8635 \\
-RMSE (Test Set) & 0.3357 \\
-MAE (Test Set) & 0.2661 \\
-R² Cross-Validation (5-fold) & 0.8650 ± 0.0078 \\
-Propiedades de Entrenamiento & 7,686 \\
-Características Predictoras & 42 \\
-Comunas Analizadas & 4 \\
+R\textsuperscript{2} (Test) & 0.8635 \\
+RMSE (Test) & 0.3357 \\
+MAE (Test) & 0.2661 \\
+R\textsuperscript{2} Cross-Validation (5-fold) & 0.8650 $\pm$ 0.0078 \\
+Propiedades de entrenamiento & 7,686 \\
+Caracteristicas predictoras & 42 \\
+Comunas analizadas & 4 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-La validación cruzada 5-fold confirma la estabilidad del modelo (CV R² = 0.8650 ± 0.0078), con baja varianza entre particiones, indicando buena capacidad de generalización.
-
-\subsubsection{Interpretación de Patrones}
-
-El análisis de importancia de características reveló que las variables más influyentes para predecir satisfacción residencial son:
-
-\begin{enumerate}
-    \item \textbf{Precio por m² (UF/m²):} Variable económica dominante
-    \item \textbf{Superficie útil (m²):} Tamaño de la propiedad
-    \item \textbf{Distancia a áreas verdes:} Proximidad a espacios recreativos
-    \item \textbf{Distancia a servicios de seguridad:} Acceso a comisarías/cuarteles
-    \item \textbf{Distancia a transporte público:} Conectividad urbana
-\end{enumerate}
-
-Este ranking de importancia valida las hipótesis del proyecto sobre la relevancia de factores espaciales externos (más allá de características intrínsecas de la propiedad) en la determinación de satisfacción residencial.
-
-\subsubsection{Análisis Comparativo por Comuna}
-
-\begin{figure}[H]
-    \centering
-    % \includegraphics[width=0.95\textwidth]{figuras/grafico_02_analisis_comunas.png}
-    \caption{Análisis comparativo de propiedades por comuna: distribución de precios, superficies y características}
-    \label{fig:analisis_comunas}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    % \includegraphics[width=0.9\textwidth]{figuras/10_analisis_por_comuna.png}
-    \caption{Análisis detallado de características espaciales por comuna}
-    \label{fig:detalle_comunas}
-\end{figure}
-
-\subsubsection{Distribuciones Espaciales}
-
-\begin{figure}[H]
-    \centering
-    % \includegraphics[width=0.9\textwidth]{figuras/mapa_02_precio_m2.png}
-    \caption{Distribución espacial del precio por metro cuadrado (UF/m²) en las 4 comunas}
-    \label{fig:mapa_precios}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.9\textwidth]{figuras/mapa_03_satisfaccion_predicha.png}
-    \caption{Mapa de satisfacción residencial predicha por el modelo LightGBM}
-    \label{fig:mapa_satisfaccion}
-\end{figure}
-
-
-
-\subsubsection{Relación Predicción vs. Realidad}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{figuras/grafico_04_dispersion.png}
-    \caption{Gráfico de dispersión: satisfacción predicha vs. satisfacción real (R² = 0.8635)}
-    \label{fig:dispersion}
-\end{figure}
-
-El gráfico de dispersión (Figura \ref{fig:dispersion}) muestra la relación lineal entre valores predichos y reales, con puntos concentrados cerca de la línea de identidad y=x, confirmando la precisión del modelo LightGBM.
-
-\subsubsection{Importancia de Variables}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.9\textwidth]{figuras/grafico_05_importancia_metricas.png}
-    \caption{Importancia de las 20 principales variables en el modelo predictivo LightGBM}
-    \label{fig:importancia}
-\end{figure}
-
-La figura \ref{fig:importancia} presenta el ranking de importancia relativa de características, evidenciando el predominio de variables económicas (precio/m²) seguido por características espaciales (distancias a servicios) y atributos físicos de la propiedad.
-
-\subsection{Visualizaciones Interactivas}
-
-El proyecto generó un mapa interactivo HTML utilizando la biblioteca Folium, que permite:
-
+\subsection{Importancia de Variables}
+La importancia relativa evidencia el peso de variables economicas y espaciales. En el top 5 destacan:
 \begin{itemize}
-    \item \textbf{Exploración geográfica:} Navegación por las 7,702 propiedades con zoom y pan
-    \item \textbf{Información detallada:} Pop-ups con características de cada propiedad
-    \item \textbf{Codificación por color:} Visualización de satisfacción predicha mediante escala cromática
-    \item \textbf{Capas superpuestas:} Servicios urbanos (educación, salud, transporte) como marcadores
+    \item Precio por m\textsuperscript{2} y precio total.
+    \item Superficie util y numero de dormitorios.
+    \item Distancia a areas verdes y seguridad.
+    \item Distancia a transporte publico.
 \end{itemize}
+Las variables espaciales representan una fraccion relevante de la importancia total, validando la integracion de accesibilidad como predictor clave (Figura \ref{fig:importancia}, Anexo).
 
-Este mapa interactivo se encuentra disponible en el archivo \texttt{mapa\_interactivo.html} y constituye una herramienta de exploración complementaria para usuarios finales del sistema TerraMatch.
+\subsection{Validacion del Modelo}
+Se evaluaron residuos y autocorrelacion espacial. El indice de Moran (I = 0.0695) indica dependencia espacial baja, por lo que no se observa sesgo geografico significativo en las predicciones.
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.9\textwidth]{figuras/mapa_03_satisfaccion_predicha.png}
-    \caption{Mapa de satisfacción residencial predicha: visualización estática de la distribución espacial de predicciones del modelo LightGBM en las 4 comunas}
-    \label{fig:mapa_satisfaccion}
-\end{figure}
+El analisis exploratorio de correlaciones muestra relaciones esperadas: precio y superficie presentan correlacion positiva (r aproximado 0.68), mientras que la distancia a areas verdes se asocia negativamente con el precio (r cercano a -0.51). Estas tendencias respaldan la inclusion de variables espaciales en el modelo.
 
-% Descripción y link a visualizaciones web si existen
+La visualizacion interactiva (mapa web) permite explorar propiedades y capas de servicios, reforzando la comunicacion de resultados para usuarios no tecnicos.
 
-% ====================================================================
-% 6. IMPLEMENTACIÓN TÉCNICA
-% ====================================================================
+\subsection{Patrones Espaciales}
+Se observan gradientes centro-periferia en precios y satisfaccion predicha (Figuras \ref{fig:mapa_precios} y \ref{fig:mapa_satisfaccion}, Anexo) y diferencias sistematicas entre comunas en accesibilidad (Figura \ref{fig:analisis_comunas}, Anexo).
 
-% ====================================================================
-% 7. DISCUSIÓN
-% ====================================================================
-
+A nivel comunal, el indice de habitabilidad global muestra un ranking consistente: Santiago Centro presenta los valores mas altos (aprox. 5.5/10), seguido de Estacion Central y Nunoa (en torno a 4.1-4.2), mientras que La Reina registra los menores promedios (cerca de 3.5/10).
 \section{Discusión}
 
-\subsection{Interpretación de Resultados}
+\subsection{Interpretacion de Resultados}
+Los resultados confirman que las variables economicas dominan la prediccion, pero las metricas espaciales (distancia a areas verdes, seguridad y transporte) aportan un peso significativo, validando la hipotesis central del proyecto. La baja autocorrelacion residual (Moran's I = 0.0695) sugiere que el modelo captura adecuadamente la estructura espacial.
 
-\subsubsection{Validación del Modelo Predictivo}
+Los mapas muestran un patron centro-periferia consistente: Santiago Centro concentra mayor accesibilidad y satisfaccion predicha, mientras que La Reina presenta valores mas heterogeneos por su menor densidad y mayor dependencia de transporte privado. Estacion Central destaca por conectividad, pero con deficit relativo en salud y comercio especializado.
 
-Los resultados obtenidos por el modelo LightGBM demuestran una capacidad predictiva robusta para estimar la satisfacción residencial, alcanzando un R² de 0.8635 en el conjunto de prueba. Este valor indica que el 86.35\% de la variabilidad observada en la satisfacción puede ser explicada por las 42 variables predictoras seleccionadas. El RMSE de 0.3357 (en escala 1-10) y el MAE de 0.2661 reflejan un error de predicción aceptable para aplicaciones prácticas de recomendación inmobiliaria.
-
-La validación cruzada 5-fold (CV R² = 0.8650 $\pm$ 0.0155) confirma la estabilidad del modelo, con baja varianza entre particiones, lo que sugiere buena generalización y ausencia de sobreajuste significativo. Esta consistencia es particularmente relevante dado que el modelo debe funcionar en diferentes contextos comunales con características socioeconómicas heterogéneas.
-
-\subsubsection{Importancia Relativa de Variables}
-
-El análisis de importancia de features revela hallazgos significativos sobre los determinantes de satisfacción residencial:
-
-\textbf{Variables económicas dominantes:} Las variables de precio (\texttt{precio\_m2\_uf} con importancia 1,351 y \texttt{precio\_uf} con 616) emergen como los predictores más influyentes, representando conjuntamente el 24\% de la importancia total. Este resultado valida la \textbf{Hipótesis H1} sobre la relevancia del valor económico en la satisfacción, y confirma que el mercado inmobiliario chileno es altamente sensible al precio relativo por metro cuadrado.
-
-\textbf{Características físicas de la propiedad:} La superficie útil (importancia 1,017) y el número de dormitorios (445) ocupan posiciones prominentes, indicando que el espacio habitable sigue siendo un factor crítico para la satisfacción. La variable \texttt{total\_habitaciones} (152) captura efectos adicionales de la distribución espacial interior.
-
-\textbf{Factores espaciales externos:} Las distancias a servicios urbanos demuestran impacto significativo, validando la premisa central del proyecto:
+\subsection{Verificacion de Hipotesis}
 \begin{itemize}
-    \item \texttt{dist\_areas\_verdes\_m} (367): Cuarto predictor más importante, confirmando el valor de la proximidad a espacios verdes para la calidad de vida residencial.
-    \item \texttt{dist\_seguridad\_min\_m} (293): Refleja la importancia de la percepción de seguridad en el contexto chileno actual.
-    \item \texttt{dist\_transporte\_min\_m} (279): Valida el rol crítico de la accesibilidad al transporte público.
-    \item \texttt{dist\_educacion\_superior\_m} (198) y \texttt{dist\_educacion\_parvularia\_m} (191): Indican relevancia diferenciada por nivel educativo.
+    \item \textbf{H1}: validada; las variables espaciales aportan una fraccion relevante de la importancia total.
+    \item \textbf{H2}: validada parcialmente; autocorrelacion positiva pero debil.
+    \item \textbf{H3}: validada; los perfiles generan rankings diferenciados.
+    \item \textbf{H4}: validada; el modelo con variables espaciales supera al baseline.
 \end{itemize}
 
-\textbf{Posición geográfica:} Las coordenadas (\texttt{latitude}: 283, \texttt{longitude}: 284) capturan efectos espaciales residuales no explicados por las distancias específicas, posiblemente relacionados con prestigio de barrios, microclimas urbanos o factores socioeconómicos latentes.
+Desde la perspectiva de interpretabilidad, LightGBM ofrece un balance adecuado entre precision y explicabilidad, permitiendo identificar variables clave sin sacrificar desempeno. La baja autocorrelacion de residuos respalda que el modelo captura buena parte de la estructura espacial, aunque persisten micro-efectos locales.
 
-\subsubsection{Patrones Espaciales Identificados}
+\subsection{Limitaciones y Desafios}
+Persisten limitaciones por falta de atributos de calidad de construccion y dinamica temporal, ademas de desigual cobertura espacial de algunos servicios. Estos aspectos se abordan en los ajustes propuestos.
 
-El análisis estadístico de la Semana 2 revela patrones territoriales diferenciados:
+\subsection{Implicancias}
+Los patrones identificados sugieren prioridades de intervencion: mejorar conectividad en comunas con menor acceso a transporte, ampliar la oferta de salud fuera del centro y fortalecer espacios verdes en zonas deficitarias. Para el mercado inmobiliario, las metricas de accesibilidad aportan criterios objetivos para comparar ubicaciones.
 
-\begin{enumerate}
-    \item \textbf{Gradiente centro-periferia}: Santiago Centro presenta el índice de habitabilidad global más alto (5.51/10), mientras que La Reina muestra el más bajo (3.48/10). Este patrón refleja la concentración de servicios urbanos en el centro histórico versus la orientación residencial de baja densidad en comunas del sector oriente.
-    
-    \item \textbf{Heterogeneidad en accesibilidad a transporte}: La variable \texttt{acc\_transporte} presenta la mayor variabilidad entre comunas (std = 2.66), con Santiago alcanzando 6.02/10 y La Reina solo 2.97/10. Esta disparidad confirma desigualdades estructurales en cobertura de transporte público.
-    
-    \item \textbf{Concentración comercial}: El 72\% de los comercios registrados (383 de 532) se ubican en Santiago Centro, generando una densidad de 9.1 comercios/km² versus 0.7 en Estación Central. Esta distribución asimétrica impacta directamente en la accesibilidad comercial residencial.
-    
-    \item \textbf{Distribución de servicios de seguridad}: Santiago concentra 0.738 servicios de seguridad/km², más del doble del promedio metropolitano (0.376), lo que puede influir en percepciones de seguridad y consecuentemente en satisfacción residencial.
-\end{enumerate}
-
-\subsubsection{Verificación de Hipótesis}
-
-\begin{itemize}
-    \item \textbf{H1 (Factores espaciales externos)}: \textbf{VALIDADA}. Las 21 variables de distancia a servicios representan conjuntamente el 35\% de la importancia del modelo, demostrando que los factores externos son determinantes significativos de satisfacción más allá de precio y características internas.
-    
-    \item \textbf{H2 (Autocorrelación espacial)}: \textbf{VALIDADA PARCIALMENTE}. El índice de Moran's I = 0.0695 para residuos del modelo indica autocorrelación espacial positiva pero débil, sugiriendo que el modelo captura adecuadamente la mayoría de los efectos espaciales, con clustering residual mínimo.
-    
-    \item \textbf{H3 (Variación por perfil)}: \textbf{VALIDADA}. Los cinco perfiles de usuario implementados (familia con niños, profesional joven, inversionista, adulto mayor, balanceado) generan rankings de propiedades significativamente diferentes al aplicar pesos diferenciados por dimensión de satisfacción.
-    
-    \item \textbf{H4 (Mejora por integración espacial)}: \textbf{VALIDADA}. El modelo LightGBM con 42 features espaciales (R² = 0.8635) supera en +8.2\% a modelos baseline sin características geográficas, confirmando el valor agregado de la integración de datos geoespaciales.
-\end{itemize}
-
-\subsection{Ajustes Realizados}
-
-Durante el desarrollo del proyecto se implementaron múltiples ajustes metodológicos para optimizar la calidad de los resultados:
-
-\subsubsection{Ajustes en Preprocesamiento de Datos}
-
-\begin{enumerate}
-    \item \textbf{Normalización de sistemas de coordenadas}: Se identificó que los 29 datasets originales utilizaban múltiples CRS (WGS84, UTM, sistemas locales). Se implementó reproyección automática a EPSG:32719 (UTM Zone 19S) garantizando precisión métrica en cálculos de distancia. Este ajuste fue crítico dado que errores de proyección pueden introducir distorsiones de hasta 15\% en distancias calculadas.
-    
-    \item \textbf{Conversión de geometrías heterogéneas}: Para el cálculo de distancias, polígonos y líneas fueron convertidos a centroides. Se evaluó utilizar el punto más cercano del borde del polígono, pero los centroides demostraron mejor estabilidad y representatividad para servicios de área extensa (parques, hospitales).
-    
-    \item \textbf{Manejo de rangos en datos de propiedades}: Los datos de Portal Inmobiliario contenían campos con rangos (``1 a 2 dormitorios'', ``30 - 40 m² útiles''). Se implementó extracción de promedio del rango, reduciendo pérdida de datos del 23\% al 2.1\%.
-    
-    \item \textbf{Limpieza de direcciones para geocodificación}: Las direcciones originales contenían textos promocionales (``VENDO DEPARTAMENTO CERCA DEL METRO''). Se desarrolló función de limpieza con regex que incrementó la tasa de geocodificación exitosa del 67\% al 89\%.
-\end{enumerate}
-
-\subsubsection{Ajustes en Feature Engineering}
-
-\begin{enumerate}
-    \item \textbf{Selección de radios de densidad}: Inicialmente se calcularon densidades en 5 radios (200m, 300m, 500m, 800m, 1000m). Tras análisis de correlación, se retuvieron solo 3 radios (300m, 600m, 1000m) que capturaban escalas de caminata distintas sin redundancia excesiva.
-    
-    \item \textbf{Exclusión de features derivadas}: Variables como \texttt{m2\_por\_dormitorio} y \texttt{ratio\_bano\_dorm} fueron excluidas del modelo final por ser calculables algebraicamente desde features existentes, evitando multicolinealidad perfecta.
-    
-    \item \textbf{Limitación a 42 features}: Del conjunto inicial de 72 características espaciales, se seleccionaron las 30 más relevantes mediante análisis de importancia preliminar con Random Forest, evitando curse of dimensionality en el dataset de 7,702 propiedades.
-\end{enumerate}
-
-\subsubsection{Ajustes en Modelamiento}
-
-\begin{enumerate}
-    \item \textbf{Migración de Random Forest a LightGBM}: El modelo baseline Random Forest (R² = 0.8453) fue reemplazado por LightGBM tras comparación exhaustiva de 21 configuraciones de 5 algoritmos diferentes. LightGBM demostró:
-    \begin{itemize}
-        \item Mejora de +2.1\% en R² (0.8635 vs 0.8453)
-        \item Reducción de 33\% en tiempo de entrenamiento
-        \item Mejor manejo de features categóricas (comuna, tipo propiedad)
-    \end{itemize}
-    
-    \item \textbf{Introducción de ruido estocástico}: Se agregó ruido gaussiano ($\sigma = 0.3$) a la variable objetivo de satisfacción para prevenir overfitting perfecto cuando el modelo aprende la función de cálculo exacta. Este ajuste mejoró la generalización en validación cruzada.
-    
-    \item \textbf{Uso de RobustScaler}: Se reemplazó StandardScaler por RobustScaler para normalización de features, dado que variables de precio y distancia presentan outliers significativos que distorsionaban la media y desviación estándar.
-\end{enumerate}
-
-\subsubsection{Ajustes en Perfiles de Usuario}
-
-Los pesos iniciales de los perfiles fueron calibrados iterativamente:
-\begin{itemize}
-    \item \textbf{Familia con niños}: Se incrementó peso de \texttt{educación} de 1.5 a 2.5 tras feedback de usuarios piloto que indicaron mayor sensibilidad a proximidad escolar.
-    \item \textbf{Adulto mayor}: Se redujo peso de \texttt{transporte} de 1.5 a 1.0 y se incrementó \texttt{salud} de 2.0 a 3.0, reflejando menor dependencia de transporte público y mayor valoración de acceso a servicios médicos.
-    \item \textbf{Inversionista}: Se añadió peso de \texttt{valor} = 3.0 (máximo), reconociendo que el retorno de inversión es el factor dominante para este perfil.
-\end{itemize}
-
-\subsection{Desafíos Encontrados}
-
-\subsubsection{Desafío 1: Heterogeneidad de Fuentes de Datos Geoespaciales}
-
-\textbf{Descripción}: Los 29 datasets de servicios urbanos provenían de múltiples fuentes (IDE Chile, OpenStreetMap, municipalidades, APIs privadas) con formatos, estructuras de atributos y sistemas de coordenadas inconsistentes.
-
-\textbf{Impacto}: Archivos en formatos Shapefile, GeoJSON y GML requerían parsers diferenciados. Campos equivalentes tenían nombres distintos (``nombre'', ``NAME'', ``nom\_estab''). Algunos datasets carecían de metadatos de CRS, requiriendo inferencia manual.
-
-\textbf{Solución implementada}: Se desarrolló pipeline de normalización automatizada (\texttt{normalizar\_crs.py}) que:
-\begin{itemize}
-    \item Detecta CRS automáticamente mediante análisis de bounds geográficos
-    \item Reproyecta todos los datasets a EPSG:32719
-    \item Estandariza nombres de campos con diccionario de mapeo
-    \item Genera reporte JSON de trazabilidad de transformaciones
-\end{itemize}
-
-\textbf{Lección aprendida}: La inversión en infraestructura de preprocesamiento robusto es fundamental para proyectos geoespaciales multi-fuente. El tiempo dedicado a normalización (40\% del proyecto) se recuperó en iteraciones posteriores del análisis.
-
-\subsubsection{Desafío 2: Geocodificación de Direcciones Chilenas}
-
-\textbf{Descripción}: Las direcciones obtenidas de Portal Inmobiliario frecuentemente carecían de formato estándar, contenían abreviaciones no reconocidas por servicios de geocodificación, o incluían referencias coloquiales (``frente al metro'', ``cerca de la mutual'').
-
-\textbf{Impacto}: La tasa inicial de geocodificación exitosa fue de apenas 67\%, con 2,541 propiedades sin coordenadas utilizables.
-
-\textbf{Solución implementada}:
-\begin{itemize}
-    \item Desarrollo de función de limpieza con 15 patrones regex para eliminar textos promocionales
-    \item Implementación de fallback multi-servicio: Photon $\rightarrow$ Nominatim $\rightarrow$ ArcGIS
-    \item Procesamiento paralelo con 5 hilos para reducir tiempo de geocodificación de 8 horas a 2 horas
-    \item Validación de coherencia espacial: rechazar geocodificaciones fuera de la Región Metropolitana
-\end{itemize}
-
-\textbf{Resultado}: Tasa final de geocodificación del 89\%, con 6,852 propiedades geolocalizadas válidas.
-
-\subsubsection{Desafío 3: Diseño del Proxy de Satisfacción Residencial}
-
-\textbf{Descripción}: La satisfacción residencial es un constructo subjetivo que no puede observarse directamente en datos de mercado. Se requería diseñar una variable objetivo proxy que fuera conceptualmente válida y empíricamente predecible.
-
-\textbf{Impacto}: Un proxy mal diseñado generaría un modelo que optimiza métricas irrelevantes, invalidando todo el sistema de recomendación.
-
-\textbf{Solución implementada}:
-\begin{itemize}
-    \item Revisión de literatura sobre satisfacción residencial (Amerigo \& Aragonés, 1997; Lu, 1999) para identificar dimensiones validadas
-    \item Diseño de función de utilidad multidimensional con 8 componentes ponderables
-    \item Implementación de percentiles contextuales (por comuna y tipo de propiedad) para evitar comparaciones injustas
-    \item Validación mediante análisis de sensibilidad: verificar que cambios razonables en pesos producen rankings intuitivamente coherentes
-\end{itemize}
-
-\textbf{Prevención de data leakage}: El cálculo de satisfacción utiliza agregaciones del dataset completo (percentiles) que NO se pasan como features al modelo, evitando que el modelo ``aprenda'' la función de cálculo en lugar de patrones genuinos.
-
-\subsubsection{Desafío 4: Cobertura Espacial Heterogénea de Servicios}
-
-\textbf{Descripción}: La distribución de servicios urbanos es inherentemente desigual. Algunas categorías (comercio en Santiago) tienen alta densidad mientras otras (bomberos en La Reina) son extremadamente escasas.
-
-\textbf{Impacto}: Distancias a servicios escasos presentan distribuciones muy asimétricas (curtosis > 6), afectando la normalización y comparabilidad de índices de accesibilidad.
-
-\textbf{Solución implementada}:
-\begin{itemize}
-    \item Transformación de distancias mediante función inversa con umbral máximo (percentil 95) para limitar impacto de outliers extremos
-    \item Uso de RobustScaler (basado en mediana e IQR) en lugar de StandardScaler
-    \item Cálculo de densidades como complemento a distancias mínimas, capturando disponibilidad de alternativas
-    \item Índices compuestos que agregan múltiples servicios relacionados (ej: \texttt{acc\_salud} combina hospitales, consultorios, farmacias, clínicas)
-\end{itemize}
-
-\subsubsection{Desafío 5: Balance entre Complejidad y Explicabilidad del Modelo}
-
-\textbf{Descripción}: Modelos más complejos (ensemble, deep learning) pueden alcanzar mayor precisión pero sacrifican interpretabilidad, crítica para un sistema de recomendación donde usuarios deben confiar en las predicciones.
-
-\textbf{Impacto}: Riesgo de desarrollar un modelo ``caja negra'' que usuarios rechacen por falta de transparencia en las recomendaciones.
-
-\textbf{Solución implementada}:
-\begin{itemize}
-    \item Selección de LightGBM que permite extracción de importancia de features interpretable
-    \item Limitación deliberada a 42 features (vs. potencial de 72+) para mantener modelo parsimonioso
-    \item Generación de explicaciones por propiedad: ``Esta propiedad tiene alta satisfacción debido a: proximidad a áreas verdes (score 8.2/10), buen precio relativo (score 7.5/10)''
-    \item Rechazo de modelo de redes neuronales que alcanzó R² = 0.89 pero sin explicabilidad
-\end{itemize}
-
-\textbf{Trade-off aceptado}: Se sacrificó +2.7\% de precisión potencial a cambio de mantener explicabilidad completa del sistema de recomendación.
-
-\subsubsection{Desafío 6: Manejo de Datos Temporalmente Estáticos}
-
-\textbf{Descripción}: Los datos de propiedades corresponden a un snapshot de Portal Inmobiliario (diciembre 2025), sin información sobre evolución temporal de precios o disponibilidad.
-
-\textbf{Impacto}: El modelo no puede capturar dinámicas de mercado (tendencias de apreciación, estacionalidad) ni detectar propiedades que han sido vendidas.
-
-\textbf{Mitigación parcial}:
-\begin{itemize}
-    \item Documentación explícita de fecha de extracción en todos los outputs
-    \item Diseño de arquitectura modular que permite re-entrenamiento con datos actualizados
-    \item Recomendación de implementar pipeline de actualización semanal en fase de producción
-\end{itemize}
-
-\textbf{Limitación residual}: Este desafío no pudo resolverse completamente dentro del alcance del proyecto y constituye una dirección prioritaria de trabajo futuro.
-
-% ====================================================================
-% 8. CRONOGRAMA
-% ====================================================================
-
+Desde una perspectiva aplicada, los resultados sugieren que mejorar transporte y acceso a salud en comunas con menor puntaje podria tener impacto directo en la satisfaccion residencial. Asimismo, la incorporacion de variables ambientales y demograficas permitiria capturar dimensiones de calidad de vida no representadas en el modelo actual.
 \section{Cronograma de Actividades}
 
-\subsection{Actividades Completadas}
+El cronograma se organiza en actividades ya completadas y tareas restantes para la segunda fase del proyecto.
 
-\begin{table}[H]
-\centering
-\caption{Actividades completadas hasta la fecha}
-\begin{tabular}{@{}llll@{}}
-\toprule
-\textbf{Actividad} & \textbf{Responsable} & \textbf{Inicio} & \textbf{Fin} \\
-\midrule
-Preprocesamiento & Todo el grupo & Ago. S4 & Sept. S4 \\
-\midrule
-Selección del proyecto & Todo el grupo & Ago. S4 & Ago. S4 \\
-Recolección de Datasets & [Nombre] & Sept. S1 & Sept. S3 \\
-Corrección de geometrías & [Nombre] & Sept. S1 & Sept. S3 \\
-Homogenización de campos & [Nombre] & Sept. S2 & Sept. S3 \\
-Filtrado por áreas de interés & [Nombre] & Sept. S2 & Sept. S3 \\
-Limpieza de duplicados & [Nombre] & Sept. S3 & Sept. S3 \\
-Validación de calidad geométrica & [Nombre] & Sept. S3 & Sept. S3 \\
-Diseño aplicativo TerraMatch & [Nombre] & Sept. S1 & Sept. S2 \\
-Diseño chatbot TerraMatch & [Nombre] & Sept. S1 & Sept. S2 \\
-Informe & [Nombre] & Sept. S3 & Sept. S4 \\
-\midrule
-Integración Espacial & Todo el grupo & Oct. S1 & Nov. S4 \\
-\midrule
-Generación de grilla de evaluación & [Nombre] & Oct. S1 & Oct. S2 \\
-Filtrado de puntos de interés & [Nombre] & Oct. S1 & Oct. S1 \\
-Cálculos de distancias (KDTrees) & [Nombre] & Oct. S1 & Oct. S1 \\
-Cálculos de densidades & [Nombre] & Oct. S1 & Oct. S1 \\
-Generación de indices compuesto y normalizados & [Nombre] & Oct. S4 & Oct. S4 \\
-Generación de indices compuesto y normalizados & [Nombre] & Nov. S3 & Oct. S3 \\
-Integración propiedades a grilla de evaluación & [Nombre] & Nov. S2 & Oct. S2 \\
-Generación de Dataset final & [Nombre] & Oct. S4 & Oct. S4 \\
-Desarrollo aplicativo TerraMatch & [Nombre] & Oct. S1 & Nov. S3 \\
-Desarrollo chatbot TerraMatch & [Nombre] & Oct. S4 & Nov. S3 \\
-Creación pipeline de modelado & [Nombre] & Oct. S1 & Nov. S4 \\
-Informe & [Nombre] & Oct. S1 & Nov. S4 \\
-\midrule
-Modelamiento Predictivo & Todo el grupo & Dic. S1 & Dic. S4 \\
-\midrule
-Entrenamiento de Baseline (Random Forest) & Todo el grupo & Dic. S1 & Dic. S1 \\
-Validación del Baseline & Todo el grupo & Dic. S1 & Dic. S1 \\
-Entrenamiento con Dataset Combinado (Random Forest) & Todo el grupo & Dic. S1 & Dic. S1 \\
-Entrenamiento Exploratorio (LightGBM) & Todo el grupo & Dic. S2 & Dic. S2 \\
-Desarrollo de proxy satisfacción residencial & Todo el grupo & Dic. S2 & Dic. S3 \\
-Generación de mapas con elementos cartográficos & [Nombre] & Dic. S3 & Dic. S3 \\
-Generación de mapas con elementos estadísticos & [Nombre] & Dic. S3 & Dic. S3 \\
-Desarrollo aplicativo TerraMatch & Todo el grupo & Dic. S2 & Dic. S3 \\
-Desarrollo chatbot TerraMatch & [Nombre] & Dic. S3 & Dic. S4 \\
-Informe y presentación & Todo el grupo & Dic. S2 & Dic. S4 \\
-\bottomrule
-\end{tabular}
-\end{table}
+\subsection{Actividades Completadas}
+\begin{itemize}
+    \item Normalizacion de datasets y geocodificacion de propiedades.
+    \item Calculo de metricas espaciales y construccion del proxy de satisfaccion.
+    \item Entrenamiento y validacion del modelo LightGBM.
+\end{itemize}
+
+Estas actividades corresponden a la fase inicial del proyecto (semanas 1-3), enfocada en datos, metricas espaciales y modelamiento base.
 
 \subsection{Actividades Pendientes}
+\begin{itemize}
+    \item Incorporar variables temporales y ampliar cobertura geografica.
+    \item Integrar API y visualizaciones interactivas para usuarios finales.
+    \item Validacion empirica con usuarios reales y ajuste de perfiles.
+\end{itemize}
 
+% Cronograma sintetico tipo Gantt en formato tabla
 \begin{table}[H]
 \centering
-\caption{Cronograma de actividades restantes}
-\begin{tabular}{@{}llll@{}}
+\caption{Cronograma sintetico (Gantt simplificado)}
+{\scriptsize
+\setlength{\tabcolsep}{2pt}
+\renewcommand{\arraystretch}{1.1}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}p{4.2cm}cccccc@{}}
 \toprule
-\textbf{Actividad} & \textbf{Responsable} & \textbf{Inicio} & \textbf{Duración} \\
+Actividad & S4 & S5 & S6 & S7 & S8 & S9-10 \\
 \midrule
-Recolección nuevos Datasets (áreas verdes, delincuencia, otros) & [Nombre] & Ene. S1 & 1 semanas \\
-Integración espacial nuevos datasets & [Nombre] & Ene. S2 & 1 semanas \\
-Entrenamiento modelo LightGBM & Todo el grupo & Ene. S2 & 2 semanas \\
-Mejora de proxy satisfacción residencial & Todo el grupo & Ene. S3 & 1 semana \\
-Mejoras aplicativo TerraMatch & Todo el grupo & Ene. S2 & 2 semana \\
-Mejoras chatbot TerraMatch & Todo el grupo & Ene. S2 & 2 semana \\
-Informe & Todo el grupo & Ene. S2 & 3 semana \\
-Preparación presentación final & Todo el grupo & Ene. S3 & 2 semana \\
+Ampliacion de datos y QA & X & X & & & & \\
+Refinamiento de variables e indices & & X & X & & & \\
+Ajuste y validacion de modelos & & & X & X & & \\
+Prototipo API y visualizaciones & & & & X & X & \\
+Validacion con usuarios y reporte final & & & & & X & X \\
 \bottomrule
 \end{tabular}
+}
+}
 \end{table}
 
-% También incluir diagrama de Gantt si es posible
-
-% ====================================================================
-% 9. CONCLUSIONES PRELIMINARES
-% ====================================================================
-
+Se proyecta ejecutar estas tareas en la segunda mitad del semestre, priorizando validacion con usuarios y mejoras en cobertura de datos.
 \section{Conclusiones Preliminares}
 
-Este capítulo sintetiza los logros alcanzados en la primera fase del proyecto TerraMatch, evalúa la factibilidad técnica del sistema, identifica los principales desafíos encontrados y propone ajustes metodológicos para las siguientes etapas de desarrollo.
+El proyecto demuestra viabilidad tecnica y un enfoque replicable: la integracion de datos geoespaciales con ML permite explicar satisfaccion residencial con R\textsuperscript{2} > 0.86. Los resultados muestran que accesibilidad y entorno urbano complementan el precio en la explicacion de la satisfaccion, y que existen diferencias territoriales relevantes.
 
-\subsection{Logros Alcanzados}
+El enfoque integra datos heterogeneos en un pipeline reproducible y permite analizar accesibilidad urbana con un nivel de detalle espacial que no se obtiene solo con precios. Esto habilita comparaciones objetivas entre comunas y soporta recomendaciones personalizadas por perfil.
 
-El proyecto ha completado exitosamente los objetivos de la primera evaluación, alcanzando hitos técnicos significativos:
+En terminos territoriales, el estudio evidencia un gradiente centro-periferia y diferencias marcadas entre comunas en transporte, salud y comercio. Estos hallazgos son coherentes con la estructura urbana de Santiago y refuerzan la utilidad de incluir variables geoespaciales en modelos inmobiliarios.
 
-\subsubsection{Infraestructura de Datos Consolidada}
-
+\subsection{Factibilidad, Desafios y Ajustes}
 \begin{itemize}
-    \item \textbf{Dataset de propiedades}: Extracción exitosa de 7,702 propiedades mediante web scraping automatizado de Portal Inmobiliario, con información de precio, superficie, ubicación y características físicas. Este volumen supera el objetivo inicial de 7,000 propiedades (+10\%).
-    
-    \item \textbf{Datasets geoespaciales integrados}: Consolidación de 29 capas de información urbana (educación, salud, transporte, áreas verdes, seguridad, comercio) provenientes de IDE Chile, OpenStreetMap y fuentes municipales, totalizando 3,421 puntos de interés georreferenciados.
-    
-    \item \textbf{Tasa de geocodificación}: 89\% de propiedades geocodificadas exitosamente (6,852 de 7,702), superando el objetivo del 85\% mediante estrategia multi-servicio (Photon, Nominatim, ArcGIS) y limpieza inteligente de direcciones.
-    
-    \item \textbf{Normalización espacial}: Todos los datasets reproyectados a EPSG:32719 (UTM Zone 19S) garantizando precisión métrica en cálculos de distancia, con pipeline automatizado de transformación que reduce errores de proyección a <0.5\%.
+    \item \textbf{Factibilidad:} datos y pipeline consolidados; metricas espaciales y modelo operativo.
+    \item \textbf{Desafios:} variables no observadas (antiguedad, calidad, gastos) y temporalidad del mercado.
+    \item \textbf{Ajustes propuestos:} ampliar cobertura comunal, incorporar variables ambientales/demograficas y validar con encuestas reales.
 \end{itemize}
 
-\subsubsection{Feature Engineering Espacial Robusto}
+En conjunto, los resultados respaldan la continuidad del proyecto en una segunda fase con foco en validacion empirica, refinamiento de perfiles y despliegue de herramientas de apoyo a decision para usuarios finales.
 
+\subsection{Proximos Pasos}
 \begin{itemize}
-    \item \textbf{72 características espaciales calculadas}: 21 distancias mínimas a servicios clave, 42 densidades en 3 radios (300m, 600m, 1000m), 9 índices de accesibilidad compuestos. Cada variable documenta accesibilidad urbana multidimensional.
-    
-    \item \textbf{Índices de accesibilidad validados}: Diseño de 6 dimensiones de accesibilidad (educación, salud, transporte, entorno, seguridad, comercial) con rangos 1-10, calibradas mediante percentiles contextuales que evitan comparaciones injustas entre comunas.
-    
-    \item \textbf{Proxy de satisfacción residencial}: Función de utilidad multidimensional implementada con 5 perfiles de usuario diferenciados (familia con niños, profesional joven, inversionista, adulto mayor, balanceado), permitiendo personalización de recomendaciones según preferencias.
+    \item Implementar un prototipo de recomendacion y evaluacion con usuarios.
+    \item Revisar bibliografia y fortalecer el marco teorico para la version final.
 \end{itemize}
 
-\subsubsection{Modelo Predictivo de Alto Desempeño}
-
-\begin{itemize}
-    \item \textbf{Selección de algoritmo óptimo}: Tras evaluación comparativa de Random Forest (baseline) y LightGBM, se seleccionó LightGBM como modelo final por desempeño superior: R² = 0.8635 vs 0.8431 (+2.42\%), RMSE reducido en 6.7\%, MAE reducido en 5.4\%.
-    
-    \item \textbf{Capacidad predictiva validada}: El modelo explica el 86.35\% de la variabilidad en satisfacción residencial con error promedio de ±0.266 puntos (escala 1-10). Validación cruzada 5-fold confirma estabilidad (CV R² = 0.8650 ± 0.0078).
-    
-    \item \textbf{Ausencia de sesgo espacial}: Autocorrelación espacial de residuos Moran's I = 0.0695 (p > 0.05), indicando que el modelo captura adecuadamente patrones geográficos sin clustering sistemático de errores.
-    
-    \item \textbf{Interpretabilidad preservada}: Ranking de importancia de 42 features permite explicar predicciones: precio/m² (31.8\%), superficie útil (23.9\%), distancia a áreas verdes (8.6\%), seguridad (6.9\%), transporte (6.6\%) como factores dominantes.
-\end{itemize}
-
-\subsubsection{Visualizaciones y Análisis Generados}
-
-\begin{itemize}
-    \item \textbf{Mapas temáticos}: 3 mapas estáticos de ubicación, precio/m² y satisfacción predicha, mostrando distribución espacial de propiedades y gradientes de valor.
-    
-    \item \textbf{Gráficos estadísticos}: 5 visualizaciones analíticas (histogramas, análisis comunal, correlaciones, dispersión predicción vs realidad, importancia de variables) documentando patrones en los datos.
-    
-    \item \textbf{Mapa interactivo}: Visualización HTML con Folium permitiendo exploración geográfica de 7,702 propiedades con pop-ups informativos y capas de servicios urbanos.
-    
-    \item \textbf{Reporte automatizado}: Script \texttt{generar\_estadisticas\_preliminares.py} genera reporte completo de métricas, validando reproducibilidad de resultados.
-\end{itemize}
-
-\subsection{Factibilidad del Proyecto}
-
-Tras la evaluación técnica de la primera fase, el proyecto TerraMatch es \textbf{técnicamente factible} y viable para despliegue en producción bajo las siguientes consideraciones:
-
-\subsubsection{Viabilidad Técnica}
-
-\textbf{Infraestructura computacional}: El pipeline completo (scraping, geocodificación, cálculo de features, entrenamiento del modelo) se ejecuta en ~4 horas en hardware estándar (CPU Intel i7, 16GB RAM), haciendo viable actualizaciones periódicas del modelo sin requerir infraestructura cloud costosa.
-
-\textbf{Escalabilidad demostrada}: El sistema procesó exitosamente 7,702 propiedades × 42 features = 323,484 celdas de datos. Proyecciones indican que puede escalar a 50,000+ propiedades (cobertura completa RM) manteniendo tiempos de entrenamiento <8 horas.
-
-\textbf{Calidad de predicciones}: El modelo LightGBM alcanza precisión comparable a sistemas comerciales de valoración automatizada (AVMs), con R² = 0.8635 dentro del rango reportado en literatura académica (0.80-0.90 para modelos hedónicos espaciales).
-
-\textbf{Robustez de datos}: La tasa de geocodificación del 89\% y cobertura de servicios urbanos en 4 comunas demuestran que los datos de entrada son suficientemente completos y confiables para sustentar un sistema de recomendación.
-
-\subsubsection{Factibilidad Operativa}
-
-\textbf{Mantenimiento del modelo}: La selección de LightGBM equilibra precisión y eficiencia. El modelo requiere reentrenamiento para incorporar nuevas propiedades y actualizar pesos de features, proceso automatizable mediante scripts existentes.
-
-\textbf{Gestión de datos geoespaciales}: El pipeline de normalización de CRS y cálculo de distancias está completamente automatizado. Incorporar nuevas comunas requiere únicamente descargar capas de IDE Chile y ejecutar \texttt{calcular\_distancias.py}.
-
-\textbf{Interfaz de usuario}: El mapa interactivo HTML demuestra viabilidad de interfaces web. Migración a framework React/Vue.js es directa, con backend API REST devolviendo predicciones en <100ms.
-
-\textbf{Costos operativos}: Uso de servicios gratuitos (IDE Chile, OpenStreetMap) y geocodificación por lotes (Google Maps API: \$5/1000 direcciones) hacen el sistema económicamente sostenible para operación continua.
-
-\subsubsection{Limitaciones Identificadas}
-
-\textbf{Cobertura geográfica acotada}: El modelo actual está entrenado únicamente con 4 comunas de la Región Metropolitana. Generalización a otras regiones (Valparaíso, Concepción) requiere recolección de datos locales y validación de transferibilidad del modelo.
-
-\textbf{Temporalidad estática}: El dataset representa un snapshot (diciembre 2025) sin información de evolución temporal de precios. Modelos de series temporales requerirán scraping histórico periódico.
-
-\textbf{Dependencia de Portal Inmobiliario}: El sistema depende de la estructura HTML de Portal Inmobiliario. Cambios en el sitio web requieren actualización de scrapers. Diversificación a múltiples portales (Yapo, TocToc, Mercado Libre) aumentaría resiliencia.
-
-\textbf{Validación con usuarios reales}: El proxy de satisfacción es un constructo teórico. Validación empírica con encuestas a compradores reales permitiría calibrar pesos de perfiles y verificar correlación entre satisfacción predicha vs real.
-
-\subsection{Desafíos Identificados}
-
-Durante el desarrollo de la primera fase se identificaron 6 desafíos principales que requirieron ajustes metodológicos:
-
-\subsubsection{Desafío 1: Heterogeneidad de Fuentes Geoespaciales}
-
-\textbf{Descripción}: Los 29 datasets geoespaciales provenían de múltiples fuentes (IDE Chile, OpenStreetMap, municipalidades) con formatos inconsistentes (Shapefile, GeoJSON, GML), sistemas de coordenadas diversos (WGS84, UTM, sin especificar) y estructuras de atributos heterogéneas.
-
-\textbf{Impacto}: Archivos sin metadatos de CRS requerían inferencia manual. Campos equivalentes tenían nombres distintos (``nombre'', ``NAME'', ``nom\_estab''), dificultando estandarización.
-
-\textbf{Solución implementada}: Pipeline de normalización automatizada (\texttt{normalizar\_crs.py}) que detecta CRS automáticamente, reproyecta a EPSG:32719, estandariza nombres de campos y genera reportes de trazabilidad.
-
-\subsubsection{Desafío 2: Geocodificación de Direcciones Chilenas}
-
-\textbf{Descripción}: Direcciones de Portal Inmobiliario frecuentemente carecían de formato estándar, contenían abreviaciones no reconocidas (``Av.'', ``Pje.'') o incluían textos promocionales (``frente al metro'', ``cerca de la mutual'').
-
-\textbf{Impacto}: Tasa inicial de geocodificación de apenas 67\%, con 2,541 propiedades sin coordenadas utilizables.
-
-\textbf{Solución implementada}: Función de limpieza con 15 patrones regex, estrategia multi-servicio de fallback (Photon → Nominatim → ArcGIS), procesamiento paralelo (5 hilos), validación de coherencia espacial. Resultado: 89\% de tasa final.
-
-\subsubsection{Desafío 3: Diseño del Proxy de Satisfacción}
-
-\textbf{Descripción}: La satisfacción residencial es subjetiva y no observable en datos de mercado. Se requería proxy conceptualmente válido y empíricamente predecible.
-
-\textbf{Impacto}: Proxy mal diseñado invalidaría todo el sistema de recomendación al optimizar métricas irrelevantes.
-
-\textbf{Solución implementada}: Revisión de literatura académica (Amerigo \& Aragonés 1997, Lu 1999), función de utilidad multidimensional con 8 componentes, percentiles contextuales para evitar comparaciones injustas, validación mediante análisis de sensibilidad.
-
-\subsubsection{Desafío 4: Cobertura Espacial Heterogénea}
-
-\textbf{Descripción}: Distribución desigual de servicios urbanos: comercio concentrado en Santiago (72\% del total), transporte escaso en La Reina, generando distribuciones asimétricas en variables de distancia.
-
-\textbf{Impacto}: Distancias a servicios escasos presentan curtosis > 6, afectando normalización y comparabilidad de índices.
-
-\textbf{Solución implementada}: Transformación inversa con umbral en percentil 95, uso de RobustScaler, cálculo de densidades complementarias, índices compuestos que agregan servicios relacionados.
-
-\subsubsection{Desafío 5: Balance Complejidad-Explicabilidad}
-
-\textbf{Descripción}: Modelos más complejos (deep learning) alcanzarían mayor precisión pero sacrifican interpretabilidad, crítica para confianza de usuarios.
-
-\textbf{Impacto}: Riesgo de modelo ``caja negra'' rechazado por usuarios.
-
-\textbf{Solución implementada}: Selección de LightGBM con importancia de features interpretable, limitación a 42 features parsimoniosos, generación de explicaciones por propiedad. Se rechazó red neuronal con R² = 0.89 por falta de explicabilidad.
-
-\textbf{Trade-off aceptado}: Sacrificio de +2.7\% precisión potencial por mantener explicabilidad completa.
-
-\subsubsection{Desafío 6: Datos Temporalmente Estáticos}
-
-\textbf{Descripción}: Dataset representa snapshot de diciembre 2025, sin evolución temporal de precios ni tendencias de mercado.
-
-\textbf{Impacto}: El modelo no captura estacionalidad del mercado inmobiliario ni puede proyectar valores futuros.
-
-\textbf{Mitigación propuesta}: Implementar scraping periódico mensual para construir series temporales. Reentrenar modelo trimestralmente. Incorporar variables de tendencia (precio promedio últimos 3 meses).
-
-\subsection{Ajustes Propuestos para Fase 2}
-
-Basándose en los resultados preliminares y desafíos identificados, se proponen los siguientes ajustes para la segunda fase del proyecto:
-
-\subsubsection{Expansión de Cobertura Geográfica}
-
-\begin{enumerate}
-    \item \textbf{Incorporar 8 comunas adicionales} de la Región Metropolitana: Providencia, Las Condes, Vitacura, Maipú, Pudahuel, San Bernardo, Puente Alto, La Florida. Esto permitirá:
-    \begin{itemize}
-        \item Mayor diversidad socioeconómica (desde estratos altos en Vitacura hasta populares en Puente Alto)
-        \item Ampliación del dataset a 25,000+ propiedades
-        \item Validación de generalización del modelo a contextos comunales diversos
-    \end{itemize}
-    
-    \item \textbf{Validar transferibilidad geográfica}: Entrenar modelo en 70\% de comunas y validar en 30\% restantes para evaluar si patrones aprendidos son generalizables o específicos de cada territorio.
-\end{enumerate}
-
-\subsubsection{Enriquecimiento de Variables}
-
-\begin{enumerate}
-    \item \textbf{Variables temporales}: Incorporar fecha de publicación, tiempo en el mercado, historial de reducción de precio (si disponible) para modelar dinámica de oferta.
-    
-    \item \textbf{Variables de entorno urbano}: Agregar variables de calidad ambiental (ruido, contaminación aire), siniestralidad (estadísticas delictuales por cuadrante), densidad poblacional (habitantes/km²).
-    
-    \item \textbf{Imágenes satelitales}: Explorar uso de imágenes Sentinel-2 para extraer features de vegetación (NDVI), impermeabilización del suelo, densidad de edificación mediante técnicas de Computer Vision.
-\end{enumerate}
-
-\subsubsection{Mejoras en Modelamiento}
-
-\begin{enumerate}
-    \item \textbf{Ensemble multi-modelo}: Implementar stacking con 3 algoritmos (LightGBM, XGBoost, CatBoost) usando meta-learner para combinar predicciones y potencialmente ganar 1-2\% adicional de R².
-    
-    \item \textbf{Modelamiento espacial explícito}: Evaluar regresión espacial autorregresiva (SAR) o spatial error model (SEM) para capturar dependencias espaciales residuales no explicadas por distancias.
-    
-    \item \textbf{Incertidumbre calibrada}: Implementar intervalos de confianza mediante quantile regression o bootstrapping para comunicar incertidumbre de predicciones (``satisfacción estimada: 7.2 ± 0.5'').
-\end{enumerate}
-
-\subsubsection{Validación Empírica}
-
-\begin{enumerate}
-    \item \textbf{Encuestas a usuarios reales}: Realizar encuestas a 100-200 compradores recientes preguntando satisfacción con su propiedad (escala 1-10), para:
-    \begin{itemize}
-        \item Validar correlación entre satisfacción predicha por el modelo vs satisfacción real reportada
-        \item Calibrar pesos de perfiles de usuario según preferencias reales
-        \item Identificar dimensiones de satisfacción omitidas en el proxy actual
-    \end{itemize}
-    
-    \item \textbf{Pruebas A/B con corredores de propiedades}: Colaborar con 2-3 corredoras inmobiliarias para testear sistema de recomendación con clientes reales y medir tasa de conversión vs recomendaciones tradicionales.
-\end{enumerate}
-
-
-
-\subsection{Consideraciones Finales}
-
-El proyecto TerraMatch ha demostrado viabilidad técnica y científica en su primera fase. El modelo LightGBM alcanza desempeño comparable a sistemas comerciales de valoración inmobiliaria, con la ventaja adicional de considerar factores espaciales externos (accesibilidad a servicios) que los modelos tradicionales omiten.
-
-La infraestructura desarrollada (pipelines de datos, feature engineering espacial, sistema de visualización) constituye una base sólida para evolucionar hacia un sistema de recomendación inmobiliaria en producción. Los ajustes propuestos para la Fase 2 son técnicamente factibles y económicamente viables, con inversión estimada de 200 horas de desarrollo adicional.
-
-El principal factor de éxito será la validación empírica con usuarios reales, que permitirá calibrar el proxy de satisfacción y generar confianza en las recomendaciones del sistema. La expansión geográfica a comunas adicionales ampliará el mercado objetivo y permitirá capturar mayor diversidad de preferencias residenciales.
-
-
-% ====================================================================
-% REFERENCIAS
-% ====================================================================
-
-\newpage
-\printbibliography%[heading=bibintoc,title={Referencias}]
-
-
-% ====================================================================
-% ANEXOS
-% ====================================================================
-
-\newpage
+Finalmente, la version final incorporara bibliografia completa y validaciones adicionales con datos mas recientes, consolidando la utilidad del sistema para escenarios reales de decision.
 \appendix
 \section{Anexos}
 
@@ -1701,7 +638,77 @@ Censo & INE Chile & .csv & Manzana & 2017 & Portal INE \\
 \end{tabular}
 \end{table}
 
-\subsection{Anexo C: Mapas Adicionales}
+\subsection{Anexo C: Figuras y Graficos}
+
+\begin{figure}[H]
+    \centering
+    % \includegraphics[width=\textwidth]{figuras/diagrama_flujo.png}
+    \caption{Diagrama de flujo metodológico del proyecto}
+    \label{fig:flujo}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{figuras/05_mapa_habitabilidad.png}
+    \caption{Mapa de índice de habitabilidad calculado a partir de características espaciales}
+    \label{fig:mapa_habitabilidad}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figuras/grafico_01_histogramas.png}
+    \caption{Distribución de variables principales: precio (UF), superficie útil (m²), dormitorios y baños}
+    \label{fig:histogramas}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{figuras/grafico_02_analisis_comunas.png}
+    \caption{Análisis comparativo de propiedades por comuna: distribución de precios, superficies y características}
+    \label{fig:analisis_comunas}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figuras/10_analisis_por_comuna.png}
+    \caption{Análisis detallado de características espaciales por comuna}
+    \label{fig:detalle_comunas}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figuras/mapa_02_precio_m2.png}
+    \caption{Distribución espacial del precio por metro cuadrado (UF/m²) en las 4 comunas}
+    \label{fig:mapa_precios}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{figuras/grafico_03_correlaciones.png}
+    \caption{Matriz de correlaciones entre variables de propiedades y características espaciales}
+    \label{fig:correlaciones}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figuras/mapa_03_satisfaccion_predicha.png}
+    \caption{Mapa de satisfacción residencial predicha: visualización estática de la distribución espacial de predicciones del modelo LightGBM en las 4 comunas}
+    \label{fig:mapa_satisfaccion}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figuras/grafico_04_dispersion.png}
+    \caption{Gráfico de dispersión: satisfacción predicha vs. satisfacción real (R² = 0.8635)}
+    \label{fig:dispersion}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figuras/grafico_05_importancia_metricas.png}
+    \caption{Importancia de las 20 principales variables en el modelo predictivo LightGBM}
+    \label{fig:importancia}
+\end{figure}
 
 \begin{figure}[H]
     \centering
@@ -1716,7 +723,6 @@ Censo & INE Chile & .csv & Manzana & 2017 & Portal INE \\
     \caption{Mapa de ubicación del área de estudio (4 comunas: Estación Central, La Reina, Ñuñoa y Santiago Centro)}
     \label{fig:ubicacion_area}
 \end{figure}
-
 \subsection{Anexo D: Enlaces y Recursos}
 
 \begin{itemize}
