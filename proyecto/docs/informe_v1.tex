@@ -516,46 +516,89 @@ Desde una perspectiva aplicada, los resultados sugieren que mejorar transporte y
 
 El cronograma se organiza en actividades ya completadas y tareas restantes para la segunda fase del proyecto.
 
-\subsection{Actividades Completadas}
-\begin{itemize}
-    \item Normalizacion de datasets y geocodificacion de propiedades.
-    \item Calculo de metricas espaciales y construccion del proxy de satisfaccion.
-    \item Entrenamiento y validacion del modelo LightGBM.
-\end{itemize}
+\begin{table}[H]
+\centering
+\caption{Actividades completadas hasta la fecha}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Actividad} & \textbf{Inicio} & \textbf{Fin} \\
+\midrule
+Preprocesamiento & Ago. S4 & Sept. S4 \\
+\midrule
+Selección del proyecto & Ago. S4 & Ago. S4 \\
+Recolección de Datasets & Sept. S1 & Sept. S3 \\
+Corrección de geometrías & Sept. S1 & Sept. S3 \\
+Homogenización de campos & Sept. S2 & Sept. S3 \\
+Filtrado por áreas de interés & Sept. S2 & Sept. S3 \\
+Limpieza de duplicados & Sept. S3 & Sept. S3 \\
+Validación de calidad geométrica & Sept. S3 & Sept. S3 \\
+Diseño aplicativo TerraMatch & Sept. S1 & Sept. S2 \\
+Diseño chatbot TerraMatch & Sept. S1 & Sept. S2 \\
+Informe & Sept. S3 & Sept. S4 \\
+\midrule
+Integración Espacial & Oct. S1 & Nov. S4 \\
+\midrule
+Generación de grilla de evaluación & Oct. S1 & Oct. S2 \\
+Filtrado de puntos de interés & Oct. S1 & Oct. S1 \\
+Cálculos de distancias (KDTrees) & Oct. S1 & Oct. S1 \\
+Cálculos de densidades & Oct. S1 & Oct. S1 \\
+Generación de indices compuesto y normalizados & Oct. S4 & Oct. S4 \\
+Generación de indices compuesto y normalizados & Nov. S3 & Oct. S3 \\
+Integración propiedades a grilla de evaluación & Nov. S2 & Oct. S2 \\
+Generación de Dataset final & Oct. S4 & Oct. S4 \\
+Desarrollo aplicativo TerraMatch & Oct. S1 & Nov. S3 \\
+Desarrollo chatbot TerraMatch & Oct. S4 & Nov. S3 \\
+Creación pipeline de modelado & Oct. S1 & Nov. S4 \\
+Informe & Oct. S1 & Nov. S4 \\
+\midrule
+Modelamiento Predictivo & Dic. S1 & Dic. S4 \\
+\midrule
+Entrenamiento de Baseline (Random Forest) & Dic. S1 & Dic. S1 \\
+Validación del Baseline & Dic. S1 & Dic. S1 \\
+Entrenamiento con Dataset Combinado (Random Forest) & Dic. S1 & Dic. S1 \\
+Entrenamiento Exploratorio (LightGBM) & Dic. S2 & Dic. S2 \\
+Desarrollo de proxy satisfacción residencial & Dic. S2 & Dic. S3 \\
+Generación de mapas con elementos cartográficos & Dic. S3 & Dic. S3 \\
+Generación de mapas con elementos estadísticos & Dic. S3 & Dic. S3 \\
+Desarrollo aplicativo TerraMatch & Dic. S2 & Dic. S3 \\
+Desarrollo chatbot TerraMatch & Dic. S3 & Dic. S4 \\
+Informe y presentación & Dic. S2 & Dic. S4 \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 Estas actividades corresponden a la fase inicial del proyecto (semanas 1-3), enfocada en datos, metricas espaciales y modelamiento base.
 
 \subsection{Actividades Pendientes}
-\begin{itemize}
-    \item Incorporar variables temporales y ampliar cobertura geografica.
-    \item Integrar API y visualizaciones interactivas para usuarios finales.
-    \item Validacion empirica con usuarios reales y ajuste de perfiles.
-\end{itemize}
 
-% Cronograma sintetico tipo Gantt en formato tabla
 \begin{table}[H]
 \centering
-\caption{Cronograma sintetico (Gantt simplificado)}
-{\scriptsize
-\setlength{\tabcolsep}{2pt}
-\renewcommand{\arraystretch}{1.1}
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{@{}p{4.2cm}cccccc@{}}
+\caption{Cronograma de actividades restantes}
+\begin{tabular}{@{}lll@{}}
 \toprule
-Actividad & S4 & S5 & S6 & S7 & S8 & S9-10 \\
+\textbf{Actividad}  & \textbf{Inicio} & \textbf{Duración} \\
 \midrule
-Ampliacion de datos y QA & X & X & & & & \\
-Refinamiento de variables e indices & & X & X & & & \\
-Ajuste y validacion de modelos & & & X & X & & \\
-Prototipo API y visualizaciones & & & & X & X & \\
-Validacion con usuarios y reporte final & & & & & X & X \\
+Recolección nuevos Datasets (áreas verdes, delincuencia, otros) & Ene. S1 & 1 semanas \\
+Integración espacial nuevos datasets & Ene. S2 & 1 semanas \\
+Entrenamiento modelo LightGBM & Ene. S2 & 2 semanas \\
+Mejora de proxy satisfacción residencial & Ene. S3 & 1 semana \\
+Mejoras aplicativo TerraMatch & Ene. S2 & 2 semana \\
+Mejoras chatbot TerraMatch & Ene. S2 & 2 semana \\
+Informe & Ene. S2 & 3 semana \\
+Preparación presentación final & Ene. S3 & 2 semana \\
 \bottomrule
 \end{tabular}
-}
-}
 \end{table}
 
-Se proyecta ejecutar estas tareas en la segunda mitad del semestre, priorizando validacion con usuarios y mejoras en cobertura de datos.
+% Cronograma sintetico tipo Gantt en formato tabla
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figuras/figura3_carta_gant_sintetica.png}
+    \caption{Carta Gantt sintética}
+    \label{fig:carta_gantt}
+\end{figure}
+
+Se proyecta ejecutar estas tareas en enero 2026 por extension de semestre debido a toma/paro USACH, se priorizara validación con usuarios y mejoras en cobertura de datos.
 \section{Conclusiones Preliminares}
 
 El proyecto demuestra viabilidad tecnica y un enfoque replicable: la integracion de datos geoespaciales con ML permite explicar satisfaccion residencial con R\textsuperscript{2} > 0.86. Los resultados muestran que accesibilidad y entorno urbano complementan el precio en la explicacion de la satisfaccion, y que existen diferencias territoriales relevantes.
