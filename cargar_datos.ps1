@@ -68,14 +68,17 @@ Write-Host "====================================================================
 Write-Host ""
 
 # Crear directorio en el contenedor
-& docker exec geoinformatica-backend mkdir -p /app/datos_nuevos/DATOS_FILTRADOS 2>$null
+& docker exec geoinformatica-backend mkdir -p /tmp/DATOS_FILTRADOS 2>$null
+
+# Limpiar archivos existentes en el contenedor para evitar conflictos de permisos
+& docker exec geoinformatica-backend rm -f /tmp/DATOS_FILTRADOS/*.geojson 2>$null
 
 # Copiar archivos GeoJSON
 if (Test-Path -Path "datos_nuevos\DATOS_FILTRADOS") {
     Write-Host "Copiando archivos GeoJSON..." -ForegroundColor Cyan
     Get-ChildItem -Path "datos_nuevos\DATOS_FILTRADOS\*.geojson" | ForEach-Object {
         $filename = $_.Name
-        docker cp $_.FullName "geoinformatica-backend:/app/datos_nuevos/DATOS_FILTRADOS/$filename"
+        docker cp $_.FullName "geoinformatica-backend:/tmp/DATOS_FILTRADOS/$filename"
         Write-Host "   OK $filename" -ForegroundColor Green
     }
 } else {
@@ -118,7 +121,10 @@ Write-Host "Cargando colegios, hospitales, farmacias, metro, parques, etc..." -F
 Write-Host ""
 
 # Crear directorio de datos normalizados en el contenedor
-& docker exec geoinformatica-backend mkdir -p /app/datos_normalizados 2>$null
+& docker exec geoinformatica-backend mkdir -p /tmp/datos_normalizados 2>$null
+
+# Limpiar archivos existentes
+& docker exec geoinformatica-backend rm -f /tmp/datos_normalizados/*.geojson 2>$null
 
 # Copiar archivos de datos normalizados
 $datosNormalizadosPath = "autocorrelacion_espacial\semana1_preparacion_datos\datos_normalizados\datos_normalizados"
@@ -126,7 +132,7 @@ if (Test-Path -Path $datosNormalizadosPath) {
     Write-Host "Copiando archivos de servicios..." -ForegroundColor Cyan
     Get-ChildItem -Path "$datosNormalizadosPath\*.geojson" | ForEach-Object {
         $filename = $_.Name
-        docker cp $_.FullName "geoinformatica-backend:/app/datos_normalizados/$filename"
+        docker cp $_.FullName "geoinformatica-backend:/tmp/datos_normalizados/$filename"
     }
     ok "Archivos de servicios copiados"
 } else {

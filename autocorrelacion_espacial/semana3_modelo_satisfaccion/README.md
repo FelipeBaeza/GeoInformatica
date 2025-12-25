@@ -1,9 +1,9 @@
 # Modelo de Satisfacción Residencial - Propiedades en Venta
 
-## 📋 Descripción
+##  Descripción
 Modelo predictivo de satisfacción residencial para propiedades en venta en Santiago de Chile, utilizando Machine Learning (Random Forest + Gradient Boosting) con factores espaciales externos.
 
-## 🚀 Ejecución Rápida
+##  Ejecución Rápida
 
 ```bash
 # Activar entorno virtual
@@ -16,7 +16,7 @@ python scripts/modelo_satisfaccion.py
 python scripts/predecir_satisfaccion.py
 ```
 
-## 📁 Estructura del Proyecto
+##  Estructura del Proyecto
 
 ```
 semana3_modelo_satisfaccion/
@@ -42,7 +42,7 @@ semana3_modelo_satisfaccion/
 └── README.md
 ```
 
-## 📈 Resultados del Modelo
+##  Resultados del Modelo
 
 | Métrica | Valor |
 |---------|-------|
@@ -58,7 +58,7 @@ semana3_modelo_satisfaccion/
 3. **dens_comercio_600m_km2** (8%) - Densidad comercial
 4. **dist_transporte_min_m** (7%) - Acceso a transporte
 
-## 🎭 Perfiles de Usuario
+##  Perfiles de Usuario
 
 | Perfil | Descripción |
 |--------|-------------|
@@ -68,7 +68,7 @@ semana3_modelo_satisfaccion/
 | adulto_mayor | Prioriza salud, seguridad, áreas verdes |
 | balanceado | Equilibrado en todas las dimensiones |
 
-## 🔮 Uso del Predictor
+##  Uso del Predictor
 
 ```python
 from predecir_satisfaccion import PredictorSatisfaccion
