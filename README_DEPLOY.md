@@ -1,11 +1,11 @@
-# 🚀 Guía de Deployment - Backend GeoInformática
+# Guía de Deployment - Backend GeoInformática
 
 > **Instrucciones verificadas y funcionales para levantar el proyecto completo**  
 > Última actualización: 23 de diciembre de 2025
 
 ---
 
-## 📋 Prerequisitos
+## Prerequisitos
 
 - Docker y Docker Compose instalados
 - Puertos disponibles: `5432` (PostgreSQL), `8000` (Backend), `3000` (Frontend)
@@ -13,7 +13,7 @@
 
 ---
 
-## 🏗️ Paso 1: Levantar el Stack con Docker Compose
+## Paso 1: Levantar el Stack con Docker Compose
 
 ```bash
 # Desde el directorio raíz del proyecto
@@ -34,11 +34,11 @@ geoinformatica-backend    Up 5 minutes (healthy)
 geoinformatica-frontend   Up 5 minutes (healthy)
 ```
 
-⏱️ **Tiempo estimado:** 2-3 minutos
+ **Tiempo estimado:** 2-3 minutos
 
 ---
 
-## 🗄️ Paso 2: Verificar y Crear Base de Datos
+##  Paso 2: Verificar y Crear Base de Datos
 
 ```bash
 # Crear base de datos si no existe
@@ -60,11 +60,11 @@ sudo docker restart geoinformatica-backend
 curl http://localhost:8000/api/v1/health
 ```
 
-Debe mostrar: `"database":"✅ Conectada"`
+Debe mostrar: `"database":" Conectada"`
 
 ---
 
-## 📍 Paso 3: Insertar Comunas Base
+##  Paso 3: Insertar Comunas Base
 
 Las comunas son **requeridas** antes de cargar propiedades (relación `comuna_id`).
 
@@ -92,7 +92,7 @@ docker exec -it geoinformatica-db psql -U postgres -d inmobiliaria_db -c \
 
 ---
 
-## 🏠 Paso 4: Cargar Propiedades (8,051 registros)
+##  Paso 4: Cargar Propiedades (8,051 registros)
 
 Carga las propiedades desde los 8 archivos GeoJSON en `datos_nuevos/DATOS_FILTRADOS/`.
 
@@ -103,53 +103,53 @@ docker exec -it geoinformatica-backend python scripts/cargar_propiedades_geojson
 **Salida esperada:**
 ```
 ======================================================================
-🏠 CARGA DE PROPIEDADES DESDE GEOJSON
+ CARGA DE PROPIEDADES DESDE GEOJSON
 ======================================================================
-✅ Conectado a geoinformatica-db:5432/inmobiliaria_db
+ Conectado a geoinformatica-db:5432/inmobiliaria_db
 
-🗑️  Limpiando propiedades existentes...
+  Limpiando propiedades existentes...
    Propiedades después de limpiar: 0
 
-📍 Configurando comunas...
+ Configurando comunas...
    Comunas disponibles: 9
 
-📂 Directorio de datos: datos_nuevos/DATOS_FILTRADOS
+ Directorio de datos: datos_nuevos/DATOS_FILTRADOS
 
-📁 Archivos GeoJSON encontrados: 8
-   ✅ departamentos_la_reina.geojson: 245/245 insertados
-   ✅ departamentos_Santiago.geojson: 1337/1337 insertados
-   ✅ departamentos_estacion_central.geojson: 1879/1879 insertados
-   ✅ casas_nunoa.geojson: 802/802 insertados
-   ✅ casas_estacon_central.geojson: 220/220 insertados
-   ✅ departamentos_nunoa.geojson: 1853/1853 insertados
-   ✅ casas_Santiago.geojson: 463/463 insertados
-   ✅ casas_la_reina.geojson: 1252/1252 insertados
+ Archivos GeoJSON encontrados: 8
+    departamentos_la_reina.geojson: 245/245 insertados
+    departamentos_Santiago.geojson: 1337/1337 insertados
+    departamentos_estacion_central.geojson: 1879/1879 insertados
+    casas_nunoa.geojson: 802/802 insertados
+    casas_estacon_central.geojson: 220/220 insertados
+    departamentos_nunoa.geojson: 1853/1853 insertados
+    casas_Santiago.geojson: 463/463 insertados
+    casas_la_reina.geojson: 1252/1252 insertados
 
 ======================================================================
-📊 RESUMEN DE CARGA
+ RESUMEN DE CARGA
 ======================================================================
    Total features en archivos: 8051
-   ✅ Propiedades insertadas: 8051
-   ❌ Errores: 0
+    Propiedades insertadas: 8051
+    Errores: 0
 
-🏠 Total en base de datos: 8051
+ Total en base de datos: 8051
 
-📍 Distribución por comuna:
+ Distribución por comuna:
    Ñuñoa: 2655
    Estación Central: 2099
    Santiago: 1800
    La Reina: 1497
 
 ======================================================================
-✅ CARGA COMPLETADA
+ CARGA COMPLETADA
 ======================================================================
 ```
 
-⏱️ **Tiempo estimado:** 15-30 segundos
+ **Tiempo estimado:** 15-30 segundos
 
 ---
 
-## 🗺️ Paso 5: Cargar Puntos de Interés (2,801 servicios)
+##  Paso 5: Cargar Puntos de Interés (2,801 servicios)
 
 Carga servicios (metro, colegios, hospitales, supermercados, etc.) desde `datos_normalizados/`.
 
@@ -166,10 +166,10 @@ CARGA DE PUNTOS DE INTERÉS (SERVICIOS)
 Directorio de datos: /app/datos_normalizados/datos_normalizados
 
 Conectando a la base de datos...
-✓ Conexión establecida
+ Conexión establecida
 
 Limpiando tabla puntos_interes...
-✓ Tabla limpiada
+ Tabla limpiada
 
 ================================================================================
 PROCESANDO ARCHIVOS GEOJSON
@@ -177,25 +177,25 @@ PROCESANDO ARCHIVOS GEOJSON
 
 Procesando: establecimientos_educacion_escolar.geojson
   - Features encontrados: 458
-  ✓ Insertados: 458 registros
+   Insertados: 458 registros
 
 Procesando: establecimientos_educacion_superior.geojson
   - Features encontrados: 363
-  ✓ Insertados: 363 registros
+   Insertados: 363 registros
 
 Procesando: Estaciones_metro_Santiago.geojson
   - Features encontrados: 120
-  ✓ Insertados: 120 registros
+   Insertados: 120 registros
 
 [... más archivos ...]
 
 Procesando: tiendas_filtradas.geojson
   - Features encontrados: 497
-  ✓ Insertados: 497 registros
+   Insertados: 497 registros
 
 Procesando: servicios_filtrados.geojson
   - Features encontrados: 773
-  ✓ Insertados: 773 registros
+   Insertados: 773 registros
 
 ================================================================================
 RESUMEN
@@ -204,18 +204,18 @@ Archivos procesados:     14
 Total POIs insertados:   2801
 ================================================================================
 
-✓ Carga completada exitosamente
+ Carga completada exitosamente
 ```
 
-⚠️ **Notas sobre errores esperados:**
+ **Notas sobre errores esperados:**
 - `Lineas_de_metro_de_Santiago.geojson`: Falla porque tiene LineStrings, no Points (no afecta, tenemos las estaciones).
 - `areas_verdes_filtradas.geojson` y `ocio_filtrado.geojson`: Algunos tienen geometrías Polygon en vez de Point (omitidos, no crítico).
 
-⏱️ **Tiempo estimado:** 30-60 segundos
+ **Tiempo estimado:** 30-60 segundos
 
 ---
 
-## ✅ Paso 6: Verificar Datos Cargados
+##  Paso 6: Verificar Datos Cargados
 
 ### Resumen General
 ```bash
@@ -288,7 +288,7 @@ FROM propiedades;
 
 ---
 
-## 🌐 Paso 7: Probar la API
+##  Paso 7: Probar la API
 
 ### Backend (FastAPI)
 ```bash
@@ -315,7 +315,7 @@ xdg-open http://localhost:3000
 
 ---
 
-## 🛠️ Comandos Útiles
+##  Comandos Útiles
 
 ### Ver logs en tiempo real
 ```bash
@@ -359,7 +359,7 @@ docker compose up -d --build
 
 ---
 
-## 🔧 Troubleshooting
+##  Troubleshooting
 
 ### Error: "Cannot connect to database"
 ```bash
@@ -403,7 +403,7 @@ docker inspect geoinformatica-backend | grep -i health
 
 ---
 
-## 📊 Resumen de Datos Cargados
+##  Resumen de Datos Cargados
 
 | Entidad           | Total  | Fuente                                  |
 |-------------------|--------|-----------------------------------------|
@@ -426,7 +426,7 @@ docker inspect geoinformatica-backend | grep -i health
 
 ---
 
-## 🎯 Próximos Pasos
+##  Próximos Pasos
 
 1. **Modelo ML de Satisfacción:** Verificar que existe `modelos/modelo_satisfaccion_venta.pkl`
 2. **Calcular Distancias:** Ejecutar análisis espacial para poblar campos `dist_*_m`
@@ -435,7 +435,7 @@ docker inspect geoinformatica-backend | grep -i health
 
 ---
 
-## 📞 Soporte
+##  Soporte
 
 Si encuentras problemas:
 1. Revisar logs: `docker compose logs -f`
@@ -447,7 +447,7 @@ Si encuentras problemas:
 
 ---
 
-**✅ Deployment completado exitosamente**
+** Deployment completado exitosamente**
 
 Backend: http://localhost:8000  
 Frontend: http://localhost:3000  

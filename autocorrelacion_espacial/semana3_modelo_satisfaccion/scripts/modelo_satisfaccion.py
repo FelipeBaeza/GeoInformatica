@@ -44,7 +44,7 @@ try:
     import lightgbm as lgb
     LIGHTGBM_DISPONIBLE = True
 except ImportError:
-    print("⚠️ LightGBM no instalado. Ejecuta: pip install lightgbm")
+    print(" LightGBM no instalado. Ejecuta: pip install lightgbm")
     LIGHTGBM_DISPONIBLE = False
 
 # =============================================================================
@@ -69,19 +69,19 @@ for d in [OUTPUT_DIR, GRAFICOS_DIR, MODELOS_DIR]:
 VALOR_UF = 38500  # CLP por UF (noviembre 2025)
 
 print("=" * 80)
-print("🏠 MODELO DE SATISFACCIÓN - PROPIEDADES EN VENTA")
+print(" MODELO DE SATISFACCIÓN - PROPIEDADES EN VENTA")
 print("=" * 80)
 
 # =============================================================================
 # 1. CARGAR Y COMBINAR DATOS
 # =============================================================================
-print("\n📂 PASO 1: Cargando datos de propiedades en venta...")
+print("\n PASO 1: Cargando datos de propiedades en venta...")
 
 def cargar_geojson(filepath):
     """Carga un archivo GeoJSON y retorna GeoDataFrame"""
     try:
         gdf = gpd.read_file(filepath)
-        print(f"   ✓ {filepath.name}: {len(gdf)} propiedades")
+        print(f"    {filepath.name}: {len(gdf)} propiedades")
         return gdf
     except Exception as e:
         print(f"   ✗ Error cargando {filepath.name}: {e}")
@@ -100,14 +100,14 @@ for archivo in archivos:
 # Combinar todos los GeoDataFrames
 if gdfs:
     gdf_all = gpd.GeoDataFrame(pd.concat(gdfs, ignore_index=True))
-    print(f"\n   ✓ Total propiedades combinadas: {len(gdf_all)}")
+    print(f"\n    Total propiedades combinadas: {len(gdf_all)}")
 else:
     raise ValueError("No se pudieron cargar datos")
 
 # =============================================================================
 # 2. LIMPIAR Y PARSEAR DATOS
 # =============================================================================
-print("\n🧹 PASO 2: Limpiando y parseando datos...")
+print("\n PASO 2: Limpiando y parseando datos...")
 
 def extraer_numero(texto):
     """Extrae el primer número de un texto"""
@@ -210,7 +210,7 @@ q01 = df['precio_m2_uf'].quantile(0.01)
 q99 = df['precio_m2_uf'].quantile(0.99)
 df = df[(df['precio_m2_uf'] > q01) & (df['precio_m2_uf'] < q99)].copy()
 
-print(f"\n   ✓ Propiedades válidas: {len(df)}")
+print(f"\n    Propiedades válidas: {len(df)}")
 print(f"   • Departamentos: {len(df[df['tipo_propiedad'] == 'departamento'])}")
 print(f"   • Casas: {len(df[df['tipo_propiedad'] == 'casa'])}")
 print(f"   • Precio UF: {df['precio_uf'].min():.0f} - {df['precio_uf'].max():.0f}")
@@ -220,7 +220,7 @@ print(f"   • Precio/m² UF: {df['precio_m2_uf'].min():.1f} - {df['precio_m2_uf
 # =============================================================================
 # 3. CARGAR DATOS ESPACIALES (SERVICIOS)
 # =============================================================================
-print("\n🗺️ PASO 3: Integrando datos espaciales...")
+print("\n PASO 3: Integrando datos espaciales...")
 
 # Intentar cargar grilla con índices de la semana 2
 grilla_path = SEMANA2_DIR / 'features' / 'grilla_con_indices.geojson'
@@ -260,22 +260,22 @@ if grilla_path.exists():
     features_espaciales = [col for col in gdf_grilla.columns if any(x in col for x in 
         ['dist_', 'dens_', 'acc_', 'idx_', 'div_'])]
     
-    print(f"   ✓ Features espaciales disponibles: {len(features_espaciales)}")
+    print(f"    Features espaciales disponibles: {len(features_espaciales)}")
     
     for col in features_espaciales:
         if col in gdf_grilla.columns:
             df[col] = gdf_grilla.iloc[indices][col].values
     
     df['dist_to_grid'] = distances
-    print(f"   ✓ Distancia promedio a grilla: {distances.mean():.0f}m")
+    print(f"    Distancia promedio a grilla: {distances.mean():.0f}m")
 else:
-    print("   ⚠️ Grilla espacial no encontrada, calculando features básicas...")
+    print("    Grilla espacial no encontrada, calculando features básicas...")
     features_espaciales = []
 
 # =============================================================================
 # 4. FEATURE ENGINEERING
 # =============================================================================
-print("\n🔧 PASO 4: Feature Engineering...")
+print("\n PASO 4: Feature Engineering...")
 
 # Features derivadas de la propiedad
 df['m2_por_dormitorio'] = df['superficie_util'] / df['dormitorios'].replace(0, 1)
@@ -297,12 +297,12 @@ comunas_economicas = ['estación central', 'quinta normal', 'cerro navia']
 df['es_comuna_premium'] = df['comuna_norm'].isin(comunas_premium).astype(int)
 df['es_comuna_economica'] = df['comuna_norm'].isin(comunas_economicas).astype(int)
 
-print(f"   ✓ Features creadas")
+print(f"    Features creadas")
 
 # =============================================================================
 # 5. DEFINIR PERFILES DE USUARIO
 # =============================================================================
-print("\n🎭 PASO 5: Definiendo perfiles de usuario...")
+print("\n PASO 5: Definiendo perfiles de usuario...")
 
 PERFILES_USUARIO = {
     'familia_con_ninos': {
@@ -375,7 +375,7 @@ PERFILES_USUARIO = {
 # =============================================================================
 # 6. CALCULAR SATISFACCIÓN POR PERFIL
 # =============================================================================
-print("\n🎯 PASO 6: Calculando satisfacción por perfil...")
+print("\n PASO 6: Calculando satisfacción por perfil...")
 
 # La satisfacción se calcula considerando:
 # 1. Valor relativo (precio/m² respecto a la zona)
@@ -482,7 +482,7 @@ np.random.seed(42)  # Para reproducibilidad
 for perfil in PERFILES_USUARIO.keys():
     col_name = f'satisfaccion_{perfil}'
     df[col_name] = calcular_satisfaccion_vectorizada(df, perfil)
-    print(f"   ✓ {perfil}: media={df[col_name].mean():.2f}, std={df[col_name].std():.2f}")
+    print(f"    {perfil}: media={df[col_name].mean():.2f}, std={df[col_name].std():.2f}")
 
 # Satisfacción principal
 df['satisfaccion_target'] = df['satisfaccion_balanceado']
@@ -490,7 +490,7 @@ df['satisfaccion_target'] = df['satisfaccion_balanceado']
 # =============================================================================
 # 7. PREPARAR FEATURES PARA EL MODELO
 # =============================================================================
-print("\n📊 PASO 7: Preparando features para el modelo...")
+print("\n PASO 7: Preparando features para el modelo...")
 
 # Features internas de la propiedad (excluyendo las usadas directamente en satisfacción)
 features_internas = [
@@ -530,20 +530,20 @@ if 'precio_uf' in df.columns:
 if 'precio_m2_uf' in df.columns:
     all_features.append('precio_m2_uf')
 
-print(f"   ✓ Features seleccionadas: {len(all_features)}")
+print(f"    Features seleccionadas: {len(all_features)}")
 print(f"   • Internas: {len([f for f in all_features if f in features_internas])}")
 print(f"   • Espaciales: {len([f for f in all_features if f in features_espaciales_disponibles])}")
 
 # Preparar dataset
 df_model = df[all_features + ['satisfaccion_target']].dropna()
-print(f"   ✓ Muestras válidas para entrenamiento: {len(df_model)}")
+print(f"    Muestras válidas para entrenamiento: {len(df_model)}")
 
 if len(df_model) < 50:
-    print("   ⚠️ Pocas muestras, usando features reducidas...")
+    print("    Pocas muestras, usando features reducidas...")
     # Usar solo features básicas
     all_features = [f for f in features_internas if f in df.columns]
     df_model = df[all_features + ['satisfaccion_target']].dropna()
-    print(f"   ✓ Muestras con features reducidas: {len(df_model)}")
+    print(f"    Muestras con features reducidas: {len(df_model)}")
 
 X = df_model[all_features]
 y = df_model['satisfaccion_target']
@@ -551,7 +551,7 @@ y = df_model['satisfaccion_target']
 # =============================================================================
 # 8. ENTRENAR MODELO LIGHTGBM
 # =============================================================================
-print("\n🤖 PASO 8: Entrenando modelo LightGBM...")
+print("\n PASO 8: Entrenando modelo LightGBM...")
 
 # Split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -585,7 +585,7 @@ if LIGHTGBM_DISPONIBLE:
     rmse_lgbm = np.sqrt(mean_squared_error(y_test, y_pred_lgbm))
     mae_lgbm = mean_absolute_error(y_test, y_pred_lgbm)
     
-    print(f"\n   📊 RESULTADOS LIGHTGBM:")
+    print(f"\n    RESULTADOS LIGHTGBM:")
     print(f"      R² = {r2_lgbm:.4f}")
     print(f"      RMSE = {rmse_lgbm:.4f}")
     print(f"      MAE = {mae_lgbm:.4f}")
@@ -607,7 +607,7 @@ if LIGHTGBM_DISPONIBLE:
     
 else:
     # Fallback a Random Forest si LightGBM no está disponible
-    print("   ⚠️ LightGBM no disponible, usando Random Forest...")
+    print("    LightGBM no disponible, usando Random Forest...")
     
     rf = RandomForestRegressor(
         n_estimators=200,
@@ -623,7 +623,7 @@ else:
     rmse_rf = np.sqrt(mean_squared_error(y_test, y_pred_rf))
     mae_rf = mean_absolute_error(y_test, y_pred_rf)
     
-    print(f"\n   📊 RESULTADOS RANDOM FOREST:")
+    print(f"\n    RESULTADOS RANDOM FOREST:")
     print(f"      R² = {r2_rf:.4f}")
     print(f"      RMSE = {rmse_rf:.4f}")
     print(f"      MAE = {mae_rf:.4f}")
@@ -642,7 +642,7 @@ else:
 # =============================================================================
 # 9. IMPORTANCIA DE FEATURES
 # =============================================================================
-print("\n📈 PASO 9: Analizando importancia de features...")
+print("\n PASO 9: Analizando importancia de features...")
 
 feature_importance = pd.DataFrame({
     'feature': all_features,
@@ -656,7 +656,7 @@ for idx, row in feature_importance.head(10).iterrows():
 # =============================================================================
 # 10. GUARDAR RESULTADOS
 # =============================================================================
-print("\n💾 PASO 10: Guardando resultados...")
+print("\n PASO 10: Guardando resultados...")
 
 # Guardar modelo
 modelo_path = MODELOS_DIR / 'modelo_satisfaccion_venta.pkl'
@@ -675,7 +675,7 @@ with open(modelo_path, 'wb') as f:
         },
         'perfiles': PERFILES_USUARIO
     }, f)
-print(f"   ✓ Modelo guardado: {modelo_path}")
+print(f"    Modelo guardado: {modelo_path}")
 
 # Guardar métricas
 metricas = {
@@ -696,19 +696,19 @@ metricas = {
 
 with open(OUTPUT_DIR / 'metricas_modelo_venta.json', 'w') as f:
     json.dump(metricas, f, indent=2, default=str)
-print(f"   ✓ Métricas guardadas")
+print(f"    Métricas guardadas")
 
 # Guardar feature importance
 feature_importance.to_csv(OUTPUT_DIR / 'feature_importance_venta.csv', index=False)
 
 # Guardar dataset con satisfacción
 df.to_csv(OUTPUT_DIR / 'propiedades_venta_con_satisfaccion.csv', index=False)
-print(f"   ✓ Dataset guardado: {len(df)} propiedades")
+print(f"    Dataset guardado: {len(df)} propiedades")
 
 # =============================================================================
 # 11. VISUALIZACIONES
 # =============================================================================
-print("\n📊 PASO 11: Generando visualizaciones...")
+print("\n PASO 11: Generando visualizaciones...")
 
 # Gráfico de importancia de features
 fig, ax = plt.subplots(figsize=(10, 8))
@@ -725,7 +725,7 @@ ax.legend([plt.Rectangle((0,0),1,1,fc='#3498db'), plt.Rectangle((0,0),1,1,fc='#2
           ['Espaciales', 'Internas'], loc='lower right')
 plt.tight_layout()
 plt.savefig(GRAFICOS_DIR / 'feature_importance_venta.png', dpi=300, bbox_inches='tight')
-print("   ✓ Gráfico de importancia guardado")
+print("    Gráfico de importancia guardado")
 
 # Gráfico de predicción vs real
 fig, ax = plt.subplots(figsize=(8, 8))
@@ -736,7 +736,7 @@ ax.set_ylabel('Satisfacción Predicha')
 ax.set_title(f'Predicción vs Real - {modelo_nombre} (R² = {r2_final:.4f})', fontsize=14, fontweight='bold')
 plt.tight_layout()
 plt.savefig(GRAFICOS_DIR / 'prediccion_vs_real_venta.png', dpi=300, bbox_inches='tight')
-print("   ✓ Gráfico de predicción guardado")
+print("    Gráfico de predicción guardado")
 
 # Distribución de satisfacción por tipo de propiedad
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
@@ -752,13 +752,13 @@ for ax, tipo in zip(axes, ['departamento', 'casa']):
 
 plt.tight_layout()
 plt.savefig(GRAFICOS_DIR / 'distribucion_satisfaccion_venta.png', dpi=300, bbox_inches='tight')
-print("   ✓ Gráfico de distribución guardado")
+print("    Gráfico de distribución guardado")
 
 # =============================================================================
 # RESUMEN FINAL
 # =============================================================================
 print("\n" + "=" * 80)
-print(f"📊 RESUMEN FINAL: MODELO DE SATISFACCIÓN - {modelo_nombre}")
+print(f" RESUMEN FINAL: MODELO DE SATISFACCIÓN - {modelo_nombre}")
 print("=" * 80)
 
 print(f"""
@@ -788,8 +788,8 @@ print(f"""
 └────────────────────────────────────────────────────────────────────────────────┘
 """)
 
-print("✅ Modelo de satisfacción para propiedades en venta completado!")
-print("\n📁 Archivos generados:")
+print(" Modelo de satisfacción para propiedades en venta completado!")
+print("\n Archivos generados:")
 print(f"   • {modelo_path}")
 print(f"   • {OUTPUT_DIR / 'metricas_modelo_venta.json'}")
 print(f"   • {OUTPUT_DIR / 'propiedades_venta_con_satisfaccion.csv'}")

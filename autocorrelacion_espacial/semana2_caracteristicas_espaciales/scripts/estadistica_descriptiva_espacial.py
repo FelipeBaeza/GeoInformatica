@@ -59,20 +59,20 @@ def cargar_datos():
     
     # Cargar comunas
     comunas = gpd.read_file(os.path.join(DATOS_DIR, 'comunas_buffer.geojson'))
-    print(f"✓ Comunas cargadas: {len(comunas)} registros")
+    print(f" Comunas cargadas: {len(comunas)} registros")
     print(f"  Comunas: {', '.join(comunas['comuna'].tolist())}")
     
     # Cargar comercios/tiendas
     tiendas = gpd.read_file(os.path.join(DATOS_DIR, 'tiendas_filtradas.geojson'))
-    print(f"✓ Tiendas/Comercios cargados: {len(tiendas)} registros")
+    print(f" Tiendas/Comercios cargados: {len(tiendas)} registros")
     
     # Cargar servicios de seguridad - Archivo principal de cuarteles
     cuarteles = gpd.read_file(os.path.join(DATOS_DIR, 'cuarteles_filtrados.geojson'))
-    print(f"✓ Cuarteles Carabineros (archivo principal): {len(cuarteles)} registros")
+    print(f" Cuarteles Carabineros (archivo principal): {len(cuarteles)} registros")
     
     # Cargar bomberos - Archivo principal
     bomberos = gpd.read_file(os.path.join(DATOS_DIR, 'cuerpos_de_bomberos_filtrados.geojson'))
-    print(f"✓ Cuerpos de Bomberos (archivo principal): {len(bomberos)} registros")
+    print(f" Cuerpos de Bomberos (archivo principal): {len(bomberos)} registros")
     
     # Cargar servicios adicionales que contienen police y fire_station
     servicios = gpd.read_file(os.path.join(DATOS_DIR, 'servicios_filtrados.geojson'))
@@ -80,22 +80,22 @@ def cargar_datos():
     # Extraer comisarías adicionales de servicios (amenity = police)
     comisarias_servicios = servicios[servicios['amenity'] == 'police'].copy()
     if len(comisarias_servicios) > 0:
-        print(f"✓ Comisarías adicionales (servicios_filtrados): {len(comisarias_servicios)} registros")
+        print(f" Comisarías adicionales (servicios_filtrados): {len(comisarias_servicios)} registros")
         # Combinar con cuarteles
         cuarteles = pd.concat([cuarteles, comisarias_servicios], ignore_index=True)
     
     # Extraer bomberos adicionales de servicios (amenity = fire_station)
     bomberos_servicios = servicios[servicios['amenity'] == 'fire_station'].copy()
     if len(bomberos_servicios) > 0:
-        print(f"✓ Bomberos adicionales (servicios_filtrados): {len(bomberos_servicios)} registros")
+        print(f" Bomberos adicionales (servicios_filtrados): {len(bomberos_servicios)} registros")
         # Combinar con bomberos
         bomberos = pd.concat([bomberos, bomberos_servicios], ignore_index=True)
     
-    print(f"✓ TOTAL Carabineros/Policía: {len(cuarteles)} registros")
-    print(f"✓ TOTAL Bomberos: {len(bomberos)} registros")
+    print(f" TOTAL Carabineros/Policía: {len(cuarteles)} registros")
+    print(f" TOTAL Bomberos: {len(bomberos)} registros")
     
     pdi = gpd.read_file(os.path.join(DATOS_DIR, 'unidades_operativas_pdi_filtradas.geojson'))
-    print(f"✓ Unidades PDI cargadas: {len(pdi)} registros")
+    print(f" Unidades PDI cargadas: {len(pdi)} registros")
     
     print("=" * 60)
     
@@ -148,17 +148,17 @@ def calcular_estadisticas_comercios(tiendas, comunas):
     # Ordenar por densidad
     stats_comercios = stats_comercios.sort_values('densidad_por_km2', ascending=False)
     
-    print("\n📊 ESTADÍSTICAS DE COMERCIOS POR COMUNA:")
+    print("\n ESTADÍSTICAS DE COMERCIOS POR COMUNA:")
     print("-" * 60)
     for comuna, row in stats_comercios.iterrows():
-        print(f"\n🏪 {comuna}:")
+        print(f"\n {comuna}:")
         print(f"   • Total comercios: {int(row['total_comercios'])}")
         print(f"   • Área: {row['area_km2']:.2f} km²")
         print(f"   • Densidad: {row['densidad_por_km2']:.2f} comercios/km²")
         print(f"   • Porcentaje del total: {row['porcentaje']:.1f}%")
     
     # Estadísticas globales
-    print("\n📈 ESTADÍSTICAS GLOBALES:")
+    print("\n ESTADÍSTICAS GLOBALES:")
     print(f"   • Total de comercios en el área de estudio: {int(total_comercios)}")
     print(f"   • Promedio por comuna: {total_comercios/len(stats_comercios):.1f}")
     print(f"   • Desviación estándar: {stats_comercios['total_comercios'].std():.1f}")
@@ -166,7 +166,7 @@ def calcular_estadisticas_comercios(tiendas, comunas):
     print(f"   • Densidad mínima: {stats_comercios['densidad_por_km2'].min():.2f} comercios/km² ({stats_comercios['densidad_por_km2'].idxmin()})")
     
     # Análisis de tipos de comercio
-    print("\n🏬 TIPOS DE COMERCIO MÁS FRECUENTES:")
+    print("\n TIPOS DE COMERCIO MÁS FRECUENTES:")
     if 'shop' in tiendas_comuna.columns:
         tipos = tiendas_comuna['shop'].value_counts().head(10)
         for tipo, count in tipos.items():
@@ -217,10 +217,10 @@ def calcular_estadisticas_seguridad(cuarteles, bomberos, pdi, comunas):
     # Ordenar por concentración
     stats_seguridad = stats_seguridad.sort_values('densidad_por_km2', ascending=False)
     
-    print("\n🛡️ SERVICIOS DE SEGURIDAD POR COMUNA:")
+    print("\n SERVICIOS DE SEGURIDAD POR COMUNA:")
     print("-" * 60)
     for comuna, row in stats_seguridad.iterrows():
-        print(f"\n🏛️ {comuna}:")
+        print(f"\n {comuna}:")
         print(f"   • Carabineros: {int(row['carabineros'])} unidades")
         print(f"   • Bomberos: {int(row['bomberos'])} compañías")
         print(f"   • PDI: {int(row['pdi'])} unidades")
@@ -233,7 +233,7 @@ def calcular_estadisticas_seguridad(cuarteles, bomberos, pdi, comunas):
     total_pdi = stats_seguridad['pdi'].sum()
     total_servicios = stats_seguridad['total_seguridad'].sum()
     
-    print("\n📊 RESUMEN GLOBAL DE SERVICIOS DE SEGURIDAD:")
+    print("\n RESUMEN GLOBAL DE SERVICIOS DE SEGURIDAD:")
     print(f"   • Total Carabineros: {int(total_carabineros)} unidades")
     print(f"   • Total Bomberos: {int(total_bomberos)} compañías")
     print(f"   • Total PDI: {int(total_pdi)} unidades")
@@ -243,7 +243,7 @@ def calcular_estadisticas_seguridad(cuarteles, bomberos, pdi, comunas):
     media_densidad = stats_seguridad['densidad_por_km2'].mean()
     alta_concentracion = stats_seguridad[stats_seguridad['densidad_por_km2'] > media_densidad]
     
-    print(f"\n🔥 ZONAS DE ALTA CONCENTRACIÓN (densidad > {media_densidad:.3f}/km²):")
+    print(f"\n ZONAS DE ALTA CONCENTRACIÓN (densidad > {media_densidad:.3f}/km²):")
     for comuna in alta_concentracion.index:
         print(f"   • {comuna}: {alta_concentracion.loc[comuna, 'densidad_por_km2']:.3f} servicios/km²")
     
@@ -308,7 +308,7 @@ def crear_mapa_comercios(tiendas_comuna, comunas, stats_comercios):
     plt.tight_layout()
     plt.savefig(os.path.join(GRAFICOS_DIR, 'mapa_distribucion_comercios.png'), dpi=300, bbox_inches='tight')
     plt.savefig(os.path.join(GRAFICOS_DIR, 'mapa_distribucion_comercios.pdf'), bbox_inches='tight')
-    print(f"\n✓ Mapa de comercios guardado en: {GRAFICOS_DIR}")
+    print(f"\n Mapa de comercios guardado en: {GRAFICOS_DIR}")
     plt.close()
 
 
@@ -381,7 +381,7 @@ def crear_mapa_seguridad(cuarteles_comuna, bomberos_comuna, pdi_comuna, comunas,
     plt.tight_layout()
     plt.savefig(os.path.join(GRAFICOS_DIR, 'mapa_servicios_seguridad.png'), dpi=300, bbox_inches='tight')
     plt.savefig(os.path.join(GRAFICOS_DIR, 'mapa_servicios_seguridad.pdf'), bbox_inches='tight')
-    print(f"✓ Mapa de seguridad guardado en: {GRAFICOS_DIR}")
+    print(f" Mapa de seguridad guardado en: {GRAFICOS_DIR}")
     plt.close()
 
 
@@ -463,7 +463,7 @@ def crear_graficos_barras(stats_comercios, stats_seguridad):
     plt.tight_layout()
     plt.savefig(os.path.join(GRAFICOS_DIR, 'graficos_estadisticos_espaciales.png'), dpi=300, bbox_inches='tight')
     plt.savefig(os.path.join(GRAFICOS_DIR, 'graficos_estadisticos_espaciales.pdf'), bbox_inches='tight')
-    print(f"✓ Gráficos estadísticos guardados en: {GRAFICOS_DIR}")
+    print(f" Gráficos estadísticos guardados en: {GRAFICOS_DIR}")
     plt.close()
 
 
@@ -514,7 +514,7 @@ def crear_mapa_combinado(tiendas_comuna, cuarteles_comuna, bomberos_comuna, pdi_
     plt.tight_layout()
     plt.savefig(os.path.join(GRAFICOS_DIR, 'mapa_integrado_comercios_seguridad.png'), dpi=300, bbox_inches='tight')
     plt.savefig(os.path.join(GRAFICOS_DIR, 'mapa_integrado_comercios_seguridad.pdf'), bbox_inches='tight')
-    print(f"✓ Mapa integrado guardado en: {GRAFICOS_DIR}")
+    print(f" Mapa integrado guardado en: {GRAFICOS_DIR}")
     plt.close()
 
 
@@ -582,7 +582,7 @@ def generar_reporte_json(stats_comercios, stats_seguridad):
     with open(reporte_path, 'w', encoding='utf-8') as f:
         json.dump(reporte, f, ensure_ascii=False, indent=2)
     
-    print(f"✓ Reporte JSON guardado en: {reporte_path}")
+    print(f" Reporte JSON guardado en: {reporte_path}")
     
     return reporte
 
@@ -703,7 +703,7 @@ Se generaron los siguientes mapas y gráficos:
     with open(md_path, 'w', encoding='utf-8') as f:
         f.write(md_content)
     
-    print(f"✓ Resumen Markdown guardado en: {md_path}")
+    print(f" Resumen Markdown guardado en: {md_path}")
 
 
 def main():
@@ -743,9 +743,9 @@ def main():
     generar_resumen_markdown(stats_comercios, stats_seguridad, reporte)
     
     print("\n" + "=" * 70)
-    print("   ✅ ANÁLISIS COMPLETADO EXITOSAMENTE")
+    print("    ANÁLISIS COMPLETADO EXITOSAMENTE")
     print("=" * 70)
-    print(f"\n📁 Archivos generados en:")
+    print(f"\n Archivos generados en:")
     print(f"   • Gráficos: {GRAFICOS_DIR}")
     print(f"   • Reportes: {OUTPUT_DIR}")
     print("\n")

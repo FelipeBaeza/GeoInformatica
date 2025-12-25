@@ -61,7 +61,7 @@ class PredictorSatisfaccion:
         if csv_path.exists():
             self.df_propiedades = pd.read_csv(csv_path)
         
-        print(f"✅ Modelo cargado: {len(self.features)} features")
+        print(f" Modelo cargado: {len(self.features)} features")
         print(f"   R² = {self.metricas.get('r2_test', 'N/A'):.4f}")
     
     def _preparar_features(self, propiedad):
@@ -234,7 +234,7 @@ class PredictorSatisfaccion:
         col_sat = f'satisfaccion_{perfil}'
         if col_sat not in self.df_propiedades.columns:
             col_sat = 'satisfaccion_balanceado'
-            print(f"⚠️ Perfil '{perfil}' no encontrado, usando 'balanceado'")
+            print(f" Perfil '{perfil}' no encontrado, usando 'balanceado'")
         
         df = self.df_propiedades.nlargest(top_n, col_sat)
         
@@ -318,17 +318,17 @@ class PredictorSatisfaccion:
 def demo():
     """Demostración del uso del predictor"""
     print("\n" + "="*60)
-    print("🏠 DEMO: Predictor de Satisfacción para Propiedades en Venta")
+    print(" DEMO: Predictor de Satisfacción para Propiedades en Venta")
     print("="*60)
     
     try:
         predictor = PredictorSatisfaccion()
     except FileNotFoundError as e:
-        print(f"❌ {e}")
+        print(f" {e}")
         return
     
     # Ejemplo 1: Predecir para una propiedad
-    print("\n📊 Ejemplo 1: Predicción individual")
+    print("\n Ejemplo 1: Predicción individual")
     print("-"*40)
     propiedad = {
         'superficie_util': 65,
@@ -347,7 +347,7 @@ def demo():
     print(f"\n{resultado['emoji']} Satisfacción: {resultado['satisfaccion']}/10 ({resultado['nivel']})")
     
     # Ejemplo 2: Explicación
-    print("\n📖 Ejemplo 2: Explicación de factores")
+    print("\n Ejemplo 2: Explicación de factores")
     print("-"*40)
     explicacion = predictor.explicar_prediccion(propiedad)
     
@@ -362,7 +362,7 @@ def demo():
             print(f"   {f}")
     
     # Ejemplo 3: Ranking por perfil
-    print("\n🏆 Ejemplo 3: Top 5 propiedades para familias")
+    print("\n Ejemplo 3: Top 5 propiedades para familias")
     print("-"*40)
     try:
         ranking = predictor.ranking_por_perfil('familia_con_ninos', top_n=5)
@@ -371,7 +371,7 @@ def demo():
         print(f"   No disponible: {e}")
     
     # Ejemplo 4: Resumen de mercado
-    print("\n📈 Ejemplo 4: Resumen del mercado")
+    print("\n Ejemplo 4: Resumen del mercado")
     print("-"*40)
     resumen = predictor.resumen_mercado()
     if isinstance(resumen, dict):

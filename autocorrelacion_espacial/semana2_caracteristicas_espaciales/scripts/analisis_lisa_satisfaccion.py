@@ -47,7 +47,7 @@ try:
     from esda.getisord import G_Local
     ESDA_DISPONIBLE = True
 except ImportError:
-    print("⚠️ Instalando libpysal y esda...")
+    print("Instalando libpysal y esda...")
     os.system('pip install libpysal esda --quiet')
     from libpysal.weights import KNN, Queen, DistanceBand
     from esda.moran import Moran, Moran_Local
@@ -92,7 +92,7 @@ print("=" * 80)
 
 def cargar_datos():
     """Carga los datos de propiedades con factores espaciales."""
-    print("\n📂 CARGANDO DATOS...")
+    print("\nCARGANDO DATOS...")
     
     # Intentar cargar el GeoJSON con factores espaciales
     geojson_path = os.path.join(DATA_DIR, 'propiedades_con_factores_espaciales.geojson')
@@ -100,21 +100,21 @@ def cargar_datos():
     
     if os.path.exists(geojson_path):
         gdf = gpd.read_file(geojson_path)
-        print(f"   ✓ Cargado GeoJSON: {len(gdf)} propiedades")
+        print(f"Cargado GeoJSON: {len(gdf)} propiedades")
     elif os.path.exists(csv_path):
         df = pd.read_csv(csv_path)
         # Crear geometría desde coordenadas
         from shapely.geometry import Point
         geometry = [Point(xy) for xy in zip(df['x_utm'], df['y_utm'])]
         gdf = gpd.GeoDataFrame(df, geometry=geometry, crs="EPSG:32719")
-        print(f"   ✓ Cargado CSV y convertido a GeoDataFrame: {len(gdf)} propiedades")
+        print(f"Cargado CSV y convertido a GeoDataFrame: {len(gdf)} propiedades")
     else:
         raise FileNotFoundError(f"No se encontraron datos en {DATA_DIR}")
     
     # Cargar comunas
     comunas_path = os.path.join(DATOS_NORMALIZADOS, 'comunas_buffer.geojson')
     comunas = gpd.read_file(comunas_path)
-    print(f"   ✓ Comunas cargadas: {len(comunas)}")
+    print(f"Comunas cargadas: {len(comunas)}")
     
     return gdf, comunas
 
@@ -128,7 +128,7 @@ def calcular_indice_satisfaccion(gdf):
     2. Densidad de servicios (1000m) - peso positivo
     3. Diversidad de servicios - peso positivo
     """
-    print("\n📊 CALCULANDO ÍNDICE DE SATISFACCIÓN COMPUESTO...")
+    print("\nCALCULANDO ÍNDICE DE SATISFACCIÓN COMPUESTO...")
     
     # Columnas de distancias (menor = mejor)
     dist_cols = [
@@ -177,7 +177,7 @@ def calcular_indice_satisfaccion(gdf):
     gdf['indice_satisfaccion'] = (gdf['indice_satisfaccion'] - gdf['indice_satisfaccion'].min()) / \
                                   (gdf['indice_satisfaccion'].max() - gdf['indice_satisfaccion'].min())
     
-    print(f"   ✓ Índice de satisfacción calculado")
+    print(f"Índice de satisfacción calculado")
     print(f"     - Rango: {gdf['indice_satisfaccion'].min():.4f} - {gdf['indice_satisfaccion'].max():.4f}")
     print(f"     - Media: {gdf['indice_satisfaccion'].mean():.4f}")
     print(f"     - Desv. Std: {gdf['indice_satisfaccion'].std():.4f}")
@@ -187,7 +187,7 @@ def calcular_indice_satisfaccion(gdf):
 
 def crear_matriz_pesos(gdf, k=8):
     """Crea matriz de pesos espaciales usando K vecinos más cercanos."""
-    print(f"\n🔗 CREANDO MATRIZ DE PESOS ESPACIALES (K={k})...")
+    print(f"\n CREANDO MATRIZ DE PESOS ESPACIALES (K={k})...")
     
     # Asegurar que no hay geometrías nulas
     gdf_valid = gdf[~gdf.geometry.isna()].copy()
@@ -196,15 +196,15 @@ def crear_matriz_pesos(gdf, k=8):
     w = KNN.from_dataframe(gdf_valid, k=k)
     w.transform = 'r'  # Normalización por fila
     
-    print(f"   ✓ Matriz creada: {w.n} observaciones")
-    print(f"   ✓ Vecinos promedio: {w.mean_neighbors:.2f}")
+    print(f"Matriz creada: {w.n} observaciones")
+    print(f"Vecinos promedio: {w.mean_neighbors:.2f}")
     
     return w, gdf_valid
 
 
 def analisis_moran_global(gdf, w, variable='indice_satisfaccion'):
     """Calcula el estadístico Moran's I global."""
-    print(f"\n📈 MORAN'S I GLOBAL - Variable: {variable}")
+    print(f"\n MORAN'S I GLOBAL - Variable: {variable}")
     print("-" * 60)
     
     # Calcular Moran's I
@@ -247,7 +247,7 @@ def analisis_moran_global(gdf, w, variable='indice_satisfaccion'):
 
 def analisis_lisa_local(gdf, w, variable='indice_satisfaccion', alpha=0.05):
     """Calcula LISA (Local Moran's I) para identificar clústeres locales."""
-    print(f"\n🗺️ ANÁLISIS LISA LOCAL - Variable: {variable}")
+    print(f"\n ANÁLISIS LISA LOCAL - Variable: {variable}")
     print("-" * 60)
     
     y = gdf[variable].values
@@ -275,7 +275,7 @@ def analisis_lisa_local(gdf, w, variable='indice_satisfaccion', alpha=0.05):
     # Estadísticas de clústeres
     cluster_counts = gdf['lisa_cluster'].value_counts()
     
-    print("\n   📊 DISTRIBUCIÓN DE CLÚSTERES:")
+    print("\n   DISTRIBUCIÓN DE CLÚSTERES:")
     for cluster, count in cluster_counts.items():
         pct = count / len(gdf) * 100
         print(f"      {cluster}: {count} propiedades ({pct:.1f}%)")
@@ -285,7 +285,7 @@ def analisis_lisa_local(gdf, w, variable='indice_satisfaccion', alpha=0.05):
 
 def analisis_por_comuna(gdf, comunas):
     """Analiza la distribución de clústeres LISA por comuna."""
-    print("\n🏘️ ANÁLISIS DE CLÚSTERES POR COMUNA")
+    print("\n ANÁLISIS DE CLÚSTERES POR COMUNA")
     print("-" * 60)
     
     # Asegurar que tienen el mismo CRS
@@ -319,7 +319,7 @@ def analisis_por_comuna(gdf, comunas):
             'idx_diversidad_prom': round(props_comuna['idx_diversidad'].mean(), 4)
         }
         
-        print(f"\n   🏛️ {comuna}:")
+        print(f"\n    {comuna}:")
         print(f"      • Total propiedades: {resumen_comunas[comuna]['total_propiedades']}")
         print(f"      • Satisfacción promedio: {resumen_comunas[comuna]['indice_satisfaccion_promedio']:.4f}")
         print(f"      • % Hot Spots (High-High): {resumen_comunas[comuna]['pct_high_high']:.1f}%")
@@ -330,7 +330,7 @@ def analisis_por_comuna(gdf, comunas):
 
 def generar_mapa_lisa(gdf, comunas, variable='indice_satisfaccion'):
     """Genera mapa de clústeres LISA."""
-    print("\n🗺️ GENERANDO MAPAS DE CLÚSTERES LISA...")
+    print("\n GENERANDO MAPAS DE CLÚSTERES LISA...")
     
     fig, axes = plt.subplots(1, 2, figsize=(18, 9))
     
@@ -397,7 +397,7 @@ def generar_mapa_lisa(gdf, comunas, variable='indice_satisfaccion'):
     output_path = os.path.join(GRAFICOS_DIR, 'mapa_lisa_satisfaccion.png')
     plt.savefig(output_path, dpi=300, bbox_inches='tight', facecolor='white')
     plt.savefig(output_path.replace('.png', '.pdf'), bbox_inches='tight')
-    print(f"   ✓ Mapa guardado: {output_path}")
+    print(f"Mapa guardado: {output_path}")
     
     plt.close()
     
@@ -406,7 +406,7 @@ def generar_mapa_lisa(gdf, comunas, variable='indice_satisfaccion'):
 
 def generar_mapa_por_comuna(gdf, comunas, resumen_comunas):
     """Genera mapa resumen por comuna con estadísticas."""
-    print("\n🗺️ GENERANDO MAPA RESUMEN POR COMUNAS...")
+    print("\n GENERANDO MAPA RESUMEN POR COMUNAS...")
     
     fig, axes = plt.subplots(1, 2, figsize=(18, 9))
     
@@ -477,7 +477,7 @@ def generar_mapa_por_comuna(gdf, comunas, resumen_comunas):
     output_path = os.path.join(GRAFICOS_DIR, 'mapa_lisa_por_comunas.png')
     plt.savefig(output_path, dpi=300, bbox_inches='tight', facecolor='white')
     plt.savefig(output_path.replace('.png', '.pdf'), bbox_inches='tight')
-    print(f"   ✓ Mapa guardado: {output_path}")
+    print(f"Mapa guardado: {output_path}")
     
     plt.close()
     
@@ -486,7 +486,7 @@ def generar_mapa_por_comuna(gdf, comunas, resumen_comunas):
 
 def generar_graficos_estadisticos(gdf, resumen_comunas):
     """Genera gráficos estadísticos del análisis LISA."""
-    print("\n📊 GENERANDO GRÁFICOS ESTADÍSTICOS...")
+    print("\nGENERANDO GRÁFICOS ESTADÍSTICOS...")
     
     fig, axes = plt.subplots(2, 2, figsize=(16, 14))
     
@@ -574,7 +574,7 @@ def generar_graficos_estadisticos(gdf, resumen_comunas):
     output_path = os.path.join(GRAFICOS_DIR, 'estadisticas_lisa_satisfaccion.png')
     plt.savefig(output_path, dpi=300, bbox_inches='tight', facecolor='white')
     plt.savefig(output_path.replace('.png', '.pdf'), bbox_inches='tight')
-    print(f"   ✓ Gráficos guardados: {output_path}")
+    print(f"Gráficos guardados: {output_path}")
     
     plt.close()
     
@@ -583,7 +583,7 @@ def generar_graficos_estadisticos(gdf, resumen_comunas):
 
 def generar_reporte(gdf, moran_global, resumen_comunas):
     """Genera reporte JSON y Markdown del análisis."""
-    print("\n📝 GENERANDO REPORTES...")
+    print("\n GENERANDO REPORTES...")
     
     # Distribución de clústeres
     cluster_dist = gdf['lisa_cluster'].value_counts().to_dict()
@@ -651,7 +651,7 @@ def generar_reporte(gdf, moran_global, resumen_comunas):
     json_path = os.path.join(OUTPUT_DIR, 'analisis_lisa_satisfaccion.json')
     with open(json_path, 'w', encoding='utf-8') as f:
         json.dump(reporte, f, indent=2, ensure_ascii=False)
-    print(f"   ✓ Reporte JSON: {json_path}")
+    print(f"Reporte JSON: {json_path}")
     
     # Generar Markdown
     md_content = f"""# Análisis LISA - Factores de Satisfacción Residencial
@@ -679,7 +679,7 @@ def generar_reporte(gdf, moran_global, resumen_comunas):
 """
     
     if moran_global['significativo'] and moran_global['I'] > 0:
-        md_content += """### ✅ SÍ, existe una correlación espacial significativa
+        md_content += """### SÍ, existe una correlación espacial significativa
 
 Los factores de satisfacción **están fuertemente ligados a zonas geográficas específicas**. Esto significa que:
 
@@ -748,7 +748,7 @@ Los factores de satisfacción **están fuertemente ligados a zonas geográficas 
     md_path = os.path.join(OUTPUT_DIR, 'ANALISIS_LISA_SATISFACCION.md')
     with open(md_path, 'w', encoding='utf-8') as f:
         f.write(md_content)
-    print(f"   ✓ Reporte Markdown: {md_path}")
+    print(f"Reporte Markdown: {md_path}")
     
     return reporte
 
@@ -757,7 +757,7 @@ def guardar_geodataframe(gdf):
     """Guarda el GeoDataFrame con los resultados LISA."""
     output_path = os.path.join(OUTPUT_DIR, 'propiedades_con_lisa_satisfaccion.geojson')
     gdf.to_file(output_path, driver='GeoJSON')
-    print(f"   ✓ GeoDataFrame guardado: {output_path}")
+    print(f"GeoDataFrame guardado: {output_path}")
     return output_path
 
 
@@ -795,14 +795,14 @@ def main():
         
         # Resumen final
         print("\n" + "=" * 80)
-        print("   ✅ ANÁLISIS LISA COMPLETADO")
+        print("ANÁLISIS LISA COMPLETADO")
         print("=" * 80)
         
-        print("\n📋 RESPUESTA A LA PREGUNTA DE INVESTIGACIÓN:")
+        print("\nRESPUESTA A LA PREGUNTA DE INVESTIGACIÓN:")
         print("-" * 60)
         
         if moran_resultado['significativo'] and moran_resultado['I'] > 0:
-            print("\n   ✓ SÍ, LOS FACTORES DE SATISFACCIÓN ESTÁN LIGADOS A ZONAS ESPECÍFICAS")
+            print("\nSÍ, LOS FACTORES DE SATISFACCIÓN ESTÁN LIGADOS A ZONAS ESPECÍFICAS")
             print(f"\n   Moran's I = {moran_resultado['I']:.4f} (p-value = {moran_resultado['p_value']:.4f})")
             print("\n   Esto significa que:")
             print("   → Las propiedades satisfactorias tienden a agruparse geográficamente")
@@ -810,7 +810,7 @@ def main():
             print("   → Las zonas Hot Spots concentran alta satisfacción")
             
             # Mostrar ranking de comunas
-            print("\n   📊 RANKING DE COMUNAS POR SATISFACCIÓN:")
+            print("\nRANKING DE COMUNAS POR SATISFACCIÓN:")
             ranking = sorted(resumen_comunas.items(), 
                            key=lambda x: x[1]['indice_satisfaccion_promedio'], 
                            reverse=True)
@@ -818,7 +818,7 @@ def main():
                 print(f"      {i}. {comuna}: {data['indice_satisfaccion_promedio']:.4f} "
                       f"(Hot Spots: {data['pct_high_high']:.1f}%)")
         
-        print("\n📁 Archivos generados:")
+        print("\nArchivos generados:")
         print(f"   • {GRAFICOS_DIR}/mapa_lisa_satisfaccion.png")
         print(f"   • {GRAFICOS_DIR}/mapa_lisa_por_comunas.png")
         print(f"   • {GRAFICOS_DIR}/estadisticas_lisa_satisfaccion.png")
@@ -829,7 +829,7 @@ def main():
         return gdf, reporte
         
     except Exception as e:
-        print(f"\n❌ ERROR: {str(e)}")
+        print(f"\nERROR: {str(e)}")
         import traceback
         traceback.print_exc()
         return None, None

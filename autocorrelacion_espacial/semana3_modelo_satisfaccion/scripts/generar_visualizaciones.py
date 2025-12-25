@@ -50,19 +50,19 @@ DATOS_DIR = BASE_DIR / 'datos_nuevos' / 'DATOS_FILTRADOS'
 GRAFICOS_DIR.mkdir(parents=True, exist_ok=True)
 
 print("=" * 80)
-print("📊 GENERADOR DE VISUALIZACIONES - PROYECTO GEOINFORMÁTICA")
+print(" GENERADOR DE VISUALIZACIONES - PROYECTO GEOINFORMÁTICA")
 print("=" * 80)
 
 # =============================================================================
 # CARGAR DATOS
 # =============================================================================
-print("\n📂 Cargando datos...")
+print("\n Cargando datos...")
 
 # Cargar dataset con satisfacción
 csv_path = RESULTADOS_DIR / 'propiedades_venta_con_satisfaccion.csv'
 if csv_path.exists():
     df = pd.read_csv(csv_path)
-    print(f"   ✓ Dataset cargado: {len(df)} propiedades")
+    print(f"    Dataset cargado: {len(df)} propiedades")
 else:
     raise FileNotFoundError(f"No se encontró: {csv_path}")
 
@@ -80,10 +80,10 @@ if comunas_path.exists():
     # Filtrar comunas del estudio
     comunas_estudio = ['La Reina', 'Ñuñoa', 'Santiago', 'Estación Central']
     comunas_gdf = comunas_gdf[comunas_gdf['NOM_COM'].isin(comunas_estudio)]
-    print(f"   ✓ Comunas cargadas: {len(comunas_gdf)}")
+    print(f"    Comunas cargadas: {len(comunas_gdf)}")
 else:
     comunas_gdf = None
-    print("   ⚠️ Archivo de comunas no encontrado")
+    print("    Archivo de comunas no encontrado")
 
 # =============================================================================
 # FUNCIONES AUXILIARES
@@ -118,7 +118,7 @@ def agregar_elementos_cartograficos(ax, titulo, mostrar_norte=True, mostrar_esca
 # =============================================================================
 # MAPA 1: UBICACIÓN DEL ÁREA DE ESTUDIO
 # =============================================================================
-print("\n🗺️ Generando Mapa 1: Ubicación del Área de Estudio...")
+print("\n Generando Mapa 1: Ubicación del Área de Estudio...")
 
 fig, ax = plt.subplots(figsize=(12, 10))
 
@@ -154,12 +154,12 @@ ax.text(0.02, 0.02, info_text, transform=ax.transAxes, fontsize=9,
 plt.tight_layout()
 plt.savefig(GRAFICOS_DIR / 'mapa_01_ubicacion_area_estudio.png', dpi=300, bbox_inches='tight')
 plt.close()
-print("   ✓ mapa_01_ubicacion_area_estudio.png guardado")
+print("    mapa_01_ubicacion_area_estudio.png guardado")
 
 # =============================================================================
 # MAPA 2: DATOS PRINCIPALES (Precio por m²)
 # =============================================================================
-print("\n🗺️ Generando Mapa 2: Datos Principales (Precio/m²)...")
+print("\n Generando Mapa 2: Datos Principales (Precio/m²)...")
 
 fig, ax = plt.subplots(figsize=(12, 10))
 
@@ -193,12 +193,12 @@ ax.text(0.02, 0.98, stats_text, transform=ax.transAxes, fontsize=9,
 plt.tight_layout()
 plt.savefig(GRAFICOS_DIR / 'mapa_02_precio_m2.png', dpi=300, bbox_inches='tight')
 plt.close()
-print("   ✓ mapa_02_precio_m2.png guardado")
+print("    mapa_02_precio_m2.png guardado")
 
 # =============================================================================
 # MAPA 3: RESULTADO DEL ANÁLISIS (Satisfacción Predicha)
 # =============================================================================
-print("\n🗺️ Generando Mapa 3: Resultado del Análisis (Satisfacción)...")
+print("\n Generando Mapa 3: Resultado del Análisis (Satisfacción)...")
 
 fig, ax = plt.subplots(figsize=(12, 10))
 
@@ -233,12 +233,12 @@ ax.text(0.02, 0.98, stats_text, transform=ax.transAxes, fontsize=9,
 plt.tight_layout()
 plt.savefig(GRAFICOS_DIR / 'mapa_03_satisfaccion_predicha.png', dpi=300, bbox_inches='tight')
 plt.close()
-print("   ✓ mapa_03_satisfaccion_predicha.png guardado")
+print("    mapa_03_satisfaccion_predicha.png guardado")
 
 # =============================================================================
 # GRÁFICO 1: HISTOGRAMAS DE VARIABLES CLAVE
 # =============================================================================
-print("\n📊 Generando Gráfico 1: Histogramas de Variables Clave...")
+print("\n Generando Gráfico 1: Histogramas de Variables Clave...")
 
 fig, axes = plt.subplots(2, 3, figsize=(15, 10))
 
@@ -266,12 +266,12 @@ plt.suptitle('Gráfico 1: Histogramas de Variables Clave', fontsize=16, fontweig
 plt.tight_layout()
 plt.savefig(GRAFICOS_DIR / 'grafico_01_histogramas.png', dpi=300, bbox_inches='tight')
 plt.close()
-print("   ✓ grafico_01_histogramas.png guardado")
+print("    grafico_01_histogramas.png guardado")
 
 # =============================================================================
 # GRÁFICO 2: ANÁLISIS TEMPORAL/POR COMUNA
 # =============================================================================
-print("\n📊 Generando Gráfico 2: Análisis por Comuna...")
+print("\n Generando Gráfico 2: Análisis por Comuna...")
 
 fig, axes = plt.subplots(2, 2, figsize=(14, 12))
 
@@ -316,12 +316,12 @@ plt.suptitle('Gráfico 2: Análisis por Comuna', fontsize=16, fontweight='bold',
 plt.tight_layout()
 plt.savefig(GRAFICOS_DIR / 'grafico_02_analisis_comunas.png', dpi=300, bbox_inches='tight')
 plt.close()
-print("   ✓ grafico_02_analisis_comunas.png guardado")
+print("    grafico_02_analisis_comunas.png guardado")
 
 # =============================================================================
 # GRÁFICO 3: CORRELACIONES ESPACIALES
 # =============================================================================
-print("\n📊 Generando Gráfico 3: Correlaciones Espaciales...")
+print("\n Generando Gráfico 3: Correlaciones Espaciales...")
 
 # Seleccionar variables para correlación
 cols_correlacion = ['precio_m2_uf', 'superficie_util', 'dormitorios', 'banos',
@@ -353,12 +353,12 @@ ax.set_title('Gráfico 3: Matriz de Correlaciones\n(Variables Principales y Espa
 plt.tight_layout()
 plt.savefig(GRAFICOS_DIR / 'grafico_03_correlaciones.png', dpi=300, bbox_inches='tight')
 plt.close()
-print("   ✓ grafico_03_correlaciones.png guardado")
+print("    grafico_03_correlaciones.png guardado")
 
 # =============================================================================
 # GRÁFICO 4: DIAGRAMAS DE DISPERSIÓN
 # =============================================================================
-print("\n📊 Generando Gráfico 4: Diagramas de Dispersión...")
+print("\n Generando Gráfico 4: Diagramas de Dispersión...")
 
 fig, axes = plt.subplots(2, 2, figsize=(14, 12))
 
@@ -417,12 +417,12 @@ plt.suptitle('Gráfico 4: Diagramas de Dispersión', fontsize=16, fontweight='bo
 plt.tight_layout()
 plt.savefig(GRAFICOS_DIR / 'grafico_04_dispersion.png', dpi=300, bbox_inches='tight')
 plt.close()
-print("   ✓ grafico_04_dispersion.png guardado")
+print("    grafico_04_dispersion.png guardado")
 
 # =============================================================================
 # GRÁFICO 5: IMPORTANCIA DE VARIABLES Y MÉTRICAS DEL MODELO
 # =============================================================================
-print("\n📊 Generando Gráfico 5: Importancia de Variables y Métricas...")
+print("\n Generando Gráfico 5: Importancia de Variables y Métricas...")
 
 fig, axes = plt.subplots(1, 2, figsize=(16, 8))
 
@@ -492,12 +492,12 @@ plt.suptitle('Gráfico 5: Importancia de Variables y Comparación de Modelos',
 plt.tight_layout()
 plt.savefig(GRAFICOS_DIR / 'grafico_05_importancia_metricas.png', dpi=300, bbox_inches='tight')
 plt.close()
-print("   ✓ grafico_05_importancia_metricas.png guardado")
+print("    grafico_05_importancia_metricas.png guardado")
 
 # =============================================================================
 # VISUALIZACIÓN INTERACTIVA: MAPA FOLIUM
 # =============================================================================
-print("\n🌐 Generando Visualización Interactiva...")
+print("\n Generando Visualización Interactiva...")
 
 # Centro del mapa
 center_lat = gdf.geometry.y.mean()
@@ -567,7 +567,7 @@ title_html = '''
 <div style="position: fixed; top: 10px; left: 50px; z-index: 1000; 
             background-color: white; padding: 10px; border-radius: 5px;
             border: 2px solid gray; font-family: Arial;">
-    <h3 style="margin:0">🏠 Mapa Interactivo de Satisfacción Residencial</h3>
+    <h3 style="margin:0"> Mapa Interactivo de Satisfacción Residencial</h3>
     <p style="margin:5px 0 0 0; font-size:12px">Haz clic en los marcadores para ver detalles</p>
 </div>
 '''
@@ -575,12 +575,12 @@ m.get_root().html.add_child(folium.Element(title_html))
 
 # Guardar mapa
 m.save(str(GRAFICOS_DIR / 'mapa_interactivo.html'))
-print("   ✓ mapa_interactivo.html guardado")
+print("    mapa_interactivo.html guardado")
 
 # =============================================================================
 # CREAR ÍNDICE DE VISUALIZACIONES
 # =============================================================================
-print("\n📋 Creando índice de visualizaciones...")
+print("\n Creando índice de visualizaciones...")
 
 indice = {
     "proyecto": "GeoInformática - Predicción de Satisfacción Residencial",
@@ -658,33 +658,33 @@ indice = {
 
 with open(GRAFICOS_DIR / 'INDICE_VISUALIZACIONES.json', 'w', encoding='utf-8') as f:
     json.dump(indice, f, indent=2, ensure_ascii=False)
-print("   ✓ INDICE_VISUALIZACIONES.json guardado")
+print("    INDICE_VISUALIZACIONES.json guardado")
 
 # =============================================================================
 # RESUMEN FINAL
 # =============================================================================
 print("\n" + "=" * 80)
-print("✅ VISUALIZACIONES GENERADAS EXITOSAMENTE")
+print(" VISUALIZACIONES GENERADAS EXITOSAMENTE")
 print("=" * 80)
 
 print("""
-📁 Archivos generados en graficos/:
+ Archivos generados en graficos/:
 
-🗺️ MAPAS TEMÁTICOS (3):
+ MAPAS TEMÁTICOS (3):
    • mapa_01_ubicacion_area_estudio.png
    • mapa_02_precio_m2.png
    • mapa_03_satisfaccion_predicha.png
 
-📊 GRÁFICOS ESTADÍSTICOS (5):
+ GRÁFICOS ESTADÍSTICOS (5):
    • grafico_01_histogramas.png
    • grafico_02_analisis_comunas.png
    • grafico_03_correlaciones.png
    • grafico_04_dispersion.png
    • grafico_05_importancia_metricas.png
 
-🌐 VISUALIZACIÓN INTERACTIVA (1):
+ VISUALIZACIÓN INTERACTIVA (1):
    • mapa_interactivo.html
 
-📋 ÍNDICE:
+ ÍNDICE:
    • INDICE_VISUALIZACIONES.json
 """)
