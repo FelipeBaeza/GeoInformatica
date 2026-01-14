@@ -52,7 +52,7 @@ services:
       - ./geo-proyect-backend/modelos:/app/modelos
       - ./geo-proyect-backend/scripts:/app/scripts
       - ./datos_nuevos:/app/datos_nuevos
-      - ./autocorrelacion_espacial/semana1_preparacion_datos/datos_normalizados:/app/datos_normalizados
+      - ./autocorrelacion_espacial/semana2_caracteristicas_espaciales/datos_normalizados:/app/datos_normalizados
     ports:
       - "8000:8000"
     depends_on:
