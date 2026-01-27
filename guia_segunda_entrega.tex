@@ -1,0 +1,424 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{hyperref}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{verbatim}
+\usepackage{listings}
+\usepackage{graphicx}
+
+\title{SEGUNDA EVALUACIÓN DE PROYECTO\\Análisis Geoespacial Aplicado\\Presentación Final e Informe Técnico}
+\author{Prof.\ Francisco Parra O.\\\href{mailto:francisco.parra@usach.cl}{francisco.parra@usach.cl}}
+\date{Fecha de publicación: 9 de enero de 2026\\Fecha de presentaciones: 22 de enero de 2026\\Fecha de entrega del informe: Primera semana de marzo de 2026}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Descripción General}
+Esta segunda evaluación constituye el hito final del proyecto semestral. A diferencia de la primera
+entrega (que evaluaba factibilidad y avances), esta evaluación se centra en:
+\begin{itemize}[leftmargin=*]
+\item \textbf{Resultados completos:} Análisis terminados con conclusiones sólidas
+\item \textbf{Implementación funcional:} Código completo, reproducible y documentado
+\item \textbf{Producto final:} Dashboard, aplicación o sistema demostrable
+\item \textbf{Contribución:} Impacto y valor del trabajo realizado
+\item \textbf{Comunicación:} Capacidad de presentar y defender el trabajo
+\end{itemize}
+
+\subsection*{Importante}
+Esta es la evaluación final del proyecto. Se espera un trabajo terminado, no un avance. Los
+criterios son más exigentes que en la primera entrega.
+
+\subsection{Diferencias con la Primera Entrega}
+\begin{center}
+\begin{tabular}{p{0.47\textwidth} p{0.47\textwidth}}
+\toprule
+\textbf{Primera Entrega (PEP 1)} & \textbf{Segunda Entrega (PEP 2)}\\
+\midrule
+Análisis exploratorio & Análisis completo y profundo\\
+Resultados preliminares & Resultados finales con validación\\
+Plan de trabajo & Trabajo ejecutado y documentado\\
+Cronograma futuro & Reflexión sobre lo realizado\\
+40--50\% de avance & 100\% completado\\
+Verificar factibilidad & Demostrar impacto y contribución\\
+Propuesta metodológica & Metodología implementada\\
+Prototipo de visualización & Dashboard/aplicación funcional\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Objetivos de la Evaluación}
+\subsection{Objetivos Principales}
+\begin{enumerate}[leftmargin=*]
+\item Evaluar completitud: Verificar que el proyecto está terminado según lo propuesto
+\item Validar resultados: Confirmar que los análisis son correctos y las conclusiones fundamentadas
+\item Medir calidad técnica: Evaluar la implementación, código y reproducibilidad
+\item Evaluar comunicación: Capacidad de presentar y defender el trabajo
+\item Identificar contribución: Valor agregado del proyecto al problema planteado
+\end{enumerate}
+
+\section{Componentes de la Evaluación}
+\subsection{Distribución de Ponderaciones}
+\begin{center}
+\begin{tabular}{p{0.46\textwidth} p{0.12\textwidth} p{0.36\textwidth}}
+\toprule
+\textbf{Componente} & \textbf{Peso} & \textbf{Descripción}\\
+\midrule
+Informe Técnico Final & 35\% & Documento completo con resultados y conclusiones\\
+Presentación Oral & 30\% & Exposición de 20 min + 10 de preguntas\\
+Código y Reproducibilidad & 20\% & Repositorio completo y funcional\\
+Producto Final (Dashboard/App) & 10\% & Aplicación interactiva demostrable\\
+Trabajo en Equipo & 5\% & Evidencia de colaboración efectiva\\
+\midrule
+Total & 100\% & \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{Recomendación}
+La presentación tiene mayor peso (30\%) porque es la instancia donde demuestran dominio
+del tema y capacidad de comunicar resultados. Prepárense bien.
+
+\section{Requisitos por Componente}
+\subsection{A.\ Informe Técnico Final (35\%)}
+\subsubsection*{Requisitos del Informe}
+\begin{itemize}[leftmargin=*]
+\item Extensión: 25--35 páginas (sin anexos)
+\item Formato: \LaTeX\ o Markdown convertido a PDF
+\item Entrega: Primera semana de marzo de 2026
+\end{itemize}
+
+\subsubsection{Estructura Obligatoria del Informe}
+\begin{enumerate}[leftmargin=*]
+\item \textbf{Resumen Ejecutivo (1 página)}
+  \begin{itemize}[leftmargin=*]
+  \item Problema abordado y motivación
+  \item Metodología aplicada
+  \item Principales resultados y hallazgos
+  \item Conclusiones clave
+  \item Impacto y contribución
+  \end{itemize}
+\item \textbf{Introducción (2--3 páginas)}
+  \begin{itemize}[leftmargin=*]
+  \item Contexto actualizado del problema
+  \item Objetivos (cumplidos vs.\ propuestos)
+  \item Preguntas de investigación respondidas
+  \item Alcance final del proyecto
+  \end{itemize}
+\item \textbf{Marco Teórico (3--4 páginas)}
+  \begin{itemize}[leftmargin=*]
+  \item Revisión de literatura (mínimo 15 referencias)
+  \item Conceptos geoespaciales aplicados
+  \item Justificación teórica de métodos utilizados
+  \end{itemize}
+\item \textbf{Área de Estudio (2 páginas)}
+  \begin{itemize}[leftmargin=*]
+  \item Delimitación geográfica final
+  \item Características relevantes para el análisis
+  \item Mapas de contexto de alta calidad
+  \end{itemize}
+\item \textbf{Datos y Metodología (5--6 páginas)}
+  \begin{itemize}[leftmargin=*]
+  \item Fuentes de datos utilizadas (tabla detallada)
+  \item Procesamiento aplicado (con justificación)
+  \item Diagrama de flujo metodológico completo
+  \item Métodos de análisis espacial empleados
+  \item Herramientas y librerías utilizadas
+  \item Limitaciones metodológicas
+  \end{itemize}
+\item \textbf{Resultados (6--8 páginas) --- SECCIÓN CLAVE}
+  \begin{itemize}[leftmargin=*]
+  \item Presentación sistemática de hallazgos
+  \item Visualizaciones de alta calidad
+  \item Análisis estadístico espacial completo
+  \item Respuesta a cada pregunta de investigación
+  \item Validación de resultados (si aplica)
+  \end{itemize}
+\item \textbf{Discusión (3--4 páginas) --- NUEVA SECCIÓN}
+  \begin{itemize}[leftmargin=*]
+  \item Interpretación de resultados
+  \item Comparación con literatura/casos similares
+  \item Implicancias prácticas de los hallazgos
+  \item Limitaciones del estudio
+  \item Trabajo futuro propuesto
+  \end{itemize}
+\item \textbf{Conclusiones (2 páginas)}
+  \begin{itemize}[leftmargin=*]
+  \item Síntesis de principales hallazgos
+  \item Cumplimiento de objetivos
+  \item Contribución del proyecto
+  \item Recomendaciones concretas
+  \end{itemize}
+\item \textbf{Referencias} (mínimo 15)
+\item \textbf{Anexos}
+  \begin{itemize}[leftmargin=*]
+  \item Código relevante comentado
+  \item Mapas adicionales
+  \item Tablas de datos extensas
+  \item Manual de usuario del dashboard (si aplica)
+  \end{itemize}
+\end{enumerate}
+
+\subsection{B.\ Presentación Oral (30\%)}
+\subsubsection*{Formato de Presentación}
+\begin{itemize}[leftmargin=*]
+\item Duración: 20 minutos de exposición + 10 minutos de preguntas
+\item Formato: Presencial con apoyo de slides
+\item Fecha: 22 de enero de 2026
+\item Participación: Todos los integrantes deben exponer
+\end{itemize}
+
+\subsubsection{Estructura Sugerida de la Presentación}
+\begin{enumerate}[leftmargin=*]
+\item \textbf{Introducción y Motivación (3 min)}
+  \begin{itemize}[leftmargin=*]
+  \item Problema y por qué es relevante
+  \item Objetivos del proyecto
+  \end{itemize}
+\item \textbf{Datos y Metodología (4 min)}
+  \begin{itemize}[leftmargin=*]
+  \item Fuentes de datos (mostrar ejemplos visuales)
+  \item Pipeline de procesamiento
+  \item Métodos de análisis aplicados
+  \end{itemize}
+\item \textbf{Resultados Principales (8 min) --- LA PARTE MÁS IMPORTANTE}
+  \begin{itemize}[leftmargin=*]
+  \item Visualizaciones clave
+  \item Hallazgos principales
+  \item Demo del dashboard/aplicación
+  \end{itemize}
+\item \textbf{Conclusiones y Discusión (3 min)}
+  \begin{itemize}[leftmargin=*]
+  \item Qué aprendimos
+  \item Implicancias prácticas
+  \item Limitaciones y trabajo futuro
+  \end{itemize}
+\item \textbf{Cierre (2 min)}
+  \begin{itemize}[leftmargin=*]
+  \item Contribución del proyecto
+  \item Reflexión del equipo
+  \end{itemize}
+\end{enumerate}
+
+\subsubsection*{Importante}
+La demo del dashboard/aplicación es obligatoria. Debe funcionar en vivo. Tengan un plan
+B (video grabado) por si hay problemas técnicos.
+
+\subsection{C.\ Código y Reproducibilidad (20\%)}
+\subsubsection{Estructura del Repositorio}
+\begin{lstlisting}[basicstyle=\ttfamily\small]
+proyecto/
+README.md # Documentacion completa
+requirements.txt # Dependencias Python
+environment.yml # Alternativa conda (opcional)
+data/
+raw/ # Datos originales o scripts de descarga
+processed/ # Datos procesados
+notebooks/
+01_data_acquisition.ipynb
+02_preprocessing.ipynb
+03_exploratory_analysis.ipynb
+04_spatial_analysis.ipynb
+05_visualization.ipynb
+src/
+__init__.py
+data_loader.py # Funciones de carga de datos
+preprocessing.py # Funciones de procesamiento
+analysis.py # Funciones de analisis
+visualization.py # Funciones de visualizacion
+utils.py # Utilidades generales
+app/
+streamlit_app.py # Dashboard principal
+pages/ # Paginas adicionales (si aplica)
+outputs/
+figures/ # Graficos generados
+maps/ # Mapas producidos
+reports/ # Reportes generados
+docs/
+informe_final.pdf
+presentacion.pdf
+\end{lstlisting}
+
+\subsubsection{Criterios de Calidad del Código}
+\begin{itemize}[leftmargin=*]
+\item Documentación: Cada función con docstring, README completo
+\item Modularidad: Código organizado en módulos reutilizables
+\item Reproducibilidad: Instrucciones claras paso a paso
+\item Manejo de datos: Scripts de descarga si datos $>$ 100MB
+\item Versionamiento: Commits descriptivos de todos los integrantes
+\item Estilo: Código limpio siguiendo PEP 8
+\end{itemize}
+
+\subsection{D.\ Producto Final: Dashboard/Aplicación (10\%)}
+\subsubsection*{Requisitos del Dashboard}
+Se espera una aplicación interactiva que permita explorar los resultados del proyecto. Puede
+ser:
+\begin{itemize}[leftmargin=*]
+\item Streamlit (recomendado)
+\item Panel/Voila
+\item Dash (Plotly)
+\item Aplicación web estática con Folium
+\end{itemize}
+
+\subsubsection{Funcionalidades Mínimas}
+\begin{enumerate}[leftmargin=*]
+\item Visualización de mapa interactivo con los datos del proyecto
+\item Filtros dinámicos para explorar subconjuntos de datos
+\item Al menos 2 gráficos que se actualicen con los filtros
+\item Información contextual sobre el proyecto
+\item Instrucción de uso básica
+\end{enumerate}
+
+\subsubsection*{Recomendación}
+Si desplegaron el dashboard en Streamlit Cloud u otro servicio, incluyan el enlace en el
+README. Esto demuestra profesionalismo y facilita la evaluación.
+
+\subsection{E.\ Trabajo en Equipo (5\%)}
+Se evaluará:
+\begin{itemize}[leftmargin=*]
+\item Commits de todos los integrantes
+\item Distribución equitativa del trabajo
+\item Evidencia de colaboración (issues, PRs, comentarios)
+\item Participación equitativa en la presentación
+\end{itemize}
+
+\section{Rúbrica de Evaluación Detallada}
+\subsection{Niveles de Desempeño}
+\begin{longtable}{p{0.18\textwidth} p{0.20\textwidth} p{0.20\textwidth} p{0.20\textwidth} p{0.18\textwidth}}
+\toprule
+\textbf{Criterio} & \textbf{Excelente (7.0)} & \textbf{Bueno (6.0)} & \textbf{Suficiente (5.0)} & \textbf{Insuficiente ($<4.0$)}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Criterio} & \textbf{Excelente (7.0)} & \textbf{Bueno (6.0)} & \textbf{Suficiente (5.0)} & \textbf{Insuficiente ($<4.0$)}\\
+\midrule
+\endhead
+Resultados y Análisis &
+Análisis sofisticado con múltiples métodos espaciales. Hallazgos profundos y bien fundamentados. Validación rigurosa. &
+Buen análisis con métodos apropiados. Hallazgos claros y fundamentados. &
+Análisis básico pero correcto. Hallazgos limitados pero válidos. &
+Análisis superficial, incorrecto o ausente. Sin hallazgos claros.\\
+\midrule
+Visualizaciones &
+Excepcionales: claras, estéticas, interactivas. Comunican efectivamente. Mapas de calidad profesional. &
+Buena calidad, claras y bien diseñadas. Mapas correctos con elementos cartográficos. &
+Correctas pero básicas. Mapas funcionales sin refinamiento. &
+Pobres, confusas o con errores. Mapas de baja calidad.\\
+\midrule
+Dashboard/App &
+Funcional, intuitivo, estético. Múltiples funcionalidades. Desplegado en la nube. &
+Funcional y útil. Cumple requisitos mínimos. Bien diseñado. &
+Básico pero funciona. Interactividad limitada. &
+No funciona, muy básico o ausente.\\
+\midrule
+Código &
+Limpio, modular, bien documentado. Completamente reproducible. Tests incluidos. &
+Bien estructurado y funcional. Documentación adecuada. &
+Funciona pero poco organizado. Documentación mínima. &
+Desorganizado, sin documentar o no funciona.\\
+\midrule
+Informe &
+Completo, bien redactado, estructura impecable. Discusión profunda. Referencias de calidad. &
+Bien estructurado, redacción clara. Contenido completo. &
+Estructura correcta, contenido básico. Algunas secciones débiles. &
+Incompleto, mal estructurado o mal redactado.\\
+\midrule
+Presentación &
+Clara, fluida, dominio total del tema. Responde preguntas con profundidad. Demo impecable. &
+Buena presentación, responde bien. Demo funciona correctamente. &
+Presentación correcta. Demo con problemas menores. &
+Confusa, incompleta. Demo falla o ausente.\\
+\midrule
+Conclusiones &
+Profundas, bien fundamentadas. Identifican contribución clara. Proponen trabajo futuro concreto. &
+Claras y pertinentes. Contribución identificada. &
+Básicas pero correctas. Contribución vaga. &
+Superficiales, incorrectas o ausentes.\\
+\bottomrule
+\end{longtable}
+
+\section{Checklist de Entregables}
+\subsection*{Importante}
+Todos los items son obligatorios. La ausencia de cualquiera resultará en descuento.
+\begin{center}
+\begin{tabular}{p{0.70\textwidth} p{0.20\textwidth}}
+\toprule
+\textbf{Item} & \textbf{Estado}\\
+\midrule
+Informe final en PDF (25--35 páginas) & Pendiente\\
+Presentación en PDF o PPTX & Pendiente\\
+Repositorio GitHub completo y documentado & Pendiente\\
+README con instrucciones de reproducción & Pendiente\\
+requirements.txt o environment.yml & Pendiente\\
+Dashboard/aplicación funcional & Pendiente\\
+Mínimo 5 mapas temáticos de alta calidad & Pendiente\\
+Mínimo 8 gráficos estadísticos & Pendiente\\
+Notebook de análisis completo y ejecutable & Pendiente\\
+Código modular en carpeta src/ & Pendiente\\
+Marco teórico con mínimo 15 referencias & Pendiente\\
+Sección de discusión completa & Pendiente\\
+Conclusiones con contribución identificada & Pendiente\\
+Commits de todos los integrantes & Pendiente\\
+Demo funcional para presentación & Pendiente\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Criterios de Penalización}
+\subsection*{Importante}
+\begin{itemize}[leftmargin=*]
+\item Entrega tardía del informe: -1.0 punto por día de atraso
+\item Falta de integrante a presentación: -0.5 puntos (salvo justificación médica)
+\item Código no reproducible: -0.5 puntos
+\item Dashboard no funciona: -0.5 puntos
+\item Sin commits de algún integrante: -0.3 puntos
+\item Plagio o copia: Nota 1.0 y revisión por comité de ética
+\end{itemize}
+
+\section{Sesiones Prácticas de Cierre}
+Se realizarán 3 sesiones prácticas online antes de la presentación final:
+\begin{center}
+\begin{tabular}{p{0.35\textwidth} p{0.18\textwidth} p{0.37\textwidth}}
+\toprule
+\textbf{Fecha} & \textbf{Duración} & \textbf{Foco}\\
+\midrule
+Lunes 13 de enero & 1:20 hrs & Completar análisis y resultados\\
+Miércoles 15 de enero & 1:20 hrs & Visualizaciones y dashboard\\
+Lunes 20 de enero & 1:20 hrs & Preparación de presentación\\
+Jueves 22 de enero & --- & Presentaciones (presencial)\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{Importante}
+Es obligación de cada grupo tener al menos 2 integrantes presentes en cada sesión práctica.
+La falta no justificada resultará en -0.3 puntos en la nota final.
+
+\section{Fechas Importantes}
+\subsection*{Calendario}
+\begin{itemize}[leftmargin=*]
+\item Publicación de esta guía: 9 de enero de 2026
+\item Sesión práctica 1: 13 de enero de 2026
+\item Sesión práctica 2: 15 de enero de 2026
+\item Sesión práctica 3: 20 de enero de 2026
+\item Presentaciones finales: 22 de enero de 2026 (presencial)
+\item Entrega informe final: Primera semana de marzo de 2026
+\end{itemize}
+
+\section{Contacto}
+\begin{itemize}[leftmargin=*]
+\item Email: \href{mailto:francisco.parra@usach.cl}{francisco.parra@usach.cl}
+\item Consultas: Durante las sesiones prácticas o por email
+\end{itemize}
+
+\bigskip
+\noindent Éxito en su evaluación final!
+\end{document}
