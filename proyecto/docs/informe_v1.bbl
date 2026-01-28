@@ -1,0 +1,1497 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{apa/apasortcite//global/global}
+    \entry{alvarez2021}{article}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=aee34d810b122f1e529557f81b311540}{%
+           family={Alvarez},
+           familyi={A\bibinitperiod},
+           given={Patricia},
+           giveni={P\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=c2273da5586d91cb8ea80e57ab1da9e9}{%
+           family={Gutierrez},
+           familyi={G\bibinitperiod},
+           given={Juan},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{9b93ad31de3b569415da030d18910269}
+      \strng{fullhash}{9b93ad31de3b569415da030d18910269}
+      \strng{bibnamehash}{9b93ad31de3b569415da030d18910269}
+      \strng{authorbibnamehash}{9b93ad31de3b569415da030d18910269}
+      \strng{authornamehash}{9b93ad31de3b569415da030d18910269}
+      \strng{authorfullhash}{9b93ad31de3b569415da030d18910269}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Cities}
+      \field{title}{Urban accessibility and residential satisfaction in Latin America}
+      \field{volume}{116}
+      \field{year}{2021}
+      \field{pages}{103261}
+      \range{pages}{1}
+    \endentry
+    \entry{anselin1995}{article}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=32fb21812540da9aa1d191c8c2f96cf8}{%
+           family={Anselin},
+           familyi={A\bibinitperiod},
+           given={Luc},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{32fb21812540da9aa1d191c8c2f96cf8}
+      \strng{fullhash}{32fb21812540da9aa1d191c8c2f96cf8}
+      \strng{bibnamehash}{32fb21812540da9aa1d191c8c2f96cf8}
+      \strng{authorbibnamehash}{32fb21812540da9aa1d191c8c2f96cf8}
+      \strng{authornamehash}{32fb21812540da9aa1d191c8c2f96cf8}
+      \strng{authorfullhash}{32fb21812540da9aa1d191c8c2f96cf8}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Geographical Analysis}
+      \field{number}{2}
+      \field{title}{Local Indicators of Spatial Association-LISA}
+      \field{volume}{27}
+      \field{year}{1995}
+      \field{pages}{93\bibrangedash 115}
+      \range{pages}{23}
+    \endentry
+    \entry{biobio_ciper_2025}{online}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=b4ac0dbc058c0cc9ea411ce655ff809d}{%
+           family={{BioBio Chile}},
+           familyi={B\bibinitperiod}}}%
+        {{un=0,uniquepart=base,hash=280699858919bf0b60cd1a0994706dc7}{%
+           family={{CIPER Chile}},
+           familyi={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{920cdb6145e83ae4d7ed2e70b9b5f0c3}
+      \strng{fullhash}{920cdb6145e83ae4d7ed2e70b9b5f0c3}
+      \strng{bibnamehash}{920cdb6145e83ae4d7ed2e70b9b5f0c3}
+      \strng{authorbibnamehash}{920cdb6145e83ae4d7ed2e70b9b5f0c3}
+      \strng{authornamehash}{920cdb6145e83ae4d7ed2e70b9b5f0c3}
+      \strng{authorfullhash}{920cdb6145e83ae4d7ed2e70b9b5f0c3}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Consultado: 2025}
+      \field{title}{Stock de propiedades no vendidas y nuevas oportunidades en el mercado inmobiliario chileno}
+      \field{year}{2025}
+      \verb{urlraw}
+      \verb https://www.biobiochile.cl
+      \endverb
+      \verb{url}
+      \verb https://www.biobiochile.cl
+      \endverb
+    \endentry
+    \entry{bonaiuto2015}{article}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=9b5b5e01634c187ba6b1fdde1f961107}{%
+           family={Bonaiuto},
+           familyi={B\bibinitperiod},
+           given={Marino},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=5173b6778b21b15e6d735530907d2c4d}{%
+           family={Fornara},
+           familyi={F\bibinitperiod},
+           given={Fabrizia},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a7d0af8327ac90e01cbe1e16d74522e1}{%
+           family={Ariccio},
+           familyi={A\bibinitperiod},
+           given={Silvia},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{a9a8b223af52e6ac9cdabcdaa5c1e1a9}
+      \strng{fullhash}{33033834b8976f2e825023e32b1f8960}
+      \strng{bibnamehash}{33033834b8976f2e825023e32b1f8960}
+      \strng{authorbibnamehash}{33033834b8976f2e825023e32b1f8960}
+      \strng{authornamehash}{a9a8b223af52e6ac9cdabcdaa5c1e1a9}
+      \strng{authorfullhash}{33033834b8976f2e825023e32b1f8960}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Environmental Psychology}
+      \field{title}{Local identity processes and environmental attitudes in land consolidation}
+      \field{volume}{44}
+      \field{year}{2015}
+      \field{pages}{169\bibrangedash 179}
+      \range{pages}{11}
+    \endentry
+    \entry{brueckner2011}{article}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=475960db9d449cfe8f8ab1ecb8a46ff5}{%
+           family={Brueckner},
+           familyi={B\bibinitperiod},
+           given={Jan\bibnamedelima K.},
+           giveni={J\bibinitperiod\bibinitdelim K\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {MIT Press}%
+      }
+      \strng{namehash}{475960db9d449cfe8f8ab1ecb8a46ff5}
+      \strng{fullhash}{475960db9d449cfe8f8ab1ecb8a46ff5}
+      \strng{bibnamehash}{475960db9d449cfe8f8ab1ecb8a46ff5}
+      \strng{authorbibnamehash}{475960db9d449cfe8f8ab1ecb8a46ff5}
+      \strng{authornamehash}{475960db9d449cfe8f8ab1ecb8a46ff5}
+      \strng{authorfullhash}{475960db9d449cfe8f8ab1ecb8a46ff5}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Lectures on Urban Economics}
+      \field{year}{2011}
+    \endentry
+    \entry{fotheringham2002}{article}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=e52298fded4bb1d9451c3fce80fe1bf7}{%
+           family={Fotheringham},
+           familyi={F\bibinitperiod},
+           given={A.\bibnamedelimi Stewart},
+           giveni={A\bibinitperiod\bibinitdelim S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=98a0d3717c90f41d9846124c798cbfc3}{%
+           family={Brunsdon},
+           familyi={B\bibinitperiod},
+           given={Chris},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=18e010ad6f178bf5db6f777026b33739}{%
+           family={Charlton},
+           familyi={C\bibinitperiod},
+           given={Martin},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{248c51a472c23f3095c201c45ab17485}
+      \strng{fullhash}{13eb45a770ff874a27ab71fa4144e091}
+      \strng{bibnamehash}{13eb45a770ff874a27ab71fa4144e091}
+      \strng{authorbibnamehash}{13eb45a770ff874a27ab71fa4144e091}
+      \strng{authornamehash}{248c51a472c23f3095c201c45ab17485}
+      \strng{authorfullhash}{13eb45a770ff874a27ab71fa4144e091}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Annals of the American Association of Geographers}
+      \field{number}{3}
+      \field{title}{Geographically Weighted Regression: the analysis of spatially varying relationships}
+      \field{volume}{92}
+      \field{year}{2002}
+      \field{pages}{431\bibrangedash 443}
+      \range{pages}{13}
+    \endentry
+    \entry{freeman2003}{book}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=d65403fdf78164a01862886a0d1a0421}{%
+           family={Freeman},
+           familyi={F\bibinitperiod},
+           given={A.\bibnamedelimi Myrick},
+           giveni={A\bibinitperiod\bibinitdelim M\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Resources for the Future}%
+      }
+      \strng{namehash}{d65403fdf78164a01862886a0d1a0421}
+      \strng{fullhash}{d65403fdf78164a01862886a0d1a0421}
+      \strng{bibnamehash}{d65403fdf78164a01862886a0d1a0421}
+      \strng{authorbibnamehash}{d65403fdf78164a01862886a0d1a0421}
+      \strng{authornamehash}{d65403fdf78164a01862886a0d1a0421}
+      \strng{authorfullhash}{d65403fdf78164a01862886a0d1a0421}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{2}
+      \field{title}{The Measurement of Environmental and Resource Values: Theory and Methods}
+      \field{year}{2003}
+    \endentry
+    \entry{geurs2004}{article}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=f8a00812fdfc5826fc0d9d2a47902286}{%
+           family={Geurs},
+           familyi={G\bibinitperiod},
+           given={Karst\bibnamedelima T.},
+           giveni={K\bibinitperiod\bibinitdelim T\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=f2540085dfc306b8a69e2ebfe89575be}{%
+           family={Wee},
+           familyi={W\bibinitperiod},
+           given={Bert},
+           giveni={B\bibinitperiod},
+           givenun=0,
+           prefix={van},
+           prefixi={v\bibinitperiod}}}%
+      }
+      \strng{namehash}{e7dd513e55b16c47a71982a673fd4eeb}
+      \strng{fullhash}{e7dd513e55b16c47a71982a673fd4eeb}
+      \strng{bibnamehash}{e7dd513e55b16c47a71982a673fd4eeb}
+      \strng{authorbibnamehash}{e7dd513e55b16c47a71982a673fd4eeb}
+      \strng{authornamehash}{e7dd513e55b16c47a71982a673fd4eeb}
+      \strng{authorfullhash}{e7dd513e55b16c47a71982a673fd4eeb}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Transport Geography}
+      \field{number}{2}
+      \field{title}{Accessibility evaluation of land-use and transport strategies: review and research directions}
+      \field{volume}{12}
+      \field{year}{2004}
+      \field{pages}{127\bibrangedash 140}
+      \range{pages}{14}
+    \endentry
+    \entry{handy1997}{article}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=8d01ca3b9282fb3db9ee73bc1be63c92}{%
+           family={Handy},
+           familyi={H\bibinitperiod},
+           given={Susan\bibnamedelima L.},
+           giveni={S\bibinitperiod\bibinitdelim L\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{8d01ca3b9282fb3db9ee73bc1be63c92}
+      \strng{fullhash}{8d01ca3b9282fb3db9ee73bc1be63c92}
+      \strng{bibnamehash}{8d01ca3b9282fb3db9ee73bc1be63c92}
+      \strng{authorbibnamehash}{8d01ca3b9282fb3db9ee73bc1be63c92}
+      \strng{authornamehash}{8d01ca3b9282fb3db9ee73bc1be63c92}
+      \strng{authorfullhash}{8d01ca3b9282fb3db9ee73bc1be63c92}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Planning Education and Research}
+      \field{number}{3}
+      \field{title}{Transportation, land use, and the environment}
+      \field{volume}{16}
+      \field{year}{1997}
+      \field{pages}{193\bibrangedash 204}
+      \range{pages}{12}
+    \endentry
+    \entry{hoon2020}{article}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=a305ce6979acc08c3a8084acda3c6c31}{%
+           family={Hoon},
+           familyi={H\bibinitperiod},
+           given={Oh},
+           giveni={O\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=5353b5936721e25ac630b6cbfee0789b}{%
+           family={Park},
+           familyi={P\bibinitperiod},
+           given={Sunghoon},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=c1459242f5e29a21c0451ee21bc62dea}{%
+           family={Lee},
+           familyi={L\bibinitperiod},
+           given={Kangwon},
+           giveni={K\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{9df4095982c287b68b9cc4fca59d851b}
+      \strng{fullhash}{b7cc3009fca6863d18ec78d0fe797b2d}
+      \strng{bibnamehash}{b7cc3009fca6863d18ec78d0fe797b2d}
+      \strng{authorbibnamehash}{b7cc3009fca6863d18ec78d0fe797b2d}
+      \strng{authornamehash}{9df4095982c287b68b9cc4fca59d851b}
+      \strng{authorfullhash}{b7cc3009fca6863d18ec78d0fe797b2d}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Applied Sciences}
+      \field{number}{15}
+      \field{title}{Machine learning in housing price prediction}
+      \field{volume}{10}
+      \field{year}{2020}
+      \field{pages}{5393}
+      \range{pages}{1}
+    \endentry
+    \entry{ipsos_monitor_2025}{report}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=39619850a4a8d4273ed1a89b37f1dea9}{%
+           family={{IPSOS}},
+           familyi={I\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {IPSOS Chile}%
+      }
+      \strng{namehash}{39619850a4a8d4273ed1a89b37f1dea9}
+      \strng{fullhash}{39619850a4a8d4273ed1a89b37f1dea9}
+      \strng{bibnamehash}{39619850a4a8d4273ed1a89b37f1dea9}
+      \strng{authorbibnamehash}{39619850a4a8d4273ed1a89b37f1dea9}
+      \strng{authornamehash}{39619850a4a8d4273ed1a89b37f1dea9}
+      \strng{authorfullhash}{39619850a4a8d4273ed1a89b37f1dea9}
+      \field{sortinit}{I}
+      \field{sortinithash}{8d291c51ee89b6cd86bf5379f0b151d8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{1}
+      \field{note}{Consultora multinacional IPSOS}
+      \field{title}{Monitor de Viviendas 2025}
+      \field{type}{Estudio de satisfacción residencial}
+      \field{year}{2025}
+    \endentry
+    \entry{lancaster1966}{article}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=47339d7f727102ea148a9aa13204945d}{%
+           family={Lancaster},
+           familyi={L\bibinitperiod},
+           given={Kelvin\bibnamedelima J},
+           giveni={K\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{47339d7f727102ea148a9aa13204945d}
+      \strng{fullhash}{47339d7f727102ea148a9aa13204945d}
+      \strng{bibnamehash}{47339d7f727102ea148a9aa13204945d}
+      \strng{authorbibnamehash}{47339d7f727102ea148a9aa13204945d}
+      \strng{authornamehash}{47339d7f727102ea148a9aa13204945d}
+      \strng{authorfullhash}{47339d7f727102ea148a9aa13204945d}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of political economy}
+      \field{number}{2}
+      \field{title}{A new approach to consumer theory}
+      \field{volume}{74}
+      \field{year}{1966}
+      \field{pages}{132\bibrangedash 157}
+      \range{pages}{26}
+    \endentry
+    \entry{li2020}{article}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=04058c4e91e541253e7dafb06a5fbee6}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Xiaoming},
+           giveni={X\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=106407400bba26ef3a8294f2c023f4f8}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Naiyang},
+           giveni={N\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=3507abdbb17c83efe8a127231a233c35}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Hongyi},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{677ce7fa7e488a3178632a68c28c75b3}
+      \strng{fullhash}{29d5cc84fa474c71bb5f6838310c6fb7}
+      \strng{bibnamehash}{29d5cc84fa474c71bb5f6838310c6fb7}
+      \strng{authorbibnamehash}{29d5cc84fa474c71bb5f6838310c6fb7}
+      \strng{authornamehash}{677ce7fa7e488a3178632a68c28c75b3}
+      \strng{authorfullhash}{29d5cc84fa474c71bb5f6838310c6fb7}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{IEEE Access}
+      \field{title}{Deep learning for real estate price prediction}
+      \field{volume}{8}
+      \field{year}{2020}
+      \field{pages}{43883\bibrangedash 43896}
+      \range{pages}{14}
+    \endentry
+    \entry{lundberg2017}{article}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=2a1075150e1e1dad8127b019f7ca9031}{%
+           family={Lundberg},
+           familyi={L\bibinitperiod},
+           given={Scott\bibnamedelima M.},
+           giveni={S\bibinitperiod\bibinitdelim M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ee964079d93879aaef2382a5fff343d3}{%
+           family={Lee},
+           familyi={L\bibinitperiod},
+           given={Su-In},
+           giveni={S\bibinithyphendelim I\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{9cd6e49767b1dfa9f5df9a46216a8739}
+      \strng{fullhash}{9cd6e49767b1dfa9f5df9a46216a8739}
+      \strng{bibnamehash}{9cd6e49767b1dfa9f5df9a46216a8739}
+      \strng{authorbibnamehash}{9cd6e49767b1dfa9f5df9a46216a8739}
+      \strng{authornamehash}{9cd6e49767b1dfa9f5df9a46216a8739}
+      \strng{authorfullhash}{9cd6e49767b1dfa9f5df9a46216a8739}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Advances in Neural Information Processing Systems}
+      \field{title}{A unified approach to interpreting model predictions}
+      \field{year}{2017}
+      \field{pages}{4765\bibrangedash 4774}
+      \range{pages}{10}
+    \endentry
+    \entry{medium2025_lightgbm}{article}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=c52bc76b1880965053d936e6fedb923a}{%
+           family={Lynch},
+           familyi={L\bibinitperiod},
+           given={Anix},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{c52bc76b1880965053d936e6fedb923a}
+      \strng{fullhash}{c52bc76b1880965053d936e6fedb923a}
+      \strng{bibnamehash}{c52bc76b1880965053d936e6fedb923a}
+      \strng{authorbibnamehash}{c52bc76b1880965053d936e6fedb923a}
+      \strng{authornamehash}{c52bc76b1880965053d936e6fedb923a}
+      \strng{authorfullhash}{c52bc76b1880965053d936e6fedb923a}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Medium}
+      \field{title}{Predict House Prices 5x Faster with LightGBM vs XGBoost}
+      \field{year}{2025}
+    \endentry
+    \entry{marans2015}{article}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=ea97597899117858b85599c269c134c1}{%
+           family={Marans},
+           familyi={M\bibinitperiod},
+           given={Robert\bibnamedelima W.},
+           giveni={R\bibinitperiod\bibinitdelim W\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{ea97597899117858b85599c269c134c1}
+      \strng{fullhash}{ea97597899117858b85599c269c134c1}
+      \strng{bibnamehash}{ea97597899117858b85599c269c134c1}
+      \strng{authorbibnamehash}{ea97597899117858b85599c269c134c1}
+      \strng{authornamehash}{ea97597899117858b85599c269c134c1}
+      \strng{authorfullhash}{ea97597899117858b85599c269c134c1}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Housing and Society}
+      \field{number}{2}
+      \field{title}{Housing as a Reflection of Values, Psychological Needs, and the Achievement of Well-being in Germany}
+      \field{volume}{42}
+      \field{year}{2015}
+      \field{pages}{115\bibrangedash 135}
+      \range{pages}{21}
+    \endentry
+    \entry{osullivan2010}{book}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=e63732527d63a8fc63391d83a800882c}{%
+           family={O'Sullivan},
+           familyi={O\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a0960efb88f54a7a5f94adb318bca911}{%
+           family={Unwin},
+           familyi={U\bibinitperiod},
+           given={David\bibnamedelima J.},
+           giveni={D\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {John Wiley \& Sons}%
+      }
+      \strng{namehash}{d73b57e518de81b774a7d30eb2774328}
+      \strng{fullhash}{d73b57e518de81b774a7d30eb2774328}
+      \strng{bibnamehash}{d73b57e518de81b774a7d30eb2774328}
+      \strng{authorbibnamehash}{d73b57e518de81b774a7d30eb2774328}
+      \strng{authornamehash}{d73b57e518de81b774a7d30eb2774328}
+      \strng{authorfullhash}{d73b57e518de81b774a7d30eb2774328}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{2}
+      \field{title}{Geographic Information Analysis}
+      \field{year}{2010}
+    \endentry
+    \entry{park2020}{article}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=11a43e590560402d9afb37657e65327a}{%
+           family={Park},
+           familyi={P\bibinitperiod},
+           given={Byeong\bibnamedelima Ho},
+           giveni={B\bibinitperiod\bibinitdelim H\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{11a43e590560402d9afb37657e65327a}
+      \strng{fullhash}{11a43e590560402d9afb37657e65327a}
+      \strng{bibnamehash}{11a43e590560402d9afb37657e65327a}
+      \strng{authorbibnamehash}{11a43e590560402d9afb37657e65327a}
+      \strng{authornamehash}{11a43e590560402d9afb37657e65327a}
+      \strng{authorfullhash}{11a43e590560402d9afb37657e65327a}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Urban Studies}
+      \field{number}{4}
+      \field{title}{Evaluating Residential Satisfaction in Korean New Towns}
+      \field{volume}{57}
+      \field{year}{2020}
+      \field{pages}{823\bibrangedash 841}
+      \range{pages}{19}
+    \endentry
+    \entry{rosen1974}{article}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=9ad40576acffeb7d769dc8b41f375d2b}{%
+           family={Rosen},
+           familyi={R\bibinitperiod},
+           given={Sherwin},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{9ad40576acffeb7d769dc8b41f375d2b}
+      \strng{fullhash}{9ad40576acffeb7d769dc8b41f375d2b}
+      \strng{bibnamehash}{9ad40576acffeb7d769dc8b41f375d2b}
+      \strng{authorbibnamehash}{9ad40576acffeb7d769dc8b41f375d2b}
+      \strng{authornamehash}{9ad40576acffeb7d769dc8b41f375d2b}
+      \strng{authorfullhash}{9ad40576acffeb7d769dc8b41f375d2b}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of political economy}
+      \field{number}{1}
+      \field{title}{Hedonic prices and implicit markets: product differentiation in pure competition}
+      \field{volume}{82}
+      \field{year}{1974}
+      \field{pages}{34\bibrangedash 55}
+      \range{pages}{22}
+    \endentry
+    \entry{talen2003}{article}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=e7155aeedceaa34b9d3e72a90c9d830a}{%
+           family={Talen},
+           familyi={T\bibinitperiod},
+           given={Emily},
+           giveni={E\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{e7155aeedceaa34b9d3e72a90c9d830a}
+      \strng{fullhash}{e7155aeedceaa34b9d3e72a90c9d830a}
+      \strng{bibnamehash}{e7155aeedceaa34b9d3e72a90c9d830a}
+      \strng{authorbibnamehash}{e7155aeedceaa34b9d3e72a90c9d830a}
+      \strng{authornamehash}{e7155aeedceaa34b9d3e72a90c9d830a}
+      \strng{authorfullhash}{e7155aeedceaa34b9d3e72a90c9d830a}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Urban Design}
+      \field{number}{2}
+      \field{title}{Measuring urbanism: Issues in smart growth research}
+      \field{volume}{8}
+      \field{year}{2003}
+      \field{pages}{113\bibrangedash 125}
+      \range{pages}{13}
+    \endentry
+    \entry{wei2018}{article}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=5e58da1e7f02351e74a22612b4cde8d6}{%
+           family={Wei},
+           familyi={W\bibinitperiod},
+           given={Yeqing\bibnamedelima C.},
+           giveni={Y\bibinitperiod\bibinitdelim C\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{5e58da1e7f02351e74a22612b4cde8d6}
+      \strng{fullhash}{5e58da1e7f02351e74a22612b4cde8d6}
+      \strng{bibnamehash}{5e58da1e7f02351e74a22612b4cde8d6}
+      \strng{authorbibnamehash}{5e58da1e7f02351e74a22612b4cde8d6}
+      \strng{authornamehash}{5e58da1e7f02351e74a22612b4cde8d6}
+      \strng{authorfullhash}{5e58da1e7f02351e74a22612b4cde8d6}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Transportation Research Procedia}
+      \field{title}{Accessibility analysis and evaluation methodology}
+      \field{volume}{31}
+      \field{year}{2018}
+      \field{pages}{82\bibrangedash 92}
+      \range{pages}{11}
+    \endentry
+    \entry{zhang2019}{article}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=25bbf4047d900f3760c65b01ee899dba}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Wei},
+           giveni={W\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=82c1e32d9e4f9b16fe79aaecd18d8440}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Mengying},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=8c237cd25842d9d194729c078a4a3cf5}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Lingqian},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{a88dfc5c55489606792d411cce65410b}
+      \strng{fullhash}{5d166468e72bf80fe439b11553d89776}
+      \strng{bibnamehash}{5d166468e72bf80fe439b11553d89776}
+      \strng{authorbibnamehash}{5d166468e72bf80fe439b11553d89776}
+      \strng{authornamehash}{a88dfc5c55489606792d411cce65410b}
+      \strng{authorfullhash}{5d166468e72bf80fe439b11553d89776}
+      \field{sortinit}{Z}
+      \field{sortinithash}{96892c0b0a36bb8557c40c49813d48b3}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Landscape and Urban Planning}
+      \field{title}{Accessibility analysis and housing prices in Chinese cities}
+      \field{volume}{191}
+      \field{year}{2019}
+      \field{pages}{103640}
+      \range{pages}{1}
+    \endentry
+  \enddatalist
+  \datalist[entry]{apa/global//global/global}
+    \entry{alvarez2021}{article}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=aee34d810b122f1e529557f81b311540}{%
+           family={Alvarez},
+           familyi={A\bibinitperiod},
+           given={Patricia},
+           giveni={P\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=c2273da5586d91cb8ea80e57ab1da9e9}{%
+           family={Gutierrez},
+           familyi={G\bibinitperiod},
+           given={Juan},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{9b93ad31de3b569415da030d18910269}
+      \strng{fullhash}{9b93ad31de3b569415da030d18910269}
+      \strng{bibnamehash}{9b93ad31de3b569415da030d18910269}
+      \strng{authorbibnamehash}{9b93ad31de3b569415da030d18910269}
+      \strng{authornamehash}{9b93ad31de3b569415da030d18910269}
+      \strng{authorfullhash}{9b93ad31de3b569415da030d18910269}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Cities}
+      \field{title}{Urban accessibility and residential satisfaction in Latin America}
+      \field{volume}{116}
+      \field{year}{2021}
+      \field{pages}{103261}
+      \range{pages}{1}
+    \endentry
+    \entry{anselin1995}{article}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=32fb21812540da9aa1d191c8c2f96cf8}{%
+           family={Anselin},
+           familyi={A\bibinitperiod},
+           given={Luc},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{32fb21812540da9aa1d191c8c2f96cf8}
+      \strng{fullhash}{32fb21812540da9aa1d191c8c2f96cf8}
+      \strng{bibnamehash}{32fb21812540da9aa1d191c8c2f96cf8}
+      \strng{authorbibnamehash}{32fb21812540da9aa1d191c8c2f96cf8}
+      \strng{authornamehash}{32fb21812540da9aa1d191c8c2f96cf8}
+      \strng{authorfullhash}{32fb21812540da9aa1d191c8c2f96cf8}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Geographical Analysis}
+      \field{number}{2}
+      \field{title}{Local Indicators of Spatial Association-LISA}
+      \field{volume}{27}
+      \field{year}{1995}
+      \field{pages}{93\bibrangedash 115}
+      \range{pages}{23}
+    \endentry
+    \entry{biobio_ciper_2025}{online}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=b4ac0dbc058c0cc9ea411ce655ff809d}{%
+           family={{BioBio Chile}},
+           familyi={B\bibinitperiod}}}%
+        {{un=0,uniquepart=base,hash=280699858919bf0b60cd1a0994706dc7}{%
+           family={{CIPER Chile}},
+           familyi={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{920cdb6145e83ae4d7ed2e70b9b5f0c3}
+      \strng{fullhash}{920cdb6145e83ae4d7ed2e70b9b5f0c3}
+      \strng{bibnamehash}{920cdb6145e83ae4d7ed2e70b9b5f0c3}
+      \strng{authorbibnamehash}{920cdb6145e83ae4d7ed2e70b9b5f0c3}
+      \strng{authornamehash}{920cdb6145e83ae4d7ed2e70b9b5f0c3}
+      \strng{authorfullhash}{920cdb6145e83ae4d7ed2e70b9b5f0c3}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Consultado: 2025}
+      \field{title}{Stock de propiedades no vendidas y nuevas oportunidades en el mercado inmobiliario chileno}
+      \field{year}{2025}
+      \verb{urlraw}
+      \verb https://www.biobiochile.cl
+      \endverb
+      \verb{url}
+      \verb https://www.biobiochile.cl
+      \endverb
+    \endentry
+    \entry{bonaiuto2015}{article}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=9b5b5e01634c187ba6b1fdde1f961107}{%
+           family={Bonaiuto},
+           familyi={B\bibinitperiod},
+           given={Marino},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=5173b6778b21b15e6d735530907d2c4d}{%
+           family={Fornara},
+           familyi={F\bibinitperiod},
+           given={Fabrizia},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a7d0af8327ac90e01cbe1e16d74522e1}{%
+           family={Ariccio},
+           familyi={A\bibinitperiod},
+           given={Silvia},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{a9a8b223af52e6ac9cdabcdaa5c1e1a9}
+      \strng{fullhash}{33033834b8976f2e825023e32b1f8960}
+      \strng{bibnamehash}{33033834b8976f2e825023e32b1f8960}
+      \strng{authorbibnamehash}{33033834b8976f2e825023e32b1f8960}
+      \strng{authornamehash}{a9a8b223af52e6ac9cdabcdaa5c1e1a9}
+      \strng{authorfullhash}{33033834b8976f2e825023e32b1f8960}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Environmental Psychology}
+      \field{title}{Local identity processes and environmental attitudes in land consolidation}
+      \field{volume}{44}
+      \field{year}{2015}
+      \field{pages}{169\bibrangedash 179}
+      \range{pages}{11}
+    \endentry
+    \entry{brueckner2011}{article}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=475960db9d449cfe8f8ab1ecb8a46ff5}{%
+           family={Brueckner},
+           familyi={B\bibinitperiod},
+           given={Jan\bibnamedelima K.},
+           giveni={J\bibinitperiod\bibinitdelim K\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {MIT Press}%
+      }
+      \strng{namehash}{475960db9d449cfe8f8ab1ecb8a46ff5}
+      \strng{fullhash}{475960db9d449cfe8f8ab1ecb8a46ff5}
+      \strng{bibnamehash}{475960db9d449cfe8f8ab1ecb8a46ff5}
+      \strng{authorbibnamehash}{475960db9d449cfe8f8ab1ecb8a46ff5}
+      \strng{authornamehash}{475960db9d449cfe8f8ab1ecb8a46ff5}
+      \strng{authorfullhash}{475960db9d449cfe8f8ab1ecb8a46ff5}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Lectures on Urban Economics}
+      \field{year}{2011}
+    \endentry
+    \entry{fotheringham2002}{article}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=e52298fded4bb1d9451c3fce80fe1bf7}{%
+           family={Fotheringham},
+           familyi={F\bibinitperiod},
+           given={A.\bibnamedelimi Stewart},
+           giveni={A\bibinitperiod\bibinitdelim S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=98a0d3717c90f41d9846124c798cbfc3}{%
+           family={Brunsdon},
+           familyi={B\bibinitperiod},
+           given={Chris},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=18e010ad6f178bf5db6f777026b33739}{%
+           family={Charlton},
+           familyi={C\bibinitperiod},
+           given={Martin},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{248c51a472c23f3095c201c45ab17485}
+      \strng{fullhash}{13eb45a770ff874a27ab71fa4144e091}
+      \strng{bibnamehash}{13eb45a770ff874a27ab71fa4144e091}
+      \strng{authorbibnamehash}{13eb45a770ff874a27ab71fa4144e091}
+      \strng{authornamehash}{248c51a472c23f3095c201c45ab17485}
+      \strng{authorfullhash}{13eb45a770ff874a27ab71fa4144e091}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Annals of the American Association of Geographers}
+      \field{number}{3}
+      \field{title}{Geographically Weighted Regression: the analysis of spatially varying relationships}
+      \field{volume}{92}
+      \field{year}{2002}
+      \field{pages}{431\bibrangedash 443}
+      \range{pages}{13}
+    \endentry
+    \entry{freeman2003}{book}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=d65403fdf78164a01862886a0d1a0421}{%
+           family={Freeman},
+           familyi={F\bibinitperiod},
+           given={A.\bibnamedelimi Myrick},
+           giveni={A\bibinitperiod\bibinitdelim M\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Resources for the Future}%
+      }
+      \strng{namehash}{d65403fdf78164a01862886a0d1a0421}
+      \strng{fullhash}{d65403fdf78164a01862886a0d1a0421}
+      \strng{bibnamehash}{d65403fdf78164a01862886a0d1a0421}
+      \strng{authorbibnamehash}{d65403fdf78164a01862886a0d1a0421}
+      \strng{authornamehash}{d65403fdf78164a01862886a0d1a0421}
+      \strng{authorfullhash}{d65403fdf78164a01862886a0d1a0421}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{2}
+      \field{title}{The Measurement of Environmental and Resource Values: Theory and Methods}
+      \field{year}{2003}
+    \endentry
+    \entry{geurs2004}{article}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=f8a00812fdfc5826fc0d9d2a47902286}{%
+           family={Geurs},
+           familyi={G\bibinitperiod},
+           given={Karst\bibnamedelima T.},
+           giveni={K\bibinitperiod\bibinitdelim T\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=f2540085dfc306b8a69e2ebfe89575be}{%
+           family={Wee},
+           familyi={W\bibinitperiod},
+           given={Bert},
+           giveni={B\bibinitperiod},
+           givenun=0,
+           prefix={van},
+           prefixi={v\bibinitperiod}}}%
+      }
+      \strng{namehash}{e7dd513e55b16c47a71982a673fd4eeb}
+      \strng{fullhash}{e7dd513e55b16c47a71982a673fd4eeb}
+      \strng{bibnamehash}{e7dd513e55b16c47a71982a673fd4eeb}
+      \strng{authorbibnamehash}{e7dd513e55b16c47a71982a673fd4eeb}
+      \strng{authornamehash}{e7dd513e55b16c47a71982a673fd4eeb}
+      \strng{authorfullhash}{e7dd513e55b16c47a71982a673fd4eeb}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Transport Geography}
+      \field{number}{2}
+      \field{title}{Accessibility evaluation of land-use and transport strategies: review and research directions}
+      \field{volume}{12}
+      \field{year}{2004}
+      \field{pages}{127\bibrangedash 140}
+      \range{pages}{14}
+    \endentry
+    \entry{handy1997}{article}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=8d01ca3b9282fb3db9ee73bc1be63c92}{%
+           family={Handy},
+           familyi={H\bibinitperiod},
+           given={Susan\bibnamedelima L.},
+           giveni={S\bibinitperiod\bibinitdelim L\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{8d01ca3b9282fb3db9ee73bc1be63c92}
+      \strng{fullhash}{8d01ca3b9282fb3db9ee73bc1be63c92}
+      \strng{bibnamehash}{8d01ca3b9282fb3db9ee73bc1be63c92}
+      \strng{authorbibnamehash}{8d01ca3b9282fb3db9ee73bc1be63c92}
+      \strng{authornamehash}{8d01ca3b9282fb3db9ee73bc1be63c92}
+      \strng{authorfullhash}{8d01ca3b9282fb3db9ee73bc1be63c92}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Planning Education and Research}
+      \field{number}{3}
+      \field{title}{Transportation, land use, and the environment}
+      \field{volume}{16}
+      \field{year}{1997}
+      \field{pages}{193\bibrangedash 204}
+      \range{pages}{12}
+    \endentry
+    \entry{hoon2020}{article}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=a305ce6979acc08c3a8084acda3c6c31}{%
+           family={Hoon},
+           familyi={H\bibinitperiod},
+           given={Oh},
+           giveni={O\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=5353b5936721e25ac630b6cbfee0789b}{%
+           family={Park},
+           familyi={P\bibinitperiod},
+           given={Sunghoon},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=c1459242f5e29a21c0451ee21bc62dea}{%
+           family={Lee},
+           familyi={L\bibinitperiod},
+           given={Kangwon},
+           giveni={K\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{9df4095982c287b68b9cc4fca59d851b}
+      \strng{fullhash}{b7cc3009fca6863d18ec78d0fe797b2d}
+      \strng{bibnamehash}{b7cc3009fca6863d18ec78d0fe797b2d}
+      \strng{authorbibnamehash}{b7cc3009fca6863d18ec78d0fe797b2d}
+      \strng{authornamehash}{9df4095982c287b68b9cc4fca59d851b}
+      \strng{authorfullhash}{b7cc3009fca6863d18ec78d0fe797b2d}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Applied Sciences}
+      \field{number}{15}
+      \field{title}{Machine learning in housing price prediction}
+      \field{volume}{10}
+      \field{year}{2020}
+      \field{pages}{5393}
+      \range{pages}{1}
+    \endentry
+    \entry{ipsos_monitor_2025}{report}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=39619850a4a8d4273ed1a89b37f1dea9}{%
+           family={{IPSOS}},
+           familyi={I\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {IPSOS Chile}%
+      }
+      \strng{namehash}{39619850a4a8d4273ed1a89b37f1dea9}
+      \strng{fullhash}{39619850a4a8d4273ed1a89b37f1dea9}
+      \strng{bibnamehash}{39619850a4a8d4273ed1a89b37f1dea9}
+      \strng{authorbibnamehash}{39619850a4a8d4273ed1a89b37f1dea9}
+      \strng{authornamehash}{39619850a4a8d4273ed1a89b37f1dea9}
+      \strng{authorfullhash}{39619850a4a8d4273ed1a89b37f1dea9}
+      \field{sortinit}{I}
+      \field{sortinithash}{8d291c51ee89b6cd86bf5379f0b151d8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{1}
+      \field{note}{Consultora multinacional IPSOS}
+      \field{title}{Monitor de Viviendas 2025}
+      \field{type}{Estudio de satisfacción residencial}
+      \field{year}{2025}
+    \endentry
+    \entry{lancaster1966}{article}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=47339d7f727102ea148a9aa13204945d}{%
+           family={Lancaster},
+           familyi={L\bibinitperiod},
+           given={Kelvin\bibnamedelima J},
+           giveni={K\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{47339d7f727102ea148a9aa13204945d}
+      \strng{fullhash}{47339d7f727102ea148a9aa13204945d}
+      \strng{bibnamehash}{47339d7f727102ea148a9aa13204945d}
+      \strng{authorbibnamehash}{47339d7f727102ea148a9aa13204945d}
+      \strng{authornamehash}{47339d7f727102ea148a9aa13204945d}
+      \strng{authorfullhash}{47339d7f727102ea148a9aa13204945d}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of political economy}
+      \field{number}{2}
+      \field{title}{A new approach to consumer theory}
+      \field{volume}{74}
+      \field{year}{1966}
+      \field{pages}{132\bibrangedash 157}
+      \range{pages}{26}
+    \endentry
+    \entry{li2020}{article}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=04058c4e91e541253e7dafb06a5fbee6}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Xiaoming},
+           giveni={X\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=106407400bba26ef3a8294f2c023f4f8}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Naiyang},
+           giveni={N\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=3507abdbb17c83efe8a127231a233c35}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Hongyi},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{677ce7fa7e488a3178632a68c28c75b3}
+      \strng{fullhash}{29d5cc84fa474c71bb5f6838310c6fb7}
+      \strng{bibnamehash}{29d5cc84fa474c71bb5f6838310c6fb7}
+      \strng{authorbibnamehash}{29d5cc84fa474c71bb5f6838310c6fb7}
+      \strng{authornamehash}{677ce7fa7e488a3178632a68c28c75b3}
+      \strng{authorfullhash}{29d5cc84fa474c71bb5f6838310c6fb7}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{IEEE Access}
+      \field{title}{Deep learning for real estate price prediction}
+      \field{volume}{8}
+      \field{year}{2020}
+      \field{pages}{43883\bibrangedash 43896}
+      \range{pages}{14}
+    \endentry
+    \entry{lundberg2017}{article}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=2a1075150e1e1dad8127b019f7ca9031}{%
+           family={Lundberg},
+           familyi={L\bibinitperiod},
+           given={Scott\bibnamedelima M.},
+           giveni={S\bibinitperiod\bibinitdelim M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ee964079d93879aaef2382a5fff343d3}{%
+           family={Lee},
+           familyi={L\bibinitperiod},
+           given={Su-In},
+           giveni={S\bibinithyphendelim I\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{9cd6e49767b1dfa9f5df9a46216a8739}
+      \strng{fullhash}{9cd6e49767b1dfa9f5df9a46216a8739}
+      \strng{bibnamehash}{9cd6e49767b1dfa9f5df9a46216a8739}
+      \strng{authorbibnamehash}{9cd6e49767b1dfa9f5df9a46216a8739}
+      \strng{authornamehash}{9cd6e49767b1dfa9f5df9a46216a8739}
+      \strng{authorfullhash}{9cd6e49767b1dfa9f5df9a46216a8739}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Advances in Neural Information Processing Systems}
+      \field{title}{A unified approach to interpreting model predictions}
+      \field{year}{2017}
+      \field{pages}{4765\bibrangedash 4774}
+      \range{pages}{10}
+    \endentry
+    \entry{medium2025_lightgbm}{article}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=c52bc76b1880965053d936e6fedb923a}{%
+           family={Lynch},
+           familyi={L\bibinitperiod},
+           given={Anix},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{c52bc76b1880965053d936e6fedb923a}
+      \strng{fullhash}{c52bc76b1880965053d936e6fedb923a}
+      \strng{bibnamehash}{c52bc76b1880965053d936e6fedb923a}
+      \strng{authorbibnamehash}{c52bc76b1880965053d936e6fedb923a}
+      \strng{authornamehash}{c52bc76b1880965053d936e6fedb923a}
+      \strng{authorfullhash}{c52bc76b1880965053d936e6fedb923a}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Medium}
+      \field{title}{Predict House Prices 5x Faster with LightGBM vs XGBoost}
+      \field{year}{2025}
+    \endentry
+    \entry{marans2015}{article}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=ea97597899117858b85599c269c134c1}{%
+           family={Marans},
+           familyi={M\bibinitperiod},
+           given={Robert\bibnamedelima W.},
+           giveni={R\bibinitperiod\bibinitdelim W\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{ea97597899117858b85599c269c134c1}
+      \strng{fullhash}{ea97597899117858b85599c269c134c1}
+      \strng{bibnamehash}{ea97597899117858b85599c269c134c1}
+      \strng{authorbibnamehash}{ea97597899117858b85599c269c134c1}
+      \strng{authornamehash}{ea97597899117858b85599c269c134c1}
+      \strng{authorfullhash}{ea97597899117858b85599c269c134c1}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Housing and Society}
+      \field{number}{2}
+      \field{title}{Housing as a Reflection of Values, Psychological Needs, and the Achievement of Well-being in Germany}
+      \field{volume}{42}
+      \field{year}{2015}
+      \field{pages}{115\bibrangedash 135}
+      \range{pages}{21}
+    \endentry
+    \entry{osullivan2010}{book}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=e63732527d63a8fc63391d83a800882c}{%
+           family={O'Sullivan},
+           familyi={O\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a0960efb88f54a7a5f94adb318bca911}{%
+           family={Unwin},
+           familyi={U\bibinitperiod},
+           given={David\bibnamedelima J.},
+           giveni={D\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {John Wiley \& Sons}%
+      }
+      \strng{namehash}{d73b57e518de81b774a7d30eb2774328}
+      \strng{fullhash}{d73b57e518de81b774a7d30eb2774328}
+      \strng{bibnamehash}{d73b57e518de81b774a7d30eb2774328}
+      \strng{authorbibnamehash}{d73b57e518de81b774a7d30eb2774328}
+      \strng{authornamehash}{d73b57e518de81b774a7d30eb2774328}
+      \strng{authorfullhash}{d73b57e518de81b774a7d30eb2774328}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{2}
+      \field{title}{Geographic Information Analysis}
+      \field{year}{2010}
+    \endentry
+    \entry{park2020}{article}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=11a43e590560402d9afb37657e65327a}{%
+           family={Park},
+           familyi={P\bibinitperiod},
+           given={Byeong\bibnamedelima Ho},
+           giveni={B\bibinitperiod\bibinitdelim H\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{11a43e590560402d9afb37657e65327a}
+      \strng{fullhash}{11a43e590560402d9afb37657e65327a}
+      \strng{bibnamehash}{11a43e590560402d9afb37657e65327a}
+      \strng{authorbibnamehash}{11a43e590560402d9afb37657e65327a}
+      \strng{authornamehash}{11a43e590560402d9afb37657e65327a}
+      \strng{authorfullhash}{11a43e590560402d9afb37657e65327a}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Urban Studies}
+      \field{number}{4}
+      \field{title}{Evaluating Residential Satisfaction in Korean New Towns}
+      \field{volume}{57}
+      \field{year}{2020}
+      \field{pages}{823\bibrangedash 841}
+      \range{pages}{19}
+    \endentry
+    \entry{rosen1974}{article}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=9ad40576acffeb7d769dc8b41f375d2b}{%
+           family={Rosen},
+           familyi={R\bibinitperiod},
+           given={Sherwin},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{9ad40576acffeb7d769dc8b41f375d2b}
+      \strng{fullhash}{9ad40576acffeb7d769dc8b41f375d2b}
+      \strng{bibnamehash}{9ad40576acffeb7d769dc8b41f375d2b}
+      \strng{authorbibnamehash}{9ad40576acffeb7d769dc8b41f375d2b}
+      \strng{authornamehash}{9ad40576acffeb7d769dc8b41f375d2b}
+      \strng{authorfullhash}{9ad40576acffeb7d769dc8b41f375d2b}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of political economy}
+      \field{number}{1}
+      \field{title}{Hedonic prices and implicit markets: product differentiation in pure competition}
+      \field{volume}{82}
+      \field{year}{1974}
+      \field{pages}{34\bibrangedash 55}
+      \range{pages}{22}
+    \endentry
+    \entry{talen2003}{article}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=e7155aeedceaa34b9d3e72a90c9d830a}{%
+           family={Talen},
+           familyi={T\bibinitperiod},
+           given={Emily},
+           giveni={E\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{e7155aeedceaa34b9d3e72a90c9d830a}
+      \strng{fullhash}{e7155aeedceaa34b9d3e72a90c9d830a}
+      \strng{bibnamehash}{e7155aeedceaa34b9d3e72a90c9d830a}
+      \strng{authorbibnamehash}{e7155aeedceaa34b9d3e72a90c9d830a}
+      \strng{authornamehash}{e7155aeedceaa34b9d3e72a90c9d830a}
+      \strng{authorfullhash}{e7155aeedceaa34b9d3e72a90c9d830a}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Urban Design}
+      \field{number}{2}
+      \field{title}{Measuring urbanism: Issues in smart growth research}
+      \field{volume}{8}
+      \field{year}{2003}
+      \field{pages}{113\bibrangedash 125}
+      \range{pages}{13}
+    \endentry
+    \entry{wei2018}{article}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=5e58da1e7f02351e74a22612b4cde8d6}{%
+           family={Wei},
+           familyi={W\bibinitperiod},
+           given={Yeqing\bibnamedelima C.},
+           giveni={Y\bibinitperiod\bibinitdelim C\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{5e58da1e7f02351e74a22612b4cde8d6}
+      \strng{fullhash}{5e58da1e7f02351e74a22612b4cde8d6}
+      \strng{bibnamehash}{5e58da1e7f02351e74a22612b4cde8d6}
+      \strng{authorbibnamehash}{5e58da1e7f02351e74a22612b4cde8d6}
+      \strng{authornamehash}{5e58da1e7f02351e74a22612b4cde8d6}
+      \strng{authorfullhash}{5e58da1e7f02351e74a22612b4cde8d6}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Transportation Research Procedia}
+      \field{title}{Accessibility analysis and evaluation methodology}
+      \field{volume}{31}
+      \field{year}{2018}
+      \field{pages}{82\bibrangedash 92}
+      \range{pages}{11}
+    \endentry
+    \entry{zhang2019}{article}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=25bbf4047d900f3760c65b01ee899dba}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Wei},
+           giveni={W\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=82c1e32d9e4f9b16fe79aaecd18d8440}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Mengying},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=8c237cd25842d9d194729c078a4a3cf5}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Lingqian},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{a88dfc5c55489606792d411cce65410b}
+      \strng{fullhash}{5d166468e72bf80fe439b11553d89776}
+      \strng{bibnamehash}{5d166468e72bf80fe439b11553d89776}
+      \strng{authorbibnamehash}{5d166468e72bf80fe439b11553d89776}
+      \strng{authornamehash}{a88dfc5c55489606792d411cce65410b}
+      \strng{authorfullhash}{5d166468e72bf80fe439b11553d89776}
+      \field{sortinit}{Z}
+      \field{sortinithash}{96892c0b0a36bb8557c40c49813d48b3}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Landscape and Urban Planning}
+      \field{title}{Accessibility analysis and housing prices in Chinese cities}
+      \field{volume}{191}
+      \field{year}{2019}
+      \field{pages}{103640}
+      \range{pages}{1}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
